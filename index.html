@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAPLE — Preparação para Exames</title>
+  <!-- PWA / Desktop App Meta -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CAPLE">
+  <meta name="theme-color" content="#1a7bb5">
+  <meta name="mobile-web-app-capable" content="yes">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            azulejo: '#1a7bb5',
+            porto: '#8b2252',
+            lisboa: '#d4a843',
+            certo: '#2d6a4f',
+            erro: '#c1121f',
+            gelo: '#f5f0ea',
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 85%, rgba(212,168,67,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(26,123,181,0.10) 0%, transparent 60%),
+        linear-gradient(165deg, #e8ddce 0%, #d6dbe3 40%, #cdd6e0 100%);
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* ═══ iOS 26 磨砂玻璃系統 ─ 兼容 file:// ═══ */
+
+    /* 背景層 */
+    .glass-base {
+      background: rgba(255,255,255,0.7);
+      -webkit-backdrop-filter: blur(28px) saturate(1.15);
+      backdrop-filter: blur(28px) saturate(1.15);
+      border-bottom: 0.5px solid rgba(255,255,255,0.7);
+    }
+    @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .glass-base { background: rgba(255,255,255,0.85); }
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.75);
+      -webkit-backdrop-filter: blur(24px) saturate(1.1);
+      backdrop-filter: blur(24px) saturate(1.1);
+      border: 0.5px solid rgba(255,255,255,0.8);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    }
+    @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .glass-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(0,0,0,0.06); }
+    }
+    .glass-card-strong {
+      background: rgba(255,255,255,0.82);
+      -webkit-backdrop-filter: blur(32px) saturate(1.2);
+      backdrop-filter: blur(32px) saturate(1.2);
+      border: 0.5px solid rgba(255,255,255,0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .glass-card-strong { background: rgba(255,255,255,0.92); border: 1px solid rgba(0,0,0,0.06); }
+    }
+    .glass-panel {
+      background: rgba(250,245,240,0.65);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      border: 0.5px solid rgba(255,255,255,0.5);
+    }
+    @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .glass-panel { background: rgba(245,240,235,0.8); }
+    }
+
+    /* 導航 */
+    .glass-nav {
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-nav:hover {
+      background: rgba(26,123,181,0.06);
+    }
+    .glass-nav-active {
+      background: rgba(26,123,181,0.12) !important;
+      color: #1a7bb5 !important;
+      border-radius: 12px;
+      box-shadow: none;
+    }
+    .glass-nav-active i {
+      color: #1a7bb5 !important;
+    }
+
+    /* 輸入框 */
+    .glass-input {
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 0.5px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-input:focus {
+      border-color: rgba(26,123,181,0.4);
+      box-shadow: 0 0 0 3px rgba(26,123,181,0.1);
+      background: rgba(255,255,255,0.7);
+      outline: none;
+    }
+
+    /* 按鈕 */
+    .glass-btn {
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-btn:hover {
+      background: rgba(0,0,0,0.03);
+    }
+    .glass-btn-primary {
+      background: #1a7bb5;
+      color: #fff;
+      border-radius: 14px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-btn-primary:hover {
+      background: #15628f;
+      box-shadow: 0 4px 16px rgba(26,123,181,0.25);
+      transform: translateY(-0.5px);
+    }
+
+    /* 標籤徽章 */
+    .glass-badge {
+      background: rgba(250,245,240,0.5);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 8px;
+      padding: 2px 10px;
+      font-size: 11px;
+      border: 0.5px solid rgba(255,255,255,0.4);
+    }
+
+    .rounded-glass-lg { border-radius: 20px; }
+    .shadow-glass-lg { box-shadow: 0 12px 48px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04); }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ═══ 葡式瓷磚裝飾系統 ═══ */
+
+    /* 側欄頂部 — 瓷磚帶 + Pessoa 詩句 */
+    .sidebar-header {
+      position: relative;
+      padding: 28px 24px 24px;
+      overflow: hidden;
+    }
+    .sidebar-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        /* 頂部瓷磚花邊 */
+        repeating-linear-gradient(90deg,
+          transparent, transparent 8px,
+          rgba(26,123,181,0.08) 8px, rgba(26,123,181,0.08) 10px,
+          transparent 10px, transparent 18px,
+          rgba(212,168,67,0.06) 18px, rgba(212,168,67,0.06) 20px,
+          transparent 20px, transparent 28px
+        ),
+        /* 底部裝飾線 — 三條葡式色帶 */
+        linear-gradient(to top, rgba(26,123,181,0.12) 0px, rgba(26,123,181,0.12) 2px,
+          rgba(212,168,67,0.08) 2px, rgba(212,168,67,0.08) 4px,
+          rgba(139,34,82,0.06) 4px, rgba(139,34,82,0.06) 6px,
+          transparent 6px);
+      background-repeat: no-repeat;
+      background-position: 0 0, 0 100%;
+      background-size: 100% 28px, 100% 6px;
+      pointer-events: none;
+    }
+    .sidebar-header h1 {
+      position: relative;
+      z-index: 1;
+    }
+    .sidebar-header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 詩句裝飾 — 菱形分隔符 */
+    .poem-diamond {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #d4a843;
+      transform: rotate(45deg);
+      margin: 0 8px;
+      opacity: 0.4;
+    }
+
+    /* 瓷磚角花 (用於卡片角落) */
+    .tile-corner {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      opacity: 0.08;
+    }
+    .tile-corner-tl { top: 0; left: 0; border-top: 2px solid #1a7bb5; border-left: 2px solid #1a7bb5; border-radius: 4px 0 0 0; }
+    .tile-corner-tr { top: 0; right: 0; border-top: 2px solid #d4a843; border-right: 2px solid #d4a843; border-radius: 0 4px 0 0; }
+    .tile-corner-bl { bottom: 0; left: 0; border-bottom: 2px solid #d4a843; border-left: 2px solid #d4a843; border-radius: 0 0 0 4px; }
+    .tile-corner-br { bottom: 0; right: 0; border-bottom: 2px solid #1a7bb5; border-right: 2px solid #1a7bb5; border-radius: 0 0 4px 0; }
+
+    /* 模式切換按鈕 — 葡式金邊 */
+    .mode-tab {
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mode-tab.active {
+      background: rgba(26,123,181,0.08);
+      border-color: rgba(26,123,181,0.25) !important;
+    }
+
+    /* 等級按鈕 — 葡式瓷磚色彩 */
+    .level-btn { position: relative; overflow: hidden; }
+    .level-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.3) 100%);
+      pointer-events: none;
+    }
+
+    /* ═══ 統一 hover 色 ═══ */
+    [class*="bg-blue-800"]:hover { background: #15628f !important; }
+
+    /* ═══ 所有灰色字改為黑色 ═══ */
+    [class*="text-slate-"]:not(.text-slate-800) { color: #1e293b !important; }
+    .text-slate-800 { color: #0f172a !important; }
+    .glass-base { color: #1e293b !important; }
+
+    /* ─── 動畫系統 ─── */
+
+    /* View transitions */
+    .view-enter-active {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .view-leave-active {
+      transition: all 0.2s cubic-bezier(0.55, 0, 1, 0.25);
+    }
+    .view-enter-from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+    .view-leave-to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+    }
+
+    /* Sidebar */
+    .sidebar-enter-active { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .sidebar-leave-active { transition: transform 0.2s ease; }
+    .sidebar-enter-from, .sidebar-leave-to { transform: translateX(-100%); }
+
+    /* Fade */
+    .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
+    .fade-enter-from, .fade-leave-to { opacity: 0; }
+
+    /* Slide-up for cards + list items */
+    .slide-up-enter-active { transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    .slide-up-leave-active { transition: all 0.2s ease; }
+    .slide-up-enter-from { opacity: 0; transform: translateY(12px); }
+    .slide-up-leave-to { opacity: 0; transform: translateY(-8px); }
+
+    /* Scale-in for modals */
+    .scale-enter-active { transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .scale-leave-active { transition: all 0.15s ease; }
+    .scale-enter-from { opacity: 0; transform: scale(0.92) translateY(8px); }
+    .scale-leave-to { opacity: 0; transform: scale(0.95); }
+
+    /* Keyframes */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes bounce-in {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { transform: scale(1.08); }
+      70% { transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-4px); }
+      40% { transform: translateX(4px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes progress-glow {
+      0% { box-shadow: 0 0 2px rgba(16, 185, 129, 0.4); }
+      50% { box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
+      100% { box-shadow: 0 0 2px rgba(16, 185, 129, 0.4); }
+    }
+
+    /* Utility animation classes */
+    .anim-fade-in-up  { animation: fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .anim-fade-in     { animation: fade-in 0.3s ease both; }
+    .anim-bounce-in   { animation: bounce-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .anim-shake       { animation: shake 0.4s ease both; }
+    .anim-pop         { animation: pop 0.25s ease both; }
+    .anim-pulse-soft  { animation: pulse-soft 1.5s ease-in-out infinite; }
+    .anim-slide-right { animation: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+    /* Stagger delay helpers */
+    .stagger-1 { animation-delay: 0.03s; }
+    .stagger-2 { animation-delay: 0.06s; }
+    .stagger-3 { animation-delay: 0.09s; }
+    .stagger-4 { animation-delay: 0.12s; }
+    .stagger-5 { animation-delay: 0.15s; }
+    .stagger-6 { animation-delay: 0.18s; }
+    .stagger-7 { animation-delay: 0.21s; }
+    .stagger-8 { animation-delay: 0.24s; }
+
+    /* Card hover lift */
+    .card-hover {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Button click scale */
+    .btn-click:active {
+      transform: scale(0.96);
+    }
+
+    /* Nav item active indicator slide */
+    .nav-indicator {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Progress bar shimmer */
+    .progress-shimmer {
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Loading skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+      border-radius: 8px;
+    }
+
+    /* Audio track */
+    .audio-track{height:56px;background:#f1f5f9;border-radius:8px;overflow:hidden;cursor:pointer;position:relative}
+    .audio-track-fill{height:100%;background:#1d4ed8;opacity:0.15;transition:width 0.1s linear;position:absolute;left:0;top:0}
+    .audio-track-progress{position:absolute;left:0;top:0;height:100%;width:2px;background:#1d4ed8;transition:left 0.1s linear;z-index:2}
+    .audio-tick{position:absolute;top:0;width:1px;height:100%;background:#cbd5e1;opacity:0.3}
+
+    @media (max-width: 768px) {
+      .sidebar-overlay { background: rgba(0,0,0,0.4); }
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+  <!-- ═══ 極度炫酷動畫系統 ═══ -->
+  <style>
+    /* ─── 浮動瓷磚粒子裝飾 (CSS-only) ─── */
+    .tile-particle {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: rgba(26,123,181,0.06);
+      border: 1px solid rgba(26,123,181,0.10);
+      border-radius: 2px;
+      transform: rotate(45deg);
+      pointer-events: none;
+      z-index: 0;
+      animation: float-particle 20s ease-in-out infinite;
+    }
+    .tile-particle:nth-child(1) { top: 12%; left: 5%; animation-delay: 0s; animation-duration: 22s; width: 10px; height: 10px; }
+    .tile-particle:nth-child(2) { top: 65%; left: 8%; animation-delay: 3s; animation-duration: 18s; width: 18px; height: 18px; background: rgba(212,168,67,0.05); border-color: rgba(212,168,67,0.10); }
+    .tile-particle:nth-child(3) { top: 25%; right: 6%; animation-delay: 6s; animation-duration: 24s; width: 12px; height: 12px; }
+    .tile-particle:nth-child(4) { top: 75%; right: 10%; animation-delay: 2s; animation-duration: 20s; width: 16px; height: 16px; background: rgba(139,34,82,0.04); border-color: rgba(139,34,82,0.08); }
+    .tile-particle:nth-child(5) { top: 45%; left: 3%; animation-delay: 8s; animation-duration: 26s; width: 8px; height: 8px; }
+    .tile-particle:nth-child(6) { bottom: 8%; left: 50%; animation-delay: 4s; animation-duration: 19s; width: 20px; height: 20px; background: rgba(212,168,67,0.04); border-color: rgba(212,168,67,0.08); }
+
+    @keyframes float-particle {
+      0%, 100% { transform: rotate(45deg) translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: rotate(135deg) translateY(-40px) translateX(20px); }
+      90% { opacity: 0.3; }
+    }
+
+    /* ─── 按鈕漣漪光暈效果 ─── */
+    .btn-glow {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .btn-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.25) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .btn-glow:hover::after { opacity: 1; }
+    .btn-glow:active::after {
+      opacity: 0.8;
+      transition: opacity 0s;
+    }
+
+    /* 點擊漣漪 (ripple) */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .ripple::before {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      width: 10px;
+      height: 10px;
+      top: var(--ry, 50%);
+      left: var(--rx, 50%);
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .ripple:active::before {
+      animation: ripple-burst 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes ripple-burst {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+    }
+
+    /* 磁性懸浮按鈕 (spring hover) */
+    .btn-magnetic {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background 0.15s ease;
+    }
+    .btn-magnetic:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(26,123,181,0.15);
+    }
+    .btn-magnetic:active {
+      transform: translateY(0) scale(0.97);
+      box-shadow: 0 2px 8px rgba(26,123,181,0.10);
+      transition-duration: 0.05s;
+    }
+
+    /* 導航項目的活潑彈性動畫 */
+    .nav-spring {
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .nav-spring:hover {
+      transform: translateX(3px);
+    }
+    .nav-spring:active {
+      transform: translateX(0) scale(0.96);
+    }
+    .nav-spring.glass-nav-active {
+      transform: translateX(2px);
+    }
+
+    /* 導航指示條 (側滑) */
+    .nav-indicator-slider {
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 60%;
+      top: 20%;
+      background: #1a7bb5;
+      border-radius: 0 3px 3px 0;
+      transition: top 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  opacity 0.2s ease;
+    }
+
+    /* ─── 卡片進場：華麗彈跳 ─── */
+    .card-pop-enter {
+      opacity: 0;
+      transform: scale(0.85) translateY(20px);
+    }
+    .card-pop-active {
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card-pop-to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* 可視區域交錯入場動畫 (stagger) */
+    .stagger-fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stagger-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stagger-fade:nth-child(1) { transition-delay: 0.02s; }
+    .stagger-fade:nth-child(2) { transition-delay: 0.05s; }
+    .stagger-fade:nth-child(3) { transition-delay: 0.08s; }
+    .stagger-fade:nth-child(4) { transition-delay: 0.11s; }
+    .stagger-fade:nth-child(5) { transition-delay: 0.14s; }
+    .stagger-fade:nth-child(6) { transition-delay: 0.17s; }
+    .stagger-fade:nth-child(7) { transition-delay: 0.20s; }
+    .stagger-fade:nth-child(8) { transition-delay: 0.23s; }
+    .stagger-fade:nth-child(9) { transition-delay: 0.26s; }
+    .stagger-fade:nth-child(10) { transition-delay: 0.29s; }
+
+    /* ─── 統計數字動畫 (計數) ─── */
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+      transition: all 0.3s ease;
+    }
+    .stat-glow-green { animation: stat-pulse-green 2s ease-in-out infinite; }
+    .stat-glow-blue  { animation: stat-pulse-blue 2s ease-in-out infinite; }
+    .stat-glow-gold  { animation: stat-pulse-gold 2s ease-in-out infinite; }
+
+    @keyframes stat-pulse-green {
+      0%, 100% { text-shadow: 0 0 0 rgba(45,106,79,0); }
+      50% { text-shadow: 0 0 6px rgba(45,106,79,0.15); }
+    }
+    @keyframes stat-pulse-blue {
+      0%, 100% { text-shadow: 0 0 0 rgba(26,123,181,0); }
+      50% { text-shadow: 0 0 6px rgba(26,123,181,0.15); }
+    }
+    @keyframes stat-pulse-gold {
+      0%, 100% { text-shadow: 0 0 0 rgba(212,168,67,0); }
+      50% { text-shadow: 0 0 6px rgba(212,168,67,0.15); }
+    }
+
+    /* ─── 進度條光芒 ─── */
+    .progress-bar-glow {
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 70%, transparent 100%);
+      animation: progress-shine 2s ease-in-out infinite;
+    }
+    @keyframes progress-shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ─── 等級徽章著色光芒 ─── */
+    .badge-glow {
+      position: relative;
+    }
+    .badge-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(6px);
+      opacity: 0.15;
+      z-index: -1;
+      animation: badge-pulse 3s ease-in-out infinite;
+    }
+    @keyframes badge-pulse {
+      0%, 100% { filter: blur(6px); opacity: 0.15; }
+      50% { filter: blur(8px); opacity: 0.25; }
+    }
+
+    /* ─── 模式切換滑動指示器 ─── */
+    .mode-slider {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      transition: left 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 0;
+    }
+
+    /* ─── 點讚心心跳動 ─── */
+    .heart-beat {
+      animation: heart-beat 1.2s ease-in-out infinite;
+    }
+    @keyframes heart-beat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.25); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+      60% { transform: scale(1); }
+    }
+
+    /* ─── 成功/錯誤反饋動畫 ─── */
+    .result-correct {
+      animation: result-correct 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes result-correct {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .result-wrong {
+      animation: result-wrong 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes result-wrong {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ─── 統計數字淡入上滑 ─── */
+    .stat-fade-up {
+      animation: stat-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes stat-fade-up {
+      from { opacity: 0; transform: translateY(12px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .stat-fade-up:nth-child(1) { animation-delay: 0s; }
+    .stat-fade-up:nth-child(2) { animation-delay: 0.08s; }
+    .stat-fade-up:nth-child(3) { animation-delay: 0.16s; }
+    .stat-fade-up:nth-child(4) { animation-delay: 0.24s; }
+
+    /* ─── 漸變旋轉裝飾邊框 (高級卡片) ─── */
+    .card-border-glow {
+      position: relative;
+    }
+    .card-border-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from 0deg,
+        transparent, rgba(26,123,181,0.08), transparent 60%, rgba(212,168,67,0.08), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: border-rotate 6s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes border-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ─── 按鈕底部光芒條 (葡式風格) ─── */
+    .btn-stripe::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(26,123,181,0.3), rgba(212,168,67,0.3), transparent);
+      border-radius: 1px;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: scaleX(0.7);
+    }
+    .btn-stripe:hover::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    /* ─── 列表項目的側邊光芒條 ─── */
+    .list-glow {
+      position: relative;
+      padding-left: 12px;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .list-glow::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      width: 3px;
+      height: 80%;
+      background: linear-gradient(180deg, #1a7bb5, #d4a843);
+      border-radius: 2px;
+      opacity: 0;
+      transform: scaleY(0);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .list-glow:hover {
+      padding-left: 16px;
+    }
+    .list-glow:hover::before {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+
+    /* ─── 檢索結果懸浮 ─── */
+    .search-result {
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .search-result:hover {
+      transform: translateX(4px);
+      background: rgba(26,123,181,0.03);
+    }
+
+    /* ─── 模態框進場 (加強版) ─── */
+    .modal-enter-active {
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal-leave-active {
+      transition: all 0.15s ease;
+    }
+    .modal-enter-from {
+      opacity: 0;
+      transform: scale(0.88) translateY(16px);
+    }
+    .modal-leave-to {
+      opacity: 0;
+      transform: scale(0.92) translateY(8px);
+    }
+
+    /* ─── 連接詞分類展開/收起活潑動畫 ─── */
+    .connector-enter-active {
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .connector-enter-from {
+      opacity: 0;
+      max-height: 0;
+      transform: translateY(-8px);
+    }
+    .connector-enter-to {
+      opacity: 1;
+      max-height: 2000px;
+      transform: translateY(0);
+    }
+
+    /* ─── 音頻播放按鈕光芒脈衝 ─── */
+    .audio-play-btn {
+      position: relative;
+    }
+    .audio-play-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: rgba(26,123,181,0.15);
+      animation: audio-ring 2s ease-in-out infinite;
+    }
+    @keyframes audio-ring {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 0.2; }
+    }
+
+    /* ─── 卡片圖標懸浮抖動 ─── */
+    .icon-wiggle {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .icon-wiggle:hover {
+      transform: rotate(8deg) scale(1.1);
+    }
+
+    /* ─── 頂部標題裝飾線動畫 ─── */
+    .title-accent {
+      position: relative;
+      display: inline-block;
+    }
+    .title-accent::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #1a7bb5, #d4a843);
+      border-radius: 1px;
+      animation: accent-widen 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transform-origin: left;
+    }
+    @keyframes accent-widen {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    /* ─── 漂浮的「C」字母裝飾 (背景) ─── */
+    .bg-letter {
+      position: fixed;
+      font-family: 'Times New Roman', serif;
+      font-weight: bold;
+      color: rgba(26,123,181,0.025);
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+      animation: bg-letter-float 30s ease-in-out infinite;
+    }
+    .bg-letter:nth-child(1) { bottom: 5%; right: 3%; font-size: 300px; animation-delay: 0s; }
+    .bg-letter:nth-child(2) { top: 10%; left: 2%; font-size: 200px; animation-delay: -10s; color: rgba(212,168,67,0.02); }
+    .bg-letter:nth-child(3) { bottom: 40%; right: 5%; font-size: 150px; animation-delay: -20s; color: rgba(139,34,82,0.015); }
+
+    @keyframes bg-letter-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-15px) rotate(2deg); }
+      66% { transform: translateY(8px) rotate(-1deg); }
+    }
+
+    /* ─── Secondary button variant ─── */
+    .glass-btn-secondary {
+      border-radius: 12px;
+      border: 0.5px solid rgba(0,0,0,0.06);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-btn-secondary:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: rgba(26,123,181,0.15);
+    }
+    .glass-btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── Spin loader enhanced ─── */
+    .spin-loader {
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(26,123,181,0.12);
+      border-top-color: #1a7bb5;
+      border-radius: 50%;
+      animation: spin-loader 0.6s linear infinite;
+    }
+    @keyframes spin-loader {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ─── 模式標籤 (pills) hover ─── */
+    .pill-hover {
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .pill-hover:hover {
+      transform: translateY(-1px) scale(1.03);
+    }
+
+    /* ─── Stroked button ─── */
+    .btn-stroked {
+      background: transparent;
+      border: 1.5px solid rgba(26,123,181,0.2);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-stroked:hover {
+      background: rgba(26,123,181,0.04);
+      border-color: rgba(26,123,181,0.35);
+      transform: translateY(-0.5px);
+    }
+    .btn-stroked:active {
+      transform: scale(0.97);
+    }
+
+    /* ─── 分數環形進度 ─── */
+    .score-ring {
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 antialiased">
+  <div id="app">
+    <!-- 浮動裝飾背景元素 -->
+    <div class="tile-particle"></div>
+    <div class="tile-particle"></div>
+    <div class="tile-particle"></div>
+    <div class="tile-particle"></div>
+    <div class="tile-particle"></div>
+    <div class="tile-particle"></div>
+    <div class="bg-letter">C</div>
+    <div class="bg-letter">P</div>
+    <div class="bg-letter">L</div>
+    <app-shell></app-shell>
+  </div>
+
+  <script src="store/storage.js"></script>
+  <script src="utils/diacritics.js"></script>
+  <script src="utils/api.js"></script>
+  <script src="data/conectores.js"></script>
+  <script src="data/dict_vocab_data.js"></script>
+  <script src="data/uploaded_qecr_data.js"></script>
+  <script src="data/dict_pthp.js"></script>
+  <script src="data/dict_hpph.js"></script>
+  <script src="data/dict_univ.js"></script>
+  <script src="data/dict_priberam.js"></script>
+  <script src="data/expressoes_data.js"></script>
+  <script src="components/Sidebar.js"></script>
+  <script src="components/ConfigModal.js"></script>
+  <script src="components/VocabView.js"></script>
+  <script src="components/ExamView.js"></script>
+  <script src="components/NewsView.js"></script>
+  <script src="components/COView.js"></script>
+  <script src="components/PIEView.js"></script>
+  <script src="components/ConectoresView.js"></script>
+  <script src="components/DicionarioView.js"></script>
+  <script src="components/ExpressoesView.js"></script>
+  <script src="components/FavoritosView.js"></script>
+  <script src="components/StudyStats.js"></script>
+  <script src="components/DitadoView.js"></script>
+  <script src="components/MeuLexicoView.js"></script>
+  <script src="components/ErrosView.js"></script>
+  <script src="components/ExamHistoryView.js"></script>
+  <script src="components/AppShell.js"></script>
+  <script src="app.js"></script>
+  <!-- PWA Service Worker + Install Prompt -->
+  <script>
+    // Service Worker registration
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('[CAPLE PWA] SW registered'))
+          .catch(e => console.warn('[CAPLE PWA] SW failed:', e))
+      })
+    }
+
+    // Desktop PWA install prompt (Chrome / Edge)
+    let deferredPrompt = null
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault()
+      deferredPrompt = e
+      // Show install banner after 3s
+      setTimeout(() => showInstallPrompt(), 3000)
+    })
+
+    function showInstallPrompt() {
+      if (!deferredPrompt) return
+      const banner = document.createElement('div')
+      banner.id = 'pwa-install-banner'
+      banner.innerHTML = `
+        <div class="fixed bottom-6 right-6 z-[99999] glass-card-strong rounded-glass-lg p-4 shadow-glass-lg animate-bounce-in"
+             style="max-width:320px">
+          <button onclick="this.parentElement.parentElement.remove()"
+                  class="absolute top-2 right-2 text-slate-400 hover:text-slate-600 text-lg leading-none">&times;</button>
+          <div class="flex items-center gap-3 mb-3">
+            <img src="icon-192.png" alt="CAPLE" style="width:44px;height:44px;border-radius:12px">
+            <div>
+              <p class="text-sm font-bold text-slate-800">Instalar CAPLE</p>
+              <p class="text-[10px] text-slate-500">App desktop sem distrações</p>
+            </div>
+          </div>
+          <button onclick="installPWA()"
+                  class="w-full py-2.5 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition btn-glow btn-magnetic">
+            <i class="inline-block w-4 h-4 mr-1" data-lucide="download"></i> Instalar
+          </button>
+        </div>
+      `
+      document.body.appendChild(banner)
+      lucide.createIcons()
+    }
+
+    window.installPWA = function() {
+      if (!deferredPrompt) return
+      deferredPrompt.prompt()
+      deferredPrompt.userChoice.then((choice) => {
+        deferredPrompt = null
+        const banner = document.getElementById('pwa-install-banner')
+        if (banner) banner.remove()
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIE — CAPLE</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#1a7bb5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="store/storage.js"></script>
+  <script src="utils/diacritics.js"></script>
+  <style>
+    :root {
+      --line: #e2e8f0; --panel: #fff; --panel-alt: #f8fafc; --text: #1e293b;
+      --muted: #94a3b8; --accent: #1d4ed8; --success: #10b981; --danger: #f43f5e;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04); --shadow-lg: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:15px}
+    body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    textarea{resize:vertical;font-family:inherit}
+    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+    .exam-card-strong{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:20px 22px;margin-bottom:16px}
+    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
+    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
+    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
+    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-submit:hover{background:#059669}
+    .btn-submit:disabled{opacity:0.4;cursor:default}
+    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-primary:hover{background:#1e40af}
+    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
+    .exam-header h1{font-size:1.05rem;font-weight:700}
+    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
+    .fill-input{width:100%;padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.92rem;line-height:1.6;transition:all 0.12s ease;background:#fff}
+    .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,78,216,0.12);outline:none}
+    .topic-opt{padding:12px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:all 0.12s ease}
+    .topic-opt:hover{border-color:#94a3b8}
+    .topic-opt.selected{border-color:var(--accent);background:#eff6ff}
+    .part-label{font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px}
+    @media print{.no-print{display:none!important}}
+    @media(max-width:800px){.exam-body{flex-direction:column!important}.exam-body .left,.exam-body .right{width:100%!important;min-width:0!important}}
+  </style>
+</head>
+<body>
+<div id="app" class="h-screen flex flex-col">
+
+  <!-- ═══ NO EXAM ═══ -->
+  <div v-if="!exam" class="max-w-lg mx-auto mt-20 text-center p-8">
+    <i data-lucide="file-x" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
+    <p class="text-lg font-medium text-slate-600">Nenhum exame encontrado</p>
+    <p class="text-sm text-slate-400 mt-1">Gere um exame PIE na aplicação principal primeiro.</p>
+    <button @click="goBack" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">Voltar</button>
+  </div>
+
+  <!-- ═══ EXAM ═══ -->
+  <div v-if="exam" class="flex-1 flex flex-col min-h-0">
+
+    <!-- Header -->
+    <header class="exam-header no-print">
+      <div>
+        <h1 class="text-slate-800">Produção e Interação Escritas</h1>
+        <p class="meta">{{ exam.examId }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-1 rounded text-xs font-bold border" :class="levelBadge">{{ exam.level }}</span>
+        <div class="text-right">
+          <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
+          <p class="text-[10px] text-slate-400">{{ exam.duracao }}</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Body: two-column -->
+    <div class="exam-body flex-1 flex min-h-0 overflow-hidden">
+
+      <!-- Left: prompts -->
+      <div class="left w-1/2 min-w-[300px] overflow-y-auto p-6 border-r border-slate-200 bg-white">
+        <p class="text-base font-bold text-slate-800 mb-4">{{ exam.examTitle }}</p>
+
+        <div class="exam-card-strong">
+          <p class="part-label">Parte 1 — Tarefa contextualizada <span class="font-normal normal-case text-slate-400">({{ exam.wc1 }} palavras)</span></p>
+          <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ exam.parte1 }}</p>
+        </div>
+
+        <div class="exam-card-strong">
+          <p class="part-label">Parte 2 — Escolha um tópico <span class="font-normal normal-case text-slate-400">({{ exam.wc2 }} palavras)</span></p>
+          <div class="space-y-2">
+            <div v-for="(topico, ti) in exam.parte2" :key="ti"
+                 class="topic-opt" :class="selectedTopic === ti ? 'selected' : ''"
+                 @click="selectedTopic = ti">
+              <div class="flex items-start gap-2">
+                <span class="text-xs font-bold text-azulejo shrink-0 mt-0.5">{{ ['A','B','C'][ti] }}.</span>
+                <p class="text-sm text-slate-700 leading-relaxed">{{ topico }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-card-strong">
+          <p class="part-label">Parte 3 — Texto de opinião <span class="font-normal normal-case text-slate-400">({{ exam.wc3 }} palavras)</span></p>
+          <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ exam.parte3 }}</p>
+        </div>
+      </div>
+
+      <!-- Right: answers -->
+      <div class="right flex-1 min-w-[300px] overflow-y-auto p-6" style="padding-bottom:80px">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">As suas respostas</p>
+
+        <div class="mb-5">
+          <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 1</p>
+          <textarea v-model="resposta1" rows="7"
+            class="fill-input" placeholder="Escreva a sua resposta aqui..."></textarea>
+        </div>
+
+        <div class="mb-5">
+          <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 2 <span v-if="selectedTopic !== null">— Tópico {{ ['A','B','C'][selectedTopic] }}</span></p>
+          <textarea v-model="resposta2" rows="7"
+            class="fill-input"
+            :placeholder="selectedTopic !== null ? 'Escreva a sua resposta para o tópico ' + ['A','B','C'][selectedTopic] + '...' : 'Selecione um tópico primeiro...'"
+            :disabled="selectedTopic === null"></textarea>
+        </div>
+
+        <div class="mb-5">
+          <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 3</p>
+          <textarea v-model="resposta3" rows="7"
+            class="fill-input" placeholder="Escreva a sua resposta aqui..."></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div v-if="!submitted && !loading" class="text-center mt-4 no-print">
+          <button @click="submitExam" :disabled="!canSubmit"
+                  class="btn-primary">Submeter para avaliação</button>
+        </div>
+
+        <!-- Loading -->
+        <div v-if="loading" class="text-center py-8 no-print">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-azulejo border-t-transparent mb-3"></div>
+          <p class="text-sm text-slate-600">DeepSeek está a avaliar as suas respostas...</p>
+        </div>
+
+        <!-- Results -->
+        <div v-if="result" class="space-y-4">
+          <div class="exam-card text-center" style="padding:24px">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-sm font-bold text-slate-700">Resultado</h3>
+              <span class="text-3xl font-bold" :class="scoreColor">{{ result.pontuacao }}/100</span>
+            </div>
+            <div class="flex items-center justify-center gap-2 mb-3">
+              <span class="text-xs text-slate-500">Nível estimado:</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold border" :class="levelBadge">{{ result.nivel_estimado }}</span>
+            </div>
+            <div class="p-4 rounded-lg bg-slate-50 text-sm text-slate-700 leading-relaxed whitespace-pre-line text-left">{{ result.comentario }}</div>
+          </div>
+          <div v-if="result.sugestoes?.length" class="exam-card">
+            <h3 class="text-sm font-bold text-slate-700 mb-3">📈 Sugestões</h3>
+            <ul class="space-y-2">
+              <li v-for="(s, i) in result.sugestoes" :key="i" class="flex items-start gap-2 text-sm text-slate-600">
+                <span class="text-azulejo font-bold shrink-0">{{ i+1 }}.</span>
+                <span>{{ s }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="text-center no-print">
+            <button @click="closeWin" class="btn-primary">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_BASE = 'https://api.deepseek.com/v1/chat/completions'
+
+  function parseJSON(text) {
+    let s = text.trim()
+    s = s.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/i, '')
+    const firstBrace = s.indexOf('{'), firstBracket = s.indexOf('[')
+    const start = firstBrace >= 0 && (firstBracket < 0 || firstBrace < firstBracket) ? firstBrace : firstBracket
+    if (start < 0) throw new Error('JSON não encontrado')
+    const endChar = s[start] === '{' ? '}' : ']'
+    let depth = 0, inStr = false, esc = false, end = -1
+    for (let i = start; i < s.length; i++) {
+      const c = s[i]
+      if (esc) { esc = false; continue }
+      if (c === '\\' && inStr) { esc = true; continue }
+      if (c === '"' && !esc) { inStr = !inStr; continue }
+      if (!inStr) {
+        if (c === s[start]) depth++
+        else if (c === endChar) { depth--; if (depth === 0) { end = i; break } }
+      }
+    }
+    if (end < 0) throw new Error('Parêntesis não fechado')
+    s = s.slice(start, end + 1)
+    const attempts = [
+      (t) => JSON.parse(t),
+      (t) => JSON.parse(t.replace(/'/g, '"')),
+      (t) => JSON.parse(t.replace(/,\s*([}\]])/g, '$1')),
+      (t) => JSON.parse(t.replace(/'/g, '"').replace(/,\s*([}\]])/g, '$1')),
+    ]
+    for (const fn of attempts) { try { return fn(s) } catch {} }
+    throw new Error('JSON inválido')
+  }
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        exam: null,
+        resposta1: '', resposta2: '', resposta3: '',
+        selectedTopic: null,
+        loading: false, submitted: false, result: null,
+        timeLimit: 90, timeRemaining: 5400, timerInterval: null, timerExpired: false,
+      }
+    },
+    computed: {
+      timerDisplay() {
+        const m = Math.floor(this.timeRemaining / 60)
+        const s = this.timeRemaining % 60
+        return m + ':' + String(s).padStart(2, '0')
+      },
+      timerUrgent() { return this.timeRemaining < 300 && !this.submitted },
+      canSubmit() { return this.resposta1.trim() && this.selectedTopic !== null && this.resposta2.trim() && this.resposta3.trim() },
+      levelBadge() {
+        const m = {
+          'A1': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          'A2': 'bg-teal-50 text-teal-700 border-teal-200',
+          'B1': 'bg-sky-50 text-sky-700 border-sky-200',
+          'B2': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+          'C1': 'bg-violet-50 text-violet-700 border-violet-200',
+          'C2': 'bg-rose-50 text-rose-700 border-rose-200',
+        }
+        return m[this.exam?.level] || 'bg-slate-100 text-slate-600'
+      },
+      scoreColor() {
+        const p = this.result?.pontuacao || 0
+        if (p >= 85) return 'text-certo'
+        if (p >= 70) return 'text-azulejo'
+        if (p >= 55) return 'text-lisboa'
+        return 'text-erro'
+      },
+    },
+    methods: {
+      async submitExam() {
+        if (!this.canSubmit) return
+        this.loading = true; this.submitted = false
+        const apiKey = this.getApiKey()
+        if (!apiKey) {
+          alert('Configure a chave DeepSeek na aplicação principal primeiro.')
+          this.loading = false; return
+        }
+        const levelName = { A1:'ACESSO (A1)', A2:'CIPLE (A2)', B1:'DEPLE (B1)', B2:'DIPLE (B2)', C1:'DAPLE (C1)', C2:'DUPLE (C2)' }
+        const topicLabel = ['A','B','C'][this.selectedTopic]
+        const systemPrompt = `Avalia texto PT-PT para CAPLE PIE.\n3 parametros CAPLE (0-5 cada): Adequacao, Correcao gramatical, Organizacao discursiva.\nErros menores que nao impeçam comunicacao: penalizacao leve.\nNivel: ${this.exam.level} (${levelName[this.exam.level] || this.exam.level}).\n\nJSON: {"pontuacao":65,"nivel_estimado":"B1","comentario":"...","sugestoes":["...","...","..."]}\n- pontuacao: 0-100 (media ponderada)\n- comentario: forcas, fraquezas, 3 parâmetros\n- sugestoes: 3-5 concretas e acionaveis`
+        const userPrompt = `Nível do exame: ${this.exam.level}\nTópico escolhido na Parte 2: ${topicLabel}\n\n--- PARTE 1 (tarefa contextualizada) ---\n${this.resposta1}\n\n--- PARTE 2 (tópico ${topicLabel}) ---\n${this.resposta2}\n\n--- PARTE 3 (texto de opinião) ---\n${this.resposta3}`
+        try {
+          const res = await fetch(API_BASE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }],
+              temperature: 0.3, max_tokens: 2000,
+            }),
+          })
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const data = await res.json()
+          this.result = parseJSON(data.choices?.[0]?.message?.content || '')
+          this.submitted = true
+          try {
+            const p = this.result?.pontuacao || 0
+            PTStore.saveExamResult({
+              id: this.exam.examId || ('PIE_' + Date.now()),
+              level: this.exam.level || 'B2', percent: p, correct: 0, total: 0,
+              date: new Date().toISOString(),
+              comentario: this.result?.comentario || '',
+              sugestoes: this.result?.sugestoes || [],
+              nivel_estimado: this.result?.nivel_estimado || '',
+            })
+          } catch(e) { console.warn('Erro ao guardar PIE:', e) }
+        } catch (e) { alert('Erro ao avaliar: ' + e.message) }
+        finally { this.loading = false }
+      },
+      getApiKey() {
+        try { const raw = localStorage.getItem('PT_LEARNING_DATA'); if (!raw) return null; return JSON.parse(raw)?.config?.deepseekKey || null }
+        catch { return null }
+      },
+      closeWin() { window.close() },
+      goBack() { window.close() },
+    },
+    mounted() {
+      try {
+        const raw = localStorage.getItem('PIE_CURRENT_EXAM')
+        if (raw) this.exam = JSON.parse(raw)
+      } catch {}
+      const duracaoStr = this.exam?.duracao || '90 min'
+      const minutes = parseInt(duracaoStr, 10) || 90
+      this.timeLimit = minutes
+      this.timeRemaining = minutes * 60
+      this.timerInterval = setInterval(() => {
+        if (this.submitted) return
+        this.timeRemaining--
+        if (this.timeRemaining <= 0) {
+          this.timeRemaining = 0; this.timerExpired = true
+          clearInterval(this.timerInterval)
+        }
+      }, 1000)
+      this.$nextTick(() => lucide.createIcons())
+    },
+    updated() { this.$nextTick(() => lucide.createIcons()) },
+    beforeUnmount() { if (this.timerInterval) clearInterval(this.timerInterval) },
+  })
+  app.mount('#app')
+</script>
+</body>
+</html>

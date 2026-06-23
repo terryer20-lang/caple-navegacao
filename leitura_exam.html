@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitura Intensiva — CAPLE</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#1a7bb5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="store/storage.js"></script>
+  <script src="data/dict_vocab_data.js"></script>
+  <script src="data/dict_pthp.js"></script>
+  <script src="data/dict_hpph.js"></script>
+  <script src="data/dict_univ.js"></script>
+  <script src="data/dict_priberam.js"></script>
+  <script src="utils/diacritics.js"></script>
+  <style>
+    :root {
+      --line: #e2e8f0; --panel: #fff; --panel-alt: #f8fafc;
+      --text: #1e293b; --muted: #94a3b8; --accent: #1d4ed8;
+      --success: #10b981; --danger: #f43f5e;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:15px}
+    body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    textarea{resize:vertical;font-family:inherit}
+
+    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+    .exam-header{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
+    .exam-header h1{font-size:1.05rem;font-weight:700}
+    .btn-primary{padding:8px 18px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-primary:hover{background:#1e40af}
+    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
+    .btn-ghost:hover{background:#f1f5f9}
+
+    /* Dictionary result styling */
+    .dict-src{display:inline-block;padding:1px 8px;border-radius:4px;font-size:0.7rem;font-weight:600;margin-right:6px}
+    .dict-src.hong{background:#fff1f2;color:#be123c}
+    .dict-src.pthp{background:#eff6ff;color:#1d4ed8}
+    .dict-src.hpph{background:#ecfdf5;color:#047857}
+    .dict-src.univ{background:#faf5ff;color:#7c3aed}
+    .dict-src.pri{background:#fffbeb;color:#b45309}
+
+    /* Word highlight on hover */
+    .word-span{cursor:pointer;border-radius:3px;padding:1px 2px;transition:all 0.12s ease}
+    .word-span:hover{background:#dbeafe}
+    .word-span.active{background:#1d4ed8;color:#fff;padding:1px 4px;border-radius:4px}
+
+    @media print{.no-print{display:none!important}}
+    @media(max-width:800px){.reading-body{flex-direction:column!important}.reading-body .left,.reading-body .right{width:100%!important;min-width:0!important}}
+  </style>
+</head>
+<body>
+<div id="app" class="h-screen flex flex-col">
+
+  <!-- ═══ Empty ═══ -->
+  <div v-if="!text" class="max-w-lg mx-auto mt-20 text-center p-8">
+    <i data-lucide="file-text" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
+    <p class="text-lg font-medium text-slate-600">Nenhum texto encontrado</p>
+    <p class="text-sm text-slate-400 mt-1">Cole um texto na página Leitura Intensiva primeiro.</p>
+    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg">Voltar</button>
+  </div>
+
+  <!-- ═══ Reading ═══ -->
+  <div v-if="text" class="flex-1 flex flex-col min-h-0">
+
+    <!-- Header -->
+    <header class="exam-header no-print">
+      <h1 class="text-slate-800">Leitura Intensiva</h1>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400">{{ wordCount }} palavras</span>
+        <button @click="closeWin" class="btn-ghost">Fechar</button>
+      </div>
+    </header>
+
+    <!-- Body: two-column -->
+    <div class="reading-body flex-1 flex min-h-0 overflow-hidden">
+
+      <!-- Left: original text with clickable words -->
+      <div class="left w-1/2 min-w-[300px] overflow-y-auto pt-6 px-6 pb-[30vh] border-r border-slate-200 bg-white">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Texto original</p>
+        <div class="text-sm text-slate-700 leading-relaxed font-serif">
+          <span v-for="(word, i) in words" :key="i"
+                class="word-span" :class="{ active: selectedIdx === i }"
+                :title="word.isSpace ? '' : 'Clique para pesquisar'"
+                @click="lookupWord(word, i)"
+                v-text="word.text"></span>
+        </div>
+      </div>
+
+      <!-- Right: dictionary + notes (fixed 50/50) -->
+      <div class="right flex-1 min-w-[300px] flex flex-col overflow-hidden">
+        <!-- Dictionary result panel (top 50%) -->
+        <div class="flex-1 flex flex-col min-h-0 border-b border-slate-200">
+          <div class="px-5 py-3 shrink-0">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Dicionário</p>
+          </div>
+          <div class="flex-1 overflow-y-auto px-5 pb-3">
+            <div v-if="dictResult.length === 0 && !selectedWord" class="text-xs text-slate-300 italic py-4 text-center">
+              Clique numa palavra para pesquisar
+            </div>
+            <div v-if="dictResult.length === 0 && selectedWord" class="text-xs text-slate-400 italic py-2">
+              «{{ selectedWord }}» — sem resultados
+            </div>
+            <div v-if="dictResult.length > 0" class="space-y-1.5">
+              <div v-for="(item, i) in dictResult" :key="i"
+                   class="exam-card" style="padding:12px 14px;margin-bottom:6px;cursor:pointer"
+                   @click="showDetail(item)">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-semibold text-azulejo">{{ item.pt }}</span>
+                  <span :class="'dict-src ' + srcClass(item.src)">{{ item.src }}</span>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed line-clamp-2">{{ item.zh }}</p>
+              </div>
+            </div>
+            <div v-if="selectedWord" class="mt-3 flex gap-2">
+              <button @click="speak(selectedWord)"
+                      class="btn-ghost text-xs flex items-center gap-1">
+                <i data-lucide="volume-2" class="w-3 h-3"></i>Ouvir
+              </button>
+              <button @click="addToVocab"
+                      class="btn-ghost text-xs flex items-center gap-1">
+                <i data-lucide="book-plus" class="w-3 h-3"></i>Adicionar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes (bottom 50%) -->
+        <div class="flex-1 flex flex-col min-h-0">
+          <div class="px-5 py-3 border-b border-slate-100 shrink-0">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Notas</p>
+          </div>
+          <textarea v-model="notes" @keydown="onNotesKeydown"
+                    class="flex-1 w-full px-5 py-4 text-sm leading-relaxed resize-none focus:outline-none"
+                    style="border:none;background:transparent;line-height:1.6;font-family:inherit"
+                    placeholder="Escreva as suas notas..."></textarea>
+          <div class="px-5 py-2 border-t border-slate-100 flex items-center justify-between shrink-0">
+            <span class="text-[10px] text-slate-300">{{ lineCount }} linha{{ lineCount !== 1 ? 's' : '' }}</span>
+            <button @click="saveNotes" class="btn-ghost text-xs">Guardar notas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Detail popup ═══ -->
+  <div v-if="detailItem"
+       class="fixed inset-0 z-50 flex items-center justify-center p-4"
+       style="background:rgba(0,0,0,0.15)" @click.self="detailItem=null">
+    <div class="bg-white w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 shrink-0">
+        <div>
+          <p class="text-lg font-bold text-slate-800">{{ detailItem.pt }}</p>
+          <p class="text-xs text-slate-400">Fonte: {{ detailItem.src }}</p>
+        </div>
+        <button @click="detailItem=null" class="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100 text-xl leading-none">&times;</button>
+      </div>
+      <div class="px-5 py-4 overflow-y-auto text-sm text-slate-700 leading-relaxed">
+        <div v-html="formattedDetail"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /** Dictionary sources: 紅葡漢 + Priberam */
+  function getAllDictEntries() {
+    const sources = [
+      { id: 'hong', label: '紅葡漢', data: typeof DICT_VOCAB_DATA !== 'undefined' ? DICT_VOCAB_DATA : [] },
+      { id: 'pri',  label: 'Priberam', data: typeof DICT_PRIBERAM !== 'undefined' ? DICT_PRIBERAM : [] },
+    ]
+    const all = []
+    for (const s of sources) {
+      if (Array.isArray(s.data)) {
+        for (const item of s.data) {
+          all.push({ ...item, src: s.label, _srcId: s.id })
+        }
+      }
+    }
+    return all
+  }
+
+  /** Fuzzy search across all dictionaries */
+  function searchDict(word, entries) {
+    const q = Diacritics.normalize(word).toLowerCase()
+    if (!q) return []
+    const result = []
+    const seen = new Set()
+    for (const item of entries) {
+      const ptLo = Diacritics.normalize(item.pt || '').toLowerCase()
+      if (ptLo === q || ptLo.includes(q)) {
+        const key = ptLo + '|' + (item.src || '')
+        if (!seen.has(key)) {
+          seen.add(key)
+          result.push({ pt: item.pt, zh: item.zh || '', pos: item.pos || '', src: item.src, _srcId: item._srcId })
+        }
+      }
+    }
+    return result.slice(0, 20)
+  }
+
+  const app = Vue.createApp({
+    data() {
+      return {
+        text: '',
+        notes: '',
+        selectedIdx: -1,
+        selectedWord: '',
+        dictEntries: [],
+        dictResult: [],
+        detailItem: null,
+      }
+    },
+    computed: {
+      wordCount() {
+        if (!this.text) return 0
+        return this.text.trim().split(/\s+/).length
+      },
+      words() {
+        // Split text into token array: words + spaces/punctuation as separate spans
+        const tokens = []
+        const re = /([\wà-üÀ-Üáéíóúãõâêôç'-]+|[^\wà-üÀ-Üáéíóúãõâêôç'-])/gi
+        let m
+        while ((m = re.exec(this.text)) !== null) {
+          tokens.push({
+            text: m[0],
+            isSpace: /^\s+$/.test(m[0]),
+            isWord: /^[\wà-üÀ-Üáéíóúãõâêôç'-]+$/.test(m[0]),
+            raw: m[0],
+          })
+        }
+        return tokens
+      },
+      lineCount() {
+        if (!this.notes) return 0
+        return this.notes.split('\n').length
+      },
+      lineNumbers() {
+        const n = this.lineCount || 1
+        return Array.from({length: n}, (_, i) => i + 1).join('\n')
+      },
+      formattedDetail() {
+        if (!this.detailItem) return ''
+        let zh = this.detailItem.zh || ''
+        if (!zh) return '<span class="text-slate-400">Sem definição</span>'
+        // Split by POS markers or numbered definitions
+        const lines = zh.split(/[;；]/).filter(Boolean)
+        if (lines.length > 1) {
+          return lines.map(l => {
+            const clean = l.replace(/^\s*(?:\d+\s*[.．、]|\(\d+\)|\[\d+\])\s*/, '').trim()
+            return clean ? `<span class="block ml-2 mb-1">• ${clean}</span>` : ''
+          }).filter(Boolean).join('')
+        }
+        return `<span class="block">${zh}</span>`
+      },
+    },
+    methods: {
+      lookupWord(word, idx) {
+        if (word.isSpace) return
+        this.selectedIdx = idx
+        const raw = word.raw.trim().replace(/[.,!?;:()"''«»]/g, '').trim()
+        this.selectedWord = raw
+        this.dictResult = searchDict(raw, this.dictEntries)
+      },
+      showDetail(item) {
+        this.detailItem = item
+      },
+      srcClass(src) {
+        const map = { '紅葡漢': 'hong', '葡漢漢葡': 'pthp', '漢葡葡漢': 'hpph', 'Universitário': 'univ', 'Priberam': 'pri' }
+        return map[src] || ''
+      },
+      addToVocab() {
+        if (!this.selectedWord) return
+        const dir = 'zh2pt'
+        const zh = this.dictResult.length > 0 ? this.dictResult[0].zh : this.selectedWord
+        PTStore.addToMyVocab(this.selectedWord, zh, '', dir)
+      },
+      speak(text) {
+        if (!text || !window.speechSynthesis) return
+        speechSynthesis.cancel()
+        setTimeout(() => {
+          const u = new SpeechSynthesisUtterance(text)
+          u.lang = 'pt-PT'; u.rate = 0.85
+          speechSynthesis.speak(u)
+        }, 80)
+      },
+      saveNotes() {
+        try {
+          localStorage.setItem('LEITURA_NOTES', this.notes)
+          PTStore.saveLeituraHistory({
+            textPreview: (this.text || '').slice(0, 120),
+            notesCount: this.lineCount,
+            wordCount: this.wordCount,
+          })
+        } catch {}
+      },
+      onNotesKeydown(e) {
+        if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) {
+          e.preventDefault()
+          const el = e.target
+          const start = el.selectionStart
+          const before = this.notes.slice(0, start)
+          const after = this.notes.slice(el.selectionEnd)
+          // Count existing numbered points to determine next number
+          const lines = this.notes.split('\n')
+          let lineIdx = before.split('\n').length - 1
+          // Find the current point number
+          const pointMatch = lines[Math.min(lineIdx, lines.length - 1)]?.match(/^(\d+)\./)
+          const currentNum = pointMatch ? parseInt(pointMatch[1]) : 0
+          const nextNum = currentNum + 1
+          const insertion = '\n' + nextNum + '. '
+          this.notes = before + insertion + after
+          this.$nextTick(() => {
+            const pos = start + insertion.length
+            el.setSelectionRange(pos, pos)
+            el.focus()
+          })
+        }
+        // Cmd+Enter: default textarea behavior (normal line break)
+      },
+      closeWin() { window.close() },
+    },
+    mounted() {
+      this.dictEntries = getAllDictEntries()
+      try {
+        const raw = localStorage.getItem('LEITURA_TEXT')
+        if (raw) this.text = raw
+        const savedNotes = localStorage.getItem('LEITURA_NOTES')
+        if (savedNotes) this.notes = savedNotes
+        else this.notes = '1. '
+      } catch {}
+      this.$nextTick(() => lucide.createIcons())
+    },
+    updated() { this.$nextTick(() => lucide.createIcons()) },
+  })
+  app.mount('#app')
+</script>
+</body>
+</html>

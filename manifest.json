@@ -1,0 +1,27 @@
+{
+  "name": "CAPLE — Preparação para Exames",
+  "short_name": "CAPLE",
+  "description": "Preparação completa para exames CAPLE: vocabulário, ditados, leitura e exames simulados",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#e8ddce",
+  "theme_color": "#1a7bb5",
+  "orientation": "any",
+  "categories": ["education", "language"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CL — CAPLE</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#1a7bb5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="store/storage.js"></script>
+  <style>
+    :root {
+      --line: #e2e8f0;
+      --panel: #ffffff;
+      --panel-alt: #f8fafc;
+      --text: #1e293b;
+      --muted: #94a3b8;
+      --accent: #1d4ed8;
+      --success: #10b981;
+      --danger: #f43f5e;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:15px}
+    body{font-family: system-ui, -apple-system, sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+
+    /* ─── Cards ─── */
+    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+
+    /* ─── Question nav ─── */
+    .q-nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(255,255,255,0.96);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,0.04);z-index:100}
+    .q-nav-label{font-size:0.75rem;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:4px}
+    .q-nav-btns{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+    .q-btn{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:0.8rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s ease}
+    .q-btn:hover{background:#f1f5f9;border-color:#94a3b8}
+    .q-btn.answered{background:#eff6ff;border-color:var(--accent);color:var(--accent)}
+    .q-btn.active{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(29,78,216,0.25)}
+
+    /* ─── Radio option ─── */
+    .opt-label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all 0.12s ease;font-size:0.92rem}
+    .opt-label:hover{border-color:#94a3b8;background:#fafbfc}
+    .opt-label.selected{border-color:var(--accent);background:#eff6ff}
+    .opt-circle{width:24px;height:24px;border-radius:50%;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:#94a3b8;flex-shrink:0;transition:all 0.12s ease}
+    .opt-label.selected .opt-circle{border-color:var(--accent);background:var(--accent);color:#fff}
+
+    /* ─── Fill input ─── */
+    .fill-input{width:100%;padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.92rem;transition:all 0.12s ease;background:#fff}
+    .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,78,216,0.12);outline:none}
+
+    /* ─── Match ─── */
+    .match-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.92rem}
+    .match-item{min-width:5rem;color:#475569;font-weight:500}
+    .match-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.82rem;background:#fff;flex:1}
+
+    /* ─── Reorder ─── */
+    .reorder-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.85rem;transition:all 0.12s ease}
+    .reorder-chip:hover{border-color:#94a3b8;background:#f8fafc}
+    .reorder-chip.selected{border-color:var(--accent);background:#eff6ff;color:var(--accent)}
+
+    /* ─── Header ─── */
+    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
+    .exam-header h1{font-size:1.05rem;font-weight:700}
+    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
+    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
+    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
+
+    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
+
+    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-submit:hover{background:#059669}
+    .btn-submit:disabled{opacity:0.4;cursor:default}
+
+    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
+    .btn-ghost:hover{background:#f1f5f9}
+
+    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-primary:hover{background:#1e40af}
+
+    @media print{.no-print{display:none!important}}
+    @media(max-width:800px){.exam-body{flex-direction:column!important}.exam-body .left,.exam-body .right{width:100%!important;min-width:0!important}}
+  </style>
+</head>
+<body>
+<div id="app" class="h-screen flex flex-col">
+
+  <!-- ═══ Empty ═══ -->
+  <div v-if="!exam" class="max-w-lg mx-auto mt-20 text-center p-8">
+    <i data-lucide="file-x" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
+    <p class="text-lg font-medium text-slate-600">Nenhum exame encontrado</p>
+    <p class="text-sm text-slate-400 mt-1">Gere um exame CL na aplicação principal primeiro.</p>
+    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg">Voltar</button>
+  </div>
+
+  <!-- ═══ EXAM ═══ -->
+  <div v-if="exam" class="flex-1 flex flex-col min-h-0">
+
+    <!-- Header -->
+    <header class="exam-header no-print">
+      <div>
+        <h1 class="text-slate-800">Compreensão da Leitura</h1>
+        <p class="meta">{{ exam.examId }} · {{ exam.level }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-right">
+          <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
+          <p class="text-[10px] text-slate-400">tempo restante</p>
+        </div>
+        <button v-if="!submitted" @click="submitExam" :disabled="!allAnswered"
+                class="btn-submit">Submeter</button>
+      </div>
+    </header>
+
+    <!-- Body: two-column -->
+    <div class="exam-body flex-1 flex min-h-0 overflow-hidden">
+
+      <!-- Left: passage -->
+      <div class="left w-1/2 min-w-[300px] overflow-y-auto pt-6 px-6 pb-[35vh] border-r border-slate-200 bg-white">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Texto de referência</p>
+        <div class="text-sm text-slate-700 leading-relaxed whitespace-pre-line font-serif">{{ exam.sourceText }}</div>
+      </div>
+
+      <!-- Right: questions -->
+      <div ref="rightPane" class="right flex-1 min-w-[300px] overflow-y-auto p-6" style="padding-bottom:80px">
+        <p v-if="!submitted" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">{{ questions.length }} perguntas</p>
+
+        <div v-for="(q, i) in questions" :key="i" :ref="el => { if(el) qRefs[i] = el }" :data-qidx="i" class="exam-card">
+          <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ i+1 }}.</span> {{ q.question }}</p>
+
+          <!-- Choice (A/B/C/D) -->
+          <div v-if="q.type==='choice'" class="space-y-1.5">
+            <div v-for="(opt, oi) in q.options" :key="oi"
+                 class="opt-label" :class="userAnswers[i]===['A','B','C','D'][oi] ? 'selected' : ''"
+                 @click="userAnswers[i]=['A','B','C','D'][oi]">
+              <span class="opt-circle">{{ ['A','B','C','D'][oi] }}</span>
+              <span class="text-slate-700">{{ opt }}</span>
+            </div>
+          </div>
+
+          <!-- Fill -->
+          <div v-if="q.type==='fill'">
+            <input v-model="userAnswers[i]" type="text" placeholder="Resposta..."
+                   class="fill-input" @input="onAnswer">
+          </div>
+
+          <!-- Match -->
+          <div v-if="q.type==='match'" class="space-y-1.5">
+            <div v-for="(item, ii) in q.items" :key="ii" class="match-row">
+              <span class="match-item">{{ item }}</span>
+              <select v-model="userAnswers[i][ii]" class="match-select" @change="onAnswer">
+                <option value="">—</option>
+                <option v-for="(opt, oi) in q.options" :key="oi" :value="opt">{{ opt }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Reorder -->
+          <div v-if="q.type==='reorder'" class="flex flex-wrap gap-2">
+            <div v-for="(p, pi) in q.paragraphs" :key="pi"
+                 class="reorder-chip" :class="userAnswers[i].includes(p) ? 'selected' : ''"
+                 @click="toggleReorder(i, p)">{{ p }}</div>
+            <p v-if="userAnswers[i].length" class="w-full text-xs text-slate-400 mt-2">Ordem: {{ userAnswers[i].join(' → ') }}</p>
+          </div>
+        </div>
+
+        <!-- ═══ RESULTS ═══ -->
+        <div v-if="result" class="space-y-4">
+          <div class="exam-card text-center" style="padding:24px">
+            <p class="text-3xl font-bold" :style="{color:scoreColor}">{{ score }}/{{ questions.length }}</p>
+            <p class="text-sm text-slate-500 mt-1">{{ scorePercent }}% — {{ scoreLabel }}</p>
+            <div class="flex justify-center gap-3 mt-4 no-print">
+              <button @click="showAnswers = !showAnswers" class="btn-ghost">{{ showAnswers ? 'Ocultar' : 'Mostrar' }} respostas</button>
+              <button @click="closeWin" class="btn-primary">Fechar</button>
+            </div>
+          </div>
+
+          <!-- Result table -->
+          <div class="exam-card" style="padding:0;overflow:hidden">
+            <table class="w-full text-sm" style="border-collapse:collapse">
+              <thead>
+                <tr class="bg-slate-50 text-xs text-slate-500 font-semibold border-b border-slate-200">
+                  <th class="p-3 text-left" style="width:3rem">#</th>
+                  <th class="p-3 text-left">Pergunta</th>
+                  <th class="p-3 text-center" style="width:4rem">✅</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(q, i) in questions" :key="i"
+                    class="border-b border-slate-100"
+                    :class="graded[i] ? '' : 'bg-rose-50/40'">
+                  <td class="p-3 text-center text-slate-400 font-mono text-xs">{{ i+1 }}</td>
+                  <td class="p-3 text-xs text-slate-700">
+                    <div>{{ q.question }}</div>
+                    <div v-if="showAnswers" class="mt-1.5 space-y-0.5">
+                      <span :class="graded[i] ? 'text-certo' : 'text-erro'">Tua: <strong>{{ formatAnswer(q, userAnswers[i]) }}</strong></span>
+                      <span v-if="!graded[i]" class="text-certo ml-3">Correta: <strong>{{ q.answer }}</strong></span>
+                    </div>
+                    <div v-if="showAnswers && q.explanation" class="mt-1.5 text-slate-400 text-[11px] p-2 bg-slate-50 rounded">{{ q.explanation }}</div>
+                  </td>
+                  <td class="p-3 text-center text-lg">{{ graded[i] ? '✅' : '❌' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Bottom question nav ═══ -->
+    <div v-if="exam && !result" class="q-nav no-print">
+      <span class="q-nav-label">Perguntas</span>
+      <div class="q-nav-btns">
+        <button v-for="(q, i) in questions" :key="i"
+                class="q-btn" :class="qBtnClass(i)"
+                @click="scrollToQuestion(i)"
+                :title="'Pergunta ' + (i+1) + (isAnswered(i) ? ' (respondida)' : '')">{{ i+1 }}</button>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] text-slate-400">{{ answeredCount }}/{{ questions.length }}</span>
+        <button @click="submitExam" :disabled="!allAnswered"
+                class="btn-submit" style="padding:7px 16px;font-size:0.82rem">Submeter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        exam: null, questions: [], userAnswers: [], submitted: false, result: false,
+        showAnswers: false, graded: [],
+        timeLimit: 75, timeRemaining: 4500, timerInterval: null, timerExpired: false,
+        qRefs: {},
+        activeQ: -1,
+      }
+    },
+    computed: {
+      timerDisplay() {
+        const m = Math.floor(this.timeRemaining / 60)
+        const s = this.timeRemaining % 60
+        return m + ':' + String(s).padStart(2, '0')
+      },
+      timerUrgent() { return this.timeRemaining < 300 && !this.submitted },
+      score() { return this.graded.filter(Boolean).length },
+      scorePercent() { return this.questions.length ? Math.round((this.score/this.questions.length)*100) : 0 },
+      scoreLabel() { const p=this.scorePercent; return p>=85?'Muito Bom!':p>=70?'Bom':p>=55?'Suficiente':'Insuficiente' },
+      scoreColor() { const p=this.scorePercent; return p>=85?'#14b8a6':p>=70?'#10b981':p>=55?'#f59e0b':'#f43f5e' },
+      answeredCount() { return this.questions.filter((q,i)=>this.isAnswered(i)).length },
+      allAnswered() {
+        return this.questions.every((q,i)=>{
+          if(q.type==='match') return this.userAnswers[i]?.every(a=>a)
+          if(q.type==='reorder') return this.userAnswers[i]?.length===q.paragraphs.length
+          return this.userAnswers[i]!=='' && this.userAnswers[i]!==undefined && this.userAnswers[i]!==null
+        })
+      },
+    },
+    methods: {
+      isAnswered(i) {
+        const q = this.questions[i]; if (!q) return false
+        const ua = this.userAnswers[i]
+        if (q.type==='match') return ua?.some(a=>a)
+        if (q.type==='reorder') return ua?.length>0
+        return ua!=='' && ua!==undefined && ua!==null
+      },
+      qBtnClass(i) {
+        return {
+          answered: this.isAnswered(i) && !this.submitted,
+          active: this.activeQ === i,
+        }
+      },
+      scrollToQuestion(i) {
+        this.activeQ = i
+        const el = this.qRefs[i]
+        if (el) {
+          const pane = this.$refs.rightPane
+          if (pane) pane.scrollTo({ top: el.offsetTop - pane.offsetTop - 16, behavior: 'smooth' })
+        }
+      },
+      onAnswer(){
+        // no-op: just triggers reactivity
+      },
+      submitExam() {
+        this.graded=this.questions.map((q,i)=>{
+          const ua=this.normalize(this.userAnswers[i]), ca=this.normalize(q.answer)
+          if(q.type==='choice') return ua===ca
+          if(q.type==='match'){const p=q.pairs||{};return Object.keys(p).every(k=>this.normalize(this.userAnswers[i][k])===this.normalize(p[k]))}
+          if(q.type==='reorder') return JSON.stringify(this.userAnswers[i])===JSON.stringify(q.paragraphs.map(p=>p))
+          return ua===ca||this.diacriticNorm(ua)===this.diacriticNorm(ca)
+        })
+        this.submitted=true;this.result=true;this.showAnswers=true
+        try {
+          const score = this.graded.filter(Boolean).length
+          const total = this.questions.length
+          PTStore.saveExamResult({
+            id: this.exam.examId || ('CL_' + Date.now()),
+            level: this.exam.level || 'B2',
+            percent: Math.round((score/total)*100),
+            correct: score,
+            total: total,
+            date: new Date().toISOString(),
+            sourceText: (this.exam.sourceText || '').slice(0,200),
+            questions: this.questions,
+            userAnswers: this.userAnswers,
+            qgCorrect: this.graded,
+          })
+        } catch(e) { console.warn('Erro ao guardar CL:', e) }
+      },
+      normalize(v){return String(v||'').trim().toLowerCase()},
+      diacriticNorm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'')},
+      toggleReorder(i,p){if(this.submitted)return;const a=[...this.userAnswers[i]];const idx=a.indexOf(p);idx>=0?a.splice(idx,1):a.push(p);this.userAnswers[i]=a},
+      formatAnswer(q,a){if(q.type==='match'&&Array.isArray(a))return a.join(', ');if(q.type==='reorder'&&Array.isArray(a))return a.join(' → ');return a||'(sem)'},
+      closeWin(){window.close()},
+    },
+    mounted() {
+      try{
+        const raw=localStorage.getItem('CL_CURRENT_EXAM')
+        if(raw){const d=JSON.parse(raw);this.exam=d;this.questions=d.questions||[];this.userAnswers=this.questions.map(q=>{if(q.type==='match')return new Array(q.items?.length||0).fill('');if(q.type==='reorder')return [];return ''})}
+        const lv = this.exam?.level || 'B2'
+        const limits = { A1:50, A2:50, B1:75, B2:75, C1:90, C2:90 }
+        this.timeLimit = limits[lv] || 75
+        this.timeRemaining = this.timeLimit * 60
+        this.timerInterval = setInterval(() => {
+          if (this.submitted) return
+          this.timeRemaining--
+          if (this.timeRemaining <= 0) {
+            this.timeRemaining = 0; this.timerExpired = true
+            clearInterval(this.timerInterval)
+            if (!this.submitted) this.submitExam()
+          }
+        }, 1000)
+      }catch{}
+      this.$nextTick(()=>lucide.createIcons())
+    },
+    updated(){this.$nextTick(()=>lucide.createIcons())},
+    beforeUnmount() { if (this.timerInterval) clearInterval(this.timerInterval) },
+  })
+  app.mount('#app')
+</script>
+</body>
+</html>

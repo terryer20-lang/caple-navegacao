@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Léxico — CAPLE</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#1a7bb5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="store/storage.js"></script>
+  <script src="utils/diacritics.js"></script>
+  <style>
+    :root {
+      --line: rgba(255,255,255,0.5); --panel: rgba(255,255,255,0.75); --panel-alt: rgba(255,255,255,0.55);
+      --text: #2c2c2e; --muted: #8e8e93;
+      --accent: #1a7bb5; --success: #2d6a4f; --danger: #c1121f;
+      --shadow: 0 2px 12px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:15px}
+    body{
+      font-family:system-ui,-apple-system,sans-serif;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 85%, rgba(212,168,67,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(26,123,181,0.10) 0%, transparent 60%),
+        linear-gradient(165deg, #e8ddce 0%, #d6dbe3 40%, #cdd6e0 100%);
+      color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased
+    }
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.1);border-radius:3px}
+
+    .exam-card{
+      background:rgba(255,255,255,0.82);-webkit-backdrop-filter:blur(32px) saturate(1.2);backdrop-filter:blur(32px) saturate(1.2);
+      border:0.5px solid rgba(255,255,255,0.85);border-radius:20px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.6);
+      padding:18px 20px
+    }
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+      .exam-card{background:rgba(255,255,255,0.92);border:1px solid rgba(0,0,0,0.06)}
+    }
+    .glass-badge{
+      background:rgba(250,245,240,0.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      border-radius:8px;padding:2px 10px;font-size:11px;
+      border:0.5px solid rgba(255,255,255,0.4)
+    }
+    .glass-panel{
+      background:rgba(250,245,240,0.65);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+      border-radius:12px;border:0.5px solid rgba(255,255,255,0.5)
+    }
+
+    .letter-input{
+      width:2.25rem;height:2.75rem;text-align:center;font-size:1.125rem;
+      font-family:ui-monospace,monospace;
+      background:rgba(255,255,255,0.5);backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      border:0.5px solid rgba(0,0,0,0.06);border-radius:12px;
+      transition:all 0.12s ease;outline:none
+    }
+    .letter-input:focus{
+      border-color:rgba(26,123,181,0.4);
+      box-shadow:0 0 0 3px rgba(26,123,181,0.1);
+      background:rgba(255,255,255,0.7)
+    }
+    .letter-input.filled{
+      border-color:rgba(26,123,181,0.3);
+      background:rgba(26,123,181,0.06)
+    }
+
+    .text-input-lg{
+      width:100%;padding:12px 16px;font-size:1.1rem;
+      background:rgba(255,255,255,0.5);backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      border:0.5px solid rgba(0,0,0,0.06);border-radius:14px;
+      text-align:center;transition:all 0.12s ease
+    }
+    .text-input-lg:focus{
+      border-color:rgba(26,123,181,0.4);
+      box-shadow:0 0 0 3px rgba(26,123,181,0.1);
+      background:rgba(255,255,255,0.7);outline:none
+    }
+
+    .btn-primary{
+      padding:10px 28px;background:#1a7bb5;color:#fff;
+      font-size:0.92rem;font-weight:600;border:none;border-radius:14px;
+      cursor:pointer;transition:all 0.12s ease
+    }
+    .btn-primary:hover{background:#15628f;box-shadow:0 4px 16px rgba(26,123,181,0.25)}
+    .btn-primary:disabled{opacity:0.4;cursor:default}
+
+    .btn-outline{padding:10px 24px;border:2px solid var(--danger);border-radius:14px;color:var(--danger);font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:all 0.12s ease}
+    .btn-outline:hover{background:rgba(193,18,31,0.06)}
+    .btn-outline.green{border-color:var(--success);color:var(--success)}
+    .btn-outline.green:hover{background:rgba(45,106,79,0.06)}
+
+    .btn-ghost{padding:6px 12px;border:0.5px solid rgba(0,0,0,0.06);border-radius:10px;font-size:0.72rem;color:var(--text);cursor:pointer;background:rgba(255,255,255,0.3);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all 0.12s ease}
+    .btn-ghost:hover{background:rgba(0,0,0,0.03)}
+    .btn-ghost.active{background:rgba(26,123,181,0.12);color:#1a7bb5;border-color:transparent}
+
+    /* 灰色字改黑色 */
+    .text-slate-400, .text-slate-500, .text-slate-600 { color: var(--text) !important; }
+    .text-slate-300 { color: var(--text) !important; }
+
+    @keyframes bounce-in{0%{opacity:0;transform:scale(0.3)}50%{transform:scale(1.08)}70%{transform:scale(0.95)}100%{opacity:1;transform:scale(1)}}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+    .anim-bounce-in{animation:bounce-in 0.3s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-shake{animation:shake 0.35s ease both}
+    .btn-click:active{transform:scale(0.96)}
+  </style>
+</head>
+<body>
+<div id="app" class="h-screen flex flex-col">
+
+  <!-- ═══ NO ROUND ═══ -->
+  <div v-if="!round" class="max-w-lg mx-auto mt-20 text-center p-8">
+    <i data-lucide="book-open" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
+    <p class="text-lg font-medium text-slate-600">Nenhuma ronda encontrada</p>
+    <p class="text-sm text-slate-400 mt-1">Inicie uma ronda na página Léxico primeiro.</p>
+    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">Voltar</button>
+  </div>
+
+  <!-- ═══ ROUND ═══ -->
+  <div v-if="round" class="flex-1 flex min-h-0">
+
+    <!-- ═══ CENTER: flashcard ═══ -->
+    <div class="flex-1 flex items-center justify-center p-8 relative">
+
+      <!-- Sidebar toggle -->
+      <button @click="sidebarOpen = !sidebarOpen"
+              class="absolute top-5 right-5 btn-ghost p-1.5 rounded-lg text-slate-400 hover:text-slate-600"
+              :title="sidebarOpen ? 'Ocultar painel' : 'Mostrar painel'">
+        <i data-lucide="panel-right" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center w-full max-w-md">
+
+        <!-- Level + progress -->
+        <div class="mb-3">
+          <span class="px-2.5 py-0.5 rounded text-xs font-mono glass-badge text-slate-500">{{ round.level }}</span>
+          <span class="text-xs text-slate-400 ml-2">{{ currentIdx + 1 }} / {{ words.length }}</span>
+        </div>
+
+        <!-- Direction + word -->
+        <p class="text-xs text-slate-400 uppercase tracking-wider mb-3">{{ modeLabel }}</p>
+        <p class="text-3xl font-bold mb-2" :class="isPt2zh ? 'text-azulejo' : 'text-slate-800'">{{ displayWord }}</p>
+        <p v-if="currentWord && currentWord.pos" class="text-sm text-slate-500 mb-5">{{ currentWord.pos }}</p>
+
+        <!-- Speak button -->
+        <button v-if="currentWord" @click="speak(currentWord.pt)"
+                class="btn-click mx-auto mb-6 flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-xl text-sm font-medium text-slate-600 transition-all"
+                title="Ouvir pronúncia (⌘+Enter)">
+          <i data-lucide="volume-2" class="w-5 h-5"></i>
+          <span>Ouvir</span>
+          <span class="text-[10px] text-slate-400 ml-1">⌘⏎</span>
+        </button>
+
+        <!-- ═══ INPUT AREA ═══ -->
+        <div v-if="!submitted">
+          <!-- zh2pt: letter boxes -->
+          <div v-if="!isPt2zh" class="flex justify-center gap-1.5 mb-6 flex-wrap px-2">
+            <template v-for="(_, ci) in letterCount" :key="ci">
+              <div v-if="currentWord.pt[ci] === ' '" class="w-3"></div>
+              <input v-else
+                     :ref="el => { if (el) letterRefs[ci] = el }"
+                     v-model="letterInputs[ci]"
+                     @input="onLetterInput(ci)" @keydown="onLetterKeydown(ci, $event)"
+                     maxlength="1" class="letter-input" :class="letterInputs[ci] ? 'filled' : ''"
+                     autocomplete="off" autocapitalize="off" spellcheck="false">
+            </template>
+          </div>
+          <!-- pt2zh: single text input -->
+          <div v-if="isPt2zh">
+            <input ref="inputEl" v-model="userInput" @keydown="onInputKeydown"
+                   class="text-input-lg" placeholder="Digite em chinês..." autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Feedback: correct (zh2pt strict) -->
+        <div v-if="feedback && feedback.match==='strict' && !isPt2zh"
+             class="mt-5 p-3 rounded-lg text-sm anim-bounce-in bg-emerald-50 text-emerald-700 border border-emerald-200">
+          ✅ <strong>Correto!</strong>
+        </div>
+
+        <!-- Feedback: self-rate -->
+        <div v-if="submitted && !rated"
+             class="mt-5 p-4 rounded-lg text-sm anim-shake bg-amber-50 text-amber-700 border border-amber-200">
+          <p class="text-sm font-medium mb-1">{{ isPt2zh ? currentWord.zh : currentWord.pt }}</p>
+          <p class="text-xs text-slate-500">Como avalia?</p>
+        </div>
+
+        <!-- Feedback: rated result -->
+        <div v-if="rated && ratedResult"
+             class="mt-5 p-3 rounded-lg text-sm border"
+             :class="ratedResult==='pass' ? 'anim-bounce-in bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200'">
+          <template v-if="ratedResult==='pass'">✅ <strong>Bom — palavra registada!</strong></template>
+          <template v-else>📝 <strong>Registado como erro.</strong></template>
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6">
+          <!-- Submit -->
+          <button v-if="!submitted" @click="submitAnswer" :disabled="!canSubmit"
+                  class="btn-primary">Submeter</button>
+
+          <!-- Self-rate -->
+          <div v-if="submitted && !rated" class="flex justify-center gap-4">
+            <button @click="rateFail"
+                    class="btn-outline">❌ Não sei <span class="text-[10px] opacity-60 ml-1">3</span></button>
+            <button @click="ratePass"
+                    class="btn-outline green">✅ Sei <span class="text-[10px] opacity-60 ml-1">2</span></button>
+          </div>
+
+          <!-- Next -->
+          <div v-if="rated || (submitted && !isPt2zh && feedback && feedback.match==='strict')">
+            <button @click="nextWord" class="btn-primary">
+              {{ currentIdx < words.length - 1 ? 'Seguinte →' : 'Concluir ✓' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Round complete -->
+        <div v-if="roundComplete" class="exam-card mt-8 text-center">
+          <i data-lucide="check-circle" class="w-10 h-10 mx-auto text-certo mb-2"></i>
+          <p class="text-lg font-bold text-slate-800">Ronda concluída!</p>
+          <p class="text-sm text-slate-500 mt-1">{{ correctCount }} / {{ words.length }} corretas</p>
+          <button @click="closeWin" class="mt-4 btn-primary">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside v-show="sidebarOpen" class="shrink-0 border-l border-slate-200 bg-white flex flex-col no-print relative"
+           :style="{ width: sidebarWidth + 'px' }">
+      <div class="absolute inset-y-0 left-0 w-1.5 cursor-col-resize z-50 group"
+           @mousedown.prevent="startResize">
+        <div class="w-0.5 h-full mx-auto transition-colors"
+             :class="resizing ? 'bg-azulejo/40' : 'bg-transparent group-hover:bg-slate-300/50'"></div>
+      </div>
+      <div class="px-4 py-4 border-b border-slate-200 shrink-0">
+        <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Progresso</p>
+      </div>
+      <div class="px-4 py-4 border-b border-slate-200 space-y-3 shrink-0">
+        <div>
+          <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Total acumulado</p>
+          <p class="text-base font-bold text-azulejo">{{ myVocabCount }}</p>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Nível {{ round.level }}</p>
+          <p class="text-base font-bold text-slate-700">{{ myVocabInLevel }}<span class="text-sm font-normal text-slate-400">/{{ totalInLevel }}</span></p>
+          <div class="w-full h-1.5 mt-1.5 glass-panel rounded-full overflow-hidden">
+            <div class="h-full bg-certo rounded-full transition-all duration-300" :style="{ width: pctLevel + '%' }"></div>
+          </div>
+        </div>
+        <div>
+          <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Hoje</p>
+          <p class="text-base font-bold text-slate-700">{{ todayWords }}</p>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto px-4 py-3">
+        <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-2">Últimos</p>
+        <div v-for="(r, i) in recentLog" :key="i" class="flex items-center gap-2 py-1.5 text-xs border-b border-slate-100 last:border-0">
+          <span class="shrink-0 text-[10px]">{{ r.match === 'strict' ? '✅' : r.match === 'loose' ? '⚠️' : '❌' }}</span>
+          <span class="text-slate-600 truncate">{{ r.pt }}</span>
+        </div>
+        <div v-if="wordLog.length === 0" class="text-xs text-slate-300 italic text-center py-4">Ainda sem registo</div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        round: null, words: [], currentIdx: 0,
+        letterInputs: [], letterRefs: {}, userInput: '',
+        feedback: null, submitted: false, rated: false, ratedResult: null, roundComplete: false,
+        wordLog: [], _reactiveTick: 0, dictEntries: [],
+        sidebarOpen: true, sidebarWidth: 220, resizing: false, startX: 0, startWidth: 0,
+      }
+    },
+    computed: {
+      currentWord() { return this.currentIdx < this.words.length ? this.words[this.currentIdx] : null },
+      isPt2zh() { return this.round?.mode === 'pt2zh' },
+      letterCount() { if (!this.currentWord || this.isPt2zh) return 0; return (this.currentWord.pt || '').length },
+      allFilled() { return this.letterCount > 0 && this.letterInputs.every(ch => ch && ch.trim()) },
+      canSubmit() { return this.isPt2zh ? !!this.userInput.trim() : this.letterInputs.some(ch => ch && ch.trim()) },
+      modeLabel() { return this.isPt2zh ? 'Português → Chinês' : 'Chinês → Português' },
+      displayWord() { if (!this.currentWord) return ''; return this.isPt2zh ? this.currentWord.pt : this.currentWord.zh },
+      correctCount() { return this.wordLog.filter(r => r.match === 'strict').length },
+      recentLog() { return [...this.wordLog].reverse() },
+      myVocabCount() { void this._reactiveTick; const dir = this.round?.mode || 'zh2pt'; return PTStore.getMyVocabForDirection(dir).length },
+      totalInLevel() { return this.dictEntries.filter(e => e.lv === this.round?.level).length || 0 },
+      myVocabInLevel() {
+        void this._reactiveTick; const dir = this.round?.mode || 'zh2pt'
+        const myVocab = PTStore.getMyVocabForDirection(dir); const lv = this.round?.level
+        return myVocab.filter(v => { const entry = this.dictEntries.find(e => e.pt.toLowerCase() === (v.pt || '').toLowerCase()); return entry?.lv === lv }).length
+      },
+      pctLevel() { if (this.totalInLevel === 0) return 0; return Math.round(this.myVocabInLevel / this.totalInLevel * 100) },
+      todayWords() { void this._reactiveTick; return PTStore.getTodayWords() },
+    },
+    methods: {
+      initLetterInputs() {
+        const pt = this.currentWord?.pt || ''
+        this.letterInputs = pt.split('').map(ch => ch === ' ' ? ' ' : '')
+        this.letterRefs = {}; this.userInput = ''; this.feedback = null
+        this.submitted = false; this.rated = false; this.ratedResult = null
+        this.$nextTick(() => {
+          if (this.isPt2zh) { this.$refs.inputEl?.focus() }
+          else {
+            for (let i = 0; i < pt.length; i++) { if (!this.letterInputs[i]) { this.letterRefs[i]?.focus(); break } }
+          }
+        })
+      },
+      _nextEditable(i) { for (let j = i+1; j < this.letterCount; j++) { if (!this.letterInputs[j]) return j }; return -1 },
+      _prevEditable(i) { for (let j = i-1; j >= 0; j--) { if (!this.letterInputs[j]) return j }; return -1 },
+      onLetterInput(idx) {
+        if (this.letterInputs[idx] === ' ') return
+        const val = this.letterInputs[idx]
+        if (val && val.length > 1) this.letterInputs[idx] = val.slice(-1)
+        if (this.letterInputs[idx]) { const n = this._nextEditable(idx); if (n>=0) this.letterRefs[n]?.focus() }
+      },
+      onLetterKeydown(idx, e) {
+        if (this.letterInputs[idx] === ' ') { e.preventDefault(); return }
+        if (e.key === 'Backspace') {
+          if (this.letterInputs[idx]) { this.letterInputs[idx] = '' }
+          else { const p = this._prevEditable(idx); if (p>=0) { this.letterInputs[p] = ''; this.letterRefs[p]?.focus() } }
+          e.preventDefault()
+        } else if (e.key === 'ArrowLeft') { const p = this._prevEditable(idx); if (p>=0) this.letterRefs[p]?.focus(); e.preventDefault()
+        } else if (e.key === 'ArrowRight') { const n = this._nextEditable(idx); if (n>=0) this.letterRefs[n]?.focus(); e.preventDefault()
+        } else if (e.key === 'Enter' && !e.metaKey) { if (this.allFilled) { this.submitAnswer(); e.preventDefault() } }
+      },
+      onInputKeydown(e) { if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) { if (this.userInput.trim()) this.submitAnswer(); e.preventDefault() } },
+      _onKeyDown(e) {
+        if (e.key === 'Enter' && e.metaKey) { e.preventDefault(); if (this.currentWord) this.speak(this.currentWord.pt); return }
+        if (e.target.tagName === 'INPUT') return
+        if (e.key === '2') { e.preventDefault(); if (this.submitted && !this.rated) this.ratePass() }
+        else if (e.key === '3') { e.preventDefault(); if (this.submitted && !this.rated) this.rateFail() }
+      },
+      submitAnswer() {
+        if (!this.canSubmit || !this.currentWord) return
+        PTStore.logActivity(); PTStore.logWordPractice(this.currentWord.pt, this.isPt2zh ? 'pt2zh' : 'zh2pt')
+        this.submitted = true
+        if (!this.isPt2zh) {
+          const result = Diacritics.compare(this.letterInputs.join('').trim(), this.currentWord.pt)
+          this.feedback = { match: result.match, hint: result.hint }
+          this.wordLog.push({ pt: this.currentWord.pt, match: result.match })
+          if (result.match === 'strict') {
+            PTStore.correctReview(this.currentWord.pt, 'zh2pt'); PTStore.addToMyVocab(this.currentWord.pt, this.currentWord.zh, this.currentWord.pos, 'zh2pt')
+            this.nextWord(); return
+          }
+        } else {
+          this.feedback = { match: 'info', hint: this.currentWord.zh }
+          this.wordLog.push({ pt: this.currentWord.pt, match: 'info' })
+        }
+      },
+      ratePass() {
+        if (!this.currentWord) return
+        const w = this.currentWord; const dir = this.isPt2zh ? 'pt2zh' : 'zh2pt'
+        PTStore.correctReview(w.pt, dir); PTStore.addToMyVocab(w.pt, w.zh, w.pos, dir)
+        if (this.wordLog.length > 0) this.wordLog[this.wordLog.length - 1].match = 'strict'
+        this.nextWord()
+      },
+      rateFail() {
+        if (!this.currentWord) return
+        const w = this.currentWord; const dir = this.isPt2zh ? 'pt2zh' : 'zh2pt'
+        PTStore.logWrongWord(w.pt, w.zh, w.pos, dir); PTStore.removeFromMyVocab(w.pt, dir)
+        this.nextWord()
+      },
+      nextWord() {
+        this.feedback = null; this.submitted = false; this.rated = false; this.ratedResult = null
+        if (this.currentIdx < this.words.length - 1) { this.currentIdx++; this.initLetterInputs() }
+        else { this.roundComplete = true }
+      },
+      closeWin() { window.close() },
+      speak(text) {
+        if (!text || !window.speechSynthesis) return
+        speechSynthesis.cancel()
+        setTimeout(() => { const u = new SpeechSynthesisUtterance(text); u.lang = 'pt-PT'; u.rate = 0.85; speechSynthesis.speak(u) }, 80)
+      },
+      refreshStats() { this._reactiveTick++ },
+      loadDict() { try { if (typeof VOCAB_DATA !== 'undefined' && Array.isArray(VOCAB_DATA)) this.dictEntries = VOCAB_DATA } catch {} },
+      startResize(e) { this.resizing = true; this.startX = e.clientX; this.startWidth = this.sidebarWidth; document.addEventListener('mousemove', this.onResize); document.addEventListener('mouseup', this.stopResize); document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none' },
+      onResize(e) { if (!this.resizing) return; const delta = this.startX - e.clientX; this.sidebarWidth = Math.min(360, Math.max(160, this.startWidth + delta)) },
+      stopResize() { this.resizing = false; document.removeEventListener('mousemove', this.onResize); document.removeEventListener('mouseup', this.stopResize); document.body.style.cursor = ''; document.body.style.userSelect = ''; try { localStorage.setItem('LEXICO_SIDEBAR_WIDTH', String(this.sidebarWidth)) } catch {} },
+    },
+    watch: { currentWord() { this.initLetterInputs() } },
+    mounted() {
+      this.loadDict()
+      try { const raw = localStorage.getItem('LEXICO_CURRENT_ROUND'); if (raw) { this.round = JSON.parse(raw); this.words = this.round.words || [] } } catch {}
+      try { const saved = localStorage.getItem('LEXICO_SIDEBAR_WIDTH'); if (saved) { const w = parseInt(saved, 10); if (w >= 160 && w <= 360) this.sidebarWidth = w } } catch {}
+      this._statsInterval = setInterval(() => this.refreshStats(), 30000)
+      document.addEventListener('keydown', this._onKeyDown)
+      this.$nextTick(() => lucide.createIcons())
+    },
+    updated() { this.$nextTick(() => lucide.createIcons()) },
+    beforeUnmount() {
+      if (this._statsInterval) clearInterval(this._statsInterval)
+      document.removeEventListener('keydown', this._onKeyDown)
+      document.removeEventListener('mousemove', this.onResize)
+      document.removeEventListener('mouseup', this.stopResize)
+    },
+  })
+  app.mount('#app')
+</script>
+</body>
+</html>
