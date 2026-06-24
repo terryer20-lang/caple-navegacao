@@ -292,7 +292,7 @@
           </div>
           <div class="flex-1 overflow-y-auto p-4" style="min-height:0">
             <div v-for="(q, i) in currentQuestions" :key="globalQNum(i)" :ref="el => { if(el) qRefs[globalQNum(i)-1] = el }" :data-qidx="globalQNum(i)-1" class="exam-card">
-              <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ globalQNum(i) }}.</span> {{ q.question }}</p>
+              <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ globalQNum(i) }}.</span> {{ cleanQuestion(q) }}</p>
 
               <div v-if="q.type==='choice'" class="space-y-1.5">
                 <div v-for="(opt, oi) in q.options" :key="oi"
@@ -972,7 +972,7 @@
           const ua=this.normalize(this.userAnswers[i]), ca=this.normalize(q.answer)
           if(q.type==='choice') return ua===ca
           if(q.type==='match'){const p=q.pairs||{};return Object.keys(p).every(k=>this.normalize(this.userAnswers[i]?.[k])===this.normalize(p[k]))}
-          if(q.type==='reorder') return JSON.stringify(this.userAnswers[i])===JSON.stringify(q.paragraphs.map(p=>p))
+          if(q.type==='reorder'){const a=this.userAnswers[i];if(!Array.isArray(a)||!a.length)return false;const ans=(q.answer||'').split('-').map(s=>s.trim()).filter(Boolean);const expected=ans.map(letter=>{const idx='ABCDEFG'.indexOf(letter);return idx>=0?q.paragraphs[idx]:''}).filter(Boolean);return expected.length===a.length&&expected.every((t,si)=>t===a[si])}
           return ua===ca||this.diacriticNorm(ua)===this.diacriticNorm(ca)
         })
         this.submitted=true;this.result=true;this.showAnswers=true
@@ -993,6 +993,13 @@
       normalize(v){return String(v||'').trim().toLowerCase()},
       diacriticNorm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'')},
       formatAnswer(q,a){if(q.type==='match'&&Array.isArray(a))return a.join(', ');if(q.type==='reorder'&&Array.isArray(a))return a.join(' → ');return a||'(sem)'},
+      cleanQuestion(q){
+        if(q.type!=='reorder'||!q.question) return q.question
+        const t=q.question
+        // Strip inline paragraph content starting from "A:" or similar letter+colon pattern
+        const m=t.match(/\b[A-Z]:\s/)
+        return m ? t.substring(0,m.index).trim() : t
+      },
       closeWin(){window.close()},
       onDividerDown(e){this.dragActive=true;document.body.style.cursor='col-resize';document.body.style.userSelect='none';window.addEventListener('mousemove',this._onDividerMove);window.addEventListener('mouseup',this._onDividerUp)},
       _onDividerMove(e){if(!this.dragActive)return;var bd=document.querySelector('.exam-body');if(!bd)return;var r=bd.getBoundingClientRect();this.splitPos=Math.max(25,Math.min(75,Math.round((e.clientX-r.left)/r.width*100)))},

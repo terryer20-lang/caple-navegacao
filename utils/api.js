@@ -189,7 +189,7 @@ const ExamAPI = (() => {
       choice: '- Escolha múltipla: cada pergunta com 4 opções (A/B/C/D). JSON: { type: "choice", question: "...", options: ["A","B","C","D"], answer: "A", explanation: "..." }',
       match: '- Correspondência (type:"match"): estabelecer correspondências. JSON DEVE conter: "items" (array de itens à esquerda), "options" (array de opções), "pairs" (objeto mapping item index→opção correta).',
       verdadeiro_falso: '- Verdadeiro/Falso: pergunta com resposta "V" ou "F". JSON: { type: "verdadeiro_falso", question: "...", answer: "V", explanation: "..." }',
-      reorder: '- Reconstrução textual (type:"reorder"): parágrafos A-F retirados do texto. 1 extra. JSON: { paragraphs: ["...","...",...], answer: "C-A-E-B-D", explanation: "..." }',
+      reorder: '- Reconstrução textual (type:"reorder"): parágrafos A-F retirados do texto. 1 extra. CRÍTICO: question DEVE conter APENAS a instrução (ex: "Reordena os parágrafos A-F..."). NÃO incluas o texto dos parágrafos na question. Os parágrafos vão APENAS no array "paragraphs". JSON: { type: "reorder", question: "Reordena os parágrafos A-F...", paragraphs: ["texto A...","texto B...","texto C...","texto D...","texto E...","texto F..."], answer: "C-A-E-B-D", explanation: "..." }',
       fill: '- Open cloze: complete lacunas com UMA palavra cada. JSON: { type: "fill", question: "texto com ______", answer: "palavra", explanation: "..." }',
       error_detect: '- Deteção de erros (type:"error_detect"): identificar palavra a mais. JSON: { items: ["Linha 1: ..."], answer: "palavra_extra", explanation: "..." }',
     }
@@ -230,7 +230,12 @@ const ExamAPI = (() => {
         typeInstr,
         '',
         'FORMATO JSON (resposta DEVE ser APENAS este JSON válido):',
-        JSON.stringify({
+        JSON.stringify(qType === 'reorder' ? {
+          sourceText: 'Texto completo do artigo...',
+          questions: [
+            { type: 'reorder', part: partNum, question: 'Reordena os parágrafos...', paragraphs: ['Parágrafo A...', 'Parágrafo B...', 'Parágrafo C...', 'Parágrafo D...', 'Parágrafo E...', 'Parágrafo F...'], answer: 'A-C-E-B-D', explanation: '...', difficulty: 3 },
+          ],
+        } : {
           sourceText: 'Texto completo do artigo...',
           questions: [
             { type: qType, part: partNum, question: '...', options: ['A','B','C','D'], answer: 'A', explanation: '...', difficulty: 3 },
@@ -254,7 +259,7 @@ const ExamAPI = (() => {
 
       // API call for this part (with retry)
       let partResult = null
-      for (let attempt = 0; attempt < 2; attempt++) {
+      for (let attempt = 0; attempt < 3; attempt++) {
         const res = await fetch(BASE, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
@@ -288,10 +293,10 @@ const ExamAPI = (() => {
         throw new Error(`Resposta incompleta na Parte ${partNum}: sem sourceText ou questions`)
       }
 
-      // Validate word count for this article
+      // Validate word count for this article (soft warning, not fatal)
       const articleWords = (partResult.sourceText || '').split(/\s+/).filter(w => w.length > 0).length
       if (articleWords < s.minGenWords) {
-        throw new Error(`Contagem insuficiente de palavras no Artigo ${partNum}: ${articleWords} palavras, mínimo exigido: ${s.minGenWords}.`)
+        console.warn(`Artigo ${partNum}: ${articleWords} palavras (mínimo: ${s.minGenWords}). Outros artigos podem compensar.`)
       }
 
       // Add part metadata and difficulty to questions
@@ -324,6 +329,15 @@ const ExamAPI = (() => {
     const placeholders = allQuestions.filter(q => placeholderPattern.test(q.question || ''))
     if (placeholders.length > 0) {
       throw new Error(`${placeholders.length} perguntas-placeholder encontradas.`)
+    }
+
+    // Validate total word count across all 5 articles (lenient: 40% of expected)
+    const totalArticleWords = parts.slice(0, 5).reduce((sum, p) => {
+      return sum + ((p.sourceText || '').split(/\s+/).filter(w => w.length > 0).length)
+    }, 0)
+    const requiredMin = Math.round(s.minGenWords * 5 * 0.4)
+    if (totalArticleWords < requiredMin) {
+      throw new Error(`Contagem insuficiente de palavras no total: ${totalArticleWords} (mínimo: ${requiredMin}).`)
     }
 
     const examDuration = s.duration

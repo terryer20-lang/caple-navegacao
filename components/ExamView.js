@@ -338,7 +338,7 @@ const ExamView = {
             result = await ExamAPI.generateExam(text, clLevel, apiKey)
             break // success
           } catch (e) {
-            if ((e.message.includes('perguntas-placeholder') || e.message.includes('Contagem insuficiente')) && retries < maxRetries - 1) {
+            if ((e.message.includes('perguntas-placeholder') || e.message.includes('Contagem insuficiente') || e.message.includes('Resposta incompleta na Parte')) && retries < maxRetries - 1) {
               retries++
               this.loadingMsg = `A gerar exame CAPLE CL... (tentativa ${retries + 1}/${maxRetries})`
               continue
@@ -478,7 +478,7 @@ const ExamView = {
             result = await ExamAPI.generateExam(text, clLevel, apiKey)
             break
           } catch (e) {
-            if ((e.message.includes('perguntas-placeholder') || e.message.includes('perguntas reais') || e.message.includes('Contagem insuficiente')) && retries < maxRetries - 1) {
+            if ((e.message.includes('perguntas-placeholder') || e.message.includes('perguntas reais') || e.message.includes('Contagem insuficiente') || e.message.includes('Resposta incompleta na Parte')) && retries < maxRetries - 1) {
               retries++
               this.loadingMsg = `A gerar exame CAPLE CL... (tentativa ${retries + 1}/${maxRetries})`
               continue
