@@ -230,17 +230,25 @@ const ExamAPI = (() => {
         typeInstr,
         '',
         'FORMATO JSON (resposta DEVE ser APENAS este JSON válido):',
-        JSON.stringify(qType === 'reorder' ? {
-          sourceText: 'Texto completo do artigo...',
-          questions: [
-            { type: 'reorder', part: partNum, question: 'Reordena os parágrafos...', paragraphs: ['Parágrafo A...', 'Parágrafo B...', 'Parágrafo C...', 'Parágrafo D...', 'Parágrafo E...', 'Parágrafo F...'], answer: 'A-C-E-B-D', explanation: '...', difficulty: 3 },
-          ],
-        } : {
-          sourceText: 'Texto completo do artigo...',
-          questions: [
-            { type: qType, part: partNum, question: '...', options: ['A','B','C','D'], answer: 'A', explanation: '...', difficulty: 3 },
-          ],
-        }),
+        JSON.stringify((() => {
+          const base = { sourceText: 'Texto completo do artigo...', questions: [] }
+          if (qType === 'choice') {
+            base.questions = [{ type: 'choice', part: partNum, question: 'Pergunta...', options: ['A','B','C','D'], answer: 'A', explanation: '...', difficulty: 3 }]
+          } else if (qType === 'verdadeiro_falso') {
+            base.questions = [{ type: 'verdadeiro_falso', part: partNum, question: 'Afirmação...', answer: 'V', explanation: '...', difficulty: 3 }]
+          } else if (qType === 'match') {
+            base.questions = [{ type: 'match', part: partNum, question: 'Emparelha...', items: ['Item 1', 'Item 2'], options: ['Opção A', 'Opção B'], pairs: {'0': 'Opção B', '1': 'Opção A'}, explanation: '...', difficulty: 3 }]
+          } else if (qType === 'reorder') {
+            base.questions = [{ type: 'reorder', part: partNum, question: 'Reordena os parágrafos...', paragraphs: ['Parágrafo A...', 'Parágrafo B...', 'Parágrafo C...', 'Parágrafo D...', 'Parágrafo E...', 'Parágrafo F...'], answer: 'A-C-E-B-D', explanation: '...', difficulty: 3 }]
+          } else if (qType === 'fill') {
+            base.questions = [{ type: 'fill', part: partNum, question: 'Texto com ______ para completar', answer: 'palavra', explanation: '...', difficulty: 3 }]
+          } else if (qType === 'error_detect') {
+            base.questions = [{ type: 'error_detect', part: partNum, question: 'Identifica a palavra a mais em cada linha', items: ['Linha 1: texto com erro'], answer: 'palavra_extra', explanation: '...', difficulty: 3 }]
+          } else {
+            base.questions = [{ type: qType, part: partNum, question: '...', answer: '...', explanation: '...', difficulty: 3 }]
+          }
+          return base
+        })()),
         '',
         'REGRAS:',
         `- sourceText: texto PT-PT original nível ${level}. ${s.wordRange} palavras. MÍNIMO ABSOLUTO: ${s.minGenWords} palavras.`,
@@ -267,7 +275,7 @@ const ExamAPI = (() => {
             model: 'deepseek-chat',
             messages: [
               { role: 'system', content: partSystemPrompt },
-              { role: 'user', content: attempt === 0 ? partUserPrompt : partUserPrompt + ' ATENÇÃO: a resposta anterior teve JSON inválido. Gera APENAS JSON válido.' },
+              { role: 'user', content: attempt === 0 ? partUserPrompt : (partUserPrompt + ' ATENÇÃO: a tentativa anterior falhou. Gera APENAS JSON válido no formato exato pedido. NÃO uses perguntas-placeholder ("Pergunta em falta", "gerada automaticamente").') },
             ],
             temperature: attempt === 0 ? 0.7 : 0.5,
             max_tokens: 8192,
@@ -276,7 +284,7 @@ const ExamAPI = (() => {
         if (!res.ok) throw new Error(`API erro ${res.status} (Parte ${partNum})`)
         const data = await res.json()
         const content = data.choices?.[0]?.message?.content
-        if (!content) { if (attempt < 1) continue; throw new Error(`Resposta vazia (Parte ${partNum})`) }
+        if (!content) { if (attempt < 2) continue; throw new Error(`Resposta vazia (Parte ${partNum})`) }
         // DEBUG: log raw response for diagnosis
         console.log(`Parte ${partNum} raw (first 200):`, (content || '').substring(0, 200))
         try {
@@ -284,7 +292,7 @@ const ExamAPI = (() => {
           break
         } catch (e) {
           console.warn(`Parte ${partNum} parse fail:`, e.message, 'content preview:', (content || '').substring(0, 100))
-          if (attempt < 1) continue
+          if (attempt < 2) continue
           throw new Error(`JSON inválido (Parte ${partNum}): ${e.message}. Preview: ${(content || '').substring(0, 80)}`)
         }
       }
