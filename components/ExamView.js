@@ -348,9 +348,10 @@ const ExamView = {
         }
         this._onExamGenerated(result, clLevel, text)
       } catch (e) {
+        console.error('generateExam final error:', e.message)
         if (e.message.includes('perguntas-placeholder') || e.message.includes('Contagem insuficiente')) {
           this.stage = 'input'
-          alert('O gerador AI produziu perguntas inválidas ou texto demasiado curto após 3 tentativas. Tente novamente mais tarde ou escolha um nível diferente.')
+          alert(`O gerador AI produziu perguntas inválidas ou texto demasiado curto após 3 tentativas. Tente novamente mais tarde ou escolha um nível diferente.\n\nErro: ${e.message}`)
         } else {
           this.stage = 'input'
           alert('Erro ao gerar exame: ' + e.message)
@@ -490,6 +491,7 @@ const ExamView = {
       } catch (e) {
         this.stage = 'input'
         const msg = e.message || ''
+        console.error('_continueGenerate final error:', msg)
         if (msg.includes('perguntas-placeholder') || msg.includes('perguntas reais')) {
           alert('O gerador AI não produziu perguntas suficientes após 3 tentativas. Tente novamente mais tarde ou escolha um nível diferente.')
         } else if (msg.includes('JSON')) {

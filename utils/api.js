@@ -336,6 +336,7 @@ const ExamAPI = (() => {
       return sum + ((p.sourceText || '').split(/\s+/).filter(w => w.length > 0).length)
     }, 0)
     const requiredMin = Math.round(s.minGenWords * 5 * 0.4)
+    console.log('generateExam total words:', totalArticleWords, 'required min:', requiredMin, 'level:', level)
     if (totalArticleWords < requiredMin) {
       throw new Error(`Contagem insuficiente de palavras no total: ${totalArticleWords} (mínimo: ${requiredMin}).`)
     }
