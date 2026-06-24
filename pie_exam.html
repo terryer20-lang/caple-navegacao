@@ -408,20 +408,8 @@
         try { const raw = localStorage.getItem('PT_LEARNING_DATA'); if (!raw) return null; return JSON.parse(raw)?.config?.deepseekKey || null }
         catch { return null }
       },
-      closeWin() {
-      if (window.parent && window.parent.__CLOSE_EXAM__) {
-        window.parent.__CLOSE_EXAM__()
-      } else {
-        window.close()
-      }
-    },
-      goBack() {
-      if (window.parent && window.parent.__CLOSE_EXAM__) {
-        window.parent.__CLOSE_EXAM__()
-      } else {
-        window.close()
-      }
-    },
+      closeWin() { window.close() },
+      goBack() { window.close() },
     },
     mounted() {
       try {

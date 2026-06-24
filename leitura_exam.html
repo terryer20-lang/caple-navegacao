@@ -369,13 +369,7 @@
         }
         // Cmd+Enter: default textarea behavior (normal line break)
       },
-      closeWin() {
-      if (window.parent && window.parent.__CLOSE_EXAM__) {
-        window.parent.__CLOSE_EXAM__()
-      } else {
-        window.close()
-      }
-    },
+      closeWin() { window.close() },
     },
     mounted() {
       HighlightNotes.injectStyles()

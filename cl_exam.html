@@ -1000,13 +1000,7 @@
         const m=t.match(/\b[A-Z]:\s/)
         return m ? t.substring(0,m.index).trim() : t
       },
-      closeWin() {
-      if (window.parent && window.parent.__CLOSE_EXAM__) {
-        window.parent.__CLOSE_EXAM__()
-      } else {
-        window.close()
-      }
-    },
+      closeWin(){window.close()},
       onDividerDown(e){this.dragActive=true;document.body.style.cursor='col-resize';document.body.style.userSelect='none';window.addEventListener('mousemove',this._onDividerMove);window.addEventListener('mouseup',this._onDividerUp)},
       _onDividerMove(e){if(!this.dragActive)return;var bd=document.querySelector('.exam-body');if(!bd)return;var r=bd.getBoundingClientRect();this.splitPos=Math.max(25,Math.min(75,Math.round((e.clientX-r.left)/r.width*100)))},
       _onDividerUp(){if(!this.dragActive)return;this.dragActive=false;document.body.style.cursor='';document.body.style.userSelect='';window.removeEventListener('mousemove',this._onDividerMove);window.removeEventListener('mouseup',this._onDividerUp)},

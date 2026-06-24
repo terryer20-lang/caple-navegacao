@@ -328,10 +328,10 @@ const ExamHistoryView = {
         if (!raw) { alert('Dados do exame não encontrados. O ficheiro JSON foi descarregado — pode fazer upload manual.'); return }
         if (examId.includes('_PIE')) {
           localStorage.setItem('PIE_CURRENT_EXAM', raw)
-          window.__OPEN_EXAM__('pie_exam.html')
+          window.open('pie_exam.html', '_blank')
         } else {
           localStorage.setItem('CL_CURRENT_EXAM', raw)
-          window.__OPEN_EXAM__('cl_exam.html')
+          window.open('cl_exam.html', '_blank')
         }
       } catch(e) { alert('Erro ao reabrir: ' + e.message) }
     },

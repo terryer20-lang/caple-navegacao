@@ -38,7 +38,7 @@ const LeituraView = {
       if (!this.sourceText.trim()) return
       try {
         localStorage.setItem('LEITURA_TEXT', this.sourceText.trim())
-        window.__OPEN_EXAM__('leitura_exam.html')
+        window.open('leitura_exam.html', '_blank')
       } catch (e) {
         alert('Erro ao abrir: ' + e.message)
       }

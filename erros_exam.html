@@ -225,18 +225,12 @@ const app = Vue.createApp({
           this.roundComplete = true
           localStorage.removeItem('ERROS_CURRENT_ROUND')
           // Auto-close after brief delay
-          setTimeout(() => { if (window.parent && window.parent.__CLOSE_EXAM__) { window.parent.__CLOSE_EXAM__() } else { window.close() } }, 800)
+          setTimeout(() => window.close(), 800)
         }
       }, 1000)
     },
     _clearTimer() { if (this._timer) { clearTimeout(this._timer); this._timer = null } },
-    closeWin() {
-      if (window.parent && window.parent.__CLOSE_EXAM__) {
-        window.parent.__CLOSE_EXAM__()
-      } else {
-        window.close()
-      }
-    },
+    closeWin() { window.close() },
   },
   mounted() {
     try {
