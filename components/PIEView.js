@@ -296,7 +296,7 @@ const PIEView = {
         localStorage.setItem('PIE_CURRENT_EXAM', JSON.stringify(examData))
         this.stage = 'generated'
         this.examReady = true
-        window.open('pie_exam.html', '_blank')
+        window.__OPEN_EXAM__('pie_exam.html')
       } catch (e) { console.warn('Erro ao abrir janela:', e) }
     },
 
@@ -325,7 +325,7 @@ const PIEView = {
     },
 
     openExamWindow() {
-      try { window.open('pie_exam.html', '_blank') } catch (e) { console.warn('Erro ao abrir:', e) }
+      try { window.__OPEN_EXAM__('pie_exam.html') } catch (e) { console.warn('Erro ao abrir:', e) }
     },
 
     resetExam() {

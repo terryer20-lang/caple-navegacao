@@ -1,5 +1,5 @@
 /**
- * components/AppShell.js — 外殼：7 視圖路由
+ * components/AppShell.js — 外殼：7 視圖路由 + iframe 嵌入考試頁面
  */
 const AppShell = {
   template: `
@@ -20,11 +20,23 @@ const AppShell = {
           <div class="flex-1 flex justify-center">
             <StudyStats />
           </div>
+          <div v-if="examFrameUrl" class="flex items-center">
+            <button @click="closeExamFrame"
+                    class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-600 transition">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i> Fechar
+            </button>
+          </div>
         </header>
-        <main class="flex-1 overflow-y-auto">
-          <Transition name="view" mode="out-in">
-            <component :is="currentComponent" :key="currentView" />
-          </Transition>
+        <main class="flex-1 overflow-hidden relative">
+          <iframe v-if="examFrameUrl" :src="examFrameUrl"
+                  class="w-full h-full border-0 absolute inset-0"
+                  allow="clipboard-write"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"></iframe>
+          <div v-else class="h-full overflow-y-auto">
+            <Transition name="view" mode="out-in">
+              <component :is="currentComponent" :key="currentView" />
+            </Transition>
+          </div>
         </main>
       </div>
       <ConfigModal :show="showConfig" @close="showConfig = false" />
@@ -37,6 +49,7 @@ const AppShell = {
       sidebarOpen: true,
       showConfig: false,
       isMobile: window.innerWidth < 768,
+      examFrameUrl: null,
     }
   },
   computed: {
@@ -49,9 +62,28 @@ const AppShell = {
   },
   methods: {
     navigateTo(viewId) { this.currentView = viewId; if (this.isMobile) this.sidebarOpen = false; window.__NAV__ = this.navigateTo.bind(this) },
+    openExamFrame(url) { this.examFrameUrl = url },
+    closeExamFrame() { this.examFrameUrl = null },
+    _handleExamFrameClosed() { this.examFrameUrl = null },
     onResize() { this.isMobile = window.innerWidth < 768 },
   },
-  mounted() { window.__NAV__ = this.navigateTo.bind(this); window.addEventListener('resize', this.onResize); this.onResize(); this.$nextTick(() => lucide.createIcons())
+  mounted() {
+    window.__NAV__ = this.navigateTo.bind(this)
+    window.addEventListener('resize', this.onResize)
+    this.onResize()
+    this.$nextTick(() => lucide.createIcons())
+
+    // Global exam frame API
+    window.__OPEN_EXAM__ = (url) => { this.examFrameUrl = url }
+    window.__CLOSE_EXAM__ = () => { this.examFrameUrl = null }
+
+    // Listen for close messages from iframe (same-origin postMessage)
+    window.addEventListener('message', (e) => {
+      if (e.data === 'close' || e.data === 'exam-closed') {
+        this.examFrameUrl = null
+      }
+    })
+
     window.addEventListener('open-config', () => { this.showConfig = true })
   },
   updated() { this.$nextTick(() => lucide.createIcons()) },

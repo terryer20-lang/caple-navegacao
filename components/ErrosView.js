@@ -94,7 +94,7 @@ const ErrosView = {
       }
       try {
         localStorage.setItem('ERROS_CURRENT_ROUND', JSON.stringify(roundData))
-        window.open('erros_exam.html', '_blank')
+        window.__OPEN_EXAM__('erros_exam.html')
       } catch (e) {
         console.warn('Erro ao abrir janela de erros:', e)
       }

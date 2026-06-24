@@ -430,7 +430,13 @@
         this.feedback = null; this.submitted = false; this.rated = false
         this.roundComplete = true
       },
-      closeWin() { window.close() },
+      closeWin() {
+      if (window.parent && window.parent.__CLOSE_EXAM__) {
+        window.parent.__CLOSE_EXAM__()
+      } else {
+        window.close()
+      }
+    },
       speak(text) {
         if (!text || !window.speechSynthesis) return
         speechSynthesis.cancel()

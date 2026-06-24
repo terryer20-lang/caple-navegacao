@@ -301,7 +301,7 @@ const VocabView = {
       const roundData = { words: picked, mode: this.mode, level: this.selectedLevel, roundSize: unlimited ? -1 : this.roundSize, isUnlimited: unlimited, timestamp: Date.now() }
       try {
         localStorage.setItem('LEXICO_CURRENT_ROUND', JSON.stringify(roundData))
-        window.open('lexico_exam.html', '_blank')
+        window.__OPEN_EXAM__('lexico_exam.html')
         this.roundReady = true
         this.resetRound()
       } catch (e) { console.warn('Erro ao abrir janela:', e) }

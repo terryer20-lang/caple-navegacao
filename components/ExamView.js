@@ -400,12 +400,12 @@ const ExamView = {
         localStorage.setItem('CL_CURRENT_EXAM', JSON.stringify(examData))
         this.stage = 'generated'
         this.examReady = true
-        window.open('cl_exam.html', '_blank')
+        window.__OPEN_EXAM__('cl_exam.html')
       } catch (e) { console.warn('Erro ao guardar exame:', e) }
     },
 
     openExamWindow() {
-      try { window.open('cl_exam.html', '_blank') } catch (e) { console.warn('Erro ao abrir:', e) }
+      try { window.__OPEN_EXAM__('cl_exam.html') } catch (e) { console.warn('Erro ao abrir:', e) }
     },
 
     /** Guardar exame: save to localStorage + download JSON */
