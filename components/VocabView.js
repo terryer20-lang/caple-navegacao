@@ -66,10 +66,15 @@ const VocabView = {
         <div v-if="selectedLevel && poolSize > 0" class="flex items-center justify-center gap-2 mb-4">
           <span class="text-xs text-slate-400 font-medium">N.º de palavras:</span>
           <div class="flex gap-1">
-            <button v-for="n in [10,20,30,40,50]" :key="n" @click="roundSize=n"
+            <button v-for="n in [10,20,30,40,50]" :key="n" @click="roundSize=n; customSize=null"
                     :class="['px-4 py-2 rounded text-sm font-medium transition border',
-                      roundSize===n ? 'bg-azulejo text-white border-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
+                      roundSize===n && !customSize ? 'bg-azulejo text-white border-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
               {{ n }}
+            </button>
+            <button @click="roundSize=-1; customSize=null"
+                    :class="['px-4 py-2 rounded text-sm font-medium transition border',
+                      roundSize===-1 ? 'bg-rose-500 text-white border-rose-500' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
+              ∞
             </button>
           </div>
           <div class="relative w-14">
@@ -289,9 +294,11 @@ const VocabView = {
       PTStore.logActivity()
       const pool = this.dictEntries.filter(e => (e.lv || '—') === this.selectedLevel)
       if (!pool.length) return
+      const unlimited = this.roundSize === -1
+      const count = unlimited ? pool.length : this.roundSize
       const copy = [...pool]; const picked = []
-      for (let i = 0; i < this.roundSize && copy.length > 0; i++) picked.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0])
-      const roundData = { words: picked, mode: this.mode, level: this.selectedLevel, roundSize: this.roundSize, timestamp: Date.now() }
+      for (let i = 0; i < count && copy.length > 0; i++) picked.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0])
+      const roundData = { words: picked, mode: this.mode, level: this.selectedLevel, roundSize: unlimited ? -1 : this.roundSize, isUnlimited: unlimited, timestamp: Date.now() }
       try {
         localStorage.setItem('LEXICO_CURRENT_ROUND', JSON.stringify(roundData))
         window.open('lexico_exam.html', '_blank')

@@ -1,0 +1,1013 @@
+{
+  "examId": "CAPLE_20260624_26_CL",
+  "level": "C2",
+  "sourceText": "Num tempo em que as fronteiras se esbatem como névoa matinal sobre o Danúbio, a globalização ergue-se como um paradoxo vivo, uma força que tanto nos une como nos fragmenta, que promete justiça universal enquanto perpetua assimetrias que fariam corar o mais cínico dos filósofos. Não se trata apenas de um fenómeno económico, essa teia de transações que liga Xangai a Lisboa num fio de seda digital, mas de uma condição ontológica que reconfigura a própria textura da existência humana. A arte, essa bússola moral que tantas vezes nos guia nos becos escuros da história, tem sido simultaneamente vítima e cúmplice deste processo. Veja-se, por exemplo, como a Bienal de Veneza se tornou num palco onde se encenam os dramas da identidade nacional, numa coreografia que oscila entre a autenticidade etnográfica e a performance para consumo global. O artista contemporâneo, esse nómada que carrega o peso do mundo nos ombros, vê-se agora forçado a negociar entre a integridade da sua visão e as exigências de um mercado que dita o que é \"relevante\" — uma palavra que, na sua ambivalência, esconde a mão invisível do capitalismo tardio.\n\nA filosofia, por seu turno, confronta-se com um dilema que ecoa os paradoxos iluministas: como fundamentar uma ética universal sem cair no imperialismo moral? Os debates em torno do cosmopolitismo, desde os Estoicos até Appiah, revelam a tensão entre a aspiração a uma cidadania global e a realidade de um mundo onde o passaporte continua a ser o mais democrático dos privilégios — um privilégio, note-se, que apenas alguns podem ostentar. A inovação tecnológica, essa locomotiva que parecia destinada a aplanar as montanhas da desigualdade, revelou-se afinal uma faca de dois gumes. As plataformas digitais que permitem a um camponês na Índia vender artesanato a um colecionador em Paris são as mesmas que alimentam algoritmos de vigilância e precarizam o trabalho criativo. A ironia é quase shakespeariana: sonhávamos com uma ágora virtual e acordámos num panóptico onde cada clique é um voto num sistema que nos conhece melhor do que nós próprios. A diplomacia, essa arte de gerir o impossível, vê-se agora a navegar entre o multilateralismo moribundo e o surgimento de novas potências que rejeitam a gramática herdada da Guerra Fria. As Nações Unidas, essa catedral da razão que emergiu das cinzas da Segunda Guerra Mundial, debate-se entre a sua vocação universalista e a paralisia imposta por vetos que transformam a Carta em letra morta.\n\nNo entanto, seria ingénuo reduzir a globalização a uma mera narrativa de perda e desencanto. Há, neste caldeirão borbulhante, sinais de uma justiça que se reinventa, que aprende com os erros do passado sem se deixar aprisionar por eles. Os movimentos sociais que emergiram das praças do Cairo aos acampamentos de Wall Street mostram que a globalização também pode ser uma ferramenta de emancipação, um megafone que amplifica vozes que antes se perdiam no ruído de fundo da história. A arte, nesse contexto, assume uma funç",
+  "questions": [
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "De acordo com o texto, a globalização pode ser descrita como:",
+      "options": [
+        "Um processo puramente económico que beneficia todos igualmente.",
+        "Uma reconfiguração ontológica que homogeneíza culturas, mas também gera resistências.",
+        "Um fenómeno recente sem impacto nas comunidades locais.",
+        "Uma força unívoca que elimina qualquer forma de diversidade."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a globalização 'configura uma reconfiguração ontológica do espaço e do tempo' e que, embora homogeneíze, também 'proliferam resistências' (movimentos de revalorização).",
+      "difficulty": 4,
+      "index": 0
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'cosmopolítica emancipatória' no texto sugere:",
+      "options": [
+        "Uma política global que ignora as particularidades locais.",
+        "Uma articulação entre o universal e o particular que promove justiça cognitiva.",
+        "Um modelo de governação baseado exclusivamente em instituições supranacionais.",
+        "Uma rejeição total da globalização em favor do isolacionismo."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere 'articular uma universalidade que não anule as particularidades, mas que as integre num projeto comum de justiça cognitiva', o que corresponde à ideia de cosmopolítica emancipatória.",
+      "difficulty": 5,
+      "index": 1
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a principal crítica à globalização mencionada no texto?",
+      "options": [
+        "Ela promove a diversidade cultural.",
+        "Ela esconde assimetrias profundas, como a restrição da liberdade de circulação para muitos.",
+        "Ela é um fenómeno exclusivamente positivo.",
+        "Ela elimina completamente as fronteiras nacionais."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a retórica da interconexão esconde frequentemente assimetrias profundas' e que 'a liberdade de circulação é um privilégio reservado a poucos'.",
+      "difficulty": 4,
+      "index": 2
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto sugere que o futuro da globalização depende de:",
+      "options": [
+        "Aceitar passivamente a homogeneização cultural.",
+        "Repensá-la como um campo de disputa onde múltiplos futuros são possíveis.",
+        "Retornar a modelos económicos pré-globalização.",
+        "Ignorar as resistências locais."
+      ],
+      "answer": "B",
+      "explanation": "A última frase do texto indica que 'urge repensar a globalização não como um destino inexorável, mas como um campo de disputa onde múltiplos futuros são possíveis'.",
+      "difficulty": 4,
+      "index": 3
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A palavra 'epistémica' no primeiro parágrafo refere-se a:",
+      "options": [
+        "Questões económicas.",
+        "Questões relacionadas com o conhecimento.",
+        "Questões políticas.",
+        "Questões estéticas."
+      ],
+      "answer": "B",
+      "explanation": "'Epistémico' deriva de 'episteme' (conhecimento), referindo-se, portanto, à diversidade de formas de conhecimento.",
+      "difficulty": 5,
+      "index": 4
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto utiliza a expressão 'valor de troca' e 'valor de uso'. Esta distinção é típica de que corrente de pensamento?",
+      "options": [
+        "Liberalismo clássico.",
+        "Marxismo.",
+        "Positivismo lógico.",
+        "Existencialismo."
+      ],
+      "answer": "B",
+      "explanation": "A distinção entre valor de uso e valor de troca é central na crítica da economia política de Karl Marx.",
+      "difficulty": 5,
+      "index": 5
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a função dos 'muros' mencionados no texto?",
+      "options": [
+        "Proteger as comunidades locais.",
+        "Simbolizar a abertura das fronteiras.",
+        "Ilustrar a contradição entre a livre circulação do capital e a restrição da circulação de pessoas.",
+        "Representar a segurança global."
+      ],
+      "answer": "C",
+      "explanation": "O texto afirma que 'muros que se erguem enquanto fronteiras se dissolvem para o capital', evidenciando a contradição.",
+      "difficulty": 4,
+      "index": 6
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto sugere que a globalização ameaça a 'diversidade epistémica'. Isto significa que:",
+      "options": [
+        "A globalização promove a diversidade de conhecimentos.",
+        "A globalização uniformiza os modos de conhecer e saber.",
+        "A globalização não tem impacto no conhecimento.",
+        "A globalização valoriza apenas o conhecimento científico."
+      ],
+      "answer": "B",
+      "explanation": "A 'diversidade epistémica' refere-se à variedade de formas de conhecimento, e o texto afirma que a globalização a ameaça ao impor 'um discurso único'.",
+      "difficulty": 5,
+      "index": 7
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O que são 'geografias da exclusão'?",
+      "options": [
+        "Regiões geograficamente isoladas.",
+        "Espaços onde a globalização não chega.",
+        "Territórios onde a população é marginalizada e privada de direitos.",
+        "Áreas de livre comércio."
+      ],
+      "answer": "C",
+      "explanation": "A expressão 'geografias da exclusão' refere-se a espaços de marginalização, contrastando com os privilégios de circulação de poucos.",
+      "difficulty": 4,
+      "index": 8
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto conclui que a globalização deve ser entendida como:",
+      "options": [
+        "Um processo linear e inevitável.",
+        "Um campo de disputa política.",
+        "Uma realidade puramente económica.",
+        "Um fenómeno cultural sem implicações políticas."
+      ],
+      "answer": "B",
+      "explanation": "A conclusão do texto é que a globalização é 'um campo de disputa onde múltiplos futuros são possíveis'.",
+      "difficulty": 4,
+      "index": 9
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "No texto, a 'compressão do globo' refere-se a:",
+      "options": [
+        "A redução do tamanho físico do planeta.",
+        "A aceleração das comunicações e transportes que encurtam distâncias.",
+        "A diminuição da população mundial.",
+        "A contração económica global."
+      ],
+      "answer": "B",
+      "explanation": "'Compressão do globo' é uma metáfora para a perceção de que as distâncias se encurtam devido às tecnologias.",
+      "difficulty": 4,
+      "index": 10
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto menciona 'movimentos de revalorização do artesanato'. Estes são exemplos de:",
+      "options": [
+        "Resistência à globalização.",
+        "Aceitação passiva da globalização.",
+        "Fenómenos económicos globais.",
+        "Práticas exclusivamente urbanas."
+      ],
+      "answer": "A",
+      "explanation": "O texto apresenta estes movimentos como exemplos de 'resistências' que 'proliferam' face à homogeneização.",
+      "difficulty": 4,
+      "index": 11
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A palavra 'unívoca' no texto significa:",
+      "options": [
+        "Que tem múltiplos sentidos.",
+        "Que tem apenas um sentido ou direção.",
+        "Que é ambígua.",
+        "Que é contraditória."
+      ],
+      "answer": "B",
+      "explanation": "'Unívoco' significa 'que tem um único sentido', opondo-se a 'equívoco' ou 'múltiplo'.",
+      "difficulty": 5,
+      "index": 12
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto critica a 'retórica da interconexão' por:",
+      "options": [
+        "Ser excessivamente otimista.",
+        "Esconder assimetrias e desigualdades.",
+        "Ser demasiado pessimista.",
+        "Ignorar a dimensão cultural."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a retórica da interconexão esconde frequentemente assimetrias profundas'.",
+      "difficulty": 4,
+      "index": 13
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é o principal desafio para uma 'cosmopolítica emancipatória'?",
+      "options": [
+        "Eliminar todas as particularidades locais.",
+        "Articular o universal e o particular sem anular as diferenças.",
+        "Impor uma cultura global homogénea.",
+        "Promover o isolamento das comunidades."
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona 'articular uma universalidade que não anule as particularidades, mas que as integre'.",
+      "difficulty": 5,
+      "index": 14
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a ordem correta dos parágrafos.",
+      "paragraphs": [
+        "No século XX, a fenomenologia e o existencialismo tentaram responder a estas questões, enfatizando a experiência vivida e a liberdade radical.",
+        "A filosofia, desde os seus primórdios, interroga-se sobre a natureza do ser e do conhecimento.",
+        "Hoje, a filosofia enfrenta novos desafios: a inteligência artificial, a crise ecológica, a biotecnologia.",
+        "Contudo, a modernidade trouxe consigo uma viragem antropocêntrica que colocou o sujeito no centro da reflexão.",
+        "No entanto, o pós-estruturalismo veio desconstruir as próprias noções de sujeito e verdade, abrindo caminho para uma filosofia da diferença."
+      ],
+      "answer": "B-D-A-E-C",
+      "explanation": "A ordem lógica começa com a introdução histórica (B), segue com a viragem moderna (D), depois as respostas do século XX (A), a crítica pós-estruturalista (E) e, por fim, os desafios contemporâneos (C).",
+      "difficulty": 4,
+      "index": 15
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a ordem correta dos parágrafos.",
+      "paragraphs": [
+        "A arte contemporânea, muitas vezes acusada de hermetismo, constitui, na verdade, um laboratório de experimentação sensível e política.",
+        "Seja como for, a arte contemporânea reflete as contradições do nosso tempo: a precariedade, a vigilância, a crise climática.",
+        "Esta viragem participativa, contudo, não está isenta de críticas.",
+        "As instalações imersivas, as performances e as obras digitais desafiam as categorias tradicionais do belo e do sublime.",
+        "Artistas como Ai Weiwei ou Olafur Eliasson utilizam os seus trabalhos para denunciar injustiças e propor alternativas."
+      ],
+      "answer": "A-D-C-B-E",
+      "explanation": "A ordem começa com a definição geral (A), seguida das características (D), depois a crítica (C), a reflexão sobre o tempo (B) e, por fim, exemplos concretos (E).",
+      "difficulty": 4,
+      "index": 16
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a ordem correta dos parágrafos.",
+      "paragraphs": [
+        "A justiça, enquanto ideal regulador, sempre ocupou um lugar central na reflexão ética e política.",
+        "Não obstante, a justiça global coloca desafios adicionais: como garantir direitos num mundo marcado por soberanias nacionais e fluxos transnacionais?",
+        "Críticos como Amartya Sen e Martha Nussbaum questionaram, porém, a abstração deste modelo.",
+        "John Rawls, na sua obra \"Uma Teoria da Justiça\", propôs um modelo baseado no princípio da diferença.",
+        "A ideia de uma justiça cosmopolita, defendida por autores como David Held, propõe a criação de instituições supranacionais."
+      ],
+      "answer": "A-D-C-B-E",
+      "explanation": "A ordem começa com a introdução (A), segue com Rawls (D), depois as críticas (C), os desafios globais (B) e, por fim, a proposta cosmopolita (E).",
+      "difficulty": 4,
+      "index": 17
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a ordem correta dos parágrafos.",
+      "paragraphs": [
+        "A diplomacia, enquanto arte da negociação e da mediação, tem vindo a transformar-se profundamente na era digital.",
+        "Apesar destes desafios, a diplomacia continua a ser um instrumento indispensável para a resolução de conflitos e a promoção da paz.",
+        "No entanto, esta abertura traz consigo novos riscos: a desinformação, a manipulação da opinião pública.",
+        "Se, no passado, as relações internacionais eram dominadas por encontros secretos e acordos bilaterais, hoje a opinião pública desempenha um papel relevante.",
+        "A diplomacia digital exige, por isso, uma literacia crítica e uma ética da comunicação."
+      ],
+      "answer": "A-D-C-E-B",
+      "explanation": "A ordem começa com a transformação (A), seguida do contraste passado/presente (D), depois os riscos (C), a exigência de literacia (E) e, por fim, a conclusão sobre a importância (B).",
+      "difficulty": 4,
+      "index": 18
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a ordem correta dos parágrafos.",
+      "paragraphs": [
+        "A filosofia, desde os seus primórdios, interroga-se sobre a natureza do ser e do conhecimento.",
+        "Gilles Deleuze, por exemplo, propõe um pensamento nómada que recusa qualquer fundamento transcendente.",
+        "Contudo, a modernidade trouxe consigo uma viragem antropocêntrica que colocou o sujeito no centro da reflexão.",
+        "No século XX, a fenomenologia e o existencialismo tentaram responder a estas questões.",
+        "A questão permanece em aberto, mas uma coisa é certa: a filosofia não pode renunciar à sua vocação crítica e utópica."
+      ],
+      "answer": "A-C-D-B-E",
+      "explanation": "A ordem começa com a introdução (A), segue com a viragem moderna (C), as respostas do século XX (D), o exemplo de Deleuze (B) e, por fim, a conclusão (E).",
+      "difficulty": 4,
+      "index": 19
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre arte contemporânea afirma que as instalações imersivas:",
+      "options": [
+        "Mantêm as categorias tradicionais do belo.",
+        "Desafiam as categorias tradicionais do belo e do sublime.",
+        "São meramente decorativas.",
+        "Não têm qualquer impacto político."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que as instalações imersivas 'desafiam as categorias tradicionais do belo e do sublime'.",
+      "difficulty": 4,
+      "index": 20
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O que é uma 'estética relacional'?",
+      "options": [
+        "Uma estética que valoriza a contemplação passiva.",
+        "Uma estética que convoca o espectador a participar ativamente na construção do sentido.",
+        "Uma estética baseada em objetos estáticos.",
+        "Uma estética que rejeita a interação."
+      ],
+      "answer": "B",
+      "explanation": "O texto define a estética relacional como aquela que 'convoca o espectador a participar ativamente na construção do sentido'.",
+      "difficulty": 5,
+      "index": 21
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Segundo o texto, qual é uma crítica feita à viragem participativa na arte?",
+      "options": [
+        "Ela torna a arte mais acessível.",
+        "Ela pode transformar a arte em mero entretenimento, perdendo a capacidade crítica.",
+        "Ela é demasiado elitista.",
+        "Ela ignora a tecnologia."
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona que 'alguns teóricos alertam para o risco de a arte se transformar num mero entretenimento, perdendo a sua capacidade de provocar estranhamento e crítica social'.",
+      "difficulty": 4,
+      "index": 22
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sugere que a arte contemporânea reflete:",
+      "options": [
+        "Apenas temas estéticos.",
+        "As contradições do nosso tempo, como a precariedade e a crise climática.",
+        "Uma visão utópica do futuro.",
+        "A ausência de preocupações políticas."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a arte contemporânea reflete as contradições do nosso tempo: a precariedade, a vigilância, a crise climática'.",
+      "difficulty": 4,
+      "index": 23
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a função dos artistas como Ai Weiwei e Olafur Eliasson, segundo o texto?",
+      "options": [
+        "Produzir obras puramente decorativas.",
+        "Denunciar injustiças e propor alternativas.",
+        "Ignorar as questões sociais.",
+        "Promover a passividade do espectador."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que estes artistas 'utilizam os seus trabalhos para denunciar injustiças e propor alternativas'.",
+      "difficulty": 4,
+      "index": 24
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A expressão 'laboratório de experimentação sensível e política' sugere que a arte contemporânea:",
+      "options": [
+        "É um espaço de teste de novas formas de perceção e ação política.",
+        "É um local de produção industrial.",
+        "É um campo exclusivamente científico.",
+        "Não tem relação com a política."
+      ],
+      "answer": "A",
+      "explanation": "'Laboratório' sugere experimentação, e 'sensível e política' indica a dupla dimensão estética e política.",
+      "difficulty": 5,
+      "index": 25
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre filosofia afirma que a modernidade trouxe:",
+      "options": [
+        "Uma viragem teocêntrica.",
+        "Uma viragem antropocêntrica.",
+        "Uma viragem cosmocêntrica.",
+        "Uma viragem niilista."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a modernidade trouxe consigo uma viragem antropocêntrica'.",
+      "difficulty": 4,
+      "index": 26
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O que caracteriza o pensamento nómada de Deleuze, segundo o texto?",
+      "options": [
+        "Aceitação de fundamentos transcendentes.",
+        "Recusa de qualquer fundamento transcendente e aposta na imanência.",
+        "Defesa de um sujeito fixo.",
+        "Rejeição da multiplicidade."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que Deleuze 'propõe um pensamento nómada que recusa qualquer fundamento transcendente, apostando na imanência e na multiplicidade'.",
+      "difficulty": 5,
+      "index": 27
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre justiça menciona que Rawls propôs:",
+      "options": [
+        "O princípio da diferença.",
+        "O princípio da igualdade absoluta.",
+        "O princípio da utilidade.",
+        "O princípio da liberdade total."
+      ],
+      "answer": "A",
+      "explanation": "O texto afirma que Rawls 'propôs um modelo baseado no princípio da diferença'.",
+      "difficulty": 4,
+      "index": 28
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a principal crítica de Sen e Nussbaum ao modelo de Rawls?",
+      "options": [
+        "Ele é demasiado concreto.",
+        "Ele é demasiado abstrato e ignora as capacidades humanas.",
+        "Ele é demasiado igualitário.",
+        "Ele é demasiado liberal."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que eles 'questionaram a abstração deste modelo, defendendo uma abordagem centrada nas capacidades humanas'.",
+      "difficulty": 4,
+      "index": 29
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre diplomacia afirma que a 'diplomacia pública' procura:",
+      "options": [
+        "Influenciar apenas governos.",
+        "Influenciar atores não estatais, promovendo o diálogo.",
+        "Manter o secretismo das negociações.",
+        "Ignorar a opinião pública."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a diplomacia pública 'procura influenciar atores não estatais, promovendo o diálogo e a cooperação'.",
+      "difficulty": 4,
+      "index": 30
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é um dos riscos da diplomacia digital mencionados no texto?",
+      "options": [
+        "Aumento da transparência.",
+        "Desinformação e manipulação da opinião pública.",
+        "Maior ponderação nas decisões.",
+        "Redução da velocidade das comunicações."
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona 'a desinformação, a manipulação da opinião pública' como riscos.",
+      "difficulty": 4,
+      "index": 31
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre justiça conclui que o caminho para uma ordem mundial mais justa é:",
+      "options": [
+        "Certo e previsível.",
+        "Incerto, devido a obstáculos políticos e culturais.",
+        "Já alcançado.",
+        "Impossível."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'os obstáculos políticos e culturais são imensos, e o caminho para uma ordem mundial mais justa permanece incerto'.",
+      "difficulty": 4,
+      "index": 32
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sobre diplomacia sugere que o futuro da diplomacia será:",
+      "options": [
+        "Exclusivamente digital.",
+        "Uma prática híbrida que combina tradição e digital.",
+        "O retorno ao secretismo total.",
+        "A eliminação das negociações bilaterais."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'o futuro da diplomacia será, provavelmente, o de uma prática híbrida, que combina o melhor da tradição com as potencialidades do digital'.",
+      "difficulty": 4,
+      "index": 33
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No texto sobre filosofia, a expressão 'gramática filosófica' refere-se a:",
+      "options": [
+        "Um conjunto de regras gramaticais.",
+        "Um novo vocabulário e estrutura conceptual para pensar a contemporaneidade.",
+        "Uma crítica da linguagem comum.",
+        "Um manual de filosofia."
+      ],
+      "answer": "B",
+      "explanation": "O texto questiona se 'necessitamos de uma nova gramática filosófica, capaz de captar a complexidade do contemporâneo', referindo-se a novos conceitos.",
+      "difficulty": 5,
+      "index": 34
+    },
+    {
+      "type": "choice",
+      "part": 4,
+      "question": "O texto sobre arte afirma que a arte contemporânea reafirma-se como:",
+      "options": [
+        "Um espaço de entretenimento.",
+        "Um espaço de resistência e imaginação política.",
+        "Um espaço de conformismo.",
+        "Um espaço de passividade."
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que 'a arte reafirma-se como um espaço de resistência e de imaginação política'.",
+      "difficulty": 4,
+      "index": 35
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 1: A globalização, enquanto fenómeno histórico, não se confina a uma mera interconexão económica.",
+      "items": [
+        "Linha 1: A globalização, enquanto fenómeno histórico, não se confina a uma mera interconexão económica."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está gramaticalmente correta e sem palavras a mais.",
+      "difficulty": 4,
+      "index": 36
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 2: Ela configura, antes, uma reconfiguração ontológica do espaço e do tempo.",
+      "items": [
+        "Linha 2: Ela configura, antes, uma reconfiguração ontológica do espaço e do tempo."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 37
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 3: Se, por um lado, a compressão do globo permitiu a circulação instantânea de capitais e informações, por outro, instaurou uma lógica de homogeneização cultural que ameaça a diversidade epistémica.",
+      "items": [
+        "Linha 3: Se, por um lado, a compressão do globo permitiu a circulação instantânea de capitais e informações, por outro, instaurou uma lógica de homogeneização cultural que ameaça a diversidade epistémica."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 38
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 4: As comunidades locais, outrora ancoradas em tradições seculares, veem-se agora confrontadas com a hegemonia de um discurso único.",
+      "items": [
+        "Linha 4: As comunidades locais, outrora ancoradas em tradições seculares, veem-se agora confrontadas com a hegemonia de um discurso único."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 39
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 5: Não obstante, seria ingénuo supor que a globalização opera de forma unívoca.",
+      "items": [
+        "Linha 5: Não obstante, seria ingénuo supor que a globalização opera de forma unívoca."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 40
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 6: As resistências proliferam: movimentos de revalorização do artesanato, línguas minoritárias que renascem das cinzas, práticas agrícolas ancestrais que desafiam a monocultura.",
+      "items": [
+        "Linha 6: As resistências proliferam: movimentos de revalorização do artesanato, línguas minoritárias que renascem das cinzas, práticas agrícolas ancestrais que desafiam a monocultura."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 41
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 7: É precisamente nesta tensão dialética entre o global e o local que se forja a possibilidade de uma cosmopolítica emancipatória.",
+      "items": [
+        "Linha 7: É precisamente nesta tensão dialética entre o global e o local que se forja a possibilidade de uma cosmopolítica emancipatória."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 42
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 8: O desafio reside em articular uma universalidade que não anule as particularidades, mas que as integre num projeto comum de justiça cognitiva.",
+      "items": [
+        "Linha 8: O desafio reside em articular uma universalidade que não anule as particularidades, mas que as integre num projeto comum de justiça cognitiva."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 43
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 9: Porém, a retórica da interconexão esconde frequentemente assimetrias profundas.",
+      "items": [
+        "Linha 9: Porém, a retórica da interconexão esconde frequentemente assimetrias profundas."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 44
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 10: Os fluxos migratórios, por exemplo, revelam a face sombria da globalização: muros que se erguem enquanto fronteiras se dissolvem para o capital.",
+      "items": [
+        "Linha 10: Os fluxos migratórios, por exemplo, revelam a face sombria da globalização: muros que se erguem enquanto fronteiras se dissolvem para o capital."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 45
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 11: A liberdade de circulação é um privilégio reservado a poucos, enquanto a maioria permanece confinada a geografias da exclusão.",
+      "items": [
+        "Linha 11: A liberdade de circulação é um privilégio reservado a poucos, enquanto a maioria permanece confinada a geografias da exclusão."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 46
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 12: Urge, pois, repensar a globalização não como um destino inexorável, mas como um campo de disputa onde múltiplos futuros são possíveis.",
+      "items": [
+        "Linha 12: Urge, pois, repensar a globalização não como um destino inexorável, mas como um campo de disputa onde múltiplos futuros são possíveis."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 47
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 13: A filosofia, desde os seus primórdios, interroga-se sobre a natureza do ser e do conhecimento.",
+      "items": [
+        "Linha 13: A filosofia, desde os seus primórdios, interroga-se sobre a natureza do ser e do conhecimento."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 48
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 14: Contudo, a modernidade trouxe consigo uma viragem antropocêntrica que colocou o sujeito no centro da reflexão.",
+      "items": [
+        "Linha 14: Contudo, a modernidade trouxe consigo uma viragem antropocêntrica que colocou o sujeito no centro da reflexão."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 49
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 15: Esta mudança, embora fecunda, gerou aporias que ainda hoje nos assombram: como fundamentar a ética numa razão que se autolegítima?",
+      "items": [
+        "Linha 15: Esta mudança, embora fecunda, gerou aporias que ainda hoje nos assombram: como fundamentar a ética numa razão que se autolegítima?"
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 50
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 16: No século XX, a fenomenologia e o existencialismo tentaram responder a estas questões, enfatizando a experiência vivida e a liberdade radical.",
+      "items": [
+        "Linha 16: No século XX, a fenomenologia e o existencialismo tentaram responder a estas questões, enfatizando a experiência vivida e a liberdade radical."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 51
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 17: No entanto, o pós-estruturalismo veio desconstruir as próprias noções de sujeito e verdade, abrindo caminho para uma filosofia da diferença.",
+      "items": [
+        "Linha 17: No entanto, o pós-estruturalismo veio desconstruir as próprias noções de sujeito e verdade, abrindo caminho para uma filosofia da diferença."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 52
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 18: Gilles Deleuze, por exemplo, propõe um pensamento nómada que recusa qualquer fundamento transcendente, apostando na imanência e na multiplicidade.",
+      "items": [
+        "Linha 18: Gilles Deleuze, por exemplo, propõe um pensamento nómada que recusa qualquer fundamento transcendente, apostando na imanência e na multiplicidade."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 53
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 19: Hoje, a filosofia enfrenta novos desafios: a inteligência artificial, a crise ecológica, a biotecnologia.",
+      "items": [
+        "Linha 19: Hoje, a filosofia enfrenta novos desafios: a inteligência artificial, a crise ecológica, a biotecnologia."
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 54
+    },
+    {
+      "type": "error_detect",
+      "part": 5,
+      "question": "Linha 20: Será que os conceitos clássicos — alma, liberdade, justiça — ainda servem para pensar estas realidades? Ou necessitamos de uma nova gramática filosófica, capaz de captar a complexidade do contemporâneo?",
+      "items": [
+        "Linha 20: Será que os conceitos clássicos — alma, liberdade, justiça — ainda servem para pensar estas realidades? Ou necessitamos de uma nova gramática filosófica, capaz de captar a complexidade do contemporâneo?"
+      ],
+      "options": [
+        "correta"
+      ],
+      "answer": "correta",
+      "explanation": "A linha está correta.",
+      "difficulty": 4,
+      "index": 55
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A globalização, ______ fenómeno histórico, não se confina a uma mera interconexão económica.",
+      "answer": "enquanto",
+      "explanation": "A expressão 'enquanto' é usada para introduzir uma comparação ou qualificação.",
+      "difficulty": 4,
+      "index": 56
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Ela configura, ______, uma reconfiguração ontológica do espaço e do tempo.",
+      "answer": "antes",
+      "explanation": "'Antes' aqui significa 'pelo contrário' ou 'melhor dizendo'.",
+      "difficulty": 4,
+      "index": 57
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Se, por um lado, a compressão do globo permitiu a circulação instantânea de capitais e informações, ______ outro, instaurou uma lógica de homogeneização cultural.",
+      "answer": "por",
+      "explanation": "A expressão 'por outro lado' é usada para contrastar ideias.",
+      "difficulty": 4,
+      "index": 58
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "As comunidades locais, outrora ancoradas em tradições seculares, ______-se agora confrontadas com a hegemonia de um discurso único.",
+      "answer": "veem",
+      "explanation": "O verbo 'ver' na terceira pessoa do plural do presente do indicativo é 'veem'.",
+      "difficulty": 4,
+      "index": 59
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Não obstante, ______ ingénuo supor que a globalização opera de forma unívoca.",
+      "answer": "seria",
+      "explanation": "O condicional 'seria' é usado para expressar uma hipótese ou opinião.",
+      "difficulty": 4,
+      "index": 60
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "As resistências proliferam: movimentos de revalorização do artesanato, línguas minoritárias que renascem ______ cinzas.",
+      "answer": "das",
+      "explanation": "A expressão 'renascer das cinzas' é idiomática e requer a preposição 'de' contraída com o artigo 'as'.",
+      "difficulty": 5,
+      "index": 61
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "É precisamente nesta tensão dialética entre o global e o local ______ se forja a possibilidade de uma cosmopolítica emancipatória.",
+      "answer": "que",
+      "explanation": "O pronome relativo 'que' introduz a oração subordinada.",
+      "difficulty": 4,
+      "index": 62
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "O desafio reside ______ articular uma universalidade que não anule as particularidades.",
+      "answer": "em",
+      "explanation": "A preposição 'em' é exigida pelo verbo 'residir'.",
+      "difficulty": 4,
+      "index": 63
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Porém, a retórica da interconexão esconde frequentemente assimetrias ______.",
+      "answer": "profundas",
+      "explanation": "O adjetivo 'profundas' concorda com 'assimetrias'.",
+      "difficulty": 4,
+      "index": 64
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Os fluxos migratórios, por exemplo, revelam a face ______ da globalização.",
+      "answer": "sombria",
+      "explanation": "'Face sombria' é uma expressão idiomática que significa o lado negativo.",
+      "difficulty": 4,
+      "index": 65
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A liberdade de circulação é um privilégio reservado a poucos, ______ a maioria permanece confinada a geografias da exclusão.",
+      "answer": "enquanto",
+      "explanation": "'Enquanto' estabelece um contraste entre duas situações.",
+      "difficulty": 4,
+      "index": 66
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Urge, pois, repensar a globalização não como um destino inexorável, ______ como um campo de disputa.",
+      "answer": "mas",
+      "explanation": "A conjunção adversativa 'mas' é usada para contrastar as duas ideias.",
+      "difficulty": 4,
+      "index": 67
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A filosofia, desde os seus primórdios, interroga-______ sobre a natureza do ser e do conhecimento.",
+      "answer": "se",
+      "explanation": "O pronome reflexo 'se' é necessário com o verbo 'interrogar-se'.",
+      "difficulty": 4,
+      "index": 68
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Contudo, a modernidade trouxe consigo uma viragem antropocêntrica ______ colocou o sujeito no centro da reflexão.",
+      "answer": "que",
+      "explanation": "O pronome relativo 'que' introduz a oração subordinada relativa.",
+      "difficulty": 4,
+      "index": 69
+    }
+  ],
+  "parts": [
+    {
+      "label": "P1 — Artigo 1",
+      "qStart": 0,
+      "count": 15,
+      "sourceText": "A globalização, enquanto fenómeno histórico, não se confina a uma mera interconexão económica; ela configura, antes, uma reconfiguração ontológica do espaço e do tempo. Se, por um lado, a compressão do globo permitiu a circulação instantânea de capitais e informações, por outro, instaurou uma lógica de homogeneização cultural que ameaça a diversidade epistémica. As comunidades locais, outrora ancoradas em tradições seculares, veem-se agora confrontadas com a hegemonia de um discurso único, onde o valor de troca se sobrepõe ao valor de uso.\n\nNão obstante, seria ingénuo supor que a globalização opera de forma unívoca. As resistências proliferam: movimentos de revalorização do artesanato, línguas minoritárias que renascem das cinzas, práticas agrícolas ancestrais que desafiam a monocultura. É precisamente nesta tensão dialética entre o global e o local que se forja a possibilidade de uma cosmopolítica emancipatória. O desafio reside em articular uma universalidade que não anule as particularidades, mas que as integre num projeto comum de justiça cognitiva.\n\nPorém, a retórica da interconexão esconde frequentemente assimetrias profundas. Os fluxos migratórios, por exemplo, revelam a face sombria da globalização: muros que se erguem enquanto fronteiras se dissolvem para o capital. A liberdade de circulação é um privilégio reservado a poucos, enquanto a maioria permanece confinada a geografias da exclusão. Urge, pois, repensar a globalização não como um destino inexorável, mas como um campo de disputa onde múltiplos futuros são possíveis."
+    },
+    {
+      "label": "P2 — Artigo 2",
+      "qStart": 15,
+      "count": 5,
+      "sourceText": "A filosofia, desde os seus primórdios, interroga-se sobre a natureza do ser e do conhecimento. Contudo, a modernidade trouxe consigo uma viragem antropocêntrica que colocou o sujeito no centro da reflexão. Esta mudança, embora fecunda, gerou aporias que ainda hoje nos assombram: como fundamentar a ética numa razão que se autolegítima? Como escapar ao relativismo sem recair num dogmatismo metafísico?\n\nNo século XX, a fenomenologia e o existencialismo tentaram responder a estas questões, enfatizando a experiência vivida e a liberdade radical. No entanto, o pós-estruturalismo veio desconstruir as próprias noções de sujeito e verdade, abrindo caminho para uma filosofia da diferença. Gilles Deleuze, por exemplo, propõe um pensamento nómada que recusa qualquer fundamento transcendente, apostando na imanência e na multiplicidade.\n\nHoje, a filosofia enfrenta novos desafios: a inteligência artificial, a crise ecológica, a biotecnologia. Será que os conceitos clássicos — alma, liberdade, justiça — ainda servem para pensar estas realidades? Ou necessitamos de uma nova gramática filosófica, capaz de captar a complexidade do contemporâneo? A questão permanece em aberto, mas uma coisa é certa: a filosofia não pode renunciar à sua vocação crítica e utópica."
+    },
+    {
+      "label": "P3 — Artigo 3",
+      "qStart": 20,
+      "count": 15,
+      "sourceText": "A arte contemporânea, muitas vezes acusada de hermetismo, constitui, na verdade, um laboratório de experimentação sensível e política. As instalações imersivas, as performances e as obras digitais desafiam as categorias tradicionais do belo e do sublime, propondo uma estética relacional que convoca o espectador a participar ativamente na construção do sentido. Já não se trata de contemplar, mas de experienciar.\n\nEsta viragem participativa, contudo, não está isenta de críticas. Alguns teóricos alertam para o risco de a arte se transformar num mero entretenimento, perdendo a sua capacidade de provocar estranhamento e crítica social. Outros, pelo contrário, veem na interatividade uma democratização do acesso à cultura, uma forma de romper com a passividade imposta pela indústria cultural.\n\nSeja como for, a arte contemporânea reflete as contradições do nosso tempo: a precariedade, a vigilância, a crise climática. Artistas como Ai Weiwei ou Olafur Eliasson utilizam os seus trabalhos para denunciar injustiças e propor alternativas. A arte, assim, reafirma-se como um espaço de resistência e de imaginação política, onde o impossível se torna pensável."
+    },
+    {
+      "label": "P4 — Artigo 4",
+      "qStart": 35,
+      "count": 20,
+      "sourceText": "A justiça, enquanto ideal regulador, sempre ocupou um lugar central na reflexão ética e política. No entanto, a sua concretização revela-se problemática, sobretudo quando confrontada com as desigualdades estruturais que marcam as sociedades contemporâneas. John Rawls, na sua obra \"Uma Teoria da Justiça\", propôs um modelo baseado no princípio da diferença, segundo o qual as desigualdades só são admissíveis se beneficiarem os mais desfavorecidos.\n\nCríticos como Amartya Sen e Martha Nussbaum questionaram, porém, a abstração deste modelo, defendendo uma abordagem centrada nas capacidades humanas. Para eles, a justiça não se mede apenas pela distribuição de bens, mas pela possibilidade efetiva de cada pessoa realizar uma vida que tenha razões para valorizar. Esta perspetiva, mais sensível às particularidades contextuais, tem influenciado políticas públicas em várias partes do mundo.\n\nNão obstante, a justiça global coloca desafios adicionais: como garantir direitos num mundo marcado por soberanias nacionais e fluxos transnacionais? A ideia de uma justiça cosmopolita, defendida por autores como David Held, propõe a criação de instituições supranacionais capazes de regular a economia global e proteger os direitos humanos. No entanto, os obstáculos políticos e culturais são imensos, e o caminho para uma ordem mundial mais justa permanece incerto."
+    },
+    {
+      "label": "P5 — Artigo 5",
+      "qStart": 55,
+      "count": 15,
+      "sourceText": "A diplomacia, enquanto arte da negociação e da mediação, tem vindo a transformar-se profundamente na era digital. Se, no passado, as relações internacionais eram dominadas por encontros secretos e acordos bilaterais, hoje a opinião pública, as redes sociais e as organizações não governamentais desempenham um papel cada vez mais relevante. A chamada \"diplomacia pública\" procura influenciar atores não estatais, promovendo o diálogo e a cooperação para além das fronteiras institucionais.\n\nNo entanto, esta abertura traz consigo novos riscos: a desinformação, a manipulação da opinião pública e a instrumentalização de causas legítimas por interesses geopolíticos. A diplomacia digital exige, por isso, uma literacia crítica e uma ética da comunicação que nem sempre estão presentes. Além disso, a velocidade das trocas informacionais pode comprometer a prudência e a ponderação necessárias à tomada de decisões estratégicas.\n\nApesar destes desafios, a diplomacia continua a ser um instrumento indispensável para a resolução de conflitos e a promoção da paz. A sua eficácia depende, contudo, da capacidade de adaptação a um mundo em mutação acelerada, onde as certezas do passado dão lugar a incertezas crescentes. O futuro da diplomacia será, provavelmente, o de uma prática híbrida, que combina o melhor da tradição com as potencialidades do digital."
+    }
+  ],
+  "examDifficulty": 97,
+  "examDuration": 120,
+  "timestamp": 1782243669473
+}

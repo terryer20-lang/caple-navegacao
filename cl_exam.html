@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CL — CAPLE</title>
-  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="icon-192.png">
@@ -15,6 +14,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="store/storage.js"></script>
+  <script src="components/HighlightNotes.js"></script>
   <style>
     :root {
       --line: #e2e8f0;
@@ -30,15 +30,89 @@
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{font-size:15px}
-    body{font-family: system-ui, -apple-system, sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+    body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
     ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
 
-    /* ─── Cards ─── */
-    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
+    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
+    .exam-header h1{font-size:1.05rem;font-weight:700}
+    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
+    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
+    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
+    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
+    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-submit:hover{background:#059669}.btn-submit:disabled{opacity:0.4;cursor:default}
+    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
+    .btn-ghost:hover{background:#f1f5f9}
+    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
+    .btn-primary:hover{background:#1e40af}
+    .split-divider{width:7px;cursor:col-resize;flex-shrink:0;background:transparent;position:relative;z-index:10;transition:background 0.12s}
+    .split-divider:hover,.split-divider.dragging{background:#e2e8f0}
+    .split-divider::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:28px;background:#cbd5e1;border-radius:2px;transition:background 0.12s}
+    .split-divider:hover::after,.split-divider.dragging::after{background:#94a3b8}
+    .diff-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:600}
+    .diff-badge-high{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+    .diff-badge-med{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
 
-    /* ─── Question nav ─── */
+    /* ─── Part tabs ─── */
+    .part-tabs{display:flex;gap:4px;padding:8px 16px;border-bottom:1px solid var(--line);background:#fff;flex-shrink:0}
+    .part-tab{padding:5px 14px;border:1px solid var(--line);border-radius:6px;font-size:0.75rem;font-weight:600;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
+    .part-tab:hover{background:#f1f5f9;border-color:#94a3b8}
+    .part-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 6px rgba(29,78,216,0.25)}
+    .part-tab.answered{background:#eff6ff;border-color:var(--accent);color:var(--accent)}
+    .part-dot{display:inline-block;width:6px;height:6px;margin-left:5px;vertical-align:middle}
+    .part-dot.done{background:var(--success)}
+    .part-dot.pending{background:#cbd5e1}
+
+    /* ─── Word-span rendering (CL) ─── */
+    .word-cl{cursor:pointer;padding:1px;transition:all 0.1s ease;white-space:pre-wrap}
+    .word-cl:hover{background:#dbeafe}
+    .word-space{padding:1px;white-space:pre}
+    .text-slate-700{text-indent:0!important}
+    .text-slate-700 p{margin:0;padding:0;text-indent:0;line-height:1.8}
+    .text-slate-700 p + p{margin-top:0.8em}
+    /* Angular highlights (no border-radius) */
+    .word-cl.hl-yellow{background:#fff7a0!important}
+    .word-cl.hl-blue{background:#93c5fd!important}
+    .word-cl.hl-pd{background:#fca5a5!important}
+    .word-space.hl-yellow{background:#fff7a0!important}
+    .word-space.hl-blue{background:#93c5fd!important}
+
+    /* ─── Selection popup ─── */
+    .hl-popup{position:fixed;z-index:1000;display:flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);padding:4px;transform:translateY(-100%)}
+    .hl-popup-btn{padding:6px 14px;font-size:0.78rem;font-weight:600;border:none;border-radius:6px;cursor:pointer;transition:all 0.1s ease}
+    .hl-popup-btn.destacar{background:#fef9c3;color:#854d0e}
+    .hl-popup-btn.destacar:hover{background:#fef08a}
+    .hl-popup-btn.notar{background:#dbeafe;color:#1e40af}
+    .hl-popup-btn.notar:hover{background:#bfdbfe}
+
+    /* ─── Right panel sections ─── */
+    .section-header{padding:10px 16px;border-bottom:1px solid var(--line);background:#fafbfc;flex-shrink:0;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
+    .section-header:hover{background:#f1f5f9}
+    .section-header h3{font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;pointer-events:none}
+    .section-header .section-toggle-icon{font-size:0.7rem;color:var(--muted);pointer-events:none}
+
+    .hl-card{padding:10px 14px;margin-bottom:6px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:0.82rem}
+    .hl-card .hl-text{font-style:italic;color:var(--text);margin-bottom:4px;line-height:1.4}
+    .hl-card .hl-note-input{width:100%;padding:5px 8px;border:1px solid #e2e8f0;border-radius:4px;font-size:0.78rem;background:#f8fafc;transition:all 0.1s ease}
+    .hl-card .hl-note-input:focus{border-color:var(--accent);outline:none;background:#fff}
+    .hl-card .hl-actions{display:flex;gap:6px;margin-top:6px}
+    .hl-card .hl-btn{padding:3px 10px;border:1px solid var(--line);border-radius:4px;font-size:0.7rem;font-weight:500;cursor:pointer;background:var(--panel);transition:all 0.1s ease;color:var(--text)}
+    .hl-card .hl-btn:hover{background:#f1f5f9}
+    .hl-card .hl-btn.danger{color:var(--danger);border-color:#fecaca}
+    .hl-card .hl-btn.danger:hover{background:#fef2f2}
+
+    .pd-card{padding:8px 14px;margin-bottom:4px;border:1px solid #fecaca;border-radius:6px;background:#fef2f2;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .pd-card .pd-word{font-weight:600;color:#991b1b}
+    .pd-card .pd-actions{display:flex;gap:4px}
+    .pd-card .pd-btn{padding:2px 8px;border:1px solid #fecaca;border-radius:4px;font-size:0.65rem;cursor:pointer;background:#fff;transition:all 0.1s ease;color:#991b1b}
+    .pd-card .pd-btn:hover{background:#fee2e2}
+
+    .hl-empty{padding:20px;text-align:center;font-size:0.78rem;color:#cbd5e1;font-style:italic}
+
+    /* ─── Question nav bar ─── */
     .q-nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(255,255,255,0.96);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,0.04);z-index:100}
     .q-nav-label{font-size:0.75rem;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:4px}
     .q-nav-btns{display:flex;gap:6px;flex-wrap:wrap;flex:1}
@@ -47,45 +121,22 @@
     .q-btn.answered{background:#eff6ff;border-color:var(--accent);color:var(--accent)}
     .q-btn.active{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(29,78,216,0.25)}
 
-    /* ─── Radio option ─── */
     .opt-label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all 0.12s ease;font-size:0.92rem}
     .opt-label:hover{border-color:#94a3b8;background:#fafbfc}
     .opt-label.selected{border-color:var(--accent);background:#eff6ff}
-    .opt-circle{width:24px;height:24px;border-radius:50%;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:#94a3b8;flex-shrink:0;transition:all 0.12s ease}
+    .opt-circle{width:24px;height:24px;border:2px solid #cbd5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:#94a3b8;flex-shrink:0;transition:all 0.12s ease}
     .opt-label.selected .opt-circle{border-color:var(--accent);background:var(--accent);color:#fff}
-
-    /* ─── Fill input ─── */
     .fill-input{width:100%;padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.92rem;transition:all 0.12s ease;background:#fff}
     .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,78,216,0.12);outline:none}
-
-    /* ─── Match ─── */
     .match-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.92rem}
     .match-item{min-width:5rem;color:#475569;font-weight:500}
     .match-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.82rem;background:#fff;flex:1}
-
-    /* ─── Reorder ─── */
     .reorder-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.85rem;transition:all 0.12s ease}
     .reorder-chip:hover{border-color:#94a3b8;background:#f8fafc}
     .reorder-chip.selected{border-color:var(--accent);background:#eff6ff;color:var(--accent)}
-
-    /* ─── Header ─── */
-    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
-    .exam-header h1{font-size:1.05rem;font-weight:700}
-    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
-    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
-    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
-
-    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
-
-    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .btn-submit:hover{background:#059669}
-    .btn-submit:disabled{opacity:0.4;cursor:default}
-
-    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .btn-ghost:hover{background:#f1f5f9}
-
-    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .btn-primary:hover{background:#1e40af}
+    .score-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+    .score-table th{background:#f8fafc;padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
+    .score-table td{padding:8px 12px;border-bottom:1px solid #f1f5f9}
 
     @media print{.no-print{display:none!important}}
     @media(max-width:800px){.exam-body{flex-direction:column!important}.exam-body .left,.exam-body .right{width:100%!important;min-width:0!important}}
@@ -109,108 +160,266 @@
     <header class="exam-header no-print">
       <div>
         <h1 class="text-slate-800">Compreensão da Leitura</h1>
-        <p class="meta">{{ exam.examId }} · {{ exam.level }}</p>
+        <p class="meta">{{ exam.examId }} · {{ exam.level }} · {{ partsCount }} partes · {{ allQuestions.length }} perg.</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="text-right">
           <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
           <p class="text-[10px] text-slate-400">tempo restante</p>
         </div>
-        <button v-if="!submitted" @click="submitExam" :disabled="!allAnswered"
-                class="btn-submit">Submeter</button>
       </div>
     </header>
 
     <!-- Body: two-column -->
-    <div class="exam-body flex-1 flex min-h-0 overflow-hidden">
+    <div ref="examBody" class="exam-body flex-1 flex min-h-0 overflow-hidden">
 
-      <!-- Left: passage -->
-      <div class="left w-1/2 min-w-[300px] overflow-y-auto pt-6 px-6 pb-[35vh] border-r border-slate-200 bg-white">
-        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Texto de referência</p>
-        <div class="text-sm text-slate-700 leading-relaxed whitespace-pre-line font-serif">{{ exam.sourceText }}</div>
-      </div>
-
-      <!-- Right: questions -->
-      <div ref="rightPane" class="right flex-1 min-w-[300px] overflow-y-auto p-6" style="padding-bottom:80px">
-        <p v-if="!submitted" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">{{ questions.length }} perguntas</p>
-
-        <div v-for="(q, i) in questions" :key="i" :ref="el => { if(el) qRefs[i] = el }" :data-qidx="i" class="exam-card">
-          <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ i+1 }}.</span> {{ q.question }}</p>
-
-          <!-- Choice (A/B/C/D) -->
-          <div v-if="q.type==='choice'" class="space-y-1.5">
-            <div v-for="(opt, oi) in q.options" :key="oi"
-                 class="opt-label" :class="userAnswers[i]===['A','B','C','D'][oi] ? 'selected' : ''"
-                 @click="userAnswers[i]=['A','B','C','D'][oi]">
-              <span class="opt-circle">{{ ['A','B','C','D'][oi] }}</span>
-              <span class="text-slate-700">{{ opt }}</span>
-            </div>
-          </div>
-
-          <!-- Fill -->
-          <div v-if="q.type==='fill'">
-            <input v-model="userAnswers[i]" type="text" placeholder="Resposta..."
-                   class="fill-input" @input="onAnswer">
-          </div>
-
-          <!-- Match -->
-          <div v-if="q.type==='match'" class="space-y-1.5">
-            <div v-for="(item, ii) in q.items" :key="ii" class="match-row">
-              <span class="match-item">{{ item }}</span>
-              <select v-model="userAnswers[i][ii]" class="match-select" @change="onAnswer">
-                <option value="">—</option>
-                <option v-for="(opt, oi) in q.options" :key="oi" :value="opt">{{ opt }}</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Reorder -->
-          <div v-if="q.type==='reorder'" class="flex flex-wrap gap-2">
-            <div v-for="(p, pi) in q.paragraphs" :key="pi"
-                 class="reorder-chip" :class="userAnswers[i].includes(p) ? 'selected' : ''"
-                 @click="toggleReorder(i, p)">{{ p }}</div>
-            <p v-if="userAnswers[i].length" class="w-full text-xs text-slate-400 mt-2">Ordem: {{ userAnswers[i].join(' → ') }}</p>
+      <!-- ═══ Left: Part tabs + text ═══ -->
+      <div class="left flex flex-col min-w-[300px] overflow-hidden border-r border-slate-200" :style="{width: splitPos + '%'}">
+        <!-- Part tabs -->
+        <div class="part-tabs no-print">
+          <button v-for="(pt, pi) in parts" :key="pi"
+                  class="part-tab" :class="partTabClass(pi)"
+                  @click="switchPart(pi)">
+            P{{ pi+1 }}
+            <span class="part-dot" :class="partDone(pi) ? 'done' : 'pending'"></span>
+          </button>
+        </div>
+        <!-- Text with word spans + selection handlers -->
+        <div class="flex items-center justify-between px-4 py-1 border-b border-slate-100 bg-white shrink-0">
+          <span class="text-[10px] text-slate-400">{{ currentWords.filter(w => !w.isNewline && !w.isSpace).length }} palavras</span>
+          <div class="flex items-center gap-1">
+            <button @click="fontSize = Math.max(11, fontSize - 1)" class="px-1.5 py-0.5 text-xs border border-slate-200 hover:bg-slate-100" title="Reduzir texto">A−</button>
+            <span class="text-[10px] text-slate-400 w-5 text-center">{{ fontSize }}</span>
+            <button @click="fontSize = Math.min(28, fontSize + 1)" class="px-1.5 py-0.5 text-xs border border-slate-200 hover:bg-slate-100" title="Aumentar texto">A+</button>
           </div>
         </div>
+        <div ref="leftScrollContainer" class="flex-1 overflow-y-auto pt-4 px-5 pb-[30vh] bg-white"
+             @scroll="onLeftScroll"
+             @mousedown="onTextMouseDown($event.currentTarget, $event, 'cl')"
+             @mousemove="onTextMouseMove($event.currentTarget, $event, 'cl')"
+             @mouseup="onTextSelection($event.currentTarget, $event, 'cl')">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">{{ parts[activePart]?.label || 'Texto' }}</p>
+          <div :style="{'fontSize': fontSize + 'px', 'textAlign': 'left'}" class="text-slate-700">
+            <template v-for="(para, pi) in currentParagraphs" :key="pi">
+              <p>
+                <span v-for="word in para" :key="word.tokenIdx"
+                      :class="wordCls(word, word.tokenIdx)" :data-wi="word.tokenIdx"
+                      @click="onWordClick(word, word.tokenIdx)"
+                      v-text="word.text"></span>
+              </p>
+            </template>
+          </div>
+        </div>
+      </div>
 
-        <!-- ═══ RESULTS ═══ -->
-        <div v-if="result" class="space-y-4">
-          <div class="exam-card text-center" style="padding:24px">
-            <p class="text-3xl font-bold" :style="{color:scoreColor}">{{ score }}/{{ questions.length }}</p>
-            <p class="text-sm text-slate-500 mt-1">{{ scorePercent }}% — {{ scoreLabel }}</p>
-            <div class="flex justify-center gap-3 mt-4 no-print">
-              <button @click="showAnswers = !showAnswers" class="btn-ghost">{{ showAnswers ? 'Ocultar' : 'Mostrar' }} respostas</button>
-              <button @click="closeWin" class="btn-primary">Fechar</button>
+      <div class="split-divider" :class="{dragging: dragActive}" @mousedown.prevent="onDividerDown"></div>
+
+      <!-- ═══ Right: unified area (PD, Destaques, Notas, Respostas) ═══ -->
+      <div ref="rightPane" class="right flex flex-col min-w-[300px] overflow-hidden" :style="{width: (100 - splitPos) + '%'}">
+
+        <!-- Palavras Desconhecidas -->
+        <div class="flex flex-col" :style="{flex: showPDPanel ? '1 1 0' : '0 1 0'}">
+          <div class="section-header" @click="showPDPanel = !showPDPanel">
+            <div class="flex items-center gap-2" style="pointer-events:none">
+              <h3>Palavras Desconhecidas</h3>
+              <span class="text-[10px] text-slate-400" v-if="pdList(activePart).length">({{ pdList(activePart).length }})</span>
+            </div>
+            <span class="section-toggle-icon">{{ showPDPanel ? '−' : '+' }}</span>
+          </div>
+          <div v-if="showPDPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+            <div v-if="pdList(activePart).length === 0" class="hl-empty">Clique numa palavra no texto para marcar</div>
+            <div v-for="(pd, idx) in filteredPDList(activePart)" :key="pd.id" class="pd-card">
+              <span class="pd-word">{{ idx+1 }}. {{ pd.word }}</span>
+              <div class="pd-actions">
+                <button class="pd-btn" @click="scrollToPDWord(pd.wordIdx, getLeftContainer())">Saltar</button>
+                <button class="pd-btn" @click="removePD(pd.wordIdx)">Remover</button>
+              </div>
             </div>
           </div>
+          <div v-else style="min-height:0"></div>
+        </div>
 
-          <!-- Result table -->
-          <div class="exam-card" style="padding:0;overflow:hidden">
-            <table class="w-full text-sm" style="border-collapse:collapse">
-              <thead>
-                <tr class="bg-slate-50 text-xs text-slate-500 font-semibold border-b border-slate-200">
-                  <th class="p-3 text-left" style="width:3rem">#</th>
-                  <th class="p-3 text-left">Pergunta</th>
-                  <th class="p-3 text-center" style="width:4rem">✅</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(q, i) in questions" :key="i"
-                    class="border-b border-slate-100"
-                    :class="graded[i] ? '' : 'bg-rose-50/40'">
-                  <td class="p-3 text-center text-slate-400 font-mono text-xs">{{ i+1 }}</td>
-                  <td class="p-3 text-xs text-slate-700">
-                    <div>{{ q.question }}</div>
-                    <div v-if="showAnswers" class="mt-1.5 space-y-0.5">
-                      <span :class="graded[i] ? 'text-certo' : 'text-erro'">Tua: <strong>{{ formatAnswer(q, userAnswers[i]) }}</strong></span>
-                      <span v-if="!graded[i]" class="text-certo ml-3">Correta: <strong>{{ q.answer }}</strong></span>
+        <!-- Destaques (yellow) -->
+        <div class="flex flex-col border-t border-slate-200" :style="{flex: showHLPanel ? '1 1 0' : '0 1 0'}">
+          <div class="section-header" @click="showHLPanel = !showHLPanel">
+            <div class="flex items-center gap-2" style="pointer-events:none">
+              <h3>Destaques</h3>
+              <span class="text-[10px] text-slate-400" v-if="destaques(activePart).length">({{ destaques(activePart).length }})</span>
+            </div>
+            <span class="section-toggle-icon">{{ showHLPanel ? '−' : '+' }}</span>
+          </div>
+          <div v-if="showHLPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+            <div v-if="destaques(activePart).length === 0" class="hl-empty">Selecione texto para destacar</div>
+            <div v-for="(hl, idx) in filteredDestaques(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #fff7a0">
+              <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
+              <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
+              <div class="hl-actions">
+                <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
+                <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
+              </div>
+            </div>
+          </div>
+          <div v-else style="min-height:0"></div>
+        </div>
+
+        <!-- Notas (blue) -->
+        <div class="flex flex-col border-t border-slate-200" :style="{flex: showNTPanel ? '1 1 0' : '0 1 0'}">
+          <div class="section-header" @click="showNTPanel = !showNTPanel">
+            <div class="flex items-center gap-2" style="pointer-events:none">
+              <h3>Notas</h3>
+              <span class="text-[10px] text-slate-400" v-if="notas(activePart).length">({{ notas(activePart).length }})</span>
+            </div>
+            <span class="section-toggle-icon">{{ showNTPanel ? '−' : '+' }}</span>
+          </div>
+          <div v-if="showNTPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+            <div v-if="notas(activePart).length === 0" class="hl-empty">Selecione texto para anotar</div>
+            <div v-for="(hl, idx) in filteredNotas(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #93c5fd">
+              <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
+              <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
+              <div class="hl-actions">
+                <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
+                <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
+              </div>
+            </div>
+          </div>
+          <div v-else style="min-height:0"></div>
+        </div>
+
+        <!-- Respostas (questions for current part, fixed at bottom) -->
+        <div ref="respostasPane" class="flex flex-col border-t border-slate-200 flex-1 min-h-[200px]">
+          <div class="section-header" style="cursor:default">
+            <h3>Respostas — {{ currentPartLabel }}</h3>
+          </div>
+          <div class="flex-1 overflow-y-auto p-4" style="min-height:0">
+            <div v-for="(q, i) in currentQuestions" :key="globalQNum(i)" :ref="el => { if(el) qRefs[globalQNum(i)-1] = el }" :data-qidx="globalQNum(i)-1" class="exam-card">
+              <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ globalQNum(i) }}.</span> {{ q.question }}</p>
+
+              <div v-if="q.type==='choice'" class="space-y-1.5">
+                <div v-for="(opt, oi) in q.options" :key="oi"
+                     class="opt-label" :class="getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi] ? 'selected' : ''"
+                     @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi]?'':['A','B','C','D'][oi])">
+                  <span class="opt-circle">{{ ['A','B','C','D'][oi] }}</span>
+                  <span class="text-slate-700">{{ opt }}</span>
+                </div>
+              </div>
+              <div v-if="q.type==='verdadeiro_falso'" class="flex gap-3">
+                <div v-for="vf in [['V','Verdadeiro'],['F','Falso']]" :key="vf[0]"
+                     class="opt-label flex-1" :class="getAnswer(globalQNum(i)-1)===vf[0] ? 'selected' : ''"
+                     @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===vf[0]?'':vf[0])">
+                  <span class="opt-circle">{{ vf[0] }}</span><span class="text-slate-700">{{ vf[1] }}</span>
+                </div>
+              </div>
+              <div v-if="q.type==='fill'">
+                <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
+              </div>
+              <div v-if="q.type==='error_detect'">
+                <div v-if="q.items && q.items.length" v-for="(item, ei) in q.items" :key="ei" class="mb-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                  <p class="text-xs text-slate-600 leading-relaxed mb-1.5 font-mono">{{ item }}</p>
+                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Palavra a mais ou «correta»..." class="fill-input text-xs">
+                </div>
+                <div v-else>
+                  <p class="text-xs text-slate-600 mb-1.5">{{ q.question || 'Identifique a palavra a mais:' }}</p>
+                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Palavra a mais ou «correta»..." class="fill-input">
+                </div>
+              </div>
+              <div v-if="q.type==='match'" class="space-y-1.5">
+                <div v-if="q.items && q.items.length" v-for="(item, ii) in q.items" :key="ii" class="match-row">
+                  <span class="match-item">{{ item }}</span>
+                  <select v-model="userAnswers[globalQNum(i)-1][ii]" class="match-select">
+                    <option value="">—</option>
+                    <option v-for="(opt, oi) in q.options" :key="oi" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <div v-else>
+                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
+                </div>
+              </div>
+              <div v-if="q.type==='reorder'" class="space-y-2">
+                <div v-if="q.paragraphs && q.paragraphs.length">
+                <p class="text-xs text-slate-500 mb-2">Clique nos parágrafos por ordem sequencial:</p>
+                <!-- Available paragraphs -->
+                <div class="flex flex-wrap gap-1.5 mb-2">
+                  <div v-for="(p, pi) in q.paragraphs" :key="pi"
+                       class="px-3 py-2 border text-xs leading-relaxed cursor-pointer transition"
+                       :class="(userAnswers[globalQNum(i)-1]||[]).indexOf(p) >= 0
+                         ? 'border-azulejo bg-blue-50 text-azulejo line-through opacity-50'
+                         : 'border-slate-200 bg-white hover:border-azulejo hover:bg-blue-50/30 text-slate-700'"
+                       @click="reorderClick(globalQNum(i)-1, p)">
+                    <span class="font-bold text-xs px-1 py-0.5 bg-azulejo/10 text-azulejo mr-1">{{ 'ABCDEFG'[pi] }}</span>
+                    {{ p }}
+                  </div>
+                </div>
+                <!-- Sequence display -->
+                <div v-if="(userAnswers[globalQNum(i)-1]||[]).length" class="border border-slate-200 bg-slate-50 p-3">
+                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Sequência atual:</p>
+                  <div class="flex flex-wrap items-center gap-1">
+                    <div v-for="(item, si) in (userAnswers[globalQNum(i)-1]||[])" :key="si"
+                         class="inline-flex items-center gap-1">
+                      <span v-if="si > 0" class="text-slate-300 text-lg">→</span>
+                      <span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-azulejo/30 text-xs font-medium text-azulejo cursor-pointer hover:bg-red-50 hover:border-red-200 hover:text-erro transition"
+                            @click="reorderRemove(globalQNum(i)-1, si)">
+                        {{ 'ABCDEFG'[(q.paragraphs||[]).indexOf(item)] }}
+                        <span class="text-[9px] opacity-50">✕</span>
+                      </span>
                     </div>
-                    <div v-if="showAnswers && q.explanation" class="mt-1.5 text-slate-400 text-[11px] p-2 bg-slate-50 rounded">{{ q.explanation }}</div>
-                  </td>
-                  <td class="p-3 text-center text-lg">{{ graded[i] ? '✅' : '❌' }}</td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+                <p v-else class="text-xs text-slate-300 italic">Selecione os parágrafos por ordem</p>
+                </div>
+                <div v-else class="text-xs text-slate-400 italic p-3">
+                  Tipo de pergunta não suportado nesta versão
+                </div>
+              </div>
+            </div>
+
+            <div v-if="!submitted" class="text-center mt-3">
+              <button v-if="allPartsDone" @click="submitExam" class="btn-submit">Submeter exame completo</button>
+              <p v-else class="text-xs text-slate-400">Responda a todas as partes para submeter</p>
+            </div>
+
+            <!-- Bottom spacer -->
+            <div class="h-16"></div>
+
+            <!-- ═══ RESULTS ═══ -->
+            <div v-if="result" class="space-y-3">
+              <div class="exam-card text-center" style="padding:24px">
+                <p class="text-3xl font-bold" :style="{color:scoreColor}">{{ score }}/{{ allQuestions.length }}</p>
+                <p class="text-sm text-slate-500 mt-1">{{ scorePercent }}% — {{ scoreLabel }}</p>
+                <div class="flex justify-center gap-3 mt-4 no-print">
+                  <button @click="showAnswers = !showAnswers" class="btn-ghost">{{ showAnswers ? 'Ocultar' : 'Mostrar' }} respostas</button>
+                  <button @click="closeWin" class="btn-primary">Fechar</button>
+                </div>
+              </div>
+              <div class="exam-card" style="padding:0;overflow:hidden">
+                <table class="w-full text-sm score-table">
+                  <thead>
+                    <tr class="bg-slate-50 text-xs text-slate-500 font-semibold border-b border-slate-200">
+                      <th class="p-3 text-left" style="width:3rem">#</th>
+                      <th class="p-3 text-left">Pergunta</th>
+                      <th class="p-3 text-center" style="width:4rem">✅</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(q, i) in allQuestions" :key="i"
+                        class="border-b border-slate-100"
+                        :class="graded[i] ? '' : 'bg-rose-50/40'">
+                      <td class="p-3 text-center text-slate-400 font-mono text-xs">{{ i+1 }}</td>
+                      <td class="p-3 text-xs text-slate-700">
+                        <div>{{ q.question }}</div>
+                        <div v-if="showAnswers" class="mt-1.5 space-y-0.5">
+                          <span :class="graded[i] ? 'text-certo' : 'text-erro'">Tua: <strong>{{ formatAnswer(q, userAnswers[i]) }}</strong></span>
+                          <span v-if="!graded[i]" class="text-certo ml-3">Correta: <strong>{{ q.answer }}</strong></span>
+                        </div>
+                        <div v-if="showAnswers && q.explanation" class="mt-1.5 text-slate-400 text-[11px] p-2 bg-slate-50">{{ q.explanation }}</div>
+                      </td>
+                      <td class="p-3 text-center text-lg">{{ graded[i] ? '✅' : '❌' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Results bottom spacer -->
+            <div class="h-16"></div>
           </div>
         </div>
       </div>
@@ -218,31 +427,78 @@
 
     <!-- ═══ Bottom question nav ═══ -->
     <div v-if="exam && !result" class="q-nav no-print">
-      <span class="q-nav-label">Perguntas</span>
-      <div class="q-nav-btns">
-        <button v-for="(q, i) in questions" :key="i"
+      <button @click="showQuestionNav = !showQuestionNav"
+              class="text-[11px] font-bold text-slate-400 hover:text-slate-600 transition px-1 py-1 shrink-0"
+              :title="showQuestionNav ? 'Ocultar perguntas' : 'Mostrar perguntas'"
+              style="background:none;border:none;cursor:pointer">
+        <span v-if="showQuestionNav">▾</span><span v-else>▸</span>
+        <span class="q-nav-label">Perguntas</span>
+      </button>
+      <div v-show="showQuestionNav" class="q-nav-btns">
+        <button v-for="(q, i) in allQuestions" :key="i"
                 class="q-btn" :class="qBtnClass(i)"
-                @click="scrollToQuestion(i)"
-                :title="'Pergunta ' + (i+1) + (isAnswered(i) ? ' (respondida)' : '')">{{ i+1 }}</button>
+                @click="scrollToGlobalQuestion(i)"
+                :title="'Perg '+(i+1)+' ('+q.part+')'">{{ i+1 }}</button>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-[11px] text-slate-400">{{ answeredCount }}/{{ questions.length }}</span>
-        <button @click="submitExam" :disabled="!allAnswered"
-                class="btn-submit" style="padding:7px 16px;font-size:0.82rem">Submeter</button>
+        <span class="text-[11px] text-slate-400">{{ answeredCount }}/{{ allQuestions.length }}</span>
+        <button @click="submitExam" :disabled="!allPartsDone" class="btn-submit" style="padding:7px 16px;font-size:0.82rem">Submeter</button>
       </div>
     </div>
+  </div>
+
+  <!-- ═══ Selection popup ═══ -->
+  <div v-if="selectionPopup.visible" class="hl-popup"
+       :style="{ top: selectionPopup.top + 'px', left: selectionPopup.left + 'px' }">
+    <button @click="popupHighlight" class="hl-popup-btn destacar">Destacar</button>
+    <button @click="popupNote" class="hl-popup-btn notar">Notar</button>
   </div>
 </div>
 
 <script>
+  const COLORS = HighlightNotes.COLORS
   const app = Vue.createApp({
     data() {
       return {
-        exam: null, questions: [], userAnswers: [], submitted: false, result: false,
-        showAnswers: false, graded: [],
-        timeLimit: 75, timeRemaining: 4500, timerInterval: null, timerExpired: false,
+        exam: null,
+        allQuestions: [],
+        parts: [],
+        userAnswers: [],
+        submitted: false,
+        result: false,
+        showAnswers: false,
+        graded: [],
+        timeLimit: 75,
+        timeRemaining: 4500,
+        timerInterval: null,
+        timerExpired: false,
         qRefs: {},
+        splitPos: 50,
+        dragActive: false,
+        activePart: 0,
         activeQ: -1,
+        showQuestionNav: true,
+        // Per-part highlight/PD storage
+        _hlByPart: [],
+        _pdByPart: [],
+        // Panel toggles (default: all collapsed except Respostas)
+        showPDPanel: false,
+        showHLPanel: false,
+        showNTPanel: false,
+        // Selection tracking
+        _selecting: false,
+        selectionPopup: { visible: false, top: 0, left: 0, text: '', containerEl: null, pageType: null, pos: null },
+        highlights: [],
+        palavrasDesconhecidas: [],
+        editingHighlightId: null,
+        _renderedHighlightsVersion: 0,
+        _hlPopupHandler: null,
+        _hlScrollHandler: null,
+        _hlVersion: 0,
+        fontSize: 18,
+        visibleWordStart: 0,
+        visibleWordEnd: 0,
+        _scrollDebounce: null,
       }
     },
     computed: {
@@ -252,82 +508,557 @@
         return m + ':' + String(s).padStart(2, '0')
       },
       timerUrgent() { return this.timeRemaining < 300 && !this.submitted },
+      partsCount() { return this.parts?.length || 0 },
+      activeSourceText() {
+        const raw = this.parts[this.activePart]?.sourceText || this.exam?.sourceText || ''
+        return raw.replace(/^\[PARTE \d+\]\s*/, '')
+      },
+      currentWords() {
+        const text = this.activeSourceText
+        if (!text) return []
+        const tokens = []
+        const lines = text.split('\n')
+        const re = /([\wà-üÀ-Üáéíóúãõâêôç'-]+|[^\wà-üÀ-Üáéíóúãõâêôç'-])/gi
+        for (let li = 0; li < lines.length; li++) {
+          if (li > 0) tokens.push({ text: '\n', isNewline: true, isSpace: false, raw: '\n' })
+          let m
+          let firstInLine = true
+          while ((m = re.exec(lines[li])) !== null) {
+            tokens.push({ text: m[0], isSpace: /^\s+$/.test(m[0]), isNewline: false, raw: m[0], paraStart: li > 0 && firstInLine })
+            firstInLine = false
+          }
+        }
+        return tokens
+      },
+      currentParagraphs() {
+        const words = this.currentWords
+        const paras = []
+        let cur = []
+        for (let i = 0; i < words.length; i++) {
+          const w = words[i]
+          if (w.isNewline) {
+            if (cur.length) { paras.push(cur); cur = [] }
+          } else {
+            cur.push({ ...w, tokenIdx: i })
+          }
+        }
+        if (cur.length) paras.push(cur)
+        return paras
+      },
+      currentPartLabel() { return this.parts[this.activePart]?.label || '' },
+      currentQuestions() {
+        const pt = this.parts[this.activePart]
+        if (!pt) return []
+        return this.allQuestions.slice(pt.qStart, pt.qStart + pt.count)
+      },
       score() { return this.graded.filter(Boolean).length },
-      scorePercent() { return this.questions.length ? Math.round((this.score/this.questions.length)*100) : 0 },
+      scorePercent() { return this.allQuestions.length ? Math.round((this.score/this.allQuestions.length)*100) : 0 },
       scoreLabel() { const p=this.scorePercent; return p>=85?'Muito Bom!':p>=70?'Bom':p>=55?'Suficiente':'Insuficiente' },
       scoreColor() { const p=this.scorePercent; return p>=85?'#14b8a6':p>=70?'#10b981':p>=55?'#f59e0b':'#f43f5e' },
-      answeredCount() { return this.questions.filter((q,i)=>this.isAnswered(i)).length },
-      allAnswered() {
-        return this.questions.every((q,i)=>{
-          if(q.type==='match') return this.userAnswers[i]?.every(a=>a)
-          if(q.type==='reorder') return this.userAnswers[i]?.length===q.paragraphs.length
-          return this.userAnswers[i]!=='' && this.userAnswers[i]!==undefined && this.userAnswers[i]!==null
-        })
+      answeredCount() { return this.allQuestions.filter((q,i)=>this.isAnswered(i)).length },
+      allPartsDone() {
+        for (let pi = 0; pi < this.parts.length; pi++) {
+          if (!this.partDone(pi)) return false
+        }
+        return true
       },
     },
     methods: {
+      /* ═══ Part management ═══ */
+      switchPart(pi) {
+        if (pi === this.activePart) return
+        this.savePartData(this.activePart)
+        this.activePart = pi
+        this.loadPartData(pi)
+        this._hlVersion++
+        this.$nextTick(() => {
+          this._applyHLVisual()
+          this._updateVisibleRange()
+          // Scroll Respostas to top
+          const rightContent = this.$refs.respostasPane?.querySelector('.overflow-y-auto')
+          if (rightContent) rightContent.scrollTop = 0
+        })
+      },
+      partDone(pi) {
+        const pt = this.parts[pi]
+        if (!pt) return false
+        for (let i = pt.qStart; i < pt.qStart + pt.count; i++) {
+          if (!this.isAnswered(i)) return false
+        }
+        return true
+      },
+      partTabClass(pi) {
+        return { 'active': pi === this.activePart && !this.submitted, 'answered': this.partDone(pi) && !this.submitted }
+      },
+      globalQNum(localIdx) {
+        const pt = this.parts[this.activePart]
+        if (!pt) return localIdx + 1
+        return pt.qStart + localIdx + 1
+      },
+      getAnswer(idx) { return this.userAnswers[idx] },
+      setAnswer(idx, val) { this.userAnswers[idx] = val },
+
+      /* ═══ Per-part highlight/PD data ═══ */
+      initPartData(partCount) {
+        this._hlByPart = []
+        this._pdByPart = []
+        for (let i = 0; i < partCount; i++) {
+          this._hlByPart.push({ destaques: [], notas: [] })
+          this._pdByPart.push({})
+        }
+      },
+      loadPartData(pi) {
+        const hlKey = this._hlKey(pi)
+        try {
+          const raw = localStorage.getItem(hlKey)
+          this._hlByPart[pi] = raw ? JSON.parse(raw) : { destaques: [], notas: [] }
+        } catch { this._hlByPart[pi] = { destaques: [], notas: [] } }
+        const pdKey = this._pdKey(pi)
+        try {
+          const raw = localStorage.getItem(pdKey)
+          this._pdByPart[pi] = raw ? JSON.parse(raw) : {}
+        } catch { this._pdByPart[pi] = {} }
+        this.highlights = [...this._hlByPart[pi].destaques, ...this._hlByPart[pi].notas]
+        this.palavrasDesconhecidas = Object.values(this._pdByPart[pi])
+      },
+      savePartData(pi) {
+        const destaques = this.highlights.filter(h => h.color === COLORS.DESTAQUE)
+        const notas = this.highlights.filter(h => h.color === COLORS.NOTA)
+        this._hlByPart[pi] = { destaques, notas }
+        try { localStorage.setItem(this._hlKey(pi), JSON.stringify(this._hlByPart[pi])) } catch {}
+        try { localStorage.setItem(this._pdKey(pi), JSON.stringify(this._pdByPart[pi])) } catch {}
+      },
+
+      /* ═══ PD management ═══ */
+      onWordClick(word, wordIdx) {
+        if (word.isSpace || word.isNewline || this.submitted) return
+        this.togglePD(word.text, wordIdx)
+      },
+      togglePD(wordText, wordIdx) {
+        const pi = this.activePart
+        const pdMap = this._pdByPart[pi]
+        if (pdMap[wordIdx]) { delete pdMap[wordIdx] }
+        else { pdMap[wordIdx] = { id: 'pd_' + Date.now() + '_' + wordIdx, word: wordText, wordIdx: wordIdx, createdAt: Date.now() } }
+        this.palavrasDesconhecidas = Object.values(pdMap)
+        try { localStorage.setItem(this._pdKey(pi), JSON.stringify(this._pdByPart[pi])) } catch {}
+        this._hlVersion++
+        this.$nextTick(() => this._applyHLVisual())
+      },
+      isPD(wordIdx) { return !!this._pdByPart[this.activePart]?.[wordIdx] },
+      /* ═══ Exam-specific localStorage keys (isolated per exam) ═══ */
+      _hlKey(pi) { return 'CAPLE_HL_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
+      _pdKey(pi) { return 'CAPLE_PD_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
+
+      removePD(wordIdx) {
+        const pi = this.activePart
+        delete this._pdByPart[pi][wordIdx]
+        this.palavrasDesconhecidas = Object.values(this._pdByPart[pi])
+        try { localStorage.setItem(this._pdKey(pi), JSON.stringify(this._pdByPart[pi])) } catch {}
+        this._hlVersion++
+      },
+      pdList(pi) { return Object.values(this._pdByPart[pi] || {}) },
+
+      /* ═══ Word CSS (includes space highlights) ═══ */
+      wordCls(word, idx) {
+        if (word.isNewline) return ''
+        if (word.isSpace) {
+          const cls = ['word-space']
+          if (word.paraStart) cls.push('para-start')
+          for (const hl of this.highlights) {
+            if (hl.pos && hl.pos.type === 'word_idx') {
+              if (idx >= hl.pos.startIdx && idx <= hl.pos.endIdx) {
+                cls.push(this._hlClassForColor(hl.color))
+                break
+              }
+            }
+          }
+          return cls.join(' ')
+        }
+        const cls = ['word-cl']
+        if (word.paraStart) cls.push('para-start')
+        if (this.isPD(idx)) cls.push('hl-pd')
+        for (const hl of this.highlights) {
+          if (hl.pos && hl.pos.type === 'word_idx') {
+            if (idx >= hl.pos.startIdx && idx <= hl.pos.endIdx) {
+              cls.push(this._hlClassForColor(hl.color))
+              break
+            }
+          }
+        }
+        return cls.join(' ')
+      },
+      _hlClassForColor(color) {
+        const map = { [COLORS.DESTAQUE]: 'hl-yellow', [COLORS.NOTA]: 'hl-blue', [COLORS.PD]: 'hl-pd', [COLORS.ANSWER]: 'hl-green' }
+        return map[color] || 'hl-yellow'
+      },
+
+      /* ═══ Highlights: Destaques/Notas ═══ */
+      destaques(pi) { return this._hlByPart[pi]?.destaques || [] },
+      notas(pi) { return this._hlByPart[pi]?.notas || [] },
+      popupHighlight() {
+        const sp = this.selectionPopup
+        if (!sp.visible || !sp.text || !sp.pos) return
+        this._addHighlight(sp.text, sp.pos, sp.containerEl, 'cl', '', COLORS.DESTAQUE)
+        this.hidePopup()
+      },
+      popupNote() {
+        const sp = this.selectionPopup
+        if (!sp.visible || !sp.text || !sp.pos) return
+        this._addHighlight(sp.text, sp.pos, sp.containerEl, 'cl', '', COLORS.NOTA)
+        const hl = this.highlights[this.highlights.length - 1]
+        if (hl) { this.editingHighlightId = hl.id; this.showNTPanel = true }
+        this.hidePopup()
+      },
+      _addHighlight(text, pos, containerEl, pType, note, color) {
+        const exists = this.highlights.some(h => {
+          if (h.pos?.type === 'word_idx' && pos?.type === 'word_idx')
+            return h.pos.startIdx === pos.startIdx && h.pos.endIdx === pos.endIdx
+          if (h.pos?.type === 'char_offset' && pos?.type === 'char_offset')
+            return h.pos.start === pos.start && h.pos.end === pos.end
+          return false
+        })
+        if (exists) return
+        this.highlights.push({
+          id: 'hl_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+          text: text, note: note, type: 'user', color: color, pos: pos, createdAt: Date.now(),
+        })
+        this.syncHLToPart(this.activePart)
+        this._hlVersion++
+        window.getSelection()?.removeAllRanges()
+      },
+      syncHLToPart(pi) {
+        const destaques = this.highlights.filter(h => h.color === COLORS.DESTAQUE)
+        const notas = this.highlights.filter(h => h.color === COLORS.NOTA)
+        this._hlByPart[pi] = { destaques, notas }
+        this.savePartData(pi)
+      },
+      removeHLFromList(id) {
+        this.highlights = this.highlights.filter(h => h.id !== id)
+        this.syncHLToPart(this.activePart)
+        this._hlVersion++
+      },
+      updateHLNoteFromList(id, note) {
+        const hl = this.highlights.find(h => h.id === id)
+        if (hl) hl.note = note
+        this.syncHLToPart(this.activePart)
+      },
+      scrollToHL(hlId, containerEl, pType) {
+        const c = this.$refs.leftScrollContainer || containerEl || this.$el?.querySelector('.left .flex-1.overflow-y-auto') || document.querySelector('.left .flex-1.overflow-y-auto')
+        if (!c) return
+        let hl = this.highlights.find(h => h.id === hlId)
+        // Fallback: search in _hlByPart for the active part
+        if (!hl) {
+          const partData = this._hlByPart[this.activePart]
+          if (partData) {
+            hl = [...partData.destaques, ...partData.notas].find(h => h.id === hlId)
+          }
+        }
+        if (!hl || hl.pos?.type !== 'word_idx') return
+        const allSpans = c.querySelectorAll('.word-cl, .word-space')
+        const spanIdx = this._wordIdxToSpanIdx(hl.pos.startIdx)
+        const target = allSpans[spanIdx]
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          target.style.outline = '2px solid #f59e0b'
+          setTimeout(() => { target.style.outline = '' }, 1500)
+        }
+      },
+      scrollToPDWord(wordIdx, containerEl) {
+        const c = this.$refs.leftScrollContainer || containerEl || this.$el?.querySelector('.left .flex-1.overflow-y-auto') || document.querySelector('.left .flex-1.overflow-y-auto')
+        if (!c) return
+        const spans = c.querySelectorAll('.word-cl, .word-space')
+        const spanIdx = this._wordIdxToSpanIdx(wordIdx)
+        if (spans[spanIdx]) {
+          spans[spanIdx].scrollIntoView({ behavior: 'smooth', block: 'center' })
+          spans[spanIdx].style.outline = '2px solid #f59e0b'
+          setTimeout(() => { spans[spanIdx].style.outline = '' }, 1500)
+        }
+      },
+      /** Convert word token index → DOM span index (newlines have no DOM span) */
+      _wordIdxToSpanIdx(wordIdx) {
+        let spanIdx = 0
+        const tokens = this.currentWords || []
+        for (let i = 0; i < wordIdx && i < tokens.length; i++) {
+          if (!tokens[i].isNewline) spanIdx++
+        }
+        return spanIdx
+      },
+      getLeftContainer() { return this.$refs.leftScrollContainer },
+
+      _applyHLVisual() {
+        const container = this.getLeftContainer()
+        if (!container) return
+        container.querySelectorAll('.word-cl.hl-yellow, .word-cl.hl-blue, .word-cl.hl-pd, .word-space.hl-yellow, .word-space.hl-blue')
+          .forEach(el => el.classList.remove('hl-yellow', 'hl-blue', 'hl-pd'))
+        for (const hl of this.highlights) {
+          if (hl.pos?.type !== 'word_idx') continue
+          const cls = this._hlClassForColor(hl.color)
+          const allSpans = container.querySelectorAll('.word-cl, .word-space')
+          const startSpan = this._wordIdxToSpanIdx(hl.pos.startIdx)
+          const endSpan = this._wordIdxToSpanIdx(hl.pos.endIdx + 1) - 1
+          for (let i = startSpan; i <= endSpan && i < allSpans.length; i++) {
+            if (allSpans[i]) allSpans[i].classList.add(cls)
+          }
+        }
+        /* PD highlight uses correct span index (word-cl + word-space) */
+        const pdMap = this._pdByPart[this.activePart] || {}
+        const allSpans = container.querySelectorAll('.word-cl, .word-space')
+        for (const idxStr of Object.keys(pdMap)) {
+          const idx = parseInt(idxStr)
+          const spanIdx = this._wordIdxToSpanIdx(idx)
+          const target = allSpans[spanIdx]
+          if (target && target.classList.contains('word-cl')) target.classList.add('hl-pd')
+        }
+      },
+
+      /* ═══ Scroll tracking: filter right panels to visible viewport ═══ */
+      onLeftScroll() {
+        if (this._scrollDebounce) clearTimeout(this._scrollDebounce)
+        this._scrollDebounce = setTimeout(() => this._updateVisibleRange(), 80)
+      },
+      _updateVisibleRange() {
+        const container = this.getLeftContainer()
+        if (!container) return
+        const containerRect = container.getBoundingClientRect()
+        const spans = container.querySelectorAll('.word-cl, .word-space')
+        let firstSpan = -1, lastSpan = -1
+        for (let i = 0; i < spans.length; i++) {
+          const r = spans[i].getBoundingClientRect()
+          if (r.bottom >= containerRect.top && r.top <= containerRect.bottom) {
+            if (firstSpan === -1) firstSpan = i
+            lastSpan = i
+          } else if (firstSpan !== -1 && r.top > containerRect.bottom) {
+            break
+          }
+        }
+        // Map span indices to word token indices via data-wi
+        let firstWI = 0, lastWI = 0
+        if (firstSpan >= 0 && spans[firstSpan]) firstWI = parseInt(spans[firstSpan].dataset.wi) || 0
+        if (lastSpan >= 0 && spans[lastSpan]) lastWI = parseInt(spans[lastSpan].dataset.wi) || 0
+        const tokens = this.currentWords || []
+        this.visibleWordStart = firstWI
+        this.visibleWordEnd = Math.min(lastWI, tokens.length - 1)
+      },
+      filteredPDList(pi) {
+        const all = this.pdList(pi)
+        return all.filter(pd => pd.wordIdx >= this.visibleWordStart && pd.wordIdx <= this.visibleWordEnd)
+      },
+      filteredDestaques(pi) {
+        return (this._hlByPart[pi]?.destaques || []).filter(hl =>
+          hl.pos?.type === 'word_idx' && hl.pos.startIdx >= this.visibleWordStart && hl.pos.endIdx <= this.visibleWordEnd
+        )
+      },
+      filteredNotas(pi) {
+        return (this._hlByPart[pi]?.notas || []).filter(hl =>
+          hl.pos?.type === 'word_idx' && hl.pos.startIdx >= this.visibleWordStart && hl.pos.endIdx <= this.visibleWordEnd
+        )
+      },
+
+      /* ═══ Selection tracking (FIXED: textNode index directly maps to word index) ═══ */
+      onTextMouseDown(containerEl, event, pType) { this._selecting = true },
+      onTextMouseMove(containerEl, event, pType) {
+        if (!this._selecting) return
+        const sel = window.getSelection()
+        if (!sel || sel.isCollapsed || !sel.rangeCount) { this.hidePopup(); return }
+        const range = sel.getRangeAt(0)
+        const selectedText = sel.toString().trim()
+        if (!selectedText || selectedText.length < 2) { this.hidePopup(); return }
+        if (!containerEl || !containerEl.contains(range.commonAncestorContainer)) { this.hidePopup(); return }
+        const pos = this._capturePosition(containerEl, range, pType, selectedText)
+        if (!pos) { this.hidePopup(); return }
+        // Use the full-word reconstructed text (expands partial word selections to full words)
+        const displayedText = pos.text || selectedText
+        this.selectionPopup = { visible: true, top: event.clientY - 10, left: event.clientX, text: displayedText, containerEl, pageType: pType, pos }
+      },
+      onTextSelection(containerEl, event, pType) {
+        this._selecting = false
+        const sel = window.getSelection()
+        if (!sel || sel.isCollapsed || !sel.rangeCount) { this.hidePopup(); return }
+        const range = sel.getRangeAt(0)
+        const selectedText = sel.toString().trim()
+        if (!selectedText || selectedText.length < 2) { this.hidePopup(); return }
+        if (!containerEl || !containerEl.contains(range.commonAncestorContainer)) { this.hidePopup(); return }
+        const pos = this._capturePosition(containerEl, range, pType, selectedText)
+        if (!pos) { this.hidePopup(); return }
+        this.selectionPopup = { visible: true, top: event.clientY - 10, left: event.clientX, text: pos.text || selectedText, containerEl, pageType: pType, pos }
+      },
+      hidePopup() { this._selecting = false; this.selectionPopup.visible = false },
+
+      /** FIXED: textNodes index maps to wordTokens skipping newlines */
+      _capturePosition(containerEl, range, pType, selectedText) {
+        const wordTokens = this.currentWords || []
+        const wordSpans = containerEl.querySelectorAll('.word-cl, .word-space')
+        const textNodes = []
+        wordSpans.forEach(span => {
+          for (let n of span.childNodes) {
+            if (n.nodeType === Node.TEXT_NODE) textNodes.push({ node: n, span })
+          }
+        })
+        let startIdx = -1, endIdx = -1
+        const anchorNode = range.startContainer, focusNode = range.endContainer
+        for (let i = 0; i < textNodes.length; i++) {
+          if (textNodes[i].node === anchorNode || textNodes[i].span === anchorNode || textNodes[i].span.contains(anchorNode)) { startIdx = i; break }
+        }
+        for (let i = 0; i < textNodes.length; i++) {
+          if (textNodes[i].node === focusNode || textNodes[i].span === focusNode || textNodes[i].span.contains(focusNode)) { endIdx = i; break }
+        }
+        if (startIdx < 0 || endIdx < 0) return null
+        // Map textNode index → wordTokens index (skip newlines)
+        let wordStart = -1, wordEnd = -1, nonNewlineIdx = 0
+        for (let wi = 0; wi < wordTokens.length; wi++) {
+          if (wordTokens[wi].isNewline) continue
+          if (nonNewlineIdx === startIdx) wordStart = wi
+          if (nonNewlineIdx === endIdx) wordEnd = wi
+          nonNewlineIdx++
+        }
+        if (wordStart < 0 || wordEnd < 0) return null
+        // EXPAND to full words: reconstruct the full-word text from word tokens
+        const minIdx = Math.min(wordStart, wordEnd)
+        const maxIdx = Math.max(wordStart, wordEnd)
+        let fullText = ''
+        for (let i = minIdx; i <= maxIdx; i++) {
+          const w = wordTokens[i]
+          if (!w.isNewline) fullText += w.text
+        }
+        return { type: 'word_idx', startIdx: minIdx, endIdx: maxIdx, wordCount: wordTokens.length, text: fullText.trim() }
+      },
+
+      /* ═══ Questions & grading ═══ */
       isAnswered(i) {
-        const q = this.questions[i]; if (!q) return false
+        const q = this.allQuestions[i]; if (!q) return false
         const ua = this.userAnswers[i]
         if (q.type==='match') return ua?.some(a=>a)
         if (q.type==='reorder') return ua?.length>0
         return ua!=='' && ua!==undefined && ua!==null
       },
-      qBtnClass(i) {
-        return {
-          answered: this.isAnswered(i) && !this.submitted,
-          active: this.activeQ === i,
-        }
-      },
-      scrollToQuestion(i) {
+      qBtnClass(i) { return { answered: this.isAnswered(i) && !this.submitted, active: this.activeQ === i } },
+      scrollToGlobalQuestion(i) {
+        const pi = this._partForGlobalIdx(i)
+        if (pi !== this.activePart) this.switchPart(pi)
         this.activeQ = i
         const el = this.qRefs[i]
         if (el) {
-          const pane = this.$refs.rightPane
+          const pane = this.$refs.respostasPane?.querySelector('.overflow-y-auto')
           if (pane) pane.scrollTo({ top: el.offsetTop - pane.offsetTop - 16, behavior: 'smooth' })
         }
       },
-      onAnswer(){
-        // no-op: just triggers reactivity
+      _partForGlobalIdx(idx) {
+        for (let pi = 0; pi < this.parts.length; pi++) {
+          const pt = this.parts[pi]
+          if (idx >= pt.qStart && idx < pt.qStart + pt.count) return pi
+        }
+        return 0
+      },
+      reorderClick(i, p) {
+        try {
+          if (this.submitted) return
+          const a = this.userAnswers ? [...(this.userAnswers[i]||[])] : []
+          if (a.indexOf(p) >= 0) return
+          a.push(p)
+          if (this.userAnswers) this.userAnswers[i] = a
+        } catch(e) { console.error('reorderClick:', e) }
+      },
+      reorderRemove(i, si) {
+        try {
+          if (this.submitted) return
+          const a = this.userAnswers ? [...(this.userAnswers[i]||[])] : []
+          if (si >= 0 && si < a.length) a.splice(si, 1)
+          if (this.userAnswers) this.userAnswers[i] = a
+        } catch(e) { console.error('reorderRemove:', e) }
       },
       submitExam() {
-        this.graded=this.questions.map((q,i)=>{
+        this.savePartData(this.activePart)
+        this.graded = this.allQuestions.map((q,i)=>{
           const ua=this.normalize(this.userAnswers[i]), ca=this.normalize(q.answer)
           if(q.type==='choice') return ua===ca
-          if(q.type==='match'){const p=q.pairs||{};return Object.keys(p).every(k=>this.normalize(this.userAnswers[i][k])===this.normalize(p[k]))}
+          if(q.type==='match'){const p=q.pairs||{};return Object.keys(p).every(k=>this.normalize(this.userAnswers[i]?.[k])===this.normalize(p[k]))}
           if(q.type==='reorder') return JSON.stringify(this.userAnswers[i])===JSON.stringify(q.paragraphs.map(p=>p))
           return ua===ca||this.diacriticNorm(ua)===this.diacriticNorm(ca)
         })
         this.submitted=true;this.result=true;this.showAnswers=true
         try {
           const score = this.graded.filter(Boolean).length
-          const total = this.questions.length
+          const total = this.allQuestions.length
           PTStore.saveExamResult({
             id: this.exam.examId || ('CL_' + Date.now()),
             level: this.exam.level || 'B2',
             percent: Math.round((score/total)*100),
-            correct: score,
-            total: total,
+            correct: score, total: total,
             date: new Date().toISOString(),
             sourceText: (this.exam.sourceText || '').slice(0,200),
-            questions: this.questions,
-            userAnswers: this.userAnswers,
-            qgCorrect: this.graded,
+            questions: this.allQuestions, userAnswers: this.userAnswers, qgCorrect: this.graded,
           })
         } catch(e) { console.warn('Erro ao guardar CL:', e) }
       },
       normalize(v){return String(v||'').trim().toLowerCase()},
       diacriticNorm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'')},
-      toggleReorder(i,p){if(this.submitted)return;const a=[...this.userAnswers[i]];const idx=a.indexOf(p);idx>=0?a.splice(idx,1):a.push(p);this.userAnswers[i]=a},
       formatAnswer(q,a){if(q.type==='match'&&Array.isArray(a))return a.join(', ');if(q.type==='reorder'&&Array.isArray(a))return a.join(' → ');return a||'(sem)'},
       closeWin(){window.close()},
+      onDividerDown(e){this.dragActive=true;document.body.style.cursor='col-resize';document.body.style.userSelect='none';window.addEventListener('mousemove',this._onDividerMove);window.addEventListener('mouseup',this._onDividerUp)},
+      _onDividerMove(e){if(!this.dragActive)return;var bd=document.querySelector('.exam-body');if(!bd)return;var r=bd.getBoundingClientRect();this.splitPos=Math.max(25,Math.min(75,Math.round((e.clientX-r.left)/r.width*100)))},
+      _onDividerUp(){if(!this.dragActive)return;this.dragActive=false;document.body.style.cursor='';document.body.style.userSelect='';window.removeEventListener('mousemove',this._onDividerMove);window.removeEventListener('mouseup',this._onDividerUp)},
     },
     mounted() {
-      try{
-        const raw=localStorage.getItem('CL_CURRENT_EXAM')
-        if(raw){const d=JSON.parse(raw);this.exam=d;this.questions=d.questions||[];this.userAnswers=this.questions.map(q=>{if(q.type==='match')return new Array(q.items?.length||0).fill('');if(q.type==='reorder')return [];return ''})}
+      try {
+        const raw = localStorage.getItem('CL_CURRENT_EXAM')
+        if (raw) {
+          const d = JSON.parse(raw)
+          this.exam = d
+          this.allQuestions = d.questions || []
+          // Restore any questions that were originally reorder but stored as choice by old code
+          for (const q of this.allQuestions) {
+            if (q.type === 'choice' && q.options && q.options.length === 4 && 
+                (q.question || '').toLowerCase().includes('reconstru') &&
+                !(q.paragraphs && q.paragraphs.length)) {
+              q.type = 'reorder'
+              // Generate paragraphs from source text
+              const count = q.answer ? q.answer.split('-').length : 5
+              const partIdx = (q.part || 1) - 1
+              const src = d.parts?.[partIdx]?.sourceText || d.sourceText || ''
+              let paras = src.split(/\n\s*\n/).filter(p => p.trim())
+              if (paras.length < count) {
+                const words = src.split(/\s+/).filter(w => w)
+                const per = Math.max(1, Math.ceil(words.length / count))
+                paras = []
+                for (let j = 0; j < count; j++) {
+                  paras.push(words.slice(j * per, (j + 1) * per).join(' '))
+                }
+              }
+              q.paragraphs = paras.slice(0, count)
+            }
+          }
+          // Ensure reorder questions have paragraphs — extract from source text if missing
+          for (const q of this.allQuestions) {
+            if (q.type === 'reorder' && (!q.paragraphs || !q.paragraphs.length)) {
+              const count = q.answer ? q.answer.split('-').length : 5
+              const partIdx = (q.part || 1) - 1
+              const src = d.parts?.[partIdx]?.sourceText || d.sourceText || ''
+              // Try splitting by double newlines first
+              let paras = src.split(/\n\s*\n/).filter(p => p.trim())
+              if (paras.length < count) {
+                // Split into roughly equal chunks
+                const words = src.split(/\s+/).filter(w => w)
+                const per = Math.max(1, Math.ceil(words.length / count))
+                paras = []
+                for (let j = 0; j < count; j++) {
+                  paras.push(words.slice(j * per, (j + 1) * per).join(' '))
+                }
+              }
+              q.paragraphs = paras.slice(0, count)
+            }
+          }
+          this.parts = d.parts || []
+          this.userAnswers = this.allQuestions.map(q => {
+            if(q.type==='match') return new Array(q.items?.length||0).fill('')
+            if(q.type==='reorder') return []
+            return ''
+          })
+          const partCount = this.parts.length || 5
+          this.initPartData(partCount)
+          this.loadPartData(0)
+        }
         const lv = this.exam?.level || 'B2'
-        const limits = { A1:50, A2:50, B1:75, B2:75, C1:90, C2:90 }
+        const limits = { A1:20, A2:75, B1:30, B2:90, C1:90, C2:120 }
         this.timeLimit = limits[lv] || 75
         this.timeRemaining = this.timeLimit * 60
         this.timerInterval = setInterval(() => {
@@ -339,11 +1070,29 @@
             if (!this.submitted) this.submitExam()
           }
         }, 1000)
-      }catch{}
-      this.$nextTick(()=>lucide.createIcons())
+      } catch(e) { console.warn('CL mount error:', e) }
+      HighlightNotes.injectStyles()
+      this._hlPopupHandler = (e) => {
+        if (e.target.closest('.hl-popup') || e.target.closest('.left')) return
+        if (this.selectionPopup.visible) this.hidePopup()
+      }
+      document.addEventListener('mousedown', this._hlPopupHandler)
+      this._hlScrollHandler = () => { if (this.selectionPopup.visible) this.hidePopup() }
+      document.addEventListener('scroll', this._hlScrollHandler, true)
+      this.$nextTick(() => {
+        lucide.createIcons()
+        this._applyHLVisual()
+        this._updateVisibleRange()
+      })
+      this._hlWatch = setInterval(() => { this._applyHLVisual() }, 300)
     },
-    updated(){this.$nextTick(()=>lucide.createIcons())},
-    beforeUnmount() { if (this.timerInterval) clearInterval(this.timerInterval) },
+    updated() { this.$nextTick(() => lucide.createIcons()) },
+    beforeUnmount() {
+      if (this.timerInterval) clearInterval(this.timerInterval)
+      if (this._hlWatch) clearInterval(this._hlWatch)
+      if (this._hlPopupHandler) document.removeEventListener('mousedown', this._hlPopupHandler)
+      if (this._hlScrollHandler) document.removeEventListener('scroll', this._hlScrollHandler, true)
+    },
   })
   app.mount('#app')
 </script>

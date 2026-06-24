@@ -30,7 +30,7 @@ const AppShell = {
       <ConfigModal :show="showConfig" @close="showConfig = false" />
     </div>
   `,
-  components: { Sidebar, ConfigModal, MeuLexicoView, VocabView, DitadoView, ExamView, LeituraView, COView, PIEView, ConectoresView, ErrosView, ExamHistoryView, StudyStats, DicionarioView, ExpressoesView, FavoritosView },
+  components: { Sidebar, ConfigModal, MeuLexicoView, VocabView, DitadoView, ExamView, LeituraView, PIEView, ConectoresView, ErrosView, ExamHistoryView, StudyStats, DicionarioView, ExpressoesView, FavoritosView },
   data() {
     return {
       currentView: 'vocab',
@@ -41,7 +41,7 @@ const AppShell = {
   },
   computed: {
     currentComponent() {
-      return { myvocab:'MeuLexicoView', vocab:'VocabView', ditado:'DitadoView', dicionario:'DicionarioView', favoritos:'FavoritosView', expressoes:'ExpressoesView', exam:'ExamView', leitura:'LeituraView', co:'COView', pie:'PIEView', conectores:'ConectoresView', erros:'ErrosView', exames:'ExamHistoryView' }[this.currentView] || 'VocabView'
+      return { myvocab:'MeuLexicoView', vocab:'VocabView', ditado:'DitadoView', dicionario:'DicionarioView', favoritos:'FavoritosView', expressoes:'ExpressoesView', exam:'ExamView', leitura:'LeituraView', pie:'PIEView', conectores:'ConectoresView', erros:'ErrosView', exames:'ExamHistoryView' }[this.currentView] || 'VocabView'
     },
     userName() {
       return PTStore.data?.config?.userName || 'Utilizador'

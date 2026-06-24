@@ -82,12 +82,12 @@
     <button @click="closeWin" class="mt-5 btn-primary">Voltar</button>
   </div>
 
-  <!-- ═══ ROUND COMPLETE ═══ -->
-  <div v-if="round && roundComplete" class="exam-card text-center max-w-sm w-full anim-fade-in-up">
-    <i data-lucide="check-circle" class="w-12 h-12 mx-auto text-certo mb-3"></i>
-    <p class="text-lg font-bold text-slate-800">Revisão concluída! 🎉</p>
-    <p class="text-sm text-slate-500 mt-1 mb-5">{{ results.filter(r=>r.correct).length }} / {{ words.length }} dominadas</p>
-    <button @click="closeWin" class="btn-primary">Fechar</button>
+  <!-- ═══ ROUND COMPLETE — Voltar à página principal ═══ -->
+  <div v-if="round && roundComplete" class="flex-1 w-full flex items-center justify-center p-6">
+    <div class="text-center max-w-sm anim-fade-in-up">
+      <i data-lucide="check-circle" class="w-10 h-10 mx-auto text-certo mb-3"></i>
+      <p class="text-base font-medium text-slate-600">A voltar à página principal...</p>
+    </div>
   </div>
 
   <!-- ═══ FLASHCARD ═══ -->
@@ -166,6 +166,26 @@ const app = Vue.createApp({
       if (!this.currentWord) return ''
       return this.isPt2zh ? this.currentWord.zh : this.currentWord.pt
     },
+    correctCount() { return this.results.filter(r => r.correct).length },
+    wrongCount() { return this.results.filter(r => !r.correct).length },
+    accuracy() {
+      const t = this.results.length
+      return t ? Math.round(this.correctCount / t * 100) : 0
+    },
+    scoreBorderClass() {
+      const a = this.accuracy
+      return a >= 80 ? 'border-certo' : a >= 60 ? 'border-lisboa' : 'border-erro'
+    },
+    scoreColorClass() {
+      const a = this.accuracy
+      return a >= 80 ? 'text-certo' : a >= 60 ? 'text-lisboa' : 'text-erro'
+    },
+    wrongWords() {
+      const wrongSet = new Set(
+        this.results.filter(r => !r.correct).map(r => r.pt)
+      )
+      return this.words.filter(w => wrongSet.has(w.pt))
+    },
   },
   methods: {
     stageLabel(stage) {
@@ -203,6 +223,9 @@ const app = Vue.createApp({
           this.showAnswer = false; this.rated = false
         } else {
           this.roundComplete = true
+          localStorage.removeItem('ERROS_CURRENT_ROUND')
+          // Auto-close after brief delay
+          setTimeout(() => window.close(), 800)
         }
       }, 1000)
     },

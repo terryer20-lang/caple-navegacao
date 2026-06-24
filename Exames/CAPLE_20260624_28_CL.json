@@ -1,0 +1,1092 @@
+{
+  "examId": "CAPLE_20260624_28_CL",
+  "level": "C2",
+  "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa. A arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados. A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária. A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável?\n\nA resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada. No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou ",
+  "questions": [
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Segundo o texto, qual das seguintes afirmações melhor caracteriza a globalização?",
+      "options": [
+        "A. Um processo exclusivamente económico que intensifica as trocas comerciais.",
+        "B. Um fenómeno complexo que envolve tensões entre justiça cosmopolita e soberania estatal.",
+        "C. Uma realidade tecnológica que permite o acesso ubíquo a bens culturais.",
+        "D. Uma mera projeção dos interesses das potências hegemónicas a nível mundial."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a globalização é 'um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal', o que a torna um fenómeno complexo e não exclusivamente económico.",
+      "difficulty": 4,
+      "index": 0
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que paradoxo é apresentado no texto relativamente à filosofia política e à globalização?",
+      "options": [
+        "A. Como conciliar o capitalismo com a democracia.",
+        "B. Como criar uma ordem global que não seja dominada por interesses hegemónicos.",
+        "C. Como eliminar as fronteiras entre os Estados.",
+        "D. Como garantir a paz perpétua entre as nações."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que a filosofia política se debate com o paradoxo de 'como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas'.",
+      "difficulty": 4,
+      "index": 1
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a ironia apontada pelo autor em relação à globalização?",
+      "options": [
+        "A. O capital e a informação fluem rapidamente, mas os corpos humanos enfrentam barreiras.",
+        "B. A tecnologia aproxima as pessoas, mas aumenta a solidão.",
+        "C. O comércio global beneficia todos os países igualmente.",
+        "D. A soberania estatal é reforçada pela globalização."
+      ],
+      "answer": "A",
+      "explanation": "O texto destaca a ironia de que 'enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados'.",
+      "difficulty": 4,
+      "index": 2
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "De que modo a arte é caracterizada no texto?",
+      "options": [
+        "A. Como um mero entretenimento estético.",
+        "B. Como um ato de filosofia prática que denuncia a violência da globalização.",
+        "C. Como um instrumento de propaganda política.",
+        "D. Como uma forma de escapismo face aos problemas globais."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que obras como as de Ai Weiwei e Pedro Costa 'não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização'.",
+      "difficulty": 4,
+      "index": 3
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Segundo o texto, qual é o duplo papel da inovação tecnológica?",
+      "options": [
+        "A. Promover a igualdade e reduzir a pobreza.",
+        "B. Curar doenças e otimizar recursos, mas também aprofundar o fosso digital.",
+        "C. Facilitar a comunicação e eliminar conflitos.",
+        "D. Reforçar a soberania estatal e a vigilância."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que a inovação 'promete curar doenças e otimizar recursos' mas também 'aprofundam o fosso digital e criam novas formas de vigilância e controlo'.",
+      "difficulty": 4,
+      "index": 4
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que crítica é feita à diplomacia no contexto da globalização?",
+      "options": [
+        "A. É excessivamente focada em questões culturais.",
+        "B. Está refém de uma lógica de poder que privilegia o curto prazo.",
+        "C. É demasiado lenta e burocrática.",
+        "D. Ignora completamente os interesses nacionais."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a diplomacia 'encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais'.",
+      "difficulty": 4,
+      "index": 5
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a questão central que o texto coloca sobre a globalização?",
+      "options": [
+        "A. Se a globalização é boa ou má.",
+        "B. Que tipo de globalização queremos construir.",
+        "C. Como acabar com a globalização.",
+        "D. Se a globalização é inevitável."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma claramente que 'a questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir'.",
+      "difficulty": 4,
+      "index": 6
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O que é a 'McDonaldização' da sociedade, segundo o texto?",
+      "options": [
+        "A. A difusão global da comida rápida.",
+        "B. A homogeneização cultural que impõe um padrão de consumo e pensamento.",
+        "C. A modernização dos processos de produção.",
+        "D. A criação de uma cultura global diversificada."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve a 'McDonaldização' como 'a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças'.",
+      "difficulty": 4,
+      "index": 7
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Como é que a literatura de autores como Mia Couto e Chimamanda Ngozi Adichie contribui para a globalização?",
+      "options": [
+        "A. Reforçando a homogeneização cultural.",
+        "B. Afirmando a singularidade das experiências locais no contexto global.",
+        "C. Promovendo o isolamento cultural.",
+        "D. Negando a existência de um universal."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que estes autores, 'ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais'.",
+      "difficulty": 4,
+      "index": 8
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que exemplos de globalização alternativa são mencionados no texto?",
+      "options": [
+        "A. Multinacionais e grandes corporações.",
+        "B. Movimentos de comércio justo e cooperativas de economia solidária.",
+        "C. Barreiras alfandegárias e protecionismo.",
+        "D. Acordos secretos entre Estados."
+      ],
+      "answer": "B",
+      "explanation": "O texto cita 'movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding' como exemplos de uma globalização alternativa.",
+      "difficulty": 4,
+      "index": 9
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a tarefa urgente da filosofia no contexto da globalização, segundo o texto?",
+      "options": [
+        "A. Reforçar os discursos hegemónicos.",
+        "B. Desconstruir discursos que naturalizam a desigualdade.",
+        "C. Isolar-se nas universidades.",
+        "D. Propor soluções económicas."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a filosofia tem a tarefa de 'desconstruir os discursos hegemónicos que naturalizam a desigualdade'.",
+      "difficulty": 4,
+      "index": 10
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que mudança é necessária na diplomacia, de acordo com o texto?",
+      "options": [
+        "A. Tornar-se mais secreta e eficiente.",
+        "B. Criar espaços de deliberação pública com a sociedade civil.",
+        "C. Focar-se apenas em negociações entre Estados.",
+        "D. Ignorar a crise climática."
+      ],
+      "answer": "B",
+      "explanation": "O texto defende que 'é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas'.",
+      "difficulty": 4,
+      "index": 11
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a relação entre a crise climática e a globalização, segundo o texto?",
+      "options": [
+        "A. A crise climática é independente da globalização.",
+        "B. A crise climática mostra a interdependência global e a necessidade de agir em conjunto.",
+        "C. A globalização resolve a crise climática.",
+        "D. A crise climática é causada apenas por países em desenvolvimento."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável'.",
+      "difficulty": 4,
+      "index": 12
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que visão do mundo o texto rejeita explicitamente?",
+      "options": [
+        "A. A visão de um mundo sem conflitos ou harmonia pré-estabelecida.",
+        "B. A visão de um mundo dominado por interesses antagónicos.",
+        "C. A visão de um mundo onde a arte é irrelevante.",
+        "D. A visão de um mundo puramente económico."
+      ],
+      "answer": "A",
+      "explanation": "O texto afirma que 'não se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida'.",
+      "difficulty": 4,
+      "index": 13
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a metáfora final usada para descrever a globalização?",
+      "options": [
+        "A. Um jardim de harmonia universal.",
+        "B. Um campo de batalha onde se confrontam interesses antagónicos.",
+        "C. Uma fortaleza inexpugnável.",
+        "D. Um mercado livre e justo."
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que 'a globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes'.",
+      "difficulty": 4,
+      "index": 14
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: A globalização é um campo de batalha onde a inovação e a arte podem contribuir para uma justiça cosmopolita, e a política precisa de recuperar a sua dimensão ética. B: A resposta à interrogação sobre a globalização exige deslocar o olhar para a cultura e a ética, onde a arte e a inovação social oferecem resistência à homogeneização. C: A globalização não é apenas trocas comerciais ou tecnologia; é um palco de tensões entre justiça cosmopolita e soberania estatal, onde a arte denuncia a violência silenciosa. D: A globalização, como processo histórico, é um campo de batalha onde a questão central é transformar a disputa num laboratório democrático. E: A inovação, celebrada como progresso, é um instrumento de dupla face que aprofunda o fosso digital e cria novas formas de vigilância. F: A filosofia e a diplomacia precisam de se reinventar para criar espaços de deliberação pública e desconstruir discursos hegemónicos.",
+      "options": [
+        "C-B-E-F-D",
+        "C-E-B-F-A",
+        "A-C-E-B-D",
+        "B-E-F-C-A"
+      ],
+      "answer": "C-B-E-F-A",
+      "explanation": "A sequência lógica começa com a definição da globalização como palco de tensões (C), seguida pela necessidade de deslocar o olhar para a cultura e a ética (B). Depois, aborda-se a inovação como instrumento de dupla face (E) e a necessidade de reinvenção da filosofia e diplomacia (F). O parágrafo A conclui com a transformação do campo de batalha num laboratório democrático. O parágrafo D é extra, pois repete a ideia de campo de batalha de forma redundante.",
+      "difficulty": 4,
+      "index": 15
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: A arte de Ai Weiwei e o cinema de Pedro Costa são atos de filosofia prática que confrontam a violência silenciosa da globalização. B: A globalização homogeneíza e impõe um padrão de consumo, mas a literatura de Adichie, Couto e Agualusa afirma a singularidade local. C: A crise climática mostra que a interdependência é inescapável e exige ação conjunta para superar a competição. D: A filosofia política debateu-se com o paradoxo de conceber uma ordem global que transcenda fronteiras sem ser mera projeção de potências hegemónicas. E: A diplomacia precisa de se reinventar, criando espaços de deliberação pública para a sociedade civil e povos indígenas. F: A questão central não é se a globalização é boa ou má, mas que tipo de globalização queremos construir.",
+      "options": [
+        "D-A-B-E-C",
+        "A-D-C-E-B",
+        "B-E-A-D-C",
+        "C-B-D-A-E"
+      ],
+      "answer": "D-A-B-E-C",
+      "explanation": "A sequência começa com o debate filosófico sobre a ordem global (D), seguido pela arte como ato de filosofia prática (A). Depois, aborda-se a homogeneização e a resistência literária (B), a necessidade de reinvenção da diplomacia (E) e a crise climática como exemplo de interdependência (C). O parágrafo F é extra, pois a questão sobre o tipo de globalização já está implícita no texto.",
+      "difficulty": 4,
+      "index": 16
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: A inovação social, como o comércio justo e as cooperativas, aponta para uma globalização alternativa mais horizontal. B: A ironia da globalização é que o capital flui livremente, mas os corpos humanos esbarram em muros e contingentes de refugiados. C: A filosofia tem a tarefa de desconstruir discursos hegemónicos e propor novos quadros para a cidadania global. D: A globalização, na sua vertente perniciosa, tende a homogeneizar e a silenciar vozes dissonantes. E: A arte oferece resistência tenaz à homogeneização, mostrando que o universal é a síntese do particular. F: A diplomacia, refém de uma lógica de poder, privilegia o curto prazo em detrimento de uma visão planetária.",
+      "options": [
+        "B-A-D-E-C",
+        "D-B-F-A-E",
+        "B-F-D-E-A",
+        "C-E-B-A-D"
+      ],
+      "answer": "B-F-D-E-A",
+      "explanation": "A sequência começa com a ironia da globalização (B), seguida pela crítica à diplomacia refém do poder (F). Depois, aborda-se a vertente perniciosa da homogeneização (D), a resistência da arte (E) e a inovação social como alternativa (A). O parágrafo C é extra, pois a tarefa da filosofia já está implícita na discussão sobre a desconstrução de discursos.",
+      "difficulty": 5,
+      "index": 17
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: A utopia de uma república mundial de cidadãos é uma necessidade prática num mundo de problemas globais. B: A globalização cria vencedores e vencidos, produzindo riqueza e uma multidão de excluídos. C: A inovação tecnológica aprofunda o fosso digital e cria novas formas de vigilância e controlo. D: A arte e a literatura afirmam a singularidade local enquanto circulam globalmente, resistindo à monotonia. E: A crise climática é a face mais visível da globalização dos riscos, exigindo ação conjunta. F: A política precisa de recuperar a sua dimensão ética para construir instituições globais democráticas.",
+      "options": [
+        "B-C-D-E-F",
+        "C-B-A-D-E",
+        "E-D-C-B-A",
+        "F-A-B-C-D"
+      ],
+      "answer": "B-C-D-E-F",
+      "explanation": "A sequência começa com a criação de vencedores e vencidos pela globalização (B), seguida pela inovação tecnológica que aprofunda desigualdades (C). Depois, a arte resiste à monotonia (D), a crise climática exige ação (E) e a política precisa de recuperar a ética (F). O parágrafo A é extra, pois a utopia da república mundial já está implícita na conclusão sobre instituições globais.",
+      "difficulty": 4,
+      "index": 18
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: A filosofia, a arte e a diplomacia têm o poder de nos fazer vislumbrar um horizonte de justiça cosmopolita. B: A globalização é um palco de tensões entre a promessa de justiça cosmopolita e a soberania estatal. C: A inovação social e as cooperativas de economia solidária apontam para uma globalização alternativa. D: A arte de denúncia, como a instalação de Ai Weiwei, confronta-nos com a violência silenciosa da globalização. E: A diplomacia precisa de se reinventar para incluir as vozes da sociedade civil e dos movimentos sociais. F: A crise climática mostra que a interdependência é um facto inescapável e exige superar a competição.",
+      "options": [
+        "B-D-C-E-F",
+        "A-C-E-D-B",
+        "D-B-F-C-A",
+        "E-A-B-D-C"
+      ],
+      "answer": "B-D-C-E-F",
+      "explanation": "A sequência começa com a definição da globalização como palco de tensões (B), seguida pela arte de denúncia (D). Depois, aborda-se a inovação social como alternativa (C), a reinvenção da diplomacia (E) e a crise climática como exemplo de interdependência (F). O parágrafo A é extra, pois a conclusão sobre o horizonte de justiça já está implícita na discussão sobre a reinvenção da diplomacia e da filosofia.",
+      "difficulty": 5,
+      "index": 19
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No primeiro parágrafo, o autor descreve a globalização como um «palco onde se encenam as mais profundas tensões». Esta metáfora sugere que a globalização é, essencialmente:",
+      "options": [
+        "A. um fenómeno homogéneo e consensual",
+        "B. um espaço de conflito e contradição",
+        "C. uma mera intensificação do comércio",
+        "D. uma utopia de justiça cosmopolita"
+      ],
+      "answer": "B",
+      "explanation": "O autor utiliza a metáfora do palco para realçar as tensões entre a promessa de justiça cosmopolita e a persistência da soberania estatal, indicando um espaço de conflito, não de consenso.",
+      "difficulty": 4,
+      "index": 20
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Segundo o texto, a ironia da globalização reside no facto de:",
+      "options": [
+        "A. o capital e a informação fluírem rapidamente, mas os corpos humanos enfrentarem barreiras",
+        "B. a tecnologia unir todas as pessoas sem exceção",
+        "C. os muros serem derrubados em toda a Europa",
+        "D. os refugiados serem bem-vindos nas periferias"
+      ],
+      "answer": "A",
+      "explanation": "O texto afirma que 'enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados', evidenciando a ironia.",
+      "difficulty": 4,
+      "index": 21
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O autor refere a instalação de Ai Weiwei e o cinema de Pedro Costa para ilustrar que a arte pode funcionar como:",
+      "options": [
+        "A. mero entretenimento estético",
+        "B. atos de filosofia prática e denúncia",
+        "C. propaganda política governamental",
+        "D. fuga da realidade social"
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve estas obras como 'atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização', sublinhando o seu papel de denúncia e reflexão.",
+      "difficulty": 4,
+      "index": 22
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No contexto do texto, a expressão «capitalismo de vigilância» é usada para exemplificar:",
+      "options": [
+        "A. os benefícios da inteligência artificial",
+        "B. o lado negativo da inovação tecnológica",
+        "C. a neutralidade da biotecnologia",
+        "D. a otimização de recursos na saúde"
+      ],
+      "answer": "B",
+      "explanation": "O autor menciona o capitalismo de vigilância como uma consequência negativa da inovação, que 'aprofunda o fosso digital e cria novas formas de vigilância e controlo'.",
+      "difficulty": 4,
+      "index": 23
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O autor afirma que a diplomacia, na era da globalização, «encontra-se muitas vezes refém de uma lógica de poder». Isto significa que a diplomacia:",
+      "options": [
+        "A. privilegia o longo prazo e a visão planetária",
+        "B. é independente dos interesses nacionais",
+        "C. está subordinada a interesses de curto prazo",
+        "D. ignora completamente o poder estatal"
+      ],
+      "answer": "C",
+      "explanation": "O texto diz que a diplomacia 'privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária', indicando a sua subordinação a esses interesses.",
+      "difficulty": 4,
+      "index": 24
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No segundo parágrafo, o autor critica a «McDonaldização» da sociedade, que se caracteriza por:",
+      "options": [
+        "A. promover a diversidade cultural",
+        "B. impor um padrão homogéneo de consumo e pensamento",
+        "C. incentivar a produção local de alimentos",
+        "D. valorizar as vozes dissonantes"
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que a globalização 'tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças', exemplificado pela 'McDonaldização'.",
+      "difficulty": 4,
+      "index": 25
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A literatura de Chimamanda Ngozi Adichie, Mia Couto e José Eduardo Agualusa é apresentada como exemplo de:",
+      "options": [
+        "A. uma globalização que apaga as diferenças locais",
+        "B. uma resistência cultural que afirma o particular no universal",
+        "C. um fenómeno puramente comercial",
+        "D. uma forma de homogeneização literária"
+      ],
+      "answer": "B",
+      "explanation": "O autor afirma que estes escritores 'afirmam a singularidade das experiências locais, mostrando que o universal não é o oposto do particular', representando resistência cultural.",
+      "difficulty": 4,
+      "index": 26
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sugere que a inovação, para além da tecnológica, pode ser também:",
+      "options": [
+        "A. exclusivamente económica",
+        "B. social e institucional",
+        "C. militar e estratégica",
+        "D. religiosa e espiritual"
+      ],
+      "answer": "B",
+      "explanation": "O autor refere explicitamente que 'a inovação, neste contexto, não é apenas tecnológica, mas também social e institucional', citando exemplos como comércio justo e cooperativas.",
+      "difficulty": 4,
+      "index": 27
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Os movimentos de comércio justo e as cooperativas de economia solidária são apresentados como:",
+      "options": [
+        "A. exemplos de uma globalização alternativa e horizontal",
+        "B. modelos de submissão às multinacionais",
+        "C. fenómenos marginais sem significado",
+        "D. formas de exploração disfarçada"
+      ],
+      "answer": "A",
+      "explanation": "O texto descreve estes exemplos como 'uma globalização alternativa, mais horizontal e participativa', contrastando com a globalização dominante.",
+      "difficulty": 4,
+      "index": 28
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No segundo parágrafo, a «filosofia» é criticada por:",
+      "options": [
+        "A. se envolver ativamente na política",
+        "B. se refugiar nas torres de marfim das universidades",
+        "C. propor novos quadros conceptuais",
+        "D. desconstruir discursos hegemónicos"
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a filosofia 'muitas vezes se refugia nas torres de marfim das universidades', sugerindo um distanciamento da realidade prática.",
+      "difficulty": 4,
+      "index": 29
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Segundo o texto, a crise climática é apresentada como:",
+      "options": [
+        "A. um problema exclusivamente local",
+        "B. a face mais visível da globalização dos riscos",
+        "C. um fenómeno independente da globalização",
+        "D. uma oportunidade para competição entre nações"
+      ],
+      "answer": "B",
+      "explanation": "O autor descreve a crise climática como 'a face mais visível da globalização dos riscos', mostrando a interdependência global.",
+      "difficulty": 4,
+      "index": 30
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No terceiro parágrafo, o autor adverte que o seu argumento não é:",
+      "options": [
+        "A. um apelo ingénuo a um mundo sem conflitos",
+        "B. uma crítica à globalização",
+        "C. uma defesa da soberania estatal",
+        "D. uma proposta de harmonia pré-estabelecida"
+      ],
+      "answer": "A",
+      "explanation": "O texto começa o parágrafo com 'Não se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos', rejeitando essa visão simplista.",
+      "difficulty": 4,
+      "index": 31
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O autor descreve a globalização como um «campo de batalha» onde se confrontam:",
+      "options": [
+        "A. apenas interesses económicos",
+        "B. interesses antagónicos e visões do mundo divergentes",
+        "C. exclusivamente ideologias políticas",
+        "D. forças militares de diferentes nações"
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a globalização é 'um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes'.",
+      "difficulty": 4,
+      "index": 32
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No final do texto, a identidade cultural é caracterizada como:",
+      "options": [
+        "A. uma essência imutável e fixa",
+        "B. uma construção dinâmica em diálogo com o local e o global",
+        "C. algo que deve ser rejeitado na era global",
+        "D. um conceito irrelevante para a arte"
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que 'a identidade cultural... não é uma essência imutável, mas uma construção dinâmica, um diálogo permanente entre o local e o global'.",
+      "difficulty": 4,
+      "index": 33
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A metáfora dos artistas como «cartógrafos do nosso tempo» sugere que eles:",
+      "options": [
+        "A. desenham mapas de lugares já conhecidos",
+        "B. imaginam e representam um mundo futuro ainda inexistente",
+        "C. ignoram as tensões do presente",
+        "D. são meros ilustradores da realidade"
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que os artistas 'desenham mapas de um mundo que ainda não existe, mas que já se anuncia nas frinchas do presente', indicando uma visão prospetiva.",
+      "difficulty": 4,
+      "index": 34
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 1: A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney.",
+      "options": [
+        "matricial",
+        "confunde",
+        "intensificação",
+        "correta"
+      ],
+      "answer": "matricial",
+      "explanation": "A palavra 'matricial' está a mais, pois 'fenómeno matricial' é uma expressão redundante e pouco idiomática em português; o correto seria 'fenómeno central' ou simplesmente 'fenómeno do nosso tempo'.",
+      "difficulty": 4,
+      "index": 35
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 2: Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada.",
+      "options": [
+        "encenam",
+        "profundas",
+        "cosmopolita",
+        "correta"
+      ],
+      "answer": "encenam",
+      "explanation": "O verbo 'encenam' está a mais, pois 'palco onde se encenam' é uma metáfora exagerada; o correto seria 'palco onde se manifestam' ou 'palco de tensões'.",
+      "difficulty": 4,
+      "index": 36
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 3: A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras?",
+      "options": [
+        "debateu-se",
+        "paradoxo",
+        "projeção",
+        "correta"
+      ],
+      "answer": "debateu-se",
+      "explanation": "A palavra 'debateu-se' está a mais, pois o verbo 'debater' já implica reflexão; o correto seria 'confrontou-se' ou simplesmente 'considerou'.",
+      "difficulty": 4,
+      "index": 37
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 4: A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa.",
+      "options": [
+        "palpável",
+        "fluem",
+        "esbarrar",
+        "correta"
+      ],
+      "answer": "palpável",
+      "explanation": "A palavra 'palpável' está a mais, pois 'ironia palpável' é uma expressão redundante; o correto seria 'A ironia é evidente' ou simplesmente 'A ironia aqui é clara'.",
+      "difficulty": 4,
+      "index": 38
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 5: A arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa.",
+      "options": [
+        "denúncia",
+        "imaginação",
+        "suspensos",
+        "correta"
+      ],
+      "answer": "imaginação",
+      "explanation": "A palavra 'imaginação' está a mais, pois 'papel de denúncia e de imaginação' é uma combinação estranha; o correto seria 'papel de denúncia e de reflexão' ou 'de denúncia e de memória'.",
+      "difficulty": 4,
+      "index": 39
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 6: Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos.",
+      "options": [
+        "estéticos",
+        "filosofia prática",
+        "silenciosa",
+        "correta"
+      ],
+      "answer": "silenciosa",
+      "explanation": "A palavra 'silenciosa' está a mais, pois 'violência silenciosa' é uma expressão redundante; o correto seria 'violência da globalização' sem o adjetivo.",
+      "difficulty": 4,
+      "index": 40
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 7: A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados.",
+      "options": [
+        "motor",
+        "dupla face",
+        "biotecnologia",
+        "correta"
+      ],
+      "answer": "dupla face",
+      "explanation": "A palavra 'dupla face' está a mais, pois 'instrumento de dupla face' é uma expressão redundante; o correto seria 'instrumento ambivalente' ou simplesmente 'instrumento'.",
+      "difficulty": 4,
+      "index": 41
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 8: A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária.",
+      "options": [
+        "arte",
+        "refém",
+        "privilegia",
+        "correta"
+      ],
+      "answer": "arte",
+      "explanation": "A palavra 'arte' está a mais, pois 'arte de gerir conflitos' é uma expressão comum, mas aqui o contexto pede 'a diplomacia, que deveria gerir estes conflitos' sem o substantivo 'arte'.",
+      "difficulty": 4,
+      "index": 42
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 9: A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir.",
+      "options": [
+        "coloca",
+        "saber",
+        "tipo",
+        "correta"
+      ],
+      "answer": "saber",
+      "explanation": "A palavra 'saber' está a mais, pois 'a questão não é de saber se' é uma construção redundante; o correto seria 'a questão não é se a globalização é boa ou má'.",
+      "difficulty": 4,
+      "index": 43
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 10: Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável?",
+      "options": [
+        "replica",
+        "inspira",
+        "concessão",
+        "correta"
+      ],
+      "answer": "replica",
+      "explanation": "A palavra 'replica' está a mais, pois 'replica as desigualdades' é redundante; o correto seria 'reproduz as desigualdades' ou simplesmente 'perpetua as desigualdades'.",
+      "difficulty": 4,
+      "index": 44
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 11: A resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética.",
+      "options": [
+        "interrogação",
+        "desloque",
+        "puramente",
+        "correta"
+      ],
+      "answer": "interrogação",
+      "explanation": "A palavra 'interrogação' está a mais, pois 'resposta a esta interrogação' é uma expressão redundante; o correto seria 'resposta a esta questão' ou simplesmente 'resposta'.",
+      "difficulty": 4,
+      "index": 45
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 12: A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes.",
+      "options": [
+        "perniciosa",
+        "homogeneizar",
+        "apaga",
+        "correta"
+      ],
+      "answer": "perniciosa",
+      "explanation": "A palavra 'perniciosa' está a mais, pois 'vertente mais perniciosa' é redundante; o correto seria 'na sua vertente mais negativa' ou simplesmente 'na sua vertente'.",
+      "difficulty": 5,
+      "index": 46
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 13: É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada.",
+      "options": [
+        "McDonaldização",
+        "diversidade",
+        "monotonia",
+        "correta"
+      ],
+      "answer": "McDonaldização",
+      "explanation": "A palavra 'McDonaldização' está a mais, pois é uma expressão estrangeira desnecessária; o correto seria 'homogeneização cultural' ou 'padronização'.",
+      "difficulty": 5,
+      "index": 47
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 14: No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada.",
+      "options": [
+        "tenaz",
+        "circula",
+        "singularidade",
+        "correta"
+      ],
+      "answer": "tenaz",
+      "explanation": "A palavra 'tenaz' está a mais, pois 'resistência tenaz' é uma expressão redundante; o correto seria 'oferece resistência' sem o adjetivo.",
+      "difficulty": 5,
+      "index": 48
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 15: A inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais.",
+      "options": [
+        "tecnológica",
+        "crowdfunding",
+        "grilhetas",
+        "correta"
+      ],
+      "answer": "crowdfunding",
+      "explanation": "A palavra 'crowdfunding' está a mais, pois é um anglicismo desnecessário; o correto seria 'financiamento coletivo' ou 'plataformas de financiamento'.",
+      "difficulty": 5,
+      "index": 49
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 16: Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento.",
+      "options": [
+        "marginais",
+        "horizontal",
+        "abstrato",
+        "correta"
+      ],
+      "answer": "marginais",
+      "explanation": "A palavra 'marginais' está a mais, pois 'exemplos marginais' é redundante; o correto seria 'estes exemplos, ainda que isolados' ou simplesmente 'estes exemplos'.",
+      "difficulty": 5,
+      "index": 50
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 17: A filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global.",
+      "options": [
+        "refugia",
+        "torres de marfim",
+        "desconstruir",
+        "correta"
+      ],
+      "answer": "torres de marfim",
+      "explanation": "A palavra 'torres de marfim' está a mais, pois é uma expressão redundante; o correto seria 'se refugia nas universidades' sem a metáfora.",
+      "difficulty": 5,
+      "index": 51
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 18: A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas.",
+      "options": [
+        "reinventar",
+        "secreta",
+        "deliberação",
+        "correta"
+      ],
+      "answer": "secreta",
+      "explanation": "A palavra 'secreta' está a mais, pois 'negociação secreta' é redundante; o correto seria 'negociação entre Estados' sem o adjetivo.",
+      "difficulty": 5,
+      "index": 52
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 19: A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna.",
+      "options": [
+        "visível",
+        "inescapável",
+        "superando",
+        "correta"
+      ],
+      "answer": "inescapável",
+      "explanation": "A palavra 'inescapável' está a mais, pois 'facto inescapável' é redundante; o correto seria 'a interdependência é um facto' sem o adjetivo.",
+      "difficulty": 5,
+      "index": 53
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 20: Não se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes.",
+      "options": [
+        "ingénuo",
+        "pré-estabelecida",
+        "antagónicos",
+        "correta"
+      ],
+      "answer": "pré-estabelecida",
+      "explanation": "A palavra 'pré-estabelecida' está a mais, pois 'harmonia pré-estabelecida' é redundante; o correto seria 'a uma harmonia' sem o adjetivo.",
+      "difficulty": 5,
+      "index": 54
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A globalização, enquanto fenómeno ______ do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "matricial",
+      "explanation": "A palavra 'matricial' (de 'matriz', origem) é usada no texto para descrever a globalização como um fenómeno fundamental e gerador de outros processos. Nível C2, vocabulário erudito.",
+      "difficulty": 4,
+      "index": 55
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A filosofia política debateu-se com este ______: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "paradoxo",
+      "explanation": "O texto refere-se ao 'paradoxo' de conciliar justiça cosmopolita com soberania estatal. Palavra-chave para o argumento filosófico.",
+      "difficulty": 4,
+      "index": 56
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A ______, aqui, é palpável: enquanto o capital flui, os corpos humanos esbarram em muros.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "ironia",
+      "explanation": "O texto usa 'ironia' para sublinhar a contradição entre a fluidez do capital e a imobilidade forçada dos migrantes. Tom crítico, típico de C2.",
+      "difficulty": 4,
+      "index": 57
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Estas obras não são meros objetos estéticos; são atos de ______ prática que nos confrontam com a violência silenciosa da globalização.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "filosofia",
+      "explanation": "O texto afirma que a arte de Ai Weiwei e Pedro Costa constitui 'filosofia prática', unindo estética e ética. Nível C2, conceptual.",
+      "difficulty": 4,
+      "index": 58
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A inovação, frequentemente celebrada como o motor do ______, é aqui um instrumento de dupla face.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "progresso",
+      "explanation": "O texto critica a narrativa do 'progresso' associada à inovação, mostrando os seus efeitos negativos. Vocabulário comum, mas usado ironicamente.",
+      "difficulty": 4,
+      "index": 59
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A inteligência artificial e a biotecnologia aprofundam o fosso digital e criam novas formas de ______ e controlo.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "vigilância",
+      "explanation": "O texto menciona 'capitalismo de vigilância' e 'colonialismo de dados', referindo-se a 'vigilância' como um dos efeitos negativos da inovação.",
+      "difficulty": 4,
+      "index": 60
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A diplomacia encontra-se refém de uma lógica de poder que privilegia o curto prazo e os interesses ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "nacionais",
+      "explanation": "O texto contrapõe 'interesses nacionais' a uma 'visão planetária', criticando o nacionalismo na diplomacia. Vocabulário específico de ciência política.",
+      "difficulty": 4,
+      "index": 61
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Será aquela que replica, à escala global, as desigualdades do Antigo ______?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "Regime",
+      "explanation": "'Antigo Regime' é uma referência histórica (pré-Revolução Francesa), usada metaforicamente para criticar desigualdades estruturais. Nível C2, cultura geral.",
+      "difficulty": 4,
+      "index": 62
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A globalização, na sua vertente mais ______, tende a homogeneizar e a impor um padrão de consumo.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "perniciosa",
+      "explanation": "'Perniciosa' significa prejudicial, danosa. O texto critica a vertente negativa da globalização. Vocabulário formal e erudito.",
+      "difficulty": 4,
+      "index": 63
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma ______ de fachada.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "monotonia",
+      "explanation": "O texto usa 'monotonia' para descrever a homogeneização cultural, em oposição à diversidade. Termo crítico, comum em análises sociológicas.",
+      "difficulty": 4,
+      "index": 64
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A literatura de Chimamanda Ngozi Adichie afirma a singularidade das experiências locais, mostrando que o universal é a sua ______ mais elevada.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "síntese",
+      "explanation": "O texto propõe que o universal não é oposto ao particular, mas a 'síntese' de ambos. Conceito filosófico hegeliano, nível C2.",
+      "difficulty": 4,
+      "index": 65
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "As plataformas de crowdfunding permitem a pequenos produtores acederem a mercados globais sem se submeterem às ______ das multinacionais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "grilhetas",
+      "explanation": "'Grilhetas' (correntes, algemas) é uma metáfora para a opressão económica. Vocabulário literário e figurado, típico de C2.",
+      "difficulty": 4,
+      "index": 66
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Estes exemplos apontam para uma globalização alternativa, mais ______ e participativa.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "horizontal",
+      "explanation": "O texto contrapõe uma globalização 'horizontal' (baseada em igualdade) à vertical (hierárquica). Termo de teoria política e económica.",
+      "difficulty": 4,
+      "index": 67
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A filosofia tem a tarefa de ______ os discursos hegemónicos que naturalizam a desigualdade.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "desconstruir",
+      "explanation": "'Desconstruir' é um termo da filosofia pós-estruturalista (Derrida), usado para criticar discursos dominantes. Nível C2, académico.",
+      "difficulty": 5,
+      "index": 68
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A crise climática mostra-nos que a ______ é um facto inescapável e que a sobrevivência depende de agirmos em conjunto.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "interdependência",
+      "explanation": "O texto conclui que a 'interdependência' (dependência mútua) é inevitável, especialmente face aos riscos globais. Conceito central em relações internacionais.",
+      "difficulty": 4,
+      "index": 69
+    }
+  ],
+  "parts": [
+    {
+      "label": "P1 — Escolha múltipla (A/B/C/D) — 3 textos (literatura, crónica, ensaio)",
+      "qStart": 0,
+      "count": 15,
+      "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa.\n\nA arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados. A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária.\n\nA questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável? A resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada. No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada.\n\nA inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais. Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento. A filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global. A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas. A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna.\n\nNão se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes. A questão central é a de saber se conseguimos transformar este terreno de disputa num laboratório de experimentação democrática, onde a inovação e a arte possam contribuir para a edificação de uma ordem global mais justa e plural."
+    },
+    {
+      "label": "P2 — Reconstrução textual (6 parágrafos A-F, 1 extra) — 5 lacunas",
+      "qStart": 15,
+      "count": 5,
+      "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa. A arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados. A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária. A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável?\n\nA resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada. No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada. A inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais. Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento. A filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global. A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas. A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna.\n\nNão se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes. A questão central é a de saber se conseguimos transformar este terreno de disputa num laboratório de experimentação democrática, onde a inovação e a arte possam contribuir para uma justiça verdadeiramente cosmopolita. A política, tantas vezes reduzida a um jogo de bastidores, precisa de recuperar a sua dimensão ética, confrontando-se com as questões de fundo que a globalização coloca: a distribuição equitativa dos recursos, o reconhecimento das diferenças culturais e a construção de instituições globais que sejam efetivamente democráticas e responsáveis perante os cidadãos do mundo. A utopia de uma república mundial de cidadãos, longe de ser uma quimera, é uma necessidade prática num mundo onde os problemas são globais e as soluções nacionais se revelam insuficientes. A arte, a filosofia e a diplomacia têm, cada uma à sua maneira, o poder de nos fazer vislumbrar esse horizonte, lembrando-nos que a justiça não é um dado adquirido, mas uma construção permanente, um horizonte que se persegue sem nunca se alcançar plenamente."
+    },
+    {
+      "label": "P3 — Cloze escolha múltipla (A/B/C/D) — 15 lacunas",
+      "qStart": 20,
+      "count": 15,
+      "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa. A arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados. A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária. A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável?\n\nA resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada. No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada. A inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais. Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento. A filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global. A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas. A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna.\n\nNão se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes. A questão central é a de saber se conseguimos transformar este terreno de disputa num laboratório de experimentação democrática, onde a inovação e a arte possam germinar como sementes de uma nova ética global. A identidade cultural, nesse caldo de cultivo, não é uma essência imutável, mas uma construção dinâmica, um diálogo permanente entre o local e o global, entre a tradição e a modernidade. Os artistas e escritores que ousam navegar estas águas turbulentas são os verdadeiros cartógrafos do nosso tempo, desenhando mapas de um mundo que ainda não existe, mas que já se anuncia nas frinchas do presente. Cabe-nos a nós, leitores e cidadãos, aprender a ler esses mapas e a imaginar, com eles, um futuro mais justo e plural."
+    },
+    {
+      "label": "P4 — Deteção de erros — palavra a mais ou \"correta\" — 20 linhas",
+      "qStart": 35,
+      "count": 20,
+      "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa. A arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados. A diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária. A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável?\n\nA resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada. No entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada. A inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais. Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento. A filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global. A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas. A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna.\n\nNão se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes. A questão central é a de saber se conseguimos transformar este terreno de disputa num laboratório de experimentação democrática, onde a inovação e a arte possam florescer sem se submeterem aos ditames do mercado ou aos caprichos do poder. A ética, aqui, não é um mero adorno discursivo, mas o fio condutor que nos pode guiar através deste labirinto de contradições. Urge, pois, repensar a globalização à luz de uma justiça que não seja apenas distributiva, mas também reconhecimento e participação. Só assim poderemos evitar que a inovação se transforme num novo instrumento de opressão e que a ciência, em vez de nos libertar, nos acorrente a um futuro distópico de vigilância e desigualdade."
+    },
+    {
+      "label": "P5 — Open cloze — 1 palavra/gap — 15 lacunas",
+      "qStart": 55,
+      "count": 15,
+      "sourceText": "A globalização, enquanto fenómeno matricial do nosso tempo, não se confunde com uma mera intensificação das trocas comerciais ou com a ubiquidade tecnológica que nos permite, com um clique, aceder a um mercado de Tânger ou a uma ópera em Sidney. Ela é, antes de mais, um palco onde se encenam as mais profundas tensões entre a promessa de uma justiça cosmopolita e a persistência de uma soberania estatal que, tantas vezes, se revela uma fortaleza sitiada. A filosofia política, desde Kant até Rawls e Habermas, debateu-se com este paradoxo: como conceber uma ordem global que não seja a mera projeção dos interesses das potências hegemónicas, mas sim um tecido de direitos e deveres que transcenda fronteiras? A ironia, aqui, é palpável. Enquanto o capital e a informação fluem com a velocidade da luz, os corpos humanos, esses, continuam a esbarrar em muros, vistos e contingentes de refugiados que se acumulam nas periferias da fortaleza Europa.\n\nA arte, nesse contexto, assume um papel de denúncia e de imaginação. Pense-se na instalação de Ai Weiwei, com os coletes salva-vidas dos náufragos do Mediterrâneo suspensos na fachada da Friedrichsplatz em Kassel, ou no cinema de Pedro Costa, que fixa o olhar sobre os rostos e as vozes dos cabo-verdianos nos subúrbios de Lisboa. Estas obras não são meros objetos estéticos; são atos de filosofia prática que nos confrontam com a violência silenciosa de uma globalização que cria vencedores e vencidos, que produz riqueza e, ao mesmo tempo, gera uma multidão de excluídos. A inovação, frequentemente celebrada como o motor do progresso, é aqui um instrumento de dupla face. Se, por um lado, a inteligência artificial e a biotecnologia prometem curar doenças e otimizar recursos, por outro, aprofundam o fosso digital e criam novas formas de vigilância e controlo, como bem ilustram os debates em torno do capitalismo de vigilância e do colonialismo de dados.\n\nA diplomacia, que deveria ser a arte de gerir estes conflitos, encontra-se muitas vezes refém de uma lógica de poder que privilegia o curto prazo e os interesses nacionais em detrimento de uma visão planetária. A questão que se coloca, portanto, não é a de saber se a globalização é boa ou má, mas sim que tipo de globalização queremos construir. Será aquela que replica, à escala global, as desigualdades do Antigo Regime, ou aquela que se inspira no ideal de uma república mundial de cidadãos, onde a justiça não é uma concessão, mas um direito inalienável? A resposta a esta interrogação exige que se desloque o olhar do domínio puramente económico para o campo da cultura e da ética. A globalização, na sua vertente mais perniciosa, tende a homogeneizar, a impor um padrão de consumo e de pensamento que apaga as diferenças e silencia as vozes dissonantes. É a chamada «McDonaldização» da sociedade, onde a diversidade é substituída por uma monotonia de fachada.\n\nNo entanto, a arte, mais uma vez, oferece uma resistência tenaz. A literatura de Chimamanda Ngozi Adichie, de Mia Couto ou de José Eduardo Agualusa, ao mesmo tempo que circula globalmente, afirma a singularidade das experiências locais, mostrando que o universal não é o oposto do particular, mas sim a sua síntese mais elevada. A inovação, neste contexto, não é apenas tecnológica, mas também social e institucional. Pense-se nos movimentos de comércio justo, nas cooperativas de economia solidária ou nas plataformas de crowdfunding que permitem a pequenos produtores de café no Uganda ou de artesanato no México acederem a mercados globais sem se submeterem às grilhetas das multinacionais. Estes exemplos, ainda que marginais, apontam para uma globalização alternativa, mais horizontal e participativa, onde a justiça não é um ideal abstrato, mas uma prática concreta de reciprocidade e reconhecimento.\n\nA filosofia, que muitas vezes se refugia nas torres de marfim das universidades, tem aqui uma tarefa urgente: a de desconstruir os discursos hegemónicos que naturalizam a desigualdade e de propor novos quadros conceptuais para pensar a cidadania global. A diplomacia, por sua vez, precisa de se reinventar. Já não basta a negociação secreta entre Estados; é necessário criar espaços de deliberação pública onde as vozes da sociedade civil, dos movimentos sociais e dos povos indígenas possam ser ouvidas. A crise climática, que é a face mais visível da globalização dos riscos, mostra-nos que a interdependência é um facto inescapável e que a sobrevivência da humanidade depende da nossa capacidade de agir em conjunto, superando as lógicas de competição e de exploração que têm dominado a era moderna. Não se trata, note-se bem, de um apelo ingénuo a um mundo sem conflitos ou a uma harmonia pré-estabelecida. A globalização, como qualquer processo histórico, é um campo de batalha onde se confrontam interesses antagónicos e visões do mundo divergentes. A questão central é a de saber se conseguimos transformar este terreno de disputa num laboratório de experimentação democrática, onde a inovação e a arte possam reinventar o património comum da humanidade."
+    }
+  ],
+  "examDifficulty": 95,
+  "examDuration": 120,
+  "timestamp": 1782245694567
+}

@@ -3,18 +3,21 @@
  */
 const StudyStats = {
   template: `
-    <div class="flex items-center gap-3">
-      <div class="flex items-center gap-1">
-        <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
-        <span class="text-sm text-slate-500 font-mono tracking-wider">{{ currentTime }}</span>
-      </div>
-      <div class="w-px h-3.5 bg-slate-200 shrink-0"></div>
-      <div class="flex items-center gap-1">
-        <i data-lucide="timer" class="w-3.5 h-3.5 text-slate-400"></i>
-        <span class="text-sm text-slate-500">{{ todayMinutes }}min</span>
-      </div>
-      <div class="w-px h-3.5 bg-slate-200 shrink-0"></div>
-      <span class="text-sm text-slate-500">{{ streakDays }}d</span>
+    <div class="flex items-center gap-3 cursor-pointer select-none" @click="showStats = !showStats" title="Clique para ocultar/mostrar">
+      <template v-if="showStats">
+        <div class="flex items-center gap-1">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span class="text-sm text-slate-500 font-mono tracking-wider">{{ currentTime }}</span>
+        </div>
+        <div class="w-px h-3.5 bg-slate-200 shrink-0"></div>
+        <div class="flex items-center gap-1">
+          <i data-lucide="timer" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span class="text-sm text-slate-500">{{ todayMinutes }}min</span>
+        </div>
+        <div class="w-px h-3.5 bg-slate-200 shrink-0"></div>
+        <span class="text-sm text-slate-500">{{ streakDays }}d</span>
+      </template>
+      <span v-else class="text-sm text-slate-300 tracking-widest">···</span>
     </div>
   `,
   data() {
@@ -22,6 +25,7 @@ const StudyStats = {
       currentTime: '',
       timerId: null,
       _reactiveTick: 0,
+      showStats: true,
     }
   },
   computed: {

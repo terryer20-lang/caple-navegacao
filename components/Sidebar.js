@@ -63,7 +63,6 @@ const Sidebar = {
         { id: 'leitura',    label: 'Leitura',                icon: 'book-open' },
         { id: 'ditado',     label: 'Ditado',                 icon: 'ear' },
         { id: 'exam',       label: 'CL', icon: 'file-text' },
-        { id: 'co',         label: 'CO', icon: 'headphones' },
         { id: 'pie',        label: 'PIE', icon: 'pen-tool' },
         { id: 'erros',      label: 'Palavras erradas',       icon: 'alert-circle' },
         { id: 'exames',     label: 'Revisão',               icon: 'clock' },

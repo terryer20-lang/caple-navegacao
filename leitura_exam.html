@@ -21,6 +21,7 @@
   <script src="data/dict_univ.js"></script>
   <script src="data/dict_priberam.js"></script>
   <script src="utils/diacritics.js"></script>
+  <script src="components/HighlightNotes.js"></script>
   <style>
     :root {
       --line: #e2e8f0; --panel: #fff; --panel-alt: #f8fafc;
@@ -90,7 +91,10 @@
       <!-- Left: original text with clickable words -->
       <div class="left w-1/2 min-w-[300px] overflow-y-auto pt-6 px-6 pb-[30vh] border-r border-slate-200 bg-white">
         <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Texto original</p>
-        <div class="text-sm text-slate-700 leading-relaxed font-serif">
+        <div class="text-sm text-slate-700 leading-relaxed font-serif"
+             @mousedown="onTextMouseDown($event.currentTarget, $event, 'leitura')"
+             @mousemove="onTextMouseMove($event.currentTarget, $event, 'leitura')"
+             @mouseup="onTextSelection($event.currentTarget, $event, 'leitura')">
           <span v-for="(word, i) in words" :key="i"
                 class="word-span" :class="{ active: selectedIdx === i }"
                 :title="word.isSpace ? '' : 'Clique para pesquisar'"
@@ -137,18 +141,42 @@
           </div>
         </div>
 
-        <!-- Notes (bottom 50%) -->
+        <!-- Notes (bottom 50%) — replaced by Highlights + Notes -->
         <div class="flex-1 flex flex-col min-h-0">
-          <div class="px-5 py-3 border-b border-slate-100 shrink-0">
-            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Notas</p>
+          <div class="px-5 py-3 border-b border-slate-100 shrink-0 flex items-center justify-between">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Destaques <span class="font-mono lowercase normal-case text-[10px]" v-if="highlights.length">({{ highlights.length }})</span></p>
+            <button @click="showHighlightPanel = !showHighlightPanel" class="text-slate-400 hover:text-slate-600 text-xs px-2 py-0.5 rounded hover:bg-slate-100 transition">
+              {{ showHighlightPanel ? '−' : '+' }}
+            </button>
           </div>
-          <textarea v-model="notes" @keydown="onNotesKeydown"
-                    class="flex-1 w-full px-5 py-4 text-sm leading-relaxed resize-none focus:outline-none"
-                    style="border:none;background:transparent;line-height:1.6;font-family:inherit"
-                    placeholder="Escreva as suas notas..."></textarea>
-          <div class="px-5 py-2 border-t border-slate-100 flex items-center justify-between shrink-0">
-            <span class="text-[10px] text-slate-300">{{ lineCount }} linha{{ lineCount !== 1 ? 's' : '' }}</span>
-            <button @click="saveNotes" class="btn-ghost text-xs">Guardar notas</button>
+          <div v-if="showHighlightPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+            <!-- No highlights yet -->
+            <div v-if="highlights.length === 0" class="hl-empty">
+              Selecione texto no painel esquerdo para destacar
+            </div>
+
+            <!-- Highlight cards -->
+            <div v-for="hl in highlights" :key="hl.id" class="hl-card">
+              <div class="hl-text">«{{ hl.text }}»</div>
+              <div class="mt-1">
+                <input v-model="hl.note" @input="updateHLNote(hl.id, hl.note)"
+                       :id="'hl-note-' + hl.id"
+                       class="hl-note-input" placeholder="Adicionar nota..." />
+              </div>
+              <div class="hl-actions">
+                <button @click="scrollToHL(hl.id, $el?.querySelector('.left > div:last-child'), 'leitura')"
+                        class="hl-btn" title="Saltar para o texto">
+                  Saltar
+                </button>
+                <button @click="removeHL(hl.id); _applyUserHighlights($el?.querySelector('.left > div:last-child'), 'leitura')"
+                        class="hl-btn danger" title="Remover destaque">
+                  Remover
+                </button>
+              </div>
+            </div>
+          </div>
+          <div v-else class="flex-1 flex items-center justify-center">
+            <p class="text-xs text-slate-300 italic">Painel de destaques oculto</p>
           </div>
         </div>
       </div>
@@ -171,6 +199,13 @@
         <div v-html="formattedDetail"></div>
       </div>
     </div>
+  </div>
+
+  <!-- ═══ Selection popup ═══ -->
+  <div v-if="selectionPopup.visible" class="hl-popup"
+       :style="{ top: selectionPopup.top + 'px', left: selectionPopup.left + 'px' }">
+    <button @click="popupHighlight" class="hl-popup-btn destacar">Destacar</button>
+    <button @click="popupNote" class="hl-popup-btn notar">Notar</button>
   </div>
 </div>
 
@@ -221,6 +256,8 @@
         dictEntries: [],
         dictResult: [],
         detailItem: null,
+        // Highlight system
+        ...HighlightNotes.data(),
       }
     },
     computed: {
@@ -267,6 +304,8 @@
       },
     },
     methods: {
+      ...HighlightNotes.methods('leitura'),
+
       lookupWord(word, idx) {
         if (word.isSpace) return
         this.selectedIdx = idx
@@ -333,6 +372,7 @@
       closeWin() { window.close() },
     },
     mounted() {
+      HighlightNotes.injectStyles()
       this.dictEntries = getAllDictEntries()
       try {
         const raw = localStorage.getItem('LEITURA_TEXT')
@@ -341,9 +381,28 @@
         if (savedNotes) this.notes = savedNotes
         else this.notes = '1. '
       } catch {}
+      // Load highlights
+      this.loadHL('CAPLE_HL_LEITURA')
+      this.$nextTick(() => {
+        const container = this.$el?.querySelector('.left > div:last-child')
+        if (container) this._applyUserHighlights(container, 'leitura')
+      })
+      // Click outside popup handler
+      this._hlPopupHandler = (e) => {
+        if (e.target.closest('.hl-popup') || e.target.closest('.left')) return
+        if (this.selectionPopup.visible) this.hidePopup()
+      }
+      document.addEventListener('mousedown', this._hlPopupHandler)
+      // Scroll hides popup
+      this._hlScrollHandler = () => { if (this.selectionPopup.visible) this.hidePopup() }
+      document.addEventListener('scroll', this._hlScrollHandler, true)
       this.$nextTick(() => lucide.createIcons())
     },
     updated() { this.$nextTick(() => lucide.createIcons()) },
+    beforeUnmount() {
+      if (this._hlPopupHandler) document.removeEventListener('mousedown', this._hlPopupHandler)
+      if (this._hlScrollHandler) document.removeEventListener('scroll', this._hlScrollHandler, true)
+    },
   })
   app.mount('#app')
 </script>

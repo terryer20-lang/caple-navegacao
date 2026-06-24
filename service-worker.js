@@ -26,7 +26,6 @@ const STATIC_ASSETS = [
   'components/VocabView.js',
   'components/ExamView.js',
   'components/NewsView.js',
-  'components/COView.js',
   'components/PIEView.js',
   'components/ConectoresView.js',
   'components/DicionarioView.js',

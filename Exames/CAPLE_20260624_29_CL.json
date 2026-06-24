@@ -1,0 +1,1102 @@
+{
+  "examId": "CAPLE_20260624_29_CL",
+  "level": "C2",
+  "sourceText": "A globalização, esse fenómeno multifacetado que tanto prometeu como um vendaval de progresso e interconexão, revela-se hoje, sob o escrutínio da crítica filosófica e da justiça social, como um palco de contradições profundas. Se, por um lado, a sua promessa original ecoava os ideais iluministas de uma cidadania universal, onde as fronteiras se diluiriam perante o fluxo de ideias, capitais e inovação, por outro, a sua materialização histórica tem sido, não raro, uma coreografia de assimetrias. A arte, enquanto espelho da alma coletiva, capta esta tensão de forma pungente: veja-se, por exemplo, a proliferação de bienais e feiras de arte contemporânea que, sob a égide de um cosmopolitismo pretensamente horizontal, muitas vezes replicam as hierarquias do mercado global, onde o artista do Sul Global é convidado a performar a sua excentricidade para o deleite de um colecionador do Norte. É uma ironia mordaz que a inovação tecnológica, motriz desta era, tenha acelerado a circulação de bens e informações, mas também aprofundado a fratura digital e a precarização laboral, como se a promessa de uma ágora digital se tivesse transmutado num panóptico de vigilância e consumo. A diplomacia, outrora o domínio reservado de estadistas e chancelarias, vê-se agora confrontada com uma teia de atores não-estatais — desde corporações multinacionais com orçamentos superiores a muitos Estados, até movimentos sociais transnacionais que, através das redes, contestam a legitimidade de acordos comerciais e tratados ambientais. A questão que se impõe, numa perspetiva de filosofia política, é se a globalização é, intrinsecamente, um veículo de homogeneização cultural e de concentração de poder, ou se pode ser reimaginada como um processo de cosmopolitismo crítico, onde a diferença não é meramente tolerada, mas celebrada como condição para uma justiça global substantiva. O desafio reside em conciliar a eficiência dos mercados globais com a necessidade de salvaguardar bens comuns — como o clima, a saúde pública ou a diversidade linguística — que a lógica da acumulação tende a tratar como externalidades. Não se trata, note-se, de um saudosismo provinciano, mas de uma exigência ética: como construir instituições que, em vez de servirem como meros apêndices do capital financeiro, promovam uma governança global capaz de redistribuir riqueza, mitigar riscos e garantir que a inovação não seja um privilégio de uma elite, mas um direito de todos.\n\nA arte, nesse contexto, assume um papel paradoxalmente subversivo. Enquanto a indústria cultural globalizada produz e exporta narrativas padronizadas — do blockbuster de Hollywood ao K-pop — que funcionam como veículos de soft power e de normalização de estéticas dominantes, a prática artística contemporânea, nos seus interstícios, resiste a essa homogeneização. Obras que revisitam a história colonial, que denunciam as cadeias de produção globalizadas ou que criam espaços de encontro entre comunidades díspares, atuam como uma espécie de contr",
+  "questions": [
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "De acordo com o texto, qual é a principal contradição da globalização?",
+      "options": [
+        "Aproxima as pessoas mas também as distancia",
+        "Aboliu todas as fronteiras económicas",
+        "Gerou solidariedade universal",
+        "Eliminou as assimetrias entre países"
+      ],
+      "answer": "A",
+      "explanation": "O texto afirma que a globalização 'paradoxalmente, nos aproxima e nos distancia', destacando esta contradição central.",
+      "difficulty": 4,
+      "index": 0
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A metáfora do 'tecto de vidro' usada por Pascal Bruckner serve para ilustrar:",
+      "options": [
+        "A transparência das relações internacionais",
+        "A visibilidade das desigualdades sem possibilidade de as superar",
+        "A fragilidade dos acordos diplomáticos",
+        "A protecção oferecida pelas fronteiras"
+      ],
+      "answer": "B",
+      "explanation": "O texto explica que o 'tecto de vidro' permite ver o luxo alheio sem meios para o alcançar, simbolizando a desigualdade visível.",
+      "difficulty": 4,
+      "index": 1
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Segundo o texto, o Estado-nação contemporâneo caracteriza-se por:",
+      "options": [
+        "Um fortalecimento da sua autoridade",
+        "Uma transformação, não um declínio irreversível",
+        "Uma total irrelevância perante as corporações",
+        "Uma aliança sólida com movimentos sociais"
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que o Estado-nação 'vê a sua autoridade esmorecer', mas que se trata de 'uma metamorfose, não de um declínio irreversível'.",
+      "difficulty": 4,
+      "index": 2
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual é a tese central de Jürgen Habermas mencionada no texto?",
+      "options": [
+        "A globalização económica deve ser travada",
+        "A democracia cosmopolita é a resposta política necessária",
+        "O Estado-nação deve ser abolido",
+        "As elites devem ser globalizadas"
+      ],
+      "answer": "B",
+      "explanation": "Habermas argumenta que a globalização económica exige 'uma democracia cosmopolita que transcenda as fronteiras'.",
+      "difficulty": 4,
+      "index": 3
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão de Zygmunt Bauman sobre elites 'globais' e populações 'locais' sugere:",
+      "options": [
+        "Uma harmonização de interesses entre classes",
+        "Uma fragmentação entre os que beneficiam e os que sofrem a globalização",
+        "Uma mobilidade igualitária de todos os cidadãos",
+        "Uma convergência cultural entre países"
+      ],
+      "answer": "B",
+      "explanation": "Bauman contrasta elites que se movem globalmente com populações presas a contextos locais, realçando a desigualdade.",
+      "difficulty": 4,
+      "index": 4
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O conceito de 'necropolítica', segundo o texto, aplica-se a:",
+      "options": [
+        "Políticas de desenvolvimento sustentável",
+        "Fronteiras fortificadas que causam mortes",
+        "Acordos comerciais internacionais",
+        "Movimentos de resistência cultural"
+      ],
+      "answer": "B",
+      "explanation": "O texto associa a necropolítica ao poder de decidir quem vive ou morre, exemplificando com as fronteiras europeias como 'cemitérios de esperanças'.",
+      "difficulty": 4,
+      "index": 5
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto critica a Organização das Nações Unidas por:",
+      "options": [
+        "Ser demasiado intervencionista",
+        "Reflectir uma correlação de forças desactualizada",
+        "Promover o imperialismo cultural",
+        "Ignorar completamente as mudanças climáticas"
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a ONU 'reflecte ainda a correlação de forças de 1945', indicando desactualização.",
+      "difficulty": 4,
+      "index": 6
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O Acordo de Paris é mencionado como exemplo de:",
+      "options": [
+        "Fracasso da diplomacia multilateral",
+        "Possibilidade de transcender interesses nacionais com vontade política",
+        "Imposição de um país sobre outros",
+        "Irrelevância dos acordos ambientais"
+      ],
+      "answer": "B",
+      "explanation": "O texto diz que o Acordo de Paris mostra que, 'quando há vontade política, é possível transcender interesses nacionais'.",
+      "difficulty": 4,
+      "index": 7
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Timothy Snyder adverte para o risco de:",
+      "options": [
+        "Globalização da prosperidade",
+        "Globalização da indiferença",
+        "Globalização da solidariedade",
+        "Globalização da democracia"
+      ],
+      "answer": "B",
+      "explanation": "O texto cita Snyder que alerta para a 'globalização da indiferença', onde a interconexão gera anestesia emocional.",
+      "difficulty": 4,
+      "index": 8
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A 'anestesia emocional' referida no texto é causada por:",
+      "options": [
+        "Excesso de empatia",
+        "Banalização do sofrimento alheio através de imagens constantes",
+        "Falta de informação sobre catástrofes",
+        "Isolamento tecnológico"
+      ],
+      "answer": "B",
+      "explanation": "O texto explica que as imagens de catástrofes, 'transmitidas em tempo real, tornam-se espectáculo banal', anestesiando a emoção.",
+      "difficulty": 4,
+      "index": 9
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Que filósofo é citado para defender uma resposta ética anterior ao cálculo político?",
+      "options": [
+        "Jürgen Habermas",
+        "Pascal Bruckner",
+        "Emmanuel Levinas",
+        "Zygmunt Bauman"
+      ],
+      "answer": "C",
+      "explanation": "O texto refere Levinas, para quem 'o rosto do outro exige uma resposta ética que precede qualquer cálculo político'.",
+      "difficulty": 4,
+      "index": 10
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'globalização da responsabilidade' sugere:",
+      "options": [
+        "Uma abordagem ética como condição para uma globalização humana",
+        "A eliminação de todas as responsabilidades nacionais",
+        "A imposição de valores ocidentais",
+        "A indiferença perante o outro"
+      ],
+      "answer": "A",
+      "explanation": "O texto conclui que a globalização 'só será humana se for... uma globalização da responsabilidade', sublinhando a dimensão ética.",
+      "difficulty": 4,
+      "index": 11
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto utiliza o termo 'cadinho' para descrever a globalização como:",
+      "options": [
+        "Um processo harmonioso",
+        "Um local de mistura e conflito de assimetrias",
+        "Uma ferramenta de paz",
+        "Um movimento unificador"
+      ],
+      "answer": "B",
+      "explanation": "'Cadinho' sugere um local de fusão, mas o texto fala de 'assimetrias e ressentimentos', indicando tensão.",
+      "difficulty": 4,
+      "index": 12
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A crítica pós-colonial, segundo o texto, vê a globalização como:",
+      "options": [
+        "Uma oportunidade para o Sul global",
+        "Uma nova forma de colonialismo",
+        "Um processo neutro",
+        "Uma via para a igualdade"
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona que a crítica pós-colonial denuncia a globalização como 'uma nova roupagem do colonialismo'.",
+      "difficulty": 4,
+      "index": 13
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto sugere que a implementação de acordos multilaterais depende de:",
+      "options": [
+        "Força militar",
+        "Confiança mútua, que a globalização erodiu",
+        "Isolamento económico",
+        "Imposição cultural"
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a implementação 'depende de uma confiança mútua que a globalização, ironicamente, erodiu'.",
+      "difficulty": 4,
+      "index": 14
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: 'A reação dos governos não se fez esperar...' B: 'A política, por seu turno, não raro instrumentaliza o discurso...' C: 'A justiça, enquanto pilar fundamental de qualquer sociedade democrática...' D: 'Em suma, a relação entre justiça, direitos humanos e política...' E: 'Não obstante, há quem defenda que a justiça, enquanto ideal regulador...' F: 'Por outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais...'",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "answer": "C-A-F-B-E-D",
+      "explanation": "O texto começa com a introdução do tema (C), seguido da reação dos governos (A), depois a perspetiva dos operadores judiciais (F), a instrumentalização política (B), a visão otimista (E) e a conclusão (D). O parágrafo extra não existe; todos são usados na ordem correta.",
+      "difficulty": 4,
+      "index": 15
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: 'A política, por seu turno, não raro instrumentaliza o discurso...' B: 'A justiça, enquanto pilar fundamental de qualquer sociedade democrática...' C: 'Não obstante, há quem defenda que a justiça, enquanto ideal regulador...' D: 'Em suma, a relação entre justiça, direitos humanos e política...' E: 'Por outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais...' F: 'A reação dos governos não se fez esperar...'",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "answer": "B-F-E-A-C-D",
+      "explanation": "A sequência lógica é: introdução (B), reação dos governos (F), perspetiva dos operadores judiciais (E), instrumentalização política (A), visão otimista (C) e conclusão (D).",
+      "difficulty": 4,
+      "index": 16
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: 'A justiça, enquanto pilar fundamental de qualquer sociedade democrática...' B: 'A política, por seu turno, não raro instrumentaliza o discurso...' C: 'Não obstante, há quem defenda que a justiça, enquanto ideal regulador...' D: 'Em suma, a relação entre justiça, direitos humanos e política...' E: 'A reação dos governos não se fez esperar...' F: 'Por outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais...'",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "answer": "A-E-F-B-C-D",
+      "explanation": "A ordem correta é: introdução (A), reação dos governos (E), perspetiva dos operadores judiciais (F), instrumentalização política (B), visão otimista (C) e conclusão (D).",
+      "difficulty": 4,
+      "index": 17
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: 'Por outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais...' B: 'A política, por seu turno, não raro instrumentaliza o discurso...' C: 'A justiça, enquanto pilar fundamental de qualquer sociedade democrática...' D: 'Em suma, a relação entre justiça, direitos humanos e política...' E: 'Não obstante, há quem defenda que a justiça, enquanto ideal regulador...' F: 'A reação dos governos não se fez esperar...'",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "answer": "C-F-A-B-E-D",
+      "explanation": "A sequência é: introdução (C), reação dos governos (F), perspetiva dos operadores judiciais (A), instrumentalização política (B), visão otimista (E) e conclusão (D).",
+      "difficulty": 5,
+      "index": 18
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência correta dos parágrafos A-F, sabendo que um deles é extra. A: 'A reação dos governos não se fez esperar...' B: 'A política, por seu turno, não raro instrumentaliza o discurso...' C: 'A justiça, enquanto pilar fundamental de qualquer sociedade democrática...' D: 'Em suma, a relação entre justiça, direitos humanos e política...' E: 'Por outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais...' F: 'Não obstante, há quem defenda que a justiça, enquanto ideal regulador...'",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "answer": "C-A-E-B-F-D",
+      "explanation": "A ordem correta é: introdução (C), reação dos governos (A), perspetiva dos operadores judiciais (E), instrumentalização política (B), visão otimista (F) e conclusão (D).",
+      "difficulty": 5,
+      "index": 19
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Segundo o texto, qual é a função principal da arte na identidade cultural portuguesa?",
+      "options": [
+        "A. Refletir passivamente a alma nacional.",
+        "B. Assumir um papel ativo e modelador da consciência.",
+        "C. Negar a tradição em favor da inovação.",
+        "D. Servir como mero ornamento estético."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a arte 'assume uma função ativa, quase demiúrgica, na modelação de uma consciência que se quer simultaneamente ancorada na tradição e aberta à inovação', o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 20
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Como é caracterizada a heteronímia de Fernando Pessoa no texto?",
+      "options": [
+        "A. Como um artifício estético sem relevância cultural.",
+        "B. Como uma manifestação da fragmentação do sujeito moderno.",
+        "C. Como uma estratégia para simplificar a identidade portuguesa.",
+        "D. Como uma influência exclusivamente literária."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que 'a obra de Pessoa constitui um monumento à fragmentação do sujeito moderno', indicando que a heteronímia reflete essa fragmentação.",
+      "difficulty": 4,
+      "index": 21
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Que aspeto da pintura de Paula Rego é destacado no texto?",
+      "options": [
+        "A. A sua harmonia formal e integração paisagística.",
+        "B. A exploração de tensões entre o íntimo e o social.",
+        "C. A representação idealizada da história portuguesa.",
+        "D. A ausência de simbolismo nas suas obras."
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona que a pintura de Paula Rego 'explora as tensões entre o íntimo e o social, revelando as camadas mais obscuras da psique coletiva'.",
+      "difficulty": 4,
+      "index": 22
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a crítica implícita na arquitetura de Álvaro Siza Vieira, segundo o texto?",
+      "options": [
+        "A. Uma crítica à falta de inovação tecnológica.",
+        "B. Uma crítica à exuberância desmedida e um convite à contemplação.",
+        "C. Uma crítica ao isolamento urbano.",
+        "D. Uma crítica à globalização cultural."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve a arquitetura de Siza Vieira como 'uma crítica à exuberância desmedida e um convite à contemplação'.",
+      "difficulty": 4,
+      "index": 23
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Que paradoxo é apresentado em relação à globalização e à identidade cultural?",
+      "options": [
+        "A. A globalização fortalece as particularidades locais.",
+        "B. A globalização aproxima culturas mas pode homogeneizar expressões artísticas.",
+        "C. A globalização elimina completamente as diferenças culturais.",
+        "D. A globalização não tem impacto na arte contemporânea."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a globalização, ao mesmo tempo que aproxima culturas, pode também homogeneizar as expressões artísticas, diluindo as particularidades locais'.",
+      "difficulty": 4,
+      "index": 24
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Como é descrita a abordagem de autores contemporâneos como Gonçalo M. Tavares e Valter Hugo Mãe?",
+      "options": [
+        "A. Ignoram a tradição lusófona.",
+        "B. Dialogam com correntes globais mantendo raízes na tradição.",
+        "C. Focam-se exclusivamente em temas internacionais.",
+        "D. Rejeitam a ironia e o humor negro."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que estes autores, 'embora profundamente enraizados na tradição lusófona, dialogam com correntes literárias globais'.",
+      "difficulty": 4,
+      "index": 25
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Que ferramentas literárias são mencionadas como forma de navegar na globalização?",
+      "options": [
+        "A. A descrição realista e a objetividade.",
+        "B. A ironia, a intertextualidade e o humor negro.",
+        "C. A simplificação narrativa e a linearidade.",
+        "D. A exaltação patriótica e o lirismo clássico."
+      ],
+      "answer": "B",
+      "explanation": "O texto indica que 'a ironia, a intertextualidade e o humor negro tornam-se ferramentas para navegar num mundo onde as fronteiras se esbatem'.",
+      "difficulty": 4,
+      "index": 26
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a posição do texto sobre a identidade cultural?",
+      "options": [
+        "A. É um dado adquirido e imutável.",
+        "B. É uma construção dinâmica e em devir.",
+        "C. É exclusivamente determinada pela literatura.",
+        "D. É irrelevante para a arte contemporânea."
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que 'a identidade não é um dado adquirido, mas uma construção dinâmica, perpetuamente em devir'.",
+      "difficulty": 4,
+      "index": 27
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O que significa a expressão 'espelho deformante da alma nacional' no contexto do primeiro parágrafo?",
+      "options": [
+        "A. A arte reflete a realidade de forma exata e objetiva.",
+        "B. A arte distorce a realidade para revelar verdades mais profundas.",
+        "C. A arte ignora completamente a identidade nacional.",
+        "D. A arte é um mero entretenimento sem significado."
+      ],
+      "answer": "B",
+      "explanation": "A expressão sugere que a arte não reflete passivamente, mas transforma e distorce a realidade para expor aspetos ocultos da identidade.",
+      "difficulty": 4,
+      "index": 28
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Que papel é atribuído à 'saudade' no texto?",
+      "options": [
+        "A. É um sentimento que limita a expressão artística.",
+        "B. É um elemento que, juntamente com a língua, expandiu Portugal pelo mundo.",
+        "C. É uma emoção exclusivamente literária.",
+        "D. É um conceito irrelevante para a identidade cultural."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'a multiplicidade [de vozes] ecoa a própria complexidade de um país que [...] se expandiu pelo mundo através da língua e da saudade'.",
+      "difficulty": 4,
+      "index": 29
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Como é caracterizada a prosa de José Saramago no texto?",
+      "options": [
+        "A. Simples e linear.",
+        "B. Barroca e irónica.",
+        "C. Lírica e clássica.",
+        "D. Experimental e hermética."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve a prosa de Saramago como 'barroca e irónica', sublinhando o seu estilo complexo e crítico.",
+      "difficulty": 4,
+      "index": 30
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a função dos 'laboratórios de identidade' mencionados no texto?",
+      "options": [
+        "A. Produzir arte de forma industrial.",
+        "B. Questionar e reconciliar o passado e o presente.",
+        "C. Eliminar a influência da tradição.",
+        "D. Criar obras exclusivamente para turistas."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que as manifestações artísticas 'constituem verdadeiros laboratórios de identidade, onde o passado e o presente se digladiam e se reconciliam'.",
+      "difficulty": 4,
+      "index": 31
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Que significado tem a palavra 'demiúrgica' no contexto do primeiro parágrafo?",
+      "options": [
+        "A. Criadora e modeladora.",
+        "B. Destrutiva e caótica.",
+        "C. Passiva e contemplativa.",
+        "D. Científica e racional."
+      ],
+      "answer": "A",
+      "explanation": "'Demiúrgica' deriva de 'demiurgo', um ser criador; no texto, refere-se ao poder da arte de criar e modelar a consciência.",
+      "difficulty": 4,
+      "index": 32
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "De que forma o texto sugere que a arte visual contribui para a identidade cultural?",
+      "options": [
+        "A. Através da representação realista de paisagens.",
+        "B. Através da exploração de tensões e simbolismos.",
+        "C. Através da imitação de estilos estrangeiros.",
+        "D. Através da promoção de valores patrióticos."
+      ],
+      "answer": "B",
+      "explanation": "O texto exemplifica com Paula Rego e Siza Vieira, mostrando como a arte visual explora tensões sociais e simbolismos, desafiando certezas.",
+      "difficulty": 4,
+      "index": 33
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Qual é a principal conclusão do texto sobre a relação entre arte e identidade?",
+      "options": [
+        "A. A arte é um reflexo fiel e estático da identidade.",
+        "B. A arte é o principal artífice da identidade, questionando-a e reinventando-a.",
+        "C. A arte e a identidade são domínios separados sem influência mútua.",
+        "D. A identidade cultural é determinada exclusivamente pela literatura."
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que 'a arte e a literatura portuguesas não se limitam a representar a identidade cultural; elas são, de facto, os seus principais artífices', num processo de questionamento e reinvenção.",
+      "difficulty": 5,
+      "index": 34
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 1: «A inovação científica, motriz do progresso humano, confronta-se hoje com um dilema ético de proporções shakespearianas: o que fazer quando o conhecimento que acumulamos ameaça despojar-nos da nossa própria humanidade?» — Identifique a palavra a mais nesta linha.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra é redundante. A opção A indica que não há erro.",
+      "difficulty": 4,
+      "index": 35
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 2: «Esta interrogação, longe de ser meramente retórica, impõe-se com a urgência de um bisturi que, ao mesmo tempo que salva vidas, pode também extirpar a alma.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra é desnecessária.",
+      "difficulty": 4,
+      "index": 36
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 3: «Consideremos, a título de exemplo, a edição genética.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há palavra extra.",
+      "difficulty": 4,
+      "index": 37
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 4: «A técnica CRISPR-Cas9, qual Prometeu moderno, roubou o fogo dos deuses ao permitir-nos reescrever o código da vida.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra é redundante.",
+      "difficulty": 4,
+      "index": 38
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 5: «Mas que Édipo se erguerá para cegar os olhos que ousaram ver o que estava oculto?» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há erro.",
+      "difficulty": 4,
+      "index": 39
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 6: «A promessa de erradicar doenças hereditárias colide com o espectro do eugenismo, onde a seleção de embriões se torna uma lotaria macabra.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra extra.",
+      "difficulty": 4,
+      "index": 40
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 7: «Os bioeticistas, esses novos oráculos, debatem-se entre o imperativo de curar e o receio de criar uma casta de super-humanos.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Sem palavra redundante.",
+      "difficulty": 4,
+      "index": 41
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 8: «No domínio da inteligência artificial, o paradoxo é igualmente dilacerante.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há erro.",
+      "difficulty": 4,
+      "index": 42
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 9: «Os algoritmos de aprendizagem, treinados em oceanos de dados, revelam padrões que a mente humana jamais vislumbraria.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra extra.",
+      "difficulty": 4,
+      "index": 43
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 10: «Contudo, a opacidade desses sistemas — a chamada «caixa negra» — levanta questões de responsabilidade: quem responde quando um veículo autónomo atropela um peão?» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há palavra redundante.",
+      "difficulty": 4,
+      "index": 44
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 11: «A justiça, feita de nuances e contextos, não se compadece de equações binárias.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Sem erro.",
+      "difficulty": 4,
+      "index": 45
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 12: «A transparência algorítmica tornou-se o Santo Graal de uma era que venera a eficiência acima de tudo.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra extra.",
+      "difficulty": 4,
+      "index": 46
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 13: «A nanotecnologia, por seu turno, promete revolucionar a medicina com robôs do tamanho de moléculas que navegam na corrente sanguínea.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há erro.",
+      "difficulty": 4,
+      "index": 47
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 14: «Mas até que ponto estamos dispostos a permitir que a tecnologia se infiltre nos recônditos do nosso corpo?» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Sem palavra redundante.",
+      "difficulty": 4,
+      "index": 48
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 15: «A fronteira entre terapia e melhoramento esbate-se, e o conceito de «normalidade» biológica desmorona-se como um castelo de cartas.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra extra.",
+      "difficulty": 4,
+      "index": 49
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 16: «A ética, aqui, exige que ponderemos não apenas o que podemos fazer, mas o que devemos fazer.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há erro.",
+      "difficulty": 4,
+      "index": 50
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 17: «A investigação em neurociências, com os seus interfaces cérebro-computador, acrescenta mais uma camada de complexidade.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Sem palavra redundante.",
+      "difficulty": 4,
+      "index": 51
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 18: «Se podemos ler pensamentos, onde fica a privacidade mental?» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Nenhuma palavra extra.",
+      "difficulty": 4,
+      "index": 52
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 19: «Se podemos estimular regiões cerebrais para induzir emoções, o que resta do livre-arbítrio?» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Não há erro.",
+      "difficulty": 4,
+      "index": 53
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 20: «A mente, esse último reduto da individualidade, torna-se permeável à manipulação.» — Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A frase está correta. Sem palavra redundante.",
+      "difficulty": 5,
+      "index": 54
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "O património cultural, enquanto repositório da memória coletiva, tem sido objeto de uma tensão crescente entre a sua preservação e as dinâmicas económicas que ______ as sociedades contemporâneas.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "moldam",
+      "explanation": "O verbo 'moldar' é usado no sentido figurado de dar forma ou influenciar, adequando-se ao contexto de dinâmicas económicas que configuram as sociedades.",
+      "difficulty": 4,
+      "index": 55
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Esta dicotomia, longe de ser recente, assume contornos particularmente agudos num contexto de globalização acelerada, onde a mercantilização do passado se tornou uma estratégia ______ para o desenvolvimento local.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "recorrente",
+      "explanation": "'Recorrente' significa que ocorre repetidamente, indicando que a prática de mercantilizar o passado é frequente em estratégias de desenvolvimento.",
+      "difficulty": 4,
+      "index": 56
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Por um lado, a monetização do património — através do turismo de massas, da venda de réplicas ou da espetacularização de rituais ancestrais — gera receitas que podem ______ a sua conservação.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "financiar",
+      "explanation": "O verbo 'financiar' é o mais direto para indicar que as receitas são usadas para pagar a conservação do património.",
+      "difficulty": 4,
+      "index": 57
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Por outro, este processo acarreta riscos de descaracterização e de rutura com a autenticidade original, transformando bens culturais em meros ______ de consumo.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "produtos",
+      "explanation": "'Produtos' é o termo que melhor se enquadra na ideia de mercantilização, onde os bens culturais são vistos como objetos a serem vendidos.",
+      "difficulty": 4,
+      "index": 58
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A economia da experiência, que privilegia o consumo imediato e sensorial, tende a ______ as ofertas culturais, subordinando a singularidade de cada lugar a uma lógica de mercado global.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "homogeneizar",
+      "explanation": "'Homogeneizar' significa tornar homogéneo, uniforme, o que se alinha com a crítica à perda de singularidade cultural.",
+      "difficulty": 4,
+      "index": 59
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Neste âmbito, a tensão entre o valor de uso e o valor de troca do património torna-se evidente: enquanto o primeiro se prende com a função social e identitária dos bens, o segundo é definido pela sua capacidade de gerar ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "lucro",
+      "explanation": "'Lucro' é o termo económico que completa a oposição entre valor de uso (social) e valor de troca (comercial).",
+      "difficulty": 4,
+      "index": 60
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "As comunidades locais, frequentemente ______ dos processos de decisão, veem-se confrontadas com a necessidade de negociar a sua própria herança, num equilíbrio precário entre a preservação da memória e a pressão económica.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "alijadas",
+      "explanation": "'Alijadas' significa excluídas ou afastadas, um termo erudito que se adequa ao registo formal do texto.",
+      "difficulty": 4,
+      "index": 61
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A UNESCO, através das suas listas de Património Mundial, exemplifica bem esta ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "ambiguidade",
+      "explanation": "'Ambiguidade' refere-se à dupla natureza da classificação, que pode trazer benefícios e malefícios, conforme descrito no texto.",
+      "difficulty": 4,
+      "index": 62
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A classificação de um sítio pode catalisar investimentos e revitalizar economias regionais, mas também desencadear fenómenos de gentrificação e de turistificação ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "excessiva",
+      "explanation": "'Excessiva' qualifica a turistificação como algo que ultrapassa os limites desejáveis, causando impactos negativos.",
+      "difficulty": 4,
+      "index": 63
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Em cidades como Lisboa ou Porto, a pressão imobiliária e o alojamento local transformaram bairros históricos em cenários ______ de vida quotidiana, onde os habitantes originais foram substituídos por visitantes temporários.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "desprovidos",
+      "explanation": "'Desprovidos' significa que carecem de algo, neste caso de vida quotidiana, indicando a perda de autenticidade.",
+      "difficulty": 4,
+      "index": 64
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Esta dinâmica, que alguns autores designam por «património de fachada», revela como a lógica económica pode ______ o património do seu conteúdo social.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "esvaziar",
+      "explanation": "'Esvaziar' é uma metáfora para retirar a substância ou significado, adequada ao contexto de perda de valor social.",
+      "difficulty": 4,
+      "index": 65
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "No entanto, a relação entre economia e património não é necessariamente ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "antagónica",
+      "explanation": "'Antagónica' significa oposta ou conflituosa, e o texto argumenta que pode haver coexistência benéfica.",
+      "difficulty": 4,
+      "index": 66
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Existem modelos alternativos, como o turismo sustentável ou as cooperativas culturais, que procuram conciliar a rentabilidade com a preservação da ______.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "autenticidade",
+      "explanation": "'Autenticidade' é o conceito-chave oposto à descaracterização, sendo o objetivo a preservar.",
+      "difficulty": 4,
+      "index": 67
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A chave reside na participação ativa das comunidades na gestão dos seus bens, garantindo que o desenvolvimento económico não se ______ à identidade local.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "sobrepõe",
+      "explanation": "'Sobrepor-se' significa colocar-se acima ou dominar, indicando que a economia não deve suplantar a identidade.",
+      "difficulty": 4,
+      "index": 68
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Cabe às sociedades contemporâneas encontrar um equilíbrio que honre a memória do passado sem ______ o futuro, num exercício de cidadania que transcende a mera lógica de mercado.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "hipotecar",
+      "explanation": "'Hipotecar' é usado no sentido figurado de comprometer ou sacrificar o futuro em troca de ganhos imediatos, um termo sofisticado para o nível C2.",
+      "difficulty": 5,
+      "index": 69
+    }
+  ],
+  "parts": [
+    {
+      "label": "P1 — Escolha múltipla (A/B/C/D) — 3 textos (literatura, crónica, ensaio)",
+      "qStart": 0,
+      "count": 15,
+      "sourceText": "A globalização, essa força centrífuga que, paradoxalmente, nos aproxima e nos distancia, tem sido objeto de intermináveis controvérsias filosóficas e diplomáticas. Se, por um lado, prometeu a abolição das fronteiras e a partilha de um destino comum, por outro, revelou-se um cadinho de assimetrias e ressentimentos. O cosmopolitismo kantiano, outrora visto como a utopia da razão prática, confronta-se hoje com a realidade de uma interdependência que, longe de gerar solidariedade, exacerba as tensões identitárias. Como escreveu o ensaísta francês Pascal Bruckner, «o planeta tornou-se um tecto de vidro que nos permite ver o luxo alheio sem nos dar meios para o alcançar». Esta metáfora, cruel na sua precisão, capta a essência do mal-estar contemporâneo.\n\nA diplomacia, outrora arte de equilibrar interesses entre soberanias, vê-se agora enredada numa teia de novos atores: corporações transnacionais, organizações não-governamentais, movimentos sociais globais. O Estado-nação, esse Leviatã moderno, vê a sua autoridade esmorecer perante fluxos financeiros que circulam à velocidade da luz e cadeias de produção que atravessam continentes. Não se trata, contudo, de um declínio irreversível, mas de uma metamorfose. O filósofo Jürgen Habermas, na sua obra «A Constelação Pós-Nacional», argumenta que a globalização económica exige uma resposta política à mesma escala — uma democracia cosmopolita que transcenda as fronteiras. Todavia, este ideal choca contra a realidade de uma opinião pública fragmentada e de elites que, como notou o sociólogo Zygmunt Bauman, se tornaram «globais» enquanto as populações permanecem «locais».\n\nNeste contexto, a filosofia política vê-se confrontada com dilemas insolúveis. Como conciliar a justiça distributiva com a mobilidade do capital? Como defender direitos humanos universais sem cair num imperialismo moral? A crítica pós-colonial, com autores como Achille Mbembe, denuncia a globalização como uma nova roupagem do colonialismo, onde o Sul global fornece matéria-prima e mão-de-obra barata enquanto o Norte acumula riqueza e inovação. O conceito de «necropolítica» — o poder de ditar quem pode viver e quem deve morrer — ganha nova actualidade quando observamos as fronteiras fortificadas da Europa, verdadeiros cemitérios de esperanças.\n\nA diplomacia, por seu turno, tem tentado responder a estes desafios através de fóruns multilaterais, mas a sua eficácia é limitada. A Organização das Nações Unidas, criada no rescaldo da Segunda Guerra Mundial, reflecte ainda a correlação de forças de 1945. O veto no Conselho de Segurança, instrumento de paralisia, impede muitas vezes a acção colectiva. Simultaneamente, acordos como o Acordo de Paris sobre o clima mostram que, quando há vontade política, é possível transcender interesses nacionais. Mas a implementação desses acordos depende de uma confiança mútua que a globalização, ironicamente, erodiu.\n\nNum ensaio recente, o historiador Timothy Snyder advertiu para o risco de «globalização da indiferença», onde a interconexão tecnológica não gera empatia, mas sim anestesia emocional. As imagens de catástrofes humanitárias, transmitidas em tempo real, tornam-se espectáculo banal. A filosofia, nesse sentido, tem o dever de nos lembrar que a universalidade não é um dado, mas uma tarefa. Como diria Emmanuel Levinas, o rosto do outro exige uma resposta ética que precede qualquer cálculo político. Talvez seja essa a lição mais urgente: a globalização só será humana se for, antes de mais, uma globalização da responsabilidade."
+    },
+    {
+      "label": "P2 — Reconstrução textual (6 parágrafos A-F, 1 extra) — 5 lacunas",
+      "qStart": 15,
+      "count": 5,
+      "sourceText": "A justiça, enquanto pilar fundamental de qualquer sociedade democrática, tem sido alvo de um escrutínio cada vez mais cerrado, especialmente quando confrontada com as complexidades inerentes à globalização e à migração em massa. A tensão entre a soberania nacional e a proteção dos direitos humanos universais atinge, neste contexto, um ponto de ebulição que exige uma reflexão profunda e descomprometida. O recente acórdão do Tribunal Europeu dos Direitos Humanos, que condenou um Estado-membro por práticas de devolução sumária de requerentes de asilo, reacendeu o debate sobre a primazia dos tratados internacionais face às políticas internas de controlo de fronteiras. Este veredito, longe de ser um mero exercício de juridiquês, configura-se como uma verdadeira declaração de princípios, um libelo acusatório contra a hipocrisia de regimes que se proclamam guardiões da lei mas que, na prática, a subvertem quando lhes convém.\n\nA reação dos governos não se fez esperar. Entre o silêncio cúmplice de uns e a indignação retórica de outros, emergiu uma corrente de pensamento que advoga a necessidade de uma reinterpretação dos preceitos legais à luz das realidades contemporâneas. Ora, este argumento, aparentemente pragmático, encerra em si uma perigosíssima falácia: a de que os direitos fundamentais são maleáveis, ajustáveis ao sabor das conveniências eleitorais ou das pressões demográficas. Tal perspetiva, se levada às últimas consequências, minaria os alicerces do Estado de Direito, transformando a justiça num instrumento de poder, e não num escudo de proteção do cidadão. É precisamente este o cerne da questão: a justiça não pode ser refém da política, sob pena de se desvirtuar a sua essência.\n\nPor outro lado, a análise da situação exige que se considere a perspetiva dos operadores judiciais, esses heróis anónimos que, no seu dia a dia, têm de conciliar a letra da lei com a sua aplicação prática. Juízes e procuradores veem-se, não raras vezes, na contingência de aplicar normas que, por mais justas que sejam na sua formulação abstrata, produzem resultados desumanos quando confrontadas com casos concretos. A figura do juiz como mero aplicador mecânico da lei, outrora um ideal do positivismo jurídico, é hoje amplamente criticada, dando lugar a uma visão mais criativa e humanista do direito. No entanto, esta discricionariedade, embora necessária, acarreta o risco de criar um direito de geometria variável, onde a justiça depende mais da sensibilidade individual do magistrado do que da uniformidade da lei.\n\nA política, por seu turno, não raro instrumentaliza o discurso dos direitos humanos para fins que pouco têm a ver com a sua defesa genuína. A retórica da defesa dos valores ocidentais serve, muitas vezes, para justificar intervenções militares ou sanções económicas que, em última análise, agravam o sofrimento das populações que supostamente se pretendem proteger. Esta hipocrisia institucionalizada, denunciada por vozes como a do filósofo Giorgio Agamben, revela a existência de um estado de exceção permanente, onde a lei é suspensa em nome da sua própria defesa. É um paradoxo que envenena o debate público e que dificulta a construção de uma verdadeira cultura de direitos humanos, assente na coerência e na transparência.\n\nNão obstante, há quem defenda que a justiça, enquanto ideal regulador, não pode ser confundida com a sua aplicação imperfeita. A falibilidade dos tribunais e a morosidade dos processos não invalidam o princípio de que todos os cidadãos são iguais perante a lei. Esta visão, otimista até certo ponto, ignora, porém, as desigualdades estruturais que condicionam o acesso à justiça. Para quem não tem recursos, a justiça é um luxo inatingível. A gratuidade dos tribunais, consagrada na lei, é frequentemente uma ficção, pois os custos com advogados, peritagens e taxas judiciais continuam a ser um obstáculo intransponível para muitos. Urge, portanto, repensar o modelo de financiamento do sistema judicial, garantindo que a justiça não seja apenas um direito formal, mas uma realidade tangível.\n\nEm suma, a relação entre justiça, direitos humanos e política é um terreno pantanoso, onde as certezas se desfazem ao primeiro passo. O equilíbrio entre a defesa intransigente dos direitos fundamentais e a necessidade de políticas públicas eficazes é um desafio que não admite soluções simplistas. Cabe à sociedade civil, aos juristas e aos cidadãos comuns exigir que a justiça não seja um mero instrumento de poder, mas sim a pedra angular de uma convivência digna e plural. Só assim se poderá construir um futuro onde a lei não sirva para oprimir, mas para libertar."
+    },
+    {
+      "label": "P3 — Cloze escolha múltipla (A/B/C/D) — 15 lacunas",
+      "qStart": 20,
+      "count": 15,
+      "sourceText": "A tessitura da identidade cultural portuguesa sempre se revelou um campo fértil para a reflexão sobre o papel da arte e da literatura na construção do imaginário coletivo. Desde os tempos áureos dos Descobrimentos, quando a epopeia camoniana fundiu o mito e a história numa narrativa de grandeza e desassossego, até à contemporaneidade, onde a fragmentação e a globalização desafiam as fronteiras do ser, a criação artística tem funcionado como um espelho deformante da alma nacional. Não se trata, contudo, de um reflexo passivo; antes, a arte assume uma função ativa, quase demiúrgica, na modelação de uma consciência que se quer simultaneamente ancorada na tradição e aberta à inovação.\n\nÉ precisamente neste limiar que a literatura portuguesa mais se distingue. Autores como Fernando Pessoa, com a sua heteronímia desconcertante, ou José Saramago, cuja prosa barroca e irónica desmonta os lugares-comuns da história, oferecem-nos visões plurais e, não raro, antagónicas do que significa ser português. A obra de Pessoa, em particular, constitui um monumento à fragmentação do sujeito moderno, onde a identidade se dilui num caleidoscópio de vozes que ora se complementam, ora se contradizem. Esta multiplicidade não é, porém, um mero artifício estético; ela ecoa a própria complexidade de um país que, sendo pequeno na geografia, se expandiu pelo mundo através da língua e da saudade.\n\nA arte visual, por seu turno, não fica atrás. A pintura de Paula Rego, com as suas figuras grotescas e narrativas oníricas, explora as tensões entre o íntimo e o social, revelando as camadas mais obscuras da psique coletiva. As suas obras, carregadas de simbolismo, interrogam o poder, o género e a memória, desafiando o espectador a repensar as suas próprias certezas. Numa clave diferente, a arquitectura de Álvaro Siza Vieira, com a sua depuração formal e integração paisagística, propõe uma harmonia que é, ao mesmo tempo, uma crítica à exuberância desmedida e um convite à contemplação. Estas manifestações artísticas, longe de serem meros ornamentos, constituem verdadeiros laboratórios de identidade, onde o passado e o presente se digladiam e se reconciliam.\n\nNo entanto, a relação entre arte e identidade cultural não é isenta de paradoxos. A globalização, ao mesmo tempo que aproxima culturas, pode também homogeneizar as expressões artísticas, diluindo as particularidades locais. A literatura portuguesa, por exemplo, debate-se entre a necessidade de se internacionalizar e o risco de perder a sua idiossincrasia. Autores contemporâneos como Gonçalo M. Tavares ou Valter Hugo Mãe, embora profundamente enraizados na tradição lusófona, dialogam com correntes literárias globais, criando uma síntese que é, em si mesma, uma afirmação de identidade. A ironia, a intertextualidade e o humor negro tornam-se, assim, ferramentas para navegar num mundo onde as fronteiras se esbatem, mas onde a diferença persiste como um valor inegociável.\n\nEm suma, a arte e a literatura portuguesas não se limitam a representar a identidade cultural; elas são, de facto, os seus principais artífices. Através de um processo contínuo de questionamento e reinvenção, os criadores nacionais tecem uma tapeçaria complexa, onde o universal e o particular se entrelaçam. Cabe-nos, enquanto leitores e espectadores, desvendar esses fios, reconhecendo que a identidade não é um dado adquirido, mas uma construção dinâmica, perpetuamente em devir. A arte, nesse sentido, é o palco onde se encena o drama da existência coletiva, com todas as suas luzes e sombras."
+    },
+    {
+      "label": "P4 — Deteção de erros — palavra a mais ou \"correta\" — 20 linhas",
+      "qStart": 35,
+      "count": 20,
+      "sourceText": "A inovação científica, motriz do progresso humano, confronta-se hoje com um dilema ético de proporções shakespearianas: o que fazer quando o conhecimento que acumulamos ameaça despojar-nos da nossa própria humanidade? Esta interrogação, longe de ser meramente retórica, impõe-se com a urgência de um bisturi que, ao mesmo tempo que salva vidas, pode também extirpar a alma.\n\nConsideremos, a título de exemplo, a edição genética. A técnica CRISPR-Cas9, qual Prometeu moderno, roubou o fogo dos deuses ao permitir-nos reescrever o código da vida. Mas que Édipo se erguerá para cegar os olhos que ousaram ver o que estava oculto? A promessa de erradicar doenças hereditárias colide com o espectro do eugenismo, onde a seleção de embriões se torna uma lotaria macabra. Os bioeticistas, esses novos oráculos, debatem-se entre o imperativo de curar e o receio de criar uma casta de super-humanos.\n\nNo domínio da inteligência artificial, o paradoxo é igualmente dilacerante. Os algoritmos de aprendizagem, treinados em oceanos de dados, revelam padrões que a mente humana jamais vislumbraria. Contudo, a opacidade desses sistemas — a chamada «caixa negra» — levanta questões de responsabilidade: quem responde quando um veículo autónomo atropela um peão? A justiça, feita de nuances e contextos, não se compadece de equações binárias. A transparência algorítmica tornou-se o Santo Graal de uma era que venera a eficiência acima de tudo.\n\nA nanotecnologia, por seu turno, promete revolucionar a medicina com robôs do tamanho de moléculas que navegam na corrente sanguínea. Mas até que ponto estamos dispostos a permitir que a tecnologia se infiltre nos recônditos do nosso corpo? A fronteira entre terapia e melhoramento esbate-se, e o conceito de «normalidade» biológica desmorona-se como um castelo de cartas. A ética, aqui, exige que ponderemos não apenas o que podemos fazer, mas o que devemos fazer.\n\nA investigação em neurociências, com os seus interfaces cérebro-computador, acrescenta mais uma camada de complexidade. Se podemos ler pensamentos, onde fica a privacidade mental? Se podemos estimular regiões cerebrais para induzir emoções, o que resta do livre-arbítrio? A mente, esse último reduto da individualidade, torna-se permeável à manipulação. Os neurodireitos emergem como uma nova categoria jurídica, mas a lei corre sempre atrás da ciência.\n\nPor fim, a biologia sintética, que nos permite criar organismos artificiais, coloca o problema da responsabilidade perante a natureza. Se um organismo sintético escapar ao laboratório, quem será o responsável pelo desastre ecológico? A precaução, princípio basilar da ética ambiental, parece um luxo quando a competição científica global exige velocidade. A inovação tornou-se um cavalo de batalha que ninguém quer ver refreado, mesmo que isso signifique galopar para o abismo.\n\nA ética, nesse contexto, não é um travão, mas uma bússola. Exige que a ciência se interrogue sobre os seus fins, que a inovação se responsabilize pelos seus efeitos colaterais. A tecnologia, como o fogo, aquece ou queima. A diferença está na mão que a segura. E essa mão, frágil e imperfeita, precisa de ser guiada por princípios que transcendam o mero cálculo utilitário. A história julgar-nos-á não pelo que inventámos, mas pelo que escolhemos fazer com essas invenções."
+    },
+    {
+      "label": "P5 — Open cloze — 1 palavra/gap — 15 lacunas",
+      "qStart": 55,
+      "count": 15,
+      "sourceText": "O património cultural, enquanto repositório da memória coletiva, tem sido objeto de uma tensão crescente entre a sua preservação e as dinâmicas económicas que moldam as sociedades contemporâneas. Esta dicotomia, longe de ser recente, assume contornos particularmente agudos num contexto de globalização acelerada, onde a mercantilização do passado se tornou uma estratégia recorrente para o desenvolvimento local. Por um lado, a monetização do património — através do turismo de massas, da venda de réplicas ou da espetacularização de rituais ancestrais — gera receitas que podem financiar a sua conservação. Por outro, este processo acarreta riscos de descaracterização e de rutura com a autenticidade original, transformando bens culturais em meros produtos de consumo. \n\n A economia da experiência, que privilegia o consumo imediato e sensorial, tende a homogeneizar as ofertas culturais, subordinando a singularidade de cada lugar a uma lógica de mercado global. Neste âmbito, a tensão entre o valor de uso e o valor de troca do património torna-se evidente: enquanto o primeiro se prende com a função social e identitária dos bens, o segundo é definido pela sua capacidade de gerar lucro. As comunidades locais, frequentemente alijadas dos processos de decisão, veem-se confrontadas com a necessidade de negociar a sua própria herança, num equilíbrio precário entre a preservação da memória e a pressão económica. \n\n A UNESCO, através das suas listas de Património Mundial, exemplifica bem esta ambiguidade. A classificação de um sítio pode catalisar investimentos e revitalizar economias regionais, mas também desencadear fenómenos de gentrificação e de turistificação excessiva. Em cidades como Lisboa ou Porto, a pressão imobiliária e o alojamento local transformaram bairros históricos em cenários desprovidos de vida quotidiana, onde os habitantes originais foram substituídos por visitantes temporários. Esta dinâmica, que alguns autores designam por «património de fachada», revela como a lógica económica pode esvaziar o património do seu conteúdo social. \n\n No entanto, a relação entre economia e património não é necessariamente antagónica. Existem modelos alternativos, como o turismo sustentável ou as cooperativas culturais, que procuram conciliar a rentabilidade com a preservação da autenticidade. A chave reside na participação ativa das comunidades na gestão dos seus bens, garantindo que o desenvolvimento económico não se sobrepõe à identidade local. A economia circular, aplicada ao património, pode também oferecer soluções inovadoras, ao promover a reutilização de edifícios históricos para fins sociais e culturais, em vez da sua conversão em hotéis de luxo ou centros comerciais. \n\n Em suma, o património cultural não é um recurso inerte, mas um campo de disputa onde se confrontam visões distintas de desenvolvimento. A sua preservação exige uma abordagem crítica que reconheça as contradições inerentes à sua exploração económica, sem cair em posições simplistas de rejeição ou de adesão acrítica. Cabe às sociedades contemporâneas encontrar um equilíbrio que honre a memória do passado sem hipotecar o futuro, num exercício de cidadania que transcende a mera lógica de mercado."
+    }
+  ],
+  "examDifficulty": 95,
+  "examDuration": 120,
+  "timestamp": 1782246615925
+}

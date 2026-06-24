@@ -1,0 +1,1017 @@
+{
+  "examId": "CAPLE_20260624_27_CL",
+  "level": "C2",
+  "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou libertades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promesa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com um",
+  "questions": [
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Segundo o texto, a globalização é descrita como um 'monumento paradoxal' porque:",
+      "options": [
+        "A. unifica o mundo sem criar fraturas culturais.",
+        "B. prometeu unificação mas gerou fraturas profundas.",
+        "C. eliminou as fronteiras digitais mas manteve as económicas.",
+        "D. é um fenómeno exclusivamente económico e positivo."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a globalização 'prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas', o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 0
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "No primeiro parágrafo, a diplomacia é caracterizada como:",
+      "options": [
+        "A. uma arte de salões e tratados secretos que se mantém inalterada.",
+        "B. um teatro de coreografia entre soberania e interdependência.",
+        "C. um instrumento de força que ignora a interdependência global.",
+        "D. uma prática irrelevante na era da globalização."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que a diplomacia se tornou 'o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência', confirmando a opção B.",
+      "difficulty": 4,
+      "index": 1
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'véu da ignorância' é usada no texto para criticar:",
+      "options": [
+        "A. a falta de conhecimento dos pobres sobre a globalização.",
+        "B. a incapacidade dos filósofos de resolverem a justiça global.",
+        "C. a seletividade com que os ricos ignoram a realidade dos pobres.",
+        "D. a promessa de cidadania cosmopolita que falhou."
+      ],
+      "answer": "C",
+      "explanation": "O texto menciona que o 'véu da ignorância nunca caiu verdadeiramente sobre os ricos', indicando que estes permanecem alheios à necessidade dos pobres, o que corresponde à opção C.",
+      "difficulty": 4,
+      "index": 2
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "De acordo com o texto, a arte funciona como:",
+      "options": [
+        "A. um mero ornamento estético sem impacto político.",
+        "B. um tribunal simbólico que julga a hipocrisia oficial.",
+        "C. uma ferramenta de propaganda do capital global.",
+        "D. um instrumento de entretenimento das elites."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a arte 'não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais', confirmando a opção B.",
+      "difficulty": 4,
+      "index": 3
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto sugere que a inovação pode ser ambivalente porque:",
+      "options": [
+        "A. só beneficia os países ricos.",
+        "B. tanto pode libertar como controlar.",
+        "C. é sempre orientada por valores éticos.",
+        "D. substitui completamente a diplomacia."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve a inovação como 'ora se apresenta como salvadora (...) ora se revela como novo instrumento de controlo', indicando a sua dualidade, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 4
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "No segundo parágrafo, a referência a Chimamanda Ngozi Adichie, Ken Loach e Banksy serve para ilustrar:",
+      "options": [
+        "A. a diversidade cultural da globalização.",
+        "B. o confronto entre arte e filosofia.",
+        "C. o papel da arte em denunciar a desigualdade.",
+        "D. a cumplicidade da arte com o capital global."
+      ],
+      "answer": "C",
+      "explanation": "O texto afirma que estes artistas 'nos confrontam com o rosto humano da desigualdade', mostrando como a arte denuncia a injustiça, o que corresponde à opção C.",
+      "difficulty": 4,
+      "index": 5
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'o lobby das multinacionais sussurra ao ouvido dos estadistas' sugere que:",
+      "options": [
+        "A. as multinacionais são irrelevantes nas cimeiras.",
+        "B. os estadistas ignoram completamente os lobbies.",
+        "C. há uma influência oculta dos interesses económicos.",
+        "D. as cimeiras são palcos de debate aberto e transparente."
+      ],
+      "answer": "C",
+      "explanation": "A imagem do sussurro indica uma influência discreta mas poderosa dos interesses económicos sobre as decisões políticas, o que corresponde à opção C.",
+      "difficulty": 4,
+      "index": 6
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O cosmopolitismo de Kant é mencionado no texto para:",
+      "options": [
+        "A. mostrar que a paz perpétua é possível atualmente.",
+        "B. contrastar com a realidade das guerras assimétricas.",
+        "C. defender que o direito internacional é eficaz.",
+        "D. elogiar a filosofia política clássica."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que o cosmopolitismo de Kant 'choca com a realidade de guerras assimétricas', evidenciando o contraste entre o ideal e a prática, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 7
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "No terceiro parágrafo, o teatro de Augusto Boal é citado como exemplo de:",
+      "options": [
+        "A. uma arte que mantém o espectador passivo.",
+        "B. uma prática que subverte a lógica do mercado.",
+        "C. uma forma de entretenimento comercial.",
+        "D. uma expressão artística elitista."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que estas práticas 'subvertem a lógica do mercado' e promovem um encontro genuíno, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 8
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'capitalismo de plataforma' é usada no texto para descrever:",
+      "options": [
+        "A. um modelo económico solidário e igualitário.",
+        "B. um sistema que explora as redes digitais para lucro.",
+        "C. uma forma de inovação ética e redistributiva.",
+        "D. uma alternativa viável à globalização."
+      ],
+      "answer": "B",
+      "explanation": "O texto contrapõe 'sementes de uma economia solidária' à 'voragem do capitalismo de plataforma', sugerindo que este último é predatório, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 9
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto critica a diplomacia contemporânea por:",
+      "options": [
+        "A. ser demasiado focada em tratados secretos.",
+        "B. não confrontar as causas estruturais da desigualdade.",
+        "C. depender exclusivamente da força militar.",
+        "D. ignorar completamente as cimeiras internacionais."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que 'já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade', indicando a crítica à diplomacia atual, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 10
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A frase 'cada um de nós é um soldado imperfeito' sugere que:",
+      "options": [
+        "A. todos devemos lutar fisicamente pela globalização.",
+        "B. a ação individual é inútil perante as estruturas globais.",
+        "C. cada pessoa contribui imperfeitamente para o futuro global.",
+        "D. apenas os diplomatas têm poder de mudança."
+      ],
+      "answer": "C",
+      "explanation": "A metáfora do 'soldado imperfeito' indica que todos participam, com falhas e dúvidas, na construção do futuro, o que corresponde à opção C.",
+      "difficulty": 4,
+      "index": 11
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "O texto conclui que a verdadeira medida da humanidade está:",
+      "options": [
+        "A. no consumo globalizado de bens.",
+        "B. na capacidade de partilhar conhecimento e compaixão.",
+        "C. na riqueza acumulada pelas nações.",
+        "D. na inovação tecnológica sem limites."
+      ],
+      "answer": "B",
+      "explanation": "A frase final afirma que 'a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação', confirmando a opção B.",
+      "difficulty": 4,
+      "index": 12
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "A expressão 'a única globalização que merece o nome' refere-se a:",
+      "options": [
+        "A. uma globalização baseada em valores humanos e partilha.",
+        "B. a globalização económica atual.",
+        "C. uma globalização que elimina todas as fronteiras.",
+        "D. a globalização promovida pelas multinacionais."
+      ],
+      "answer": "A",
+      "explanation": "O texto sugere que a globalização digna desse nome é aquela fundada na partilha de conhecimento, compaixão e indignação, ou seja, valores humanos, o que corresponde à opção A.",
+      "difficulty": 5,
+      "index": 13
+    },
+    {
+      "type": "choice",
+      "part": 1,
+      "question": "Qual das seguintes ideias melhor sintetiza a posição do autor sobre a globalização?",
+      "options": [
+        "A. A globalização é um fenómeno exclusivamente negativo que deve ser revertido.",
+        "B. A globalização é um campo de batalha onde se decide o futuro, com potencial para ser humanizada.",
+        "C. A globalização é inevitável e deve ser aceite sem crítica.",
+        "D. A globalização é um projeto já concluído e bem-sucedido."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve a globalização como 'um campo de batalha onde se decidem os contornos do futuro' e defende a possibilidade de a domesticar com valores éticos, o que corresponde à opção B.",
+      "difficulty": 5,
+      "index": 14
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência lógica do texto, ordenando os parágrafos A-F (um é extra). Assinale a opção que corresponde à ordem correta.\n\nA. Olhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes.\n\nB. A questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções.\n\nC. Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras.\n\nD. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral.\n\nE. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias.\n\nF. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma.",
+      "options": [
+        "C-A-D-B-E",
+        "A-C-B-D-F",
+        "C-B-A-E-D",
+        "D-C-A-B-F"
+      ],
+      "answer": "C-A-D-B-E",
+      "explanation": "A sequência correta inicia com o parágrafo C (introdução do paradoxo da globalização), seguido de A (aprofundamento da justiça global como espelho partido), depois D (encontro da filosofia com a arte como tribunal simbólico), depois B (questão central sobre domesticar a globalização) e finalmente E (arte como espaço de ensaio de possibilidades). O parágrafo F é extra, pois aborda a inovação orientada por valores éticos, que não se encaixa na progressão temática dos parágrafos selecionados.",
+      "difficulty": 4,
+      "index": 15
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência lógica do texto, ordenando os parágrafos A-F (um é extra). Assinale a opção que corresponde à ordem correta.\n\nA. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes.\n\nB. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo.\n\nC. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias.\n\nD. Olhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade.\n\nE. A inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso.\n\nF. A questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções.",
+      "options": [
+        "B-D-A-E-F",
+        "D-B-F-C-A",
+        "A-C-E-B-D",
+        "F-A-D-C-B"
+      ],
+      "answer": "B-D-A-E-F",
+      "explanation": "A sequência correta começa com B (introdução da diplomacia como coreografia), seguido de D (justiça global como espelho partido), depois A (promessa de cidadania cosmopolita confrontada com muros), depois E (inovação como divindade ambivalente) e finalmente F (questão central sobre domesticar a globalização). O parágrafo C é extra, pois aborda a arte como espaço de ensaio, que surge mais tarde no texto original.",
+      "difficulty": 4,
+      "index": 16
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência lógica do texto, ordenando os parágrafos A-F (um é extra). Assinale a opção que corresponde à ordem correta.\n\nA. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral.\n\nB. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros.\n\nC. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nD. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma.\n\nE. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar.\n\nF. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências.",
+      "options": [
+        "E-A-C-F-B",
+        "B-D-C-A-E",
+        "C-F-B-D-A",
+        "A-E-D-F-C"
+      ],
+      "answer": "E-A-C-F-B",
+      "explanation": "A sequência correta começa com E (encontro da filosofia com a arte), seguido de A (arte como tribunal simbólico), depois C (diplomacia a gerir o caos), depois F (necessidade de reinvenção da diplomacia) e finalmente B (globalização como campo de batalha). O parágrafo D é extra, pois aborda a inovação orientada por valores éticos, que não se encaixa na progressão temática dos parágrafos selecionados.",
+      "difficulty": 4,
+      "index": 17
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência lógica do texto, ordenando os parágrafos A-F (um é extra). Assinale a opção que corresponde à ordem correta.\n\nA. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes.\n\nB. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias.\n\nC. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo.\n\nD. A inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso.\n\nE. Olhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade.\n\nF. A questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções.",
+      "options": [
+        "C-E-A-D-F",
+        "F-A-C-D-B",
+        "E-C-F-A-D",
+        "A-D-B-F-C"
+      ],
+      "answer": "C-E-A-D-F",
+      "explanation": "A sequência correta começa com C (introdução da diplomacia como coreografia), seguido de E (justiça global como espelho partido), depois A (promessa de cidadania cosmopolita confrontada com muros), depois D (inovação como divindade ambivalente) e finalmente F (questão central sobre domesticar a globalização). O parágrafo B é extra, pois aborda a arte como espaço de ensaio, que surge mais tarde no texto original.",
+      "difficulty": 4,
+      "index": 18
+    },
+    {
+      "type": "reorder",
+      "part": 2,
+      "question": "Reconstrua a sequência lógica do texto, ordenando os parágrafos A-F (um é extra). Assinale a opção que corresponde à ordem correta.\n\nA. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral.\n\nB. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros.\n\nC. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nD. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar.\n\nE. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma.\n\nF. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências.",
+      "options": [
+        "D-A-C-F-B",
+        "B-E-D-A-C",
+        "C-F-B-D-A",
+        "A-D-F-C-B"
+      ],
+      "answer": "D-A-C-F-B",
+      "explanation": "A sequência correta começa com D (encontro da filosofia com a arte), seguido de A (arte como tribunal simbólico), depois C (diplomacia a gerir o caos), depois F (necessidade de reinvenção da diplomacia) e finalmente B (globalização como campo de batalha). O parágrafo E é extra, pois aborda a inovação orientada por valores éticos, que não se encaixa na progressão temática dos parágrafos selecionados.",
+      "difficulty": 5,
+      "index": 19
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No texto, a globalização é descrita como um «monumento paradoxal» porque:",
+      "options": [
+        "A) unifica o mundo mas aprofunda as fraturas entre o universalismo e a singularidade cultural.",
+        "B) promove a paz mas gera conflitos armados entre nações.",
+        "C) elimina fronteiras mas reforça o poder dos estados-nação.",
+        "D) cria riqueza mas destrói o meio ambiente de forma irreversível."
+      ],
+      "answer": "A",
+      "explanation": "O texto afirma que a globalização «prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam», o que corresponde à opção A.",
+      "difficulty": 4,
+      "index": 20
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "Segundo o texto, a diplomacia contemporânea caracteriza-se por:",
+      "options": [
+        "A) ser uma arte de salões e tratados secretos, como no passado.",
+        "B) equilibrar o desejo de soberania com a inevitabilidade da interdependência.",
+        "C) ignorar completamente as assimetrias de poder entre nações.",
+        "D) depender exclusivamente da força militar para resolver conflitos."
+      ],
+      "answer": "B",
+      "explanation": "O texto refere que a diplomacia «tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência», indicando a opção B como correta.",
+      "difficulty": 4,
+      "index": 21
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A expressão «véu da ignorância» é usada no texto para criticar:",
+      "options": [
+        "A) a falta de conhecimento dos pobres sobre as suas próprias condições.",
+        "B) a incapacidade dos filósofos em compreender a realidade global.",
+        "C) a seletividade com que os ricos são protegidos das consequências das suas ações.",
+        "D) a ausência de transparência nos acordos diplomáticos internacionais."
+      ],
+      "answer": "C",
+      "explanation": "O texto diz que «o véu da ignorância que nunca caiu verdadeiramente sobre os ricos», sugerindo que estes são poupados às consequências, ao contrário dos pobres, o que corresponde à opção C.",
+      "difficulty": 4,
+      "index": 22
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A arte é descrita como «um tribunal simbólico» porque:",
+      "options": [
+        "A) substitui os tribunais formais na resolução de disputas legais.",
+        "B) julga a hipocrisia dos discursos oficiais e denuncia a exploração.",
+        "C) serve como mero ornamento estético sem função crítica.",
+        "D) promove exclusivamente os valores do mercado global."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que a arte «não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral», confirmando a opção B.",
+      "difficulty": 4,
+      "index": 23
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "No texto, a inovação é apresentada como ambivalente porque:",
+      "options": [
+        "A) tanto pode salvar como controlar, dependendo do seu uso.",
+        "B) é sempre benéfica para os excluídos do sistema financeiro.",
+        "C) promove exclusivamente energias renováveis e sustentáveis.",
+        "D) substitui completamente os combustíveis fósseis na economia global."
+      ],
+      "answer": "A",
+      "explanation": "O texto descreve a inovação «ora se apresenta como salvadora (...) ora se revela como novo instrumento de controlo», evidenciando a sua dualidade, o que corresponde à opção A.",
+      "difficulty": 4,
+      "index": 24
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A referência a «algoritmos que decidem quem merece um empréstimo» serve para ilustrar:",
+      "options": [
+        "A) a eficiência da inovação na inclusão financeira dos pobres.",
+        "B) o potencial da inovação como instrumento de controlo social.",
+        "C) a neutralidade ética das tecnologias digitais.",
+        "D) a substituição dos bancos tradicionais por apps financeiras."
+      ],
+      "answer": "B",
+      "explanation": "O texto usa este exemplo para mostrar como a inovação «se revela como novo instrumento de controlo», indicando a opção B como correta.",
+      "difficulty": 4,
+      "index": 25
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A crítica ao lobby das multinacionais nas cimeiras do clima sugere que:",
+      "options": [
+        "A) os acordos ambientais são plenamente eficazes na redução de emissões.",
+        "B) o crescimento económico é priorizado em detrimento da sustentabilidade.",
+        "C) as empresas multinacionais promovem ativamente a justiça climática.",
+        "D) os estadistas ignoram completamente os interesses corporativos."
+      ],
+      "answer": "B",
+      "explanation": "O texto menciona que «o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda», evidenciando a prioridade do crescimento sobre o ambiente, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 26
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O cosmopolitismo de Kant é contrastado com:",
+      "options": [
+        "A) a paz perpétua alcançada através do direito internacional.",
+        "B) a realidade de guerras assimétricas e comércio de armas.",
+        "C) a eficácia das sanções internacionais contra conflitos.",
+        "D) a harmonia entre as nações promovida pela globalização."
+      ],
+      "answer": "B",
+      "explanation": "O texto afirma que «o cosmopolitismo de Kant (...) choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções», indicando a opção B.",
+      "difficulty": 4,
+      "index": 27
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A menção ao teatro de Augusto Boal, à música de Brian Eno e à street art de JR serve para demonstrar:",
+      "options": [
+        "A) a comercialização da arte no mercado global.",
+        "B) a subversão da lógica do mercado através de gestos artísticos.",
+        "C) a irrelevância da arte para questões de justiça social.",
+        "D) a dependência da arte em relação ao financiamento corporativo."
+      ],
+      "answer": "B",
+      "explanation": "O texto descreve estes exemplos como «gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno», confirmando a opção B.",
+      "difficulty": 4,
+      "index": 28
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "As «plataformas de código aberto» e as «moedas complementares» são apresentadas como:",
+      "options": [
+        "A) exemplos de inovação orientada por valores éticos que redistribuem poder.",
+        "B) instrumentos do capitalismo de plataforma que exploram os trabalhadores.",
+        "C) soluções tecnológicas que reforçam o oligopólio dos combustíveis fósseis.",
+        "D) mecanismos de controlo estatal sobre a economia digital."
+      ],
+      "answer": "A",
+      "explanation": "O texto refere que «a inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder» e cita estas plataformas como «sementes de uma economia solidária», correspondendo à opção A.",
+      "difficulty": 4,
+      "index": 29
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A expressão «já não basta falar de paz quando se vendem armas a ambas as partes» critica:",
+      "options": [
+        "A) a hipocrisia da diplomacia que promove a paz enquanto lucra com conflitos.",
+        "B) a eficácia das sanções internacionais na redução do comércio de armas.",
+        "C) a neutralidade dos estados na mediação de conflitos armados.",
+        "D) a falta de inovação tecnológica na indústria armamentista."
+      ],
+      "answer": "A",
+      "explanation": "O texto sublinha a contradição entre o discurso diplomático de paz e a prática de vender armas, evidenciando a hipocrisia, o que corresponde à opção A.",
+      "difficulty": 4,
+      "index": 30
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A metáfora do «soldado imperfeito» aplicada a cada indivíduo sugere que:",
+      "options": [
+        "A) todos somos agentes ativos na construção do futuro, apesar das nossas limitações.",
+        "B) a guerra é inevitável e cada um deve escolher um lado no conflito global.",
+        "C) a globalização transforma todos em vítimas passivas das forças do mercado.",
+        "D) a ação individual é irrelevante perante as estruturas de poder globais."
+      ],
+      "answer": "A",
+      "explanation": "O texto descreve cada um como «um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes», indicando agência apesar das imperfeições, o que corresponde à opção A.",
+      "difficulty": 4,
+      "index": 31
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "A frase «a distância não se mede em quilómetros, mas em assimetrias de poder» implica que:",
+      "options": [
+        "A) as diferenças geográficas são o principal obstáculo à unificação global.",
+        "B) as desigualdades de poder e conhecimento são mais relevantes que a proximidade física.",
+        "C) a tecnologia digital eliminou completamente as distâncias entre as pessoas.",
+        "D) o acesso ao conhecimento é igualitário em todas as regiões do mundo."
+      ],
+      "answer": "B",
+      "explanation": "O texto contrapõe a medida física da distância às «assimetrias de poder e de acesso ao conhecimento», indicando que estas são mais significativas, o que corresponde à opção B.",
+      "difficulty": 4,
+      "index": 32
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O texto sugere que a «verdadeira medida da nossa humanidade» reside:",
+      "options": [
+        "A) na capacidade de consumo e acumulação de bens materiais.",
+        "B) naquilo que somos capazes de partilhar: conhecimento, compaixão e indignação.",
+        "C) na adoção de uma cidadania cosmopolita baseada em direitos universais.",
+        "D) na inovação tecnológica que supera as limitações humanas."
+      ],
+      "answer": "B",
+      "explanation": "O texto conclui que «a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça», confirmando a opção B.",
+      "difficulty": 4,
+      "index": 33
+    },
+    {
+      "type": "choice",
+      "part": 3,
+      "question": "O título mais adequado para este texto seria:",
+      "options": [
+        "A) A Globalização como Destino Inevitável da Humanidade.",
+        "B) Os Paradoxos da Globalização: Entre a Unificação e a Fratura.",
+        "C) A Inovação Tecnológica como Salvação do Planeta.",
+        "D) A Arte como Ornamento na Sociedade de Consumo."
+      ],
+      "answer": "B",
+      "explanation": "O texto explora consistentemente as contradições da globalização, desde a unificação prometida até às fraturas reais, passando pelo papel da arte, inovação e diplomacia, o que torna a opção B a mais abrangente e precisa.",
+      "difficulty": 5,
+      "index": 34
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 1: 'Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A palavra 'se' antes de 'tece' é redundante, pois 'tece' já é um verbo reflexivo na construção 'tece-se' implícita. A forma correta seria 'o comércio tece' ou 'se tece', mas não ambos.",
+      "difficulty": 4,
+      "index": 35
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 2: 'Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou libertades.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'de' antes de 'um fluxo' é desnecessária, pois 'de um fenómeno' já introduz a lista; 'de' repete-se incorretamente. O correto seria 'de um fenómeno económico, um fluxo de capitais'.",
+      "difficulty": 4,
+      "index": 36
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 3: 'A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "explanation": "A palavra 'todas' é redundante, pois 'em todas as capitais' poderia ser simplificado para 'nas capitais' sem perda de sentido, e 'todas' enfatiza desnecessariamente.",
+      "difficulty": 4,
+      "index": 37
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 4: 'A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "explanation": "A palavra 'se' antes de 'mede' é desnecessária, pois 'a distância não se mede' é uma construção reflexiva passiva; o correto seria 'a distância não mede' (sentido ativo) ou 'não é medida', mas 'se' é pleonástico.",
+      "difficulty": 4,
+      "index": 38
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 5: 'Olhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A palavra 'para' é desnecessária, pois 'olhemos a justiça global' é suficiente; 'olhar para' é uma coloquialidade que pode ser omitida em registo formal.",
+      "difficulty": 4,
+      "index": 39
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 6: 'Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'se' em 'debatem-se' é redundante, pois 'debatem' já implica ação recíproca; o correto seria 'debatem' sem 'se'.",
+      "difficulty": 4,
+      "index": 40
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 7: 'A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promesa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "explanation": "A palavra 'se' antes de 'erguem' é desnecessária, pois 'que se erguem' pode ser simplificado para 'que erguem' (sentido ativo); 'se' é pleonástico.",
+      "difficulty": 4,
+      "index": 41
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 8: 'É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "explanation": "A palavra 'se' em 'se encontra' é redundante, pois 'encontra' já implica encontro; o correto seria 'a filosofia encontra com a arte' ou 'se encontra' mas não ambos.",
+      "difficulty": 4,
+      "index": 42
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 9: 'A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A palavra 'que' antes de 'julga' é repetida desnecessariamente; o correto seria 'é um tribunal simbólico que julga... e denuncia' sem o segundo 'que'.",
+      "difficulty": 4,
+      "index": 43
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 10: 'E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'se' antes de 'apresenta' e 'revela' é redundante; 'apresenta' e 'revela' já são verbos ativos que não requerem 'se' neste contexto. O correto seria 'ora apresenta como salvadora'.",
+      "difficulty": 4,
+      "index": 44
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 11: 'A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "explanation": "A palavra 'se' antes de 'encena' é desnecessária, pois 'encena' pode ser usado ativamente; o correto seria 'onde encena a vontade de mudar'.",
+      "difficulty": 4,
+      "index": 45
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 12: 'A questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "explanation": "A palavra 'se' antes de 'impõe' é redundante, pois 'impõe' já é verbo reflexivo; o correto seria 'A questão que impõe é se'.",
+      "difficulty": 4,
+      "index": 46
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 13: 'A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A palavra 'de' antes de 'guerras' é desnecessária, pois 'de um comércio' já introduz a lista; o correto seria 'de guerras assimétricas e um comércio'.",
+      "difficulty": 4,
+      "index": 47
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 14: 'A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'se' antes de 'ensaiam' é desnecessária, pois 'ensaiam' pode ser usado ativamente; o correto seria 'onde ensaiam outras possibilidades'.",
+      "difficulty": 4,
+      "index": 48
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 15: 'A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "explanation": "A palavra 'de' antes de 'conhecimento' é desnecessária, pois 'redes de partilha' já implica 'de'; o correto seria 'redes de partilha conhecimento' (embora coloquial, em registo formal pode ser omitido).",
+      "difficulty": 4,
+      "index": 49
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 16: 'Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "D",
+      "explanation": "A palavra 'se' antes de 'vendem' é desnecessária, pois 'vendem' já indica ação passiva; o correto seria 'quando vendem armas'.",
+      "difficulty": 4,
+      "index": 50
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 17: 'A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'se' antes de 'decidem' é redundante, pois 'decidem' pode ser usado ativamente; o correto seria 'onde decidem os contornos do futuro'.",
+      "difficulty": 4,
+      "index": 51
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 18: 'E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "C",
+      "explanation": "A palavra 'as' antes de 'suas dúvidas' é desnecessária, pois 'as suas convicções' já estabelece o possessivo; 'as suas dúvidas' pode ser simplificado para 'suas dúvidas'.",
+      "difficulty": 4,
+      "index": 52
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 19: 'No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "explanation": "A palavra 'naquilo' é repetida desnecessariamente; o correto seria 'não está no que consumimos, mas no que somos capazes de partilhar'.",
+      "difficulty": 4,
+      "index": 53
+    },
+    {
+      "type": "error_detect",
+      "part": 4,
+      "question": "Linha 20: 'Talvez seja essa a única globalização que merece o nome.' Identifique a palavra a mais.",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "B",
+      "explanation": "A palavra 'a' antes de 'única' é desnecessária, pois 'essa única globalização' já é definido; o correto seria 'Talvez seja essa única globalização'.",
+      "difficulty": 4,
+      "index": 54
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento ______: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas.",
+      "options": [],
+      "answer": "paradoxal",
+      "explanation": "O texto descreve a globalização como um monumento paradoxal, pois prometeu unificação mas criou fraturas. A palavra 'paradoxal' (adjetivo) é a única que cabe no contexto, referindo-se à contradição entre promessa e resultado.",
+      "difficulty": 4,
+      "index": 55
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora ______; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver.",
+      "options": [],
+      "answer": "alfândegas",
+      "explanation": "O fluxo de capitais ignora alfândegas (barreiras alfandegárias), indicando a natureza transfronteiriça do capitalismo global. 'Alfândegas' é um substantivo que se encaixa no contexto de comércio internacional.",
+      "difficulty": 4,
+      "index": 56
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a ______ da interdependência.",
+      "options": [],
+      "answer": "inevitabilidade",
+      "explanation": "A interdependência é apresentada como inevitável no contexto global. 'Inevitabilidade' (substantivo) encaixa-se na estrutura 'entre o desejo de soberania e a [inevitabilidade] da interdependência'.",
+      "difficulty": 4,
+      "index": 57
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em ______ de poder e de acesso ao conhecimento.",
+      "options": [],
+      "answer": "assimetrias",
+      "explanation": "A distância é medida em assimetrias (desigualdades) de poder e conhecimento. 'Assimetrias' é um termo técnico que se encaixa perfeitamente no contexto de desigualdade global.",
+      "difficulty": 4,
+      "index": 58
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ______, enquanto os pobres continuam a ver o mundo através de um véu de necessidade.",
+      "options": [],
+      "answer": "ricos",
+      "explanation": "O véu da ignorância (conceito rawlsiano) nunca caiu sobre os ricos, que permanecem conscientes da sua posição privilegiada. 'Ricos' é o antónimo de 'pobres' e encaixa-se no contexto de desigualdade.",
+      "difficulty": 4,
+      "index": 59
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A globalização trouxe consigo a promessa de uma cidadania ______, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos.",
+      "options": [],
+      "answer": "cosmopolita",
+      "explanation": "O texto refere-se à 'cidadania cosmopolita', um conceito filosófico que defende a pertença a uma comunidade global. 'Cosmopolita' (adjetivo) é a palavra que completa o sentido da frase.",
+      "difficulty": 4,
+      "index": 60
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ______.",
+      "options": [],
+      "answer": "ocultar",
+      "explanation": "O capital global prefere ocultar (esconder) a história da desigualdade. 'Ocultar' é um verbo que se encaixa no contexto de silenciamento e invisibilização das injustiças.",
+      "difficulty": 4,
+      "index": 61
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A arte, nesse sentido, não é mero ornamento; é um tribunal ______ que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral.",
+      "options": [],
+      "answer": "simbólico",
+      "explanation": "A arte funciona como um tribunal simbólico (não literal), julgando a hipocrisia. 'Simbólico' é um adjetivo que capta a natureza metafórica e crítica da arte.",
+      "difficulty": 4,
+      "index": 62
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem ______ os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo.",
+      "options": [],
+      "answer": "bancarizar",
+      "explanation": "As apps financeiras prometem bancarizar (incluir no sistema bancário) os excluídos. 'Bancarizar' é um verbo técnico que se encaixa no contexto de inclusão financeira.",
+      "difficulty": 4,
+      "index": 63
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se ______ a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar.",
+      "options": [],
+      "answer": "encena",
+      "explanation": "Nos palcos diplomáticos, encena-se (representa-se teatralmente) a vontade de mudar, sugerindo uma performance ilusória. 'Encena' é um verbo que se encaixa no contexto de teatro e simulação.",
+      "difficulty": 4,
+      "index": 64
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A questão que se impõe é se a globalização pode ser ______, se existe um caminho para uma justiça que não seja mero simulacro.",
+      "options": [],
+      "answer": "domesticada",
+      "explanation": "A globalização pode ser domesticada (controlada, amansada) para evitar os seus efeitos negativos. 'Domesticada' é um verbo no particípio que sugere a ideia de controlo sobre um fenómeno selvagem.",
+      "difficulty": 4,
+      "index": 65
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "O cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras ______ e de um comércio de armas que ignora sanções.",
+      "options": [],
+      "answer": "assimétricas",
+      "explanation": "As guerras assimétricas (entre potências desiguais) contrastam com o ideal kantiano de paz. 'Assimétricas' é um adjetivo que descreve conflitos modernos onde o poder é desequilibrado.",
+      "difficulty": 4,
+      "index": 66
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma ______ em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades.",
+      "options": [],
+      "answer": "espectadores",
+      "explanation": "O teatro de Augusto Boal transforma espectadores (plateia passiva) em atores (participantes ativos). 'Espectadores' é o substantivo que se encaixa no contexto do teatro do oprimido.",
+      "difficulty": 4,
+      "index": 67
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas ______, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma.",
+      "options": [],
+      "answer": "complementares",
+      "explanation": "Moedas complementares (alternativas ao dinheiro oficial) são exemplos de inovação ética. 'Complementares' é um adjetivo que descreve sistemas monetários paralelos que reforçam economias locais.",
+      "difficulty": 5,
+      "index": 68
+    },
+    {
+      "type": "fill",
+      "part": 5,
+      "question": "No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a ______ perante a injustiça.",
+      "options": [],
+      "answer": "indignação",
+      "explanation": "A indignação (revolta moral) perante a injustiça é um dos valores que partilhamos. 'Indignação' é um substantivo que se encaixa no contexto de valores humanos universais.",
+      "difficulty": 5,
+      "index": 69
+    }
+  ],
+  "parts": [
+    {
+      "label": "P1 — Escolha múltipla (A/B/C/D) — 3 textos (literatura, crónica, ensaio)",
+      "qStart": 0,
+      "count": 15,
+      "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou libertades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promesa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros. No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça. Talvez seja essa a única globalização que merece o nome."
+    },
+    {
+      "label": "P2 — Reconstrução textual (6 parágrafos A-F, 1 extra) — 5 lacunas",
+      "qStart": 15,
+      "count": 5,
+      "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou liberdades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros. No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça. Talvez seja essa a única globalização que merece o nome."
+    },
+    {
+      "label": "P3 — Cloze escolha múltipla (A/B/C/D) — 15 lacunas",
+      "qStart": 20,
+      "count": 15,
+      "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou liberdades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros. No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça. Talvez seja essa a única globalização que merece o nome."
+    },
+    {
+      "label": "P4 — Deteção de erros — palavra a mais ou \"correta\" — 20 linhas",
+      "qStart": 35,
+      "count": 20,
+      "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou libertades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promesa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros. No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça. Talvez seja essa a única globalização que merece o nome."
+    },
+    {
+      "label": "P5 — Open cloze — 1 palavra/gap — 15 lacunas",
+      "qStart": 55,
+      "count": 15,
+      "sourceText": "Num tempo em que as fronteiras se desfazem nas malhas digitais e o comércio se tece em fusos horários opostos, a globalização ergue-se como um monumento paradoxal: prometeu a unificação do mundo, mas legou-nos uma paisagem de fraturas profundas, onde o universalismo dos direitos e a singularidade das culturas se confrontam num duelo de sombras. Não se trata apenas de um fenómeno económico, de um fluxo de capitais que ignora alfândegas; é, antes, uma questão de justiça redistributiva que a filosofia política teima em não resolver, uma encruzilhada onde a arte se ergue como testemunha e a inovação como arauto de novas servidões ou liberdades. A diplomacia, outrora arte de salões e tratados secretos, tornou-se o teatro de uma coreografia entre o desejo de soberania e a inevitabilidade da interdependência, num bailado onde cada passo em falso ecoa em todas as capitais do globo. A ironia é que, quanto mais nos aproximamos uns dos outros, mais nos damos conta de que a distância não se mede em quilómetros, mas em assimetrias de poder e de acesso ao conhecimento.\n\nOlhemos para a justiça global como um espelho partido: cada fragmento reflete uma narrativa diferente. Os filósofos, de Rawls a Sen, debatem-se com o véu da ignorância que nunca caiu verdadeiramente sobre os ricos, enquanto os pobres continuam a ver o mundo através de um véu de necessidade. A globalização trouxe consigo a promessa de uma cidadania cosmopolita, mas essa promessa esbarra na realidade dos muros que se erguem nas fronteiras da Europa e dos Estados Unidos, na seletividade com que acolhemos refugiados e na violência com que expulsamos migrantes. É aqui que a filosofia se encontra com a arte: a literatura de Chimamanda Ngozi Adichie, o cinema de Ken Loach, a pintura de Banksy — todos eles nos confrontam com o rosto humano da desigualdade, com a história que o capital global prefere ocultar. A arte, nesse sentido, não é mero ornamento; é um tribunal simbólico que julga a hipocrisia dos discursos oficiais, que denuncia a cumplicidade entre o progresso técnico e a exploração laboral. E a inovação, essa divindade moderna, ora se apresenta como salvadora — com apps financeiras que prometem bancarizar os excluídos, com energias renováveis que desafiam o oligopólio dos combustíveis fósseis —, ora se revela como novo instrumento de controlo, como os algoritmos que decidem quem merece um empréstimo ou quem deve ser preso. A diplomacia, por seu turno, tenta gerir este caos com a elegância de quem sabe que a força já não basta: as alianças do G20, os acordos de Paris, as cimeiras do clima — são palcos onde se encena a vontade de mudar, mas onde o lobby das multinacionais sussurra ao ouvido dos estadistas que o crescimento não pode parar, mesmo que o planeta arda.\n\nA questão que se impõe é se a globalização pode ser domesticada, se existe um caminho para uma justiça que não seja mero simulacro. A filosofia política oferece-nos pistas, mas não respostas: o cosmopolitismo de Kant, que sonhava com uma paz perpétua fundada no direito, choca com a realidade de guerras assimétricas e de um comércio de armas que ignora sanções. A arte, porém, continua a ser o espaço onde se ensaiam outras possibilidades: o teatro de Augusto Boal, que transforma espectadores em atores; a música de Brian Eno, que compõe paisagens sonoras para a reflexão; a street art de JR, que coloca retratos gigantes de comunidades marginalizadas nas fachadas das cidades — são gestos que subvertem a lógica do mercado, que recordam que a globalização também pode ser um encontro genuíno, e não apenas uma troca de mercadorias. A inovação, quando orientada por valores éticos, tem o potencial de redistribuir poder: as plataformas de código aberto, as moedas complementares, as redes de partilha de conhecimento — são sementes de uma economia solidária que resiste à voragem do capitalismo de plataforma. Mas a diplomacia, essa arte de gerir conflitos, precisa de se reinventar: já não basta falar de paz quando se vendem armas a ambas as partes; é preciso coragem para confrontar as causas estruturais da desigualdade, para exigir que as empresas paguem impostos onde geram lucros, para criar mecanismos de governança global que não sejam reféns dos interesses das grandes potências. A globalização, vista deste ângulo, não é um destino, mas um campo de batalha onde se decidem os contornos do futuro. E nesse campo, cada um de nós — consumidor, cidadão, artista, diplomata — é um soldado imperfeito, armado com as suas convicções e as suas dúvidas, tentando construir pontes onde outros erguem muros. No fundo, a verdadeira medida da nossa humanidade não está naquilo que consumimos, mas naquilo que somos capazes de partilhar: o conhecimento, a compaixão, a indignação perante a injustiça. Talvez seja essa a única globalização que merece o nome."
+    }
+  ],
+  "examDifficulty": 95,
+  "examDuration": 120,
+  "timestamp": 1782245233647
+}

@@ -104,6 +104,8 @@ const ExamHistoryView = {
                       :class="entry.level?levelBadge(entry.level):'bg-slate-100 text-slate-500'">{{ entry.level || '—' }}</span>
                 <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase"
                       :class="typeBadge(entry._type)">{{ entry._type }}</span>
+                <span v-if="entry.examDifficulty" class="px-1.5 py-0.5 rounded text-[10px] font-bold"
+                      :class="diffBadge(entry.examDifficulty)">D:{{ entry.examDifficulty }}</span>
                 <span class="text-xs text-slate-400">{{ formatDate(entry.date) }}</span>
               </div>
               <p v-if="entry._type==='Ditado'" class="text-xs text-slate-400 mt-0.5">{{ entry.audioName || 'Áudio' }} · {{ entry.transcript?.length || 0 }} caracteres</p>
@@ -112,7 +114,10 @@ const ExamHistoryView = {
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <span v-if="entry._type==='CL'||entry._type==='CO'" class="px-2 py-0.5 rounded text-xs font-medium" :class="gradeBg(entry.percent)">{{ gradeLabel(entry.percent) }}</span>
+            <span v-if="entry._type==='CL'||entry._type==='CO'||entry._type==='PIE'" class="px-2 py-0.5 rounded text-xs font-medium" :class="gradeBg(entry.percent)">{{ gradeLabel(entry.percent) }}</span>
+            <button v-if="entry._saved" @click.stop="apagarExame(entry)" class="px-2 py-1 text-xs font-medium text-erro border border-red-200 rounded hover:bg-red-50 transition" title="Apagar exame">
+              <i data-lucide="trash-2" class="w-3 h-3 inline"></i>
+            </button>
             <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform"
                :class="{'rotate-180': openIds[entry.id]}"></i>
           </div>
@@ -149,23 +154,6 @@ const ExamHistoryView = {
             </div>
           </div>
         </div>
-        <!-- CO details -->
-        <div v-if="openIds[entry.id] && entry._type==='CO'" class="border-t border-slate-200">
-          <div class="px-4 pt-3 pb-1"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Compreensão Oral — {{ entry.questions?.length }} perguntas</p></div>
-          <div v-for="(q, i) in entry.questions" :key="'co-'+i" class="px-4 py-3 border-b border-slate-200 last:border-0">
-            <div class="flex items-start gap-3">
-              <span class="shrink-0 mt-0.5">{{ entry.qgCorrect[i] ? '✅' : '❌' }}</span>
-              <div class="flex-1">
-                <p class="text-xs text-slate-500 mb-1">{{ i+1 }}. {{ q.question }}</p>
-                <p class="text-xs text-slate-400" v-if="q.options">Opções: {{ q.options.join(', ') }}</p>
-                <div class="text-xs space-y-0.5">
-                  <p :class="entry.qgCorrect[i]?'text-certo':'text-erro'">Tua: <strong>{{ entry.userAnswers[i]||'(—)' }}</strong></p>
-                  <p v-if="!entry.qgCorrect[i]" class="text-certo">Correta: <strong>{{ q.answer }}</strong></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <!-- PIE details -->
         <div v-if="openIds[entry.id] && entry._type==='PIE'" class="border-t border-slate-200 p-4 text-center">
           <p class="text-2xl font-bold" :class="gradeColor(entry.percent)">{{ entry.percent || '—' }}%</p>
@@ -184,6 +172,19 @@ const ExamHistoryView = {
           <p class="text-xs text-slate-500 mb-2"><strong>Texto:</strong> {{ entry.textPreview }}</p>
           <p class="text-xs text-slate-500"><strong>Notas:</strong> {{ entry.notesCount }} linha{{ entry.notesCount !== 1 ? 's' : '' }} · {{ entry.wordCount }} palavras</p>
         </div>
+        <!-- Exame (saved exam) details -->
+        <div v-if="openIds[entry.id] && entry._saved" class="border-t border-slate-200 p-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-slate-500">Dificuldade: {{ entry.examDifficulty }}/100</p>
+              <p v-if="entry._type==='PIE'" class="text-xs text-slate-500 mt-1">{{ entry.duracao }} · {{ entry.descrip }}</p>
+              <p v-else class="text-xs text-slate-500">Duração: {{ entry.examDuration }} min · {{ entry.questionCount }} perguntas</p>
+            </div>
+            <button @click="reabrirExame(entry.examId)" class="px-4 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">
+              <i data-lucide="external-link" class="w-3.5 h-3.5 inline mr-1"></i>Reabrir
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   `,
@@ -196,7 +197,7 @@ const ExamHistoryView = {
       customTime: false,
       customNum: 7,
       customUnit: 'dias',
-      filterTypes: ['Todas', 'CL', 'CO', 'PIE', 'Ditado', 'Leitura'],
+      filterTypes: ['Todas', 'CL', 'CO', 'PIE', 'Ditado', 'Leitura', 'Exames'],
       filterLevels: ['Todas', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'],
       filterTimes: ['Tudo', 'Este mês', 'Últimos 3 meses'],
       openIds: {},
@@ -221,6 +222,18 @@ const ExamHistoryView = {
       for (const l of this.leituras) {
         list.push({ ...l, _type: 'Leitura' })
       }
+      // Saved exams from CAPLE_SAVED_EXAMS
+      try {
+        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        for (const s of saved) {
+          // Derive actual exam type from examId
+          let exType = 'Exames'
+          if (s.examId.includes('_CL')) exType = 'CL'
+          else if (s.examId.includes('_CO')) exType = 'CO'
+          else if (s.examId.includes('_PIE')) exType = 'PIE'
+          list.push({ ...s, _type: exType, _saved: true, id: s.examId })
+        }
+      } catch {}
       list.sort((a, b) => new Date(b.date||0) - new Date(a.date||0))
       return list
     },
@@ -228,7 +241,13 @@ const ExamHistoryView = {
     filtered() {
       let list = [...this.allEntries]
       // Type
-      if (this.fType !== 'Todas') list = list.filter(e => e._type === this.fType)
+      if (this.fType !== 'Todas') {
+        if (this.fType === 'Exames') {
+          list = list.filter(e => e._saved)
+        } else {
+          list = list.filter(e => e._type === this.fType)
+        }
+      }
       // Level
       if (this.fLevel !== 'Todas') list = list.filter(e => e.level === this.fLevel)
       // Time
@@ -262,6 +281,7 @@ const ExamHistoryView = {
   methods: {
     _exType(ex) {
       const id = ex.id || ''
+      if (ex._type === 'Exames') return 'Exames'
       if (id.includes('_CL')) return 'CL'
       if (id.includes('_CO')) return 'CO'
       if (id.includes('_PIE')) return 'PIE'
@@ -275,11 +295,13 @@ const ExamHistoryView = {
     gradeColor(p) { return p >= 85 ? 'text-teal-500' : p >= 70 ? 'text-certo' : p >= 55 ? 'text-lisboa' : 'text-erro' },
     gradeBg(p) { return p >= 85 ? 'bg-teal-50 text-teal-600' : p >= 70 ? 'bg-emerald-50 text-emerald-600' : p >= 55 ? 'bg-amber-50 text-amber-600' : 'bg-rose-50 text-rose-600' },
     gradeLabel(p) { return p >= 85 ? 'Muito Bom' : p >= 70 ? 'Bom' : p >= 55 ? 'Suficiente' : 'Insuficiente' },
+    diffBadge(d) { return d >= 98 ? 'bg-red-500 text-white' : d >= 95 ? 'bg-rose-500 text-white' : d >= 90 ? 'bg-orange-400 text-white' : 'bg-amber-400 text-white' },
 
     typeActiveClass(t) {
       const m = { 'Todas':'bg-slate-800 text-white border-slate-800', 'CL':'bg-azulejo text-white border-azulejo',
         'CO':'bg-amber-600 text-white border-amber-600', 'PIE':'bg-rose-600 text-white border-rose-600',
-        'Ditado':'bg-purple-600 text-white border-purple-600', 'Leitura':'bg-teal-600 text-white border-teal-600' }
+        'Ditado':'bg-purple-600 text-white border-purple-600', 'Leitura':'bg-teal-600 text-white border-teal-600',
+        'Exames':'bg-slate-600 text-white border-slate-600' }
       return m[t] || 'bg-slate-800 text-white border-slate-800'
     },
     levelActiveClass(lv) {
@@ -296,8 +318,37 @@ const ExamHistoryView = {
     },
     typeBadge(t) {
       const m = { 'CL':'bg-blue-50 text-azulejo', 'CO':'bg-amber-50 text-amber-700', 'PIE':'bg-rose-50 text-rose-600',
-        'Ditado':'bg-purple-50 text-purple-700', 'Leitura':'bg-teal-50 text-teal-700' }
+        'Ditado':'bg-purple-50 text-purple-700', 'Leitura':'bg-teal-50 text-teal-700', 'Exames':'bg-slate-50 text-slate-600' }
       return m[t] || 'bg-slate-100 text-slate-500'
+    },
+
+    reabrirExame(examId) {
+      try {
+        const raw = localStorage.getItem('CAPLE_SAVED_FULL_' + examId)
+        if (!raw) { alert('Dados do exame não encontrados. O ficheiro JSON foi descarregado — pode fazer upload manual.'); return }
+        if (examId.includes('_PIE')) {
+          localStorage.setItem('PIE_CURRENT_EXAM', raw)
+          window.open('pie_exam.html', '_blank')
+        } else {
+          localStorage.setItem('CL_CURRENT_EXAM', raw)
+          window.open('cl_exam.html', '_blank')
+        }
+      } catch(e) { alert('Erro ao reabrir: ' + e.message) }
+    },
+
+    apagarExame(entry) {
+      if (!confirm(`Apagar exame ${entry.examId}?`)) return
+      const examId = entry.examId
+      // Remove from saved metadata list
+      try {
+        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        const idx = saved.findIndex(s => s.examId === examId)
+        if (idx >= 0) saved.splice(idx, 1)
+        localStorage.setItem('CAPLE_SAVED_EXAMS', JSON.stringify(saved))
+      } catch {}
+      // Remove full data
+      try { localStorage.removeItem('CAPLE_SAVED_FULL_' + examId) } catch {}
+      alert(`Exame ${examId} apagado. O ficheiro ${examId}.json em Exames/ pode ser apagado manualmente.`)
     },
   },
 

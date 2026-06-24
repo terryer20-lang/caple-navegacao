@@ -144,7 +144,7 @@
         <!-- Level + progress -->
         <div class="mb-3">
           <span class="px-2.5 py-0.5 rounded text-xs font-mono glass-badge text-slate-500">{{ round.level }}</span>
-          <span class="text-xs text-slate-400 ml-2">{{ currentIdx + 1 }} / {{ words.length }}</span>
+          <span class="text-xs text-slate-400 ml-2">{{ currentIdx + 1 }}<template v-if="!isUnlimited"> / {{ words.length }}</template></span>
         </div>
 
         <!-- Direction + word -->
@@ -217,19 +217,56 @@
                     class="btn-outline green">✅ Sei <span class="text-[10px] opacity-60 ml-1">2</span></button>
           </div>
 
-          <!-- Next -->
-          <div v-if="rated || (submitted && !isPt2zh && feedback && feedback.match==='strict')">
-            <button @click="nextWord" class="btn-primary">
+          <!-- Next / Encerrar -->
+          <div v-if="rated || (submitted && !isPt2zh && feedback && feedback.match==='strict')" class="flex justify-center gap-3">
+            <button v-if="!isUnlimited || currentIdx < words.length - 1" @click="nextWord" class="btn-primary">
               {{ currentIdx < words.length - 1 ? 'Seguinte →' : 'Concluir ✓' }}
+            </button>
+            <button v-if="isUnlimited" @click="encerrarRonda"
+                    class="px-6 py-2.5 bg-rose-500 text-white text-sm font-semibold rounded-xl hover:bg-rose-600 transition shadow-lg">
+              ■ Encerrar
             </button>
           </div>
         </div>
 
-        <!-- Round complete -->
+        <!-- Round complete / Statistics -->
         <div v-if="roundComplete" class="exam-card mt-8 text-center">
           <i data-lucide="check-circle" class="w-10 h-10 mx-auto text-certo mb-2"></i>
           <p class="text-lg font-bold text-slate-800">Ronda concluída!</p>
-          <p class="text-sm text-slate-500 mt-1">{{ correctCount }} / {{ words.length }} corretas</p>
+          <p class="text-sm text-slate-500 mt-1">{{ correctCount }} / {{ totalAttempted }} corretas ({{ pctCorrect }}%)</p>
+
+          <!-- Session stats -->
+          <div class="mt-4 p-4 glass-panel text-left">
+            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">📊 Estatísticas desta sessão</p>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Tentativas</span><span class="font-bold text-slate-700">{{ totalAttempted }}</span></div>
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Corretas</span><span class="font-bold text-certo">{{ correctCount }}</span></div>
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Erros</span><span class="font-bold text-erro">{{ totalAttempted - correctCount }}</span></div>
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Precisão</span><span class="font-bold text-azulejo">{{ pctCorrect }}%</span></div>
+            </div>
+          </div>
+
+          <!-- Cumulative stats -->
+          <div class="mt-3 p-4 glass-panel text-left">
+            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">📈 Total acumulado</p>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Palavras aprendidas</span><span class="font-bold text-azulejo">{{ myVocabCount }}</span></div>
+              <div class="p-2 rounded bg-white/50"><span class="text-slate-400 text-[10px] block">Hoje</span><span class="font-bold text-slate-700">{{ todayWords }}</span></div>
+            </div>
+          </div>
+
+          <!-- Level progress -->
+          <div class="mt-3 p-4 glass-panel text-left">
+            <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">📚 Nível {{ round.level }}</p>
+            <div class="flex items-center justify-between text-sm mb-1">
+              <span class="text-slate-500">{{ myVocabInLevel }}<span class="text-slate-300">/{{ totalInLevel }}</span></span>
+              <span class="font-bold text-slate-700">{{ pctLevel }}%</span>
+            </div>
+            <div class="w-full h-2 bg-white/50 rounded-full overflow-hidden">
+              <div class="h-full bg-certo rounded-full transition-all duration-500" :style="{ width: pctLevel + '%' }"></div>
+            </div>
+          </div>
+
           <button @click="closeWin" class="mt-4 btn-primary">Fechar</button>
         </div>
       </div>
@@ -263,6 +300,12 @@
           <p class="text-base font-bold text-slate-700">{{ todayWords }}</p>
         </div>
       </div>
+      <div class="px-4 py-3 border-b border-slate-200 shrink-0">
+        <button @click="closeWin"
+                class="w-full px-4 py-2.5 bg-azulejo hover:bg-blue-800 text-white text-sm font-semibold rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+          <i data-lucide="home" class="w-4 h-4"></i> Voltar à página principal
+        </button>
+      </div>
       <div class="flex-1 overflow-y-auto px-4 py-3">
         <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-2">Últimos</p>
         <div v-for="(r, i) in recentLog" :key="i" class="flex items-center gap-2 py-1.5 text-xs border-b border-slate-100 last:border-0">
@@ -289,6 +332,9 @@
     },
     computed: {
       currentWord() { return this.currentIdx < this.words.length ? this.words[this.currentIdx] : null },
+      isUnlimited() { return this.round?.isUnlimited === true },
+      totalAttempted() { return Math.min(this.currentIdx + (this.roundComplete ? 1 : 0), this.words.length) },
+      pctCorrect() { return this.totalAttempted > 0 ? Math.round(this.correctCount / this.totalAttempted * 100) : 0 },
       isPt2zh() { return this.round?.mode === 'pt2zh' },
       letterCount() { if (!this.currentWord || this.isPt2zh) return 0; return (this.currentWord.pt || '').length },
       allFilled() { return this.letterCount > 0 && this.letterInputs.every(ch => ch && ch.trim()) },
@@ -379,6 +425,10 @@
         this.feedback = null; this.submitted = false; this.rated = false; this.ratedResult = null
         if (this.currentIdx < this.words.length - 1) { this.currentIdx++; this.initLetterInputs() }
         else { this.roundComplete = true }
+      },
+      encerrarRonda() {
+        this.feedback = null; this.submitted = false; this.rated = false
+        this.roundComplete = true
       },
       closeWin() { window.close() },
       speak(text) {
