@@ -66,8 +66,6 @@ const MeuLexicoView = {
         <div class="flex items-center justify-between mb-3">
           <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Distribuição QECR (no meu léxico)</p>
           <div class="flex glass-panel rounded-lg p-0.5">
-            <button @click="cefrMode='all'" :class="cefrMode==='all' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
-                    class="btn-click px-2.5 py-1 text-[10px] font-medium rounded-md transition">Todos</button>
             <button @click="cefrMode='zh2pt'" :class="cefrMode==='zh2pt' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
                     class="btn-click px-2.5 py-1 text-[10px] font-medium rounded-md transition">CN→PT</button>
             <button @click="cefrMode='pt2zh'" :class="cefrMode==='pt2zh' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
@@ -84,10 +82,8 @@ const MeuLexicoView = {
                    :class="lv.barCls"></div>
             </div>
             <span class="text-xs text-slate-500 shrink-0 flex items-center gap-1.5">
-              <span class="text-[10px] text-slate-400">已背</span>
               <strong class="text-slate-700">{{ lv.count }}</strong>
               <span class="text-slate-300">/</span>
-              <span class="text-[10px] text-slate-400">詞庫</span>
               <span class="text-slate-500">{{ lv.total }}</span>
               <span class="ml-1.5 text-[11px] font-bold" :class="lv.pct >= 100 ? 'text-certo' : 'text-azulejo'">{{ lv.pct }}%</span>
             </span>
@@ -203,7 +199,7 @@ const MeuLexicoView = {
       dictEntries: [],
       viewYear: new Date().getFullYear(),
       viewMonth: new Date().getMonth(),       // 0-indexed
-      cefrMode: 'all',
+      cefrMode: 'zh2pt',
     }
   },
 
