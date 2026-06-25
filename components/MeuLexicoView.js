@@ -63,7 +63,17 @@ const MeuLexicoView = {
 
       <!-- ═══ CEFR DISTRIBUTION ═══ -->
       <div class="glass-card rounded-glass p-5 mb-5">
-        <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Distribuição QECR (no meu léxico)</p>
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Distribuição QECR (no meu léxico)</p>
+          <div class="flex glass-panel rounded-lg p-0.5">
+            <button @click="cefrMode='all'" :class="cefrMode==='all' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                    class="btn-click px-2.5 py-1 text-[10px] font-medium rounded-md transition">Todos</button>
+            <button @click="cefrMode='zh2pt'" :class="cefrMode==='zh2pt' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                    class="btn-click px-2.5 py-1 text-[10px] font-medium rounded-md transition">CN→PT</button>
+            <button @click="cefrMode='pt2zh'" :class="cefrMode==='pt2zh' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                    class="btn-click px-2.5 py-1 text-[10px] font-medium rounded-md transition">PT→CN</button>
+          </div>
+        </div>
         <div class="space-y-2.5">
           <div v-for="lv in cefrLevels" :key="lv.id" class="flex items-center gap-3">
             <span class="px-2 py-0.5 rounded text-xs font-bold min-w-[2.5rem] text-center shrink-0"
@@ -193,6 +203,7 @@ const MeuLexicoView = {
       dictEntries: [],
       viewYear: new Date().getFullYear(),
       viewMonth: new Date().getMonth(),       // 0-indexed
+      cefrMode: 'all',
     }
   },
 
@@ -231,8 +242,14 @@ const MeuLexicoView = {
         totalByLevel[lv] = (totalByLevel[lv] || 0) + 1
       }
       const myPts = new Set()
-      for (const v of this.zh2ptData) myPts.add(v.pt.toLowerCase())
-      for (const v of this.pt2zhData) myPts.add(v.pt.toLowerCase())
+      if (this.cefrMode === 'zh2pt') {
+        for (const v of this.zh2ptData) myPts.add(v.pt.toLowerCase())
+      } else if (this.cefrMode === 'pt2zh') {
+        for (const v of this.pt2zhData) myPts.add(v.pt.toLowerCase())
+      } else {
+        for (const v of this.zh2ptData) myPts.add(v.pt.toLowerCase())
+        for (const v of this.pt2zhData) myPts.add(v.pt.toLowerCase())
+      }
       const myCounts = {}
       for (const e of this.dictEntries) {
         const lv = e.lv || '?'
@@ -371,10 +388,11 @@ const MeuLexicoView = {
 
   methods: {
     loadDict() {
+      let entries = []
       try {
-        if (typeof VOCAB_DATA !== 'undefined' && Array.isArray(VOCAB_DATA)) this.dictEntries = VOCAB_DATA
-        else this.dictEntries = []
-      } catch (e) { this.dictEntries = [] }
+        if (typeof UPLOADED_QECR_DATA !== 'undefined' && Array.isArray(UPLOADED_QECR_DATA)) entries.push(...UPLOADED_QECR_DATA)
+      } catch (e) {}
+      this.dictEntries = entries
     },
     refresh() { this._reactiveTick++ },
 
