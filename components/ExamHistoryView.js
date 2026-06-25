@@ -222,9 +222,9 @@ const ExamHistoryView = {
       for (const l of this.leituras) {
         list.push({ ...l, _type: 'Leitura' })
       }
-      // Saved exams from CAPLE_SAVED_EXAMS
+      // Saved exams from SEMEDO_SAVED_EXAMS
       try {
-        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        const saved = JSON.parse(localStorage.getItem('SEMEDO_SAVED_EXAMS') || '[]')
         for (const s of saved) {
           // Derive actual exam type from examId
           let exType = 'Exames'
@@ -324,7 +324,7 @@ const ExamHistoryView = {
 
     reabrirExame(examId) {
       try {
-        const raw = localStorage.getItem('CAPLE_SAVED_FULL_' + examId)
+        const raw = localStorage.getItem('SEMEDO_SAVED_FULL_' + examId)
         if (!raw) { alert('Dados do exame não encontrados. O ficheiro JSON foi descarregado — pode fazer upload manual.'); return }
         if (examId.includes('_PIE')) {
           localStorage.setItem('PIE_CURRENT_EXAM', raw)
@@ -341,13 +341,13 @@ const ExamHistoryView = {
       const examId = entry.examId
       // Remove from saved metadata list
       try {
-        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        const saved = JSON.parse(localStorage.getItem('SEMEDO_SAVED_EXAMS') || '[]')
         const idx = saved.findIndex(s => s.examId === examId)
         if (idx >= 0) saved.splice(idx, 1)
-        localStorage.setItem('CAPLE_SAVED_EXAMS', JSON.stringify(saved))
+        localStorage.setItem('SEMEDO_SAVED_EXAMS', JSON.stringify(saved))
       } catch {}
       // Remove full data
-      try { localStorage.removeItem('CAPLE_SAVED_FULL_' + examId) } catch {}
+      try { localStorage.removeItem('SEMEDO_SAVED_FULL_' + examId) } catch {}
       alert(`Exame ${examId} apagado. O ficheiro ${examId}.json em Exames/ pode ser apagado manualmente.`)
     },
   },

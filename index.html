@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CAPLE — Preparação para Exames</title>
+  <title>Semedo</title>
   <!-- PWA / Desktop App Meta -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CAPLE">
+  <meta name="apple-mobile-web-app-title" content="Semedo">
   <meta name="theme-color" content="#1a7bb5">
   <meta name="mobile-web-app-capable" content="yes">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -959,8 +959,8 @@
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log('[CAPLE PWA] SW registered'))
-          .catch(e => console.warn('[CAPLE PWA] SW failed:', e))
+          .then(() => console.log('[Semedo PWA] SW registered'))
+          .catch(e => console.warn('[Semedo PWA] SW failed:', e))
       })
     }
 
@@ -983,9 +983,9 @@
           <button onclick="this.parentElement.parentElement.remove()"
                   class="absolute top-2 right-2 text-slate-400 hover:text-slate-600 text-lg leading-none">&times;</button>
           <div class="flex items-center gap-3 mb-3">
-            <img src="icon-192.png" alt="CAPLE" style="width:44px;height:44px;border-radius:12px">
+            <img src="icon-192.png" alt="Semedo" style="width:44px;height:44px;border-radius:12px">
             <div>
-              <p class="text-sm font-bold text-slate-800">Instalar CAPLE</p>
+              <p class="text-sm font-bold text-slate-800">Instalar Semedo</p>
               <p class="text-[10px] text-slate-500">App desktop sem distrações</p>
             </div>
           </div>

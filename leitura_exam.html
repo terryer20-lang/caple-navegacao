@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leitura Intensiva — CAPLE</title>
+  <title>Leitura Intensiva — Semedo</title>
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -382,7 +382,7 @@
         else this.notes = '1. '
       } catch {}
       // Load highlights
-      this.loadHL('CAPLE_HL_LEITURA')
+      this.loadHL('SEMEDO_HL_LEITURA')
       this.$nextTick(() => {
         const container = this.$el?.querySelector('.left > div:last-child')
         if (container) this._applyUserHighlights(container, 'leitura')

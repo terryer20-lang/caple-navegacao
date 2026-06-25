@@ -1,8 +1,8 @@
 /**
- * CAPLE PWA Service Worker
+ * Semedo PWA Service Worker
  * Cache-first for app shell, network-first for data
  */
-const CACHE_NAME = 'caple-v1';
+const CACHE_NAME = 'semedo-v1';
 const STATIC_ASSETS = [
   'index.html',
   'manifest.json',

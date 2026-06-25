@@ -56,8 +56,8 @@ window.HighlightNotes = (() => {
   }
 
   function methods(pageType) {
-    const storageKey = () => `CAPLE_HL_${pageType.toUpperCase()}`
-    const pdKey = () => `CAPLE_PD_${pageType.toUpperCase()}`
+    const storageKey = () => `SEMEDO_HL_${pageType.toUpperCase()}`
+    const pdKey = () => `SEMEDO_PD_${pageType.toUpperCase()}`
 
     return {
 

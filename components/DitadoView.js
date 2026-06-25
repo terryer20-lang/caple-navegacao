@@ -235,8 +235,8 @@ const DitadoView = {
       const now = new Date()
       const ymd = now.getFullYear().toString() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0')
       let seq = 1
-      try { seq = (parseInt(localStorage.getItem('CAPLE_DIT_SEQ') || '0', 10)) + 1 } catch {}
-      localStorage.setItem('CAPLE_DIT_SEQ', String(seq))
+      try { seq = (parseInt(localStorage.getItem('SEMEDO_DIT_SEQ') || '0', 10)) + 1 } catch {}
+      localStorage.setItem('SEMEDO_DIT_SEQ', String(seq))
       return 'DIT_' + ymd + '_' + String(seq).padStart(2, '0')
     },
     saveDraft() {

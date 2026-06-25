@@ -96,14 +96,14 @@ const PTStore = Vue.reactive({
       correct_count: 0,
       stage: 0,
       last_review: now,
-      next_review: this._ebbinghausDate(0),
+      next_review: now,
       history: [{ date: now, direction, action: 'wrong' }],
     }
     if (existing) {
       existing.wrong_count++
       existing.stage = 0
       existing.last_review = now
-      existing.next_review = this._ebbinghausDate(0)
+      existing.next_review = now
       existing.history.push({ date: now, direction, action: 'wrong' })
       // Keep only last 20 history entries
       if (existing.history.length > 20) existing.history = existing.history.slice(-20)
@@ -146,6 +146,9 @@ const PTStore = Vue.reactive({
     const now = new Date()
     return this.data.wrong_words.filter(w => {
       if (!w.next_review) return true
+      // 若最後一次動作為 'wrong'（新標記或複習時又錯），立即待複習
+      const lastAction = w.history?.[w.history.length - 1]?.action
+      if (lastAction === 'wrong') return true
       return new Date(w.next_review) <= now
     })
   },

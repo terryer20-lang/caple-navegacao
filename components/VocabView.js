@@ -11,26 +11,47 @@ const VocabView = {
           <h2 class="text-xl font-bold text-slate-800">Léxicos</h2>
           <p class="text-[10px] text-slate-500 tracking-widest uppercase mt-0.5">Vocabulário</p>
         </div>
-        <!-- Mode Toggle + Upload -->
+        <!-- Upload button (só no modo praticar) -->
         <div class="flex items-center gap-2">
-          <button @click="showUpload = true"
+          <button v-if="subTab==='praticar'" @click="showUpload = true"
                   class="btn-glow btn-magnetic px-3 py-2 rounded-lg text-xs font-medium glass-btn border border-slate-200 text-slate-500 hover:bg-slate-50 transition flex items-center gap-1.5">
             <i data-lucide="upload" class="w-3.5 h-3.5"></i>
             Upload CSV
           </button>
-          <div class="flex glass-panel rounded-lg p-0.5">
-            <button @click="mode='zh2pt'" :class="mode==='zh2pt' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
-                    class="btn-click btn-glow px-4 py-2 text-sm font-medium rounded-md transition">Chinês → Português</button>
-            <button @click="mode='pt2zh'" :class="mode==='pt2zh' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
-                    class="btn-click btn-glow px-4 py-2 text-sm font-medium rounded-md transition">Português → Chinês</button>
-          </div>
         </div>
       </div>
 
-      <!-- ═══ CEFR Level Selector ═══ -->
-      <div class="glass-card rounded-glass p-4 mb-5 anim-fade-in-up relative">
+      <!-- ═══ SUB-TABS ═══ -->
+      <div class="flex gap-2 mb-5">
+        <button @click="subTab='praticar'"
+                :class="['px-4 py-2 rounded-lg text-sm font-medium transition border btn-click',
+                  subTab==='praticar' ? 'bg-azulejo/8 border-azulejo/25 text-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
+          <i data-lucide="play" class="w-3.5 h-3.5 inline mr-1"></i>Praticar
+        </button>
+        <button @click="subTab='meu-lexico'"
+                :class="['px-4 py-2 rounded-lg text-sm font-medium transition border btn-click',
+                  subTab==='meu-lexico' ? 'bg-azulejo/8 border-azulejo/25 text-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
+          <i data-lucide="book-marked" class="w-3.5 h-3.5 inline mr-1"></i>Meu Léxico
+          <span v-if="myVocabTotal > 0" class="ml-1 text-[10px] opacity-70">({{ myVocabTotal }})</span>
+        </button>
+      </div>
+
+      <!-- ═══ SUB-TAB: PRATICAR ═══ -->
+      <template v-if="subTab === 'praticar'">
+
+      <!-- CEFR Level Selector -->
+      <div class="glass-card rounded-glass p-4 mb-3 anim-fade-in-up relative">
         <div class="tile-corner tile-corner-br"></div>
-        <label class="block text-xs text-slate-500 font-medium mb-2">Nível / Coleção</label>
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-xs text-slate-500 font-medium">Nível / Coleção</label>
+          <!-- Direction toggle -->
+          <div class="flex glass-panel rounded-lg p-0.5">
+            <button @click="mode='zh2pt'" :class="mode==='zh2pt' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                    class="btn-click px-3 py-1.5 text-xs font-medium rounded-md transition">CN→PT</button>
+            <button @click="mode='pt2zh'" :class="mode==='pt2zh' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                    class="btn-click px-3 py-1.5 text-xs font-medium rounded-md transition">PT→CN</button>
+          </div>
+        </div>
         <div class="flex flex-wrap gap-2">
           <button v-for="lv in levels" :key="lv.id"
                   @click="selectLevel(lv.id)"
@@ -160,12 +181,56 @@ const VocabView = {
           </div>
         </div>
       </transition>
+
+      </template><!-- /praticar -->
+
+      <!-- ═══ SUB-TAB: MEU LÉXICO ═══ -->
+      <template v-if="subTab === 'meu-lexico'">
+        <div class="glass-card rounded-glass p-5 anim-fade-in-up">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-sm font-bold text-slate-700">Palavras memorizadas</p>
+              <p class="text-xs text-slate-400 mt-0.5">{{ myVocabTotal }} palavra{{ myVocabTotal !== 1 ? 's' : '' }}</p>
+            </div>
+            <!-- Direction toggle -->
+            <div class="flex glass-panel rounded-lg p-0.5">
+              <button @click="mode='zh2pt'" :class="mode==='zh2pt' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                      class="btn-click px-3 py-1.5 text-xs font-medium rounded-md transition">CN→PT</button>
+              <button @click="mode='pt2zh'" :class="mode==='pt2zh' ? 'glass-card text-azulejo shadow-sm' : 'text-slate-500'"
+                      class="btn-click px-3 py-1.5 text-xs font-medium rounded-md transition">PT→CN</button>
+            </div>
+          </div>
+
+          <!-- Word list -->
+          <div v-if="myVocabList.length > 0" class="space-y-1.5 max-h-[60vh] overflow-y-auto">
+            <div v-for="(w, i) in myVocabList" :key="w.pt + i"
+                 class="flex items-center justify-between p-3 rounded-lg glass-panel hover:bg-white/50 transition group">
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-semibold text-slate-800 truncate">{{ w.pt }}</p>
+                <p class="text-xs text-slate-500 truncate">{{ w.zh }}<span v-if="w.pos" class="ml-1.5 text-[10px] text-slate-400">({{ w.pos }})</span></p>
+              </div>
+              <button @click="removeFromMyVocab(w)"
+                      class="ml-2 p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition text-slate-300 hover:text-erro hover:bg-erro/5"
+                      title="Remover">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+          <div v-else class="text-center py-12">
+            <i data-lucide="book-open" class="w-8 h-8 mx-auto text-slate-200 mb-2"></i>
+            <p class="text-sm text-slate-500">Nenhuma palavra memorizada ainda.</p>
+            <p class="text-xs text-slate-400 mt-1">As palavras acertadas nas rondas de vocabulário e de erros serão adicionadas automaticamente.</p>
+          </div>
+        </div>
+      </template>
+
     </div>
   `,
 
   data() {
     return {
       mode: 'zh2pt',
+      subTab: 'praticar',
       dictEntries: [],
       selectedLevel: null,
       roundSize: 10,
@@ -234,6 +299,15 @@ const VocabView = {
     },
     myVocabCount() {
       return PTStore.getMyVocabForDirection(this.mode).length
+    },
+    myVocabTotal() {
+      const s = new Set()
+      PTStore.getMyVocabForDirection('zh2pt').forEach(v => s.add(v.pt.toLowerCase()))
+      PTStore.getMyVocabForDirection('pt2zh').forEach(v => s.add(v.pt.toLowerCase()))
+      return s.size
+    },
+    myVocabList() {
+      return PTStore.getMyVocabForDirection(this.mode)
     },
     myVocabBreakdown() {
       const modeData = PTStore.getMyVocabForDirection(this.mode)
@@ -422,6 +496,11 @@ const VocabView = {
         }
       } catch {}
       this.dictEntries = entries
+    },
+
+    removeFromMyVocab(w) {
+      PTStore.removeFromMyVocab(w.pt, this.mode)
+      this.$forceUpdate()
     },
 
     /* ─── (kept for backwards compat, unused now) ─── */

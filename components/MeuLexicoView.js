@@ -73,10 +73,11 @@ const MeuLexicoView = {
                    :style="{ width: lv.pct + '%' }"
                    :class="lv.barCls"></div>
             </div>
-            <span class="text-xs text-slate-500 w-24 text-right shrink-0">
+            <span class="text-xs text-slate-500 shrink-0 flex items-center gap-1.5">
               <strong class="text-slate-700">{{ lv.count }}</strong>
-              <span class="text-slate-300">/{{ lv.total }}</span>
-              <span class="ml-1 text-[10px]" :class="lv.pct >= 100 ? 'text-certo font-bold' : 'text-slate-400'">{{ lv.pct }}%</span>
+              <span class="text-slate-300">/</span>
+              <span class="text-slate-500">{{ lv.total }}</span>
+              <span class="ml-1.5 text-[11px] font-bold" :class="lv.pct >= 100 ? 'text-certo' : 'text-azulejo'">{{ lv.pct }}%</span>
             </span>
           </div>
         </div>

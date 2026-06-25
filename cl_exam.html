@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CL — CAPLE</title>
+  <title>CL — Semedo</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="icon-192.png">
@@ -646,8 +646,8 @@
       },
       isPD(wordIdx) { return !!this._pdByPart[this.activePart]?.[wordIdx] },
       /* ═══ Exam-specific localStorage keys (isolated per exam) ═══ */
-      _hlKey(pi) { return 'CAPLE_HL_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
-      _pdKey(pi) { return 'CAPLE_PD_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
+      _hlKey(pi) { return 'SEMEDO_HL_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
+      _pdKey(pi) { return 'SEMEDO_PD_' + (this.exam?.examId || 'DEFAULT') + '_P' + (pi+1) },
 
       removePD(wordIdx) {
         const pi = this.activePart

@@ -22,19 +22,9 @@ const ErrosView = {
       <div v-if="totalCount > 0" class="anim-fade-in-up">
 
         <!-- Stats -->
-        <div class="grid grid-cols-3 gap-3 mb-6">
-          <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
-            <p class="text-2xl font-bold text-slate-800">{{ totalCount }}</p>
-            <p class="text-xs text-slate-500 mt-0.5">Total</p>
-          </div>
-          <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
-            <p class="text-2xl font-bold text-erro">{{ dueCount }}</p>
-            <p class="text-xs text-slate-500 mt-0.5">Por rever</p>
-          </div>
-          <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
-            <p class="text-2xl font-bold text-azulejo">{{ myVocabCount }}</p>
-            <p class="text-xs text-slate-500 mt-0.5">Já aprendidas</p>
-          </div>
+        <div class="glass-card rounded-glass p-4 text-center mb-6 stat-fade-up">
+          <p class="text-3xl font-bold text-slate-800">{{ totalCount }}</p>
+          <p class="text-xs text-slate-500 mt-0.5">Palavras erradas no total</p>
         </div>
 
         <!-- Mode Selector -->
@@ -78,7 +68,6 @@ const ErrosView = {
   computed: {
     totalCount() { return PTStore.data.wrong_words.length },
     dueCount() { return PTStore.getDueWrongWords().length },
-    myVocabCount() { return PTStore.getMyVocabCount() },
   },
 
   methods: {

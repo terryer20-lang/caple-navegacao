@@ -268,9 +268,9 @@ const PIEView = {
         String(now.getMonth() + 1).padStart(2, '0') +
         String(now.getDate()).padStart(2, '0')
       let seq = 1
-      try { seq = (parseInt(localStorage.getItem('CAPLE_PIE_SEQ') || '0', 10)) + 1 } catch {}
-      localStorage.setItem('CAPLE_PIE_SEQ', String(seq))
-      const examId = 'CAPLE_' + yyyymmdd + '_' + String(seq).padStart(2, '0') + '_PIE'
+      try { seq = (parseInt(localStorage.getItem('SEMEDO_PIE_SEQ') || '0', 10)) + 1 } catch {}
+      localStorage.setItem('SEMEDO_PIE_SEQ', String(seq))
+      const examId = 'SEMEDO_' + yyyymmdd + '_' + String(seq).padStart(2, '0') + '_PIE'
       this.lastExamId = examId
 
       const examData = {
@@ -304,11 +304,11 @@ const PIEView = {
       const data = this._lastExamData
       if (!data) return
       try {
-        localStorage.setItem('CAPLE_SAVED_FULL_' + data.examId, JSON.stringify(data))
-        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        localStorage.setItem('SEMEDO_SAVED_FULL_' + data.examId, JSON.stringify(data))
+        const saved = JSON.parse(localStorage.getItem('SEMEDO_SAVED_EXAMS') || '[]')
         if (!saved.find(s => s.examId === data.examId)) {
           saved.push({ examId: data.examId, level: data.level, date: new Date().toISOString(), examDifficulty: data.examDifficulty, duracao: data.duracao, descrip: data.descrip, _type: 'PIE', _saved: true })
-          localStorage.setItem('CAPLE_SAVED_EXAMS', JSON.stringify(saved))
+          localStorage.setItem('SEMEDO_SAVED_EXAMS', JSON.stringify(saved))
         }
       } catch {}
       try {

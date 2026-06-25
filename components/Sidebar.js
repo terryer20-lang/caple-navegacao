@@ -64,7 +64,7 @@ const Sidebar = {
         { id: 'ditado',     label: 'Ditado',                 icon: 'ear' },
         { id: 'exam',       label: 'CL', icon: 'file-text' },
         { id: 'pie',        label: 'PIE', icon: 'pen-tool' },
-        { id: 'erros',      label: 'Palavras erradas',       icon: 'alert-circle' },
+        { id: 'erros',      label: 'Palavras Erradas',       icon: 'alert-circle' },
         { id: 'exames',     label: 'Revisão',               icon: 'clock' },
       ],
       sidebarWidth: 240,
@@ -95,13 +95,13 @@ const Sidebar = {
       document.body.style.cursor = ''
       document.body.style.userSelect = ''
       // Save to localStorage
-      try { localStorage.setItem('CAPLE_SIDEBAR_WIDTH', String(this.sidebarWidth)) } catch {}
+      try { localStorage.setItem('SEMEDO_SIDEBAR_WIDTH', String(this.sidebarWidth)) } catch {}
     },
   },
   mounted() {
     // Restore saved width
     try {
-      const saved = localStorage.getItem('CAPLE_SIDEBAR_WIDTH')
+      const saved = localStorage.getItem('SEMEDO_SIDEBAR_WIDTH')
       if (saved) {
         const w = parseInt(saved, 10)
         if (w >= 180 && w <= 420) this.sidebarWidth = w

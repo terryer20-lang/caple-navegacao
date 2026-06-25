@@ -372,9 +372,9 @@ const ExamView = {
         String(now.getMonth() + 1).padStart(2, '0') +
         String(now.getDate()).padStart(2, '0')
       let seq = 1
-      try { seq = (parseInt(localStorage.getItem('CAPLE_CL_SEQ') || '0', 10)) + 1 } catch {}
-      localStorage.setItem('CAPLE_CL_SEQ', String(seq))
-      const examId = 'CAPLE_' + yyyymmdd + '_' + String(seq).padStart(2, '0') + '_CL'
+      try { seq = (parseInt(localStorage.getItem('SEMEDO_CL_SEQ') || '0', 10)) + 1 } catch {}
+      localStorage.setItem('SEMEDO_CL_SEQ', String(seq))
+      const examId = 'SEMEDO_' + yyyymmdd + '_' + String(seq).padStart(2, '0') + '_CL'
       this.lastExamId = examId
 
       const examData = {
@@ -414,11 +414,11 @@ const ExamView = {
       if (!data) { alert('Nenhum exame para guardar.'); return }
       // Save full data to localStorage for Revisão reopening
       try {
-        localStorage.setItem('CAPLE_SAVED_FULL_' + data.examId, JSON.stringify(data))
-        const saved = JSON.parse(localStorage.getItem('CAPLE_SAVED_EXAMS') || '[]')
+        localStorage.setItem('SEMEDO_SAVED_FULL_' + data.examId, JSON.stringify(data))
+        const saved = JSON.parse(localStorage.getItem('SEMEDO_SAVED_EXAMS') || '[]')
         if (!saved.find(s => s.examId === data.examId)) {
           saved.push({ examId: data.examId, level: data.level, date: new Date().toISOString(), examDifficulty: data.examDifficulty, examDuration: data.examDuration, questionCount: data.questions?.length })
-          localStorage.setItem('CAPLE_SAVED_EXAMS', JSON.stringify(saved))
+          localStorage.setItem('SEMEDO_SAVED_EXAMS', JSON.stringify(saved))
         }
       } catch {}
       // Download JSON file
