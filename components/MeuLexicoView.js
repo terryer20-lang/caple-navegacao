@@ -74,8 +74,10 @@ const MeuLexicoView = {
                    :class="lv.barCls"></div>
             </div>
             <span class="text-xs text-slate-500 shrink-0 flex items-center gap-1.5">
+              <span class="text-[10px] text-slate-400">已背</span>
               <strong class="text-slate-700">{{ lv.count }}</strong>
               <span class="text-slate-300">/</span>
+              <span class="text-[10px] text-slate-400">詞庫</span>
               <span class="text-slate-500">{{ lv.total }}</span>
               <span class="ml-1.5 text-[11px] font-bold" :class="lv.pct >= 100 ? 'text-certo' : 'text-azulejo'">{{ lv.pct }}%</span>
             </span>
