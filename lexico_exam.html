@@ -367,7 +367,7 @@
         })
       },
       _nextEditable(i) { for (let j = i+1; j < this.letterCount; j++) { if (!this.letterInputs[j]) return j }; return -1 },
-      _prevEditable(i) { for (let j = i-1; j >= 0; j--) { if (!this.letterInputs[j]) return j }; return -1 },
+      _prevCell(i) { for (let j = i-1; j >= 0; j--) { if (this.currentWord.pt[j] !== ' ') return j }; return -1 },
       onLetterInput(idx) {
         if (this.letterInputs[idx] === ' ') return
         const val = this.letterInputs[idx]
@@ -378,9 +378,9 @@
         if (this.letterInputs[idx] === ' ') { e.preventDefault(); return }
         if (e.key === 'Backspace') {
           if (this.letterInputs[idx]) { this.letterInputs[idx] = '' }
-          else { const p = this._prevEditable(idx); if (p>=0) { this.letterInputs[p] = ''; this.letterRefs[p]?.focus() } }
+          else { const p = this._prevCell(idx); if (p>=0) { this.letterInputs[p] = ''; this.letterRefs[p]?.focus() } }
           e.preventDefault()
-        } else if (e.key === 'ArrowLeft') { const p = this._prevEditable(idx); if (p>=0) this.letterRefs[p]?.focus(); e.preventDefault()
+        } else if (e.key === 'ArrowLeft') { const p = this._prevCell(idx); if (p>=0) this.letterRefs[p]?.focus(); e.preventDefault()
         } else if (e.key === 'ArrowRight') { const n = this._nextEditable(idx); if (n>=0) this.letterRefs[n]?.focus(); e.preventDefault()
         } else if (e.key === 'Enter' && !e.metaKey) { if (this.allFilled) { this.submitAnswer(); e.preventDefault() } }
       },
