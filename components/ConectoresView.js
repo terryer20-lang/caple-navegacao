@@ -3,7 +3,7 @@
  */
 const ConectoresView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-fade-in-up">
       <!-- Header -->
       <div class="mb-5">
         <h2 class="text-xl font-bold text-slate-800">Conectores</h2>
@@ -17,10 +17,10 @@ const ConectoresView = {
       </div>
 
       <!-- Category Groups -->
-      <div v-for="cat in filteredCategories" :key="cat.categoria" class="mb-4">
-        <div class="glass-card rounded-glass overflow-hidden">
+      <div v-for="cat in filteredCategories" :key="cat.categoria" class="mb-4 list-item-enter">
+        <div class="glass-card rounded-glass overflow-hidden card-hover-strong">
           <button @click="toggleCat(cat.categoria)"
-                  class="w-full flex items-center justify-between px-5 py-3 hover:bg-slate-100 transition text-left card-hover btn-glow btn-magnetic">
+                  class="w-full flex items-center justify-between px-5 py-3 hover:bg-slate-100 transition text-left card-hover btn-glow btn-magnetic btn-click">
             <div>
               <h3 class="text-sm font-semibold text-slate-700">{{ cat.categoria }}</h3>
               <p class="text-xs text-slate-400">{{ cat.desc }}</p>
@@ -34,7 +34,7 @@ const ConectoresView = {
 
           <div v-show="openCats[cat.categoria]" class="border-t border-slate-200">
             <div v-for="(item, i) in cat.items" :key="item.pt"
-                 class="px-5 py-3 border-b border-slate-200 last:border-b-0 hover:bg-slate-50 transition card-hover anim-slide-right" :style="{ animationDelay: (i * 0.02) + 's' }">
+                 class="px-5 py-3 border-b border-slate-200 last:border-b-0 hover:bg-slate-50 transition card-hover anim-slide-right list-item-enter" :style="{ animationDelay: (i * 0.02) + 's' }">
               <div class="flex items-start justify-between gap-3 mb-2">
                 <div class="min-w-0">
                   <span class="text-sm font-semibold text-azulejo"
@@ -43,14 +43,14 @@ const ConectoresView = {
                   <span class="text-xs text-slate-400 ml-2">{{ item.zh }}</span>
                 </div>
                 <button @click="openPractice(item)"
-                        class="shrink-0 btn-glow px-2.5 py-1 rounded text-[10px] font-medium glass-btn text-slate-500 hover:text-azulejo transition whitespace-nowrap">
+                        class="shrink-0 btn-click btn-glow px-2.5 py-1 rounded text-[10px] font-medium glass-btn text-slate-500 hover:text-azulejo transition whitespace-nowrap">
                   ✍ Praticar
                 </button>
               </div>
               <!-- Example sentences -->
               <div class="space-y-1.5">
                 <div v-for="(ex, ei) in getExs(item)" :key="ei"
-                     class="text-xs text-slate-500 italic pl-3 border-l-2 border-slate-200 leading-relaxed">
+                     class="text-xs text-slate-500 italic pl-3 border-l-2 border-slate-200 leading-relaxed list-item-enter" :style="{ animationDelay: (ei * 0.03) + 's' }">
                   {{ ex }}
                 </div>
               </div>
@@ -63,10 +63,10 @@ const ConectoresView = {
                 <div class="flex items-center gap-2">
                   <button @click="submitPractice(item)"
                           :disabled="!practiceInput.trim() || practiceLoading"
-                          class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 disabled:opacity-40 transition btn-glow btn-magnetic">
+                          class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 disabled:opacity-40 transition btn-click btn-glow btn-magnetic">
                     {{ practiceLoading ? 'A avaliar...' : 'Submeter' }}
                   </button>
-                  <button @click="closePractice" class="px-3 py-2 text-xs text-slate-400 hover:text-slate-600 transition">Cancelar</button>
+                  <button @click="closePractice" class="px-3 py-2 text-xs text-slate-400 hover:text-slate-600 transition btn-click">Cancelar</button>
                 </div>
 
                 <!-- Result -->
@@ -90,7 +90,7 @@ const ConectoresView = {
       </div>
 
       <!-- Empty State -->
-      <div v-if="filteredCategories.length === 0" class="glass-card-strong rounded-glass p-8 text-center">
+      <div v-if="filteredCategories.length === 0" class="glass-card-strong rounded-glass p-8 text-center card-hover-strong">
         <i data-lucide="search-x" class="w-10 h-10 mx-auto text-slate-300 mb-2"></i>
         <p class="text-slate-400 text-sm">Nenhum conector encontrado.</p>
       </div>

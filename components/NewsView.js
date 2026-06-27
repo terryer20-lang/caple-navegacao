@@ -3,7 +3,7 @@
  */
 const LeituraView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-fade-in-up">
 
       <!-- Header -->
       <div class="mb-5">
@@ -12,7 +12,7 @@ const LeituraView = {
 
       <!-- ═══ INPUT STAGE ═══ -->
       <div class="space-y-4">
-        <div class="glass-card rounded-glass p-5">
+        <div class="glass-card rounded-glass p-5 card-hover-strong">
           <label class="text-xs text-slate-500 font-medium block mb-2">Texto original</label>
           <textarea v-model="sourceText" rows="10"
                     class="glass-input w-full px-3 py-2 rounded-lg text-sm focus:outline-none resize-y"
@@ -22,7 +22,7 @@ const LeituraView = {
         <div class="text-center">
           <button @click="openReading"
                   :disabled="!sourceText.trim()"
-                  class="btn-click btn-glow px-8 py-3 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 disabled:opacity-40 transition inline-flex items-center gap-2">
+                  class="btn-click btn-glow btn-magnetic px-8 py-3 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 disabled:opacity-40 transition inline-flex items-center gap-2">
             <i data-lucide="book-open" class="w-4 h-4"></i>
             Abrir Leitura
           </button>

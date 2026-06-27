@@ -337,6 +337,27 @@
     .anim-pop         { animation: pop 0.25s ease both; }
     .anim-pulse-soft  { animation: pulse-soft 1.5s ease-in-out infinite; }
     .anim-slide-right { animation: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .anim-float       { animation: float-gentle 3s ease-in-out infinite; }
+    .anim-scale-in    { animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    .anim-rotate-in   { animation: rotate-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    .anim-glow-pulse  { animation: glow-pulse 2s ease-in-out infinite; }
+
+    @keyframes float-gentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes scale-in {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes rotate-in {
+      from { opacity: 0; transform: rotate(-6deg) scale(0.9); }
+      to { opacity: 1; transform: rotate(0) scale(1); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 4px rgba(26,123,181,0.1); }
+      50% { box-shadow: 0 0 12px rgba(26,123,181,0.25); }
+    }
 
     /* Stagger delay helpers */
     .stagger-1 { animation-delay: 0.03s; }
@@ -347,8 +368,21 @@
     .stagger-6 { animation-delay: 0.18s; }
     .stagger-7 { animation-delay: 0.21s; }
     .stagger-8 { animation-delay: 0.24s; }
+    .stagger-9 { animation-delay: 0.27s; }
+    .stagger-10 { animation-delay: 0.30s; }
+    .stagger-11 { animation-delay: 0.33s; }
+    .stagger-12 { animation-delay: 0.36s; }
 
-    /* Card hover lift */
+    /* ═══ 高級列表進場交錯動畫 ═══ */
+    .list-item-enter {
+      animation: list-slide-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes list-slide-in {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Glass card hover lift */
     .card-hover {
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                   box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -356,6 +390,16 @@
     .card-hover:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Glass card strong hover lift */
+    .card-hover-strong {
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .card-hover-strong:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
     }
 
     /* Button click scale */
@@ -387,19 +431,68 @@
       border-radius: 8px;
     }
 
+    /* ═══ 磨砂噪點紋理 (iOS 26 質感) ═══ */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.035;
+      background-image:
+        repeating-conic-gradient(#fff 0.000%, transparent 0.002%, transparent 0.02%, #fff 0.024%) 50% 50% / 200px 200px,
+        repeating-conic-gradient(#fff 0.001%, transparent 0.004%, transparent 0.01%, #fff 0.015%) 30% 70% / 300px 300px;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
     /* Audio track */
     .audio-track{height:56px;background:#f1f5f9;border-radius:8px;overflow:hidden;cursor:pointer;position:relative}
     .audio-track-fill{height:100%;background:#1d4ed8;opacity:0.15;transition:width 0.1s linear;position:absolute;left:0;top:0}
     .audio-track-progress{position:absolute;left:0;top:0;height:100%;width:2px;background:#1d4ed8;transition:left 0.1s linear;z-index:2}
     .audio-tick{position:absolute;top:0;width:1px;height:100%;background:#cbd5e1;opacity:0.3}
 
+    /* ═══ Safari GPU 效能提示 ═══ */
+    .gpu-layer {
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    .gpu-blur {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    /* ═══ 可及性：減少動畫 ═══ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     @media (max-width: 768px) {
       .sidebar-overlay { background: rgba(0,0,0,0.4); }
     }
-    ::-webkit-scrollbar { width: 6px; }
+
+    /* ═══ 葡式捲軸進化版 ═══ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #cbd5e1, #b0bec5);
+      border-radius: 3px;
+      transition: background 0.2s ease;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #94a3b8, #78909c);
+    }
+    ::-webkit-scrollbar-corner { background: transparent; }
+
+    /* 滾動容器 hover 時顯示更明顯的捲軸 */
+    .hover-scrollbar::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    .hover-scrollbar:hover::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #cbd5e1, #b0bec5);
+    }
   </style>
   <!-- ═══ 極度炫酷動畫系統 ═══ -->
   <style>
@@ -922,6 +1015,7 @@
     <div class="bg-letter">C</div>
     <div class="bg-letter">P</div>
     <div class="bg-letter">L</div>
+    <div class="noise-overlay"></div>
     <app-shell></app-shell>
   </div>
 

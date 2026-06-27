@@ -4,8 +4,8 @@
 const ConfigModal = {
   template: `
     <transition name="scale">
-      <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)" @click.self="$emit('close')">
-        <div class="glass-card-strong rounded-glass-lg w-full max-w-md p-6 shadow-glass-lg">
+      <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center p-4 gpu-layer" style="background:rgba(0,0,0,0.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)" @click.self="$emit('close')">
+        <div class="glass-card-strong rounded-glass-lg w-full max-w-md p-6 shadow-glass-lg card-hover-strong">
           <div class="flex items-center justify-between mb-5">
             <h3 class="text-lg font-bold text-slate-800">Configurações</h3>
             <button @click="$emit('close')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>

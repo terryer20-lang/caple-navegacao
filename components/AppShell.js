@@ -21,7 +21,7 @@ const AppShell = {
             <StudyStats />
           </div>
         </header>
-        <main class="flex-1 overflow-y-auto">
+        <main class="flex-1 overflow-y-auto gpu-blur">
           <Transition name="view" mode="out-in">
             <component :is="currentComponent" :key="currentView" />
           </Transition>

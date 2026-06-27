@@ -3,21 +3,21 @@
  */
 const ExamHistoryView = {
   template: `
-    <div class="p-6 max-w-4xl mx-auto">
+    <div class="p-6 max-w-4xl mx-auto anim-fade-in-up">
       <!-- Header -->
       <div class="mb-4">
         <h2 class="text-xl font-bold text-slate-800">Revisão</h2>
       </div>
 
       <!-- ═══ FILTERS ═══ -->
-      <div class="glass-card rounded-glass p-4 mb-4">
+      <div class="glass-card rounded-glass p-4 mb-4 card-hover-strong">
         <div class="flex flex-wrap items-center gap-3">
           <!-- Type filter -->
           <div class="flex items-center gap-1.5 flex-wrap">
             <span class="text-xs text-slate-500 font-medium">Tipo:</span>
             <button v-for="t in filterTypes" :key="t"
                     @click="fType = t"
-                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border',
+                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border btn-click',
                       fType === t
                         ? typeActiveClass(t)
                         : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">{{ t }}</button>
@@ -27,7 +27,7 @@ const ExamHistoryView = {
             <span class="text-xs text-slate-500 font-medium">Nível:</span>
             <button v-for="lv in filterLevels" :key="lv"
                     @click="fLevel = lv"
-                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border',
+                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border btn-click',
                       fLevel === lv
                         ? levelActiveClass(lv)
                         : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
@@ -40,10 +40,10 @@ const ExamHistoryView = {
             <span class="text-xs text-slate-500 font-medium">Período:</span>
             <button v-for="t in filterTimes" :key="t"
                     @click="fTime = t; customTime = false"
-                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border',
+                    :class="['btn-click px-3 py-1.5 rounded text-sm font-medium transition border',
                       fTime === t && !customTime ? 'bg-azulejo text-white border-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">{{ t }}</button>
             <button @click="customTime = true; fTime = 'Último'"
-                    :class="['px-3 py-1.5 rounded text-sm font-medium transition border pill-hover btn-magnetic',
+                    :class="['btn-click px-3 py-1.5 rounded text-sm font-medium transition border pill-hover btn-magnetic',
                       customTime ? 'bg-azulejo text-white border-azulejo' : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">Último</button>
             <div v-if="customTime" class="flex items-center gap-1">
               <input type="number" v-model.number="customNum" min="1" max="365"
@@ -62,33 +62,33 @@ const ExamHistoryView = {
 
       <!-- ═══ STATS ═══ -->
       <div class="grid grid-cols-4 gap-3 mb-4">
-        <div class="glass-card rounded-glass p-4 text-center">
+        <div class="glass-card rounded-glass p-4 text-center card-hover-strong">
           <p class="text-2xl font-bold text-slate-700">{{ filtered.length }}</p>
           <p class="text-xs text-slate-400">Filtr.</p>
         </div>
-        <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
+        <div class="glass-card rounded-glass p-4 text-center stat-fade-up card-hover-strong">
           <p class="text-2xl font-bold text-slate-700 stat-number stat-glow-green">{{ monthCount }}</p>
           <p class="text-xs text-slate-400">Este mês</p>
         </div>
-        <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
+        <div class="glass-card rounded-glass p-4 text-center stat-fade-up card-hover-strong">
           <p class="text-2xl font-bold text-slate-700 stat-number">{{ allEntries.length }}</p>
           <p class="text-xs text-slate-400">Total</p>
         </div>
-        <div class="glass-card rounded-glass p-4 text-center stat-fade-up">
+        <div class="glass-card rounded-glass p-4 text-center stat-fade-up card-hover-strong">
           <p class="text-2xl font-bold text-azulejo stat-number stat-glow-gold">{{ bestScore }}%</p>
           <p class="text-xs text-slate-400">Melhor</p>
         </div>
       </div>
 
       <!-- ═══ EMPTY ═══ -->
-      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-8 text-center">
+      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-8 text-center card-hover-strong">
         <i data-lucide="file-text" class="w-10 h-10 mx-auto text-slate-300 mb-3"></i>
         <p class="text-slate-600 font-medium">Nenhum registo encontrado</p>
       </div>
 
       <!-- ═══ LIST ═══ -->
-      <div v-for="(entry, ei) in filtered" :key="entry.id" class="glass-card rounded-glass mb-3 overflow-hidden card-hover list-glow">
-        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition" @click="toggleOpen(entry.id)">
+      <div v-for="(entry, ei) in filtered" :key="entry.id" class="glass-card rounded-glass mb-3 overflow-hidden card-hover list-glow list-item-enter" :style="{ animationDelay: (ei * 0.04) + 's' }">
+        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition btn-click" @click="toggleOpen(entry.id)">
           <div class="flex items-center gap-4">
             <!-- Score (exams) -->
             <div v-if="entry._type==='CL'||entry._type==='CO'||entry._type==='PIE'" class="text-center min-w-[3rem]">
@@ -115,7 +115,7 @@ const ExamHistoryView = {
           </div>
           <div class="flex items-center gap-2">
             <span v-if="entry._type==='CL'||entry._type==='CO'||entry._type==='PIE'" class="px-2 py-0.5 rounded text-xs font-medium" :class="gradeBg(entry.percent)">{{ gradeLabel(entry.percent) }}</span>
-            <button v-if="entry._saved" @click.stop="apagarExame(entry)" class="px-2 py-1 text-xs font-medium text-erro border border-red-200 rounded hover:bg-red-50 transition" title="Apagar exame">
+            <button v-if="entry._saved" @click.stop="apagarExame(entry)" class="btn-click px-2 py-1 text-xs font-medium text-erro border border-red-200 rounded hover:bg-red-50 transition" title="Apagar exame">
               <i data-lucide="trash-2" class="w-3 h-3 inline"></i>
             </button>
             <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform"
@@ -180,7 +180,7 @@ const ExamHistoryView = {
               <p v-if="entry._type==='PIE'" class="text-xs text-slate-500 mt-1">{{ entry.duracao }} · {{ entry.descrip }}</p>
               <p v-else class="text-xs text-slate-500">Duração: {{ entry.examDuration }} min · {{ entry.questionCount }} perguntas</p>
             </div>
-            <button @click="reabrirExame(entry.examId)" class="px-4 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">
+            <button @click="reabrirExame(entry.examId)" class="btn-click btn-glow btn-magnetic px-4 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">
               <i data-lucide="external-link" class="w-3.5 h-3.5 inline mr-1"></i>Reabrir
             </button>
           </div>

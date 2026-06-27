@@ -3,7 +3,7 @@
  */
 const FavoritosView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-fade-in-up">
 
       <!-- ═══ HEADER ═══ -->
       <div class="mb-5">
@@ -11,11 +11,11 @@ const FavoritosView = {
       </div>
 
       <!-- ═══ FILTERS ═══ -->
-      <div class="glass-card rounded-glass p-3 mb-4">
+      <div class="glass-card rounded-glass p-3 mb-4 card-hover-strong">
         <div class="flex flex-wrap gap-2">
           <button v-for="t in filterTypes" :key="t"
                   @click="fType = t"
-                  :class="['px-4 py-2 rounded-lg text-sm font-medium transition border',
+                  :class="['btn-click px-4 py-2 rounded-lg text-sm font-medium transition border',
                     fType === t
                       ? 'bg-azulejo text-white border-azulejo'
                       : 'glass-btn text-slate-500 border-slate-200 hover:bg-slate-50']">
@@ -34,7 +34,8 @@ const FavoritosView = {
       <!-- ═══ RESULTS ═══ -->
       <div v-if="filtered.length > 0" class="space-y-1">
         <div v-for="item in filtered" :key="item.pt + '|' + (item.src || '')"
-             class="glass-card px-4 py-3 flex items-start gap-2 cursor-pointer transition hover:bg-slate-50"
+             class="glass-card px-4 py-3 flex items-start gap-2 cursor-pointer transition hover:bg-slate-50 card-hover list-item-enter"
+             :style="{ animationDelay: (filtered.indexOf(item) * 0.04) + 's' }"
              @click="openPopup(item)">
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2">
@@ -45,7 +46,7 @@ const FavoritosView = {
             <p class="text-sm text-slate-600 mt-1 leading-relaxed line-clamp-2">{{ item.zh }}</p>
           </div>
           <button @click.stop="removeFav(item)"
-                  class="shrink-0 p-1.5 rounded-lg transition mt-0.5 text-amber-400 hover:text-amber-500">
+                  class="shrink-0 p-1.5 rounded-lg transition mt-0.5 text-amber-400 hover:text-amber-500 btn-click">
             <i data-lucide="star" class="w-4 h-4" fill="currentColor"></i>
           </button>
         </div>
@@ -53,16 +54,16 @@ const FavoritosView = {
 
       <!-- ═══ POPUP ═══ -->
       <div v-if="popupItem"
-           class="fixed inset-0 z-50 flex items-center justify-center p-4"
+           class="fixed inset-0 z-50 flex items-center justify-center p-4 anim-fade-in"
            style="background:rgba(0,0,0,0.15)"
            @click.self="popupItem=null">
-        <div class="bg-white w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-white w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden anim-bounce-in">
           <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 shrink-0">
             <div>
               <p class="text-lg font-bold text-slate-800">{{ popupItem.pt }}</p>
               <p class="text-xs text-slate-400">Fonte: {{ popupItem.type === 'dicionario' ? (popupItem.src || 'Dicionário') : 'Expressões' }}</p>
             </div>
-            <button @click="popupItem=null" class="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100 text-xl leading-none btn-glow">&times;</button>
+            <button @click="popupItem=null" class="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100 text-xl leading-none btn-click btn-glow">&times;</button>
           </div>
           <div class="px-5 py-4 overflow-y-auto text-sm text-slate-700 leading-relaxed">
             <div class="whitespace-pre-line">{{ popupItem.zh }}</div>
@@ -71,7 +72,7 @@ const FavoritosView = {
       </div>
 
       <!-- ═══ EMPTY ═══ -->
-      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-8 text-center">
+      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-8 text-center card-hover-strong">
         <i data-lucide="bookmark" class="w-10 h-10 mx-auto text-slate-300 mb-3"></i>
         <p class="text-slate-600 font-medium">{{ query ? 'Sem resultados' : 'Nenhum favorito guardado' }}</p>
         <p v-if="!query" class="text-sm text-slate-400 mt-1">Adicione favoritos no Dicionário ou Expressões.</p>

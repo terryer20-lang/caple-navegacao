@@ -4,7 +4,7 @@
  */
 const MeuLexicoView = {
   template: `
-    <div class="p-6 max-w-4xl mx-auto">
+    <div class="p-6 max-w-4xl mx-auto anim-fade-in-up">
 
       <!-- ═══ HEADER ═══ -->
       <div class="mb-6">
@@ -13,30 +13,30 @@ const MeuLexicoView = {
 
       <!-- ═══ TOP STATS ROW ═══ -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
-        <div class="glass-card rounded-glass p-3 sm:p-4 text-center">
+        <div class="glass-card rounded-glass p-3 sm:p-4 text-center card-hover-strong">
           <p class="text-2xl sm:text-3xl font-bold text-azulejo">{{ totalUnique }}</p>
           <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">Palavras únicas</p>
         </div>
-        <div class="glass-card rounded-glass p-3 sm:p-4 text-center">
+        <div class="glass-card rounded-glass p-3 sm:p-4 text-center card-hover-strong">
           <p class="text-2xl sm:text-3xl font-bold text-certo">{{ myVocabCount }}</p>
           <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">No meu léxico</p>
         </div>
-        <div class="glass-card rounded-glass p-3 sm:p-4 text-center">
+        <div class="glass-card rounded-glass p-3 sm:p-4 text-center card-hover-strong">
           <p class="text-2xl sm:text-3xl font-bold text-erro">{{ wrongCount }}</p>
           <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">Palavras erradas</p>
         </div>
-        <div class="glass-card rounded-glass p-3 sm:p-4 text-center">
+        <div class="glass-card rounded-glass p-3 sm:p-4 text-center card-hover-strong">
           <p class="text-2xl sm:text-3xl font-bold text-lisboa">{{ todayMinutes }}</p>
           <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">Min. hoje</p>
         </div>
-        <div class="glass-card rounded-glass p-3 sm:p-4 text-center">
+        <div class="glass-card rounded-glass p-3 sm:p-4 text-center card-hover-strong">
           <p class="text-2xl sm:text-3xl font-bold text-amber-500">{{ streakDays }}</p>
           <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5">Dias seguidos</p>
         </div>
       </div>
 
       <!-- ═══ DIRECTIONS CROSS-SECTION ═══ -->
-      <div class="glass-card rounded-glass p-5 mb-5">
+      <div class="glass-card rounded-glass p-5 mb-5 card-hover-strong">
         <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Distribuição por direção</p>
         <div class="space-y-3">
           <div class="flex items-center gap-3">
@@ -62,7 +62,7 @@ const MeuLexicoView = {
       </div>
 
       <!-- ═══ CEFR DISTRIBUTION ═══ -->
-      <div class="glass-card rounded-glass p-5 mb-5">
+      <div class="glass-card rounded-glass p-5 mb-5 card-hover-strong">
         <div class="flex items-center justify-between mb-3">
           <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Distribuição QECR (no meu léxico)</p>
           <div class="flex glass-panel rounded-lg p-0.5">
@@ -73,7 +73,7 @@ const MeuLexicoView = {
           </div>
         </div>
         <div class="space-y-2.5">
-          <div v-for="lv in cefrLevels" :key="lv.id" class="flex items-center gap-3">
+          <div v-for="lv in cefrLevels" :key="lv.id" class="flex items-center gap-3 list-item-enter" :style="{ animationDelay: (['A1','A2','B1','B2','C1','C2'].indexOf(lv.id) * 0.04) + 's' }">
             <span class="px-2 py-0.5 rounded text-xs font-bold min-w-[2.5rem] text-center shrink-0"
                   :class="lv.cls">{{ lv.id }}</span>
             <div class="flex-1 h-4 glass-panel rounded-full overflow-hidden">
@@ -93,7 +93,7 @@ const MeuLexicoView = {
       </div>
 
       <!-- ═══ WRONG WORD STAGES ═══ -->
-      <div class="glass-card rounded-glass p-5 mb-5">
+      <div class="glass-card rounded-glass p-5 mb-5 card-hover-strong">
         <div class="flex items-center justify-between mb-3">
           <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Estágios Ebbinghaus — Erros</p>
           <span class="text-[10px] text-slate-400">{{ wrongCount }} total · {{ dueWrongCount }} por rever hoje</span>
@@ -114,7 +114,7 @@ const MeuLexicoView = {
       </div>
 
       <!-- ═══ CALENDÁRIO DE ATIVIDADE ═══ -->
-      <div class="glass-card rounded-glass p-5 mb-5">
+      <div class="glass-card rounded-glass p-5 mb-5 card-hover-strong">
         <!-- Header: month navigation -->
         <div class="flex items-center justify-between mb-4">
           <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Atividade</p>
@@ -123,19 +123,19 @@ const MeuLexicoView = {
 
         <div class="flex items-center justify-between mb-4">
           <button @click="prevMonth"
-                  class="glass-btn p-1.5 rounded-lg text-slate-400 hover:text-slate-600 transition btn-glow">
+                  class="glass-btn p-1.5 rounded-lg text-slate-400 hover:text-slate-600 transition btn-click btn-glow">
             <i data-lucide="chevron-left" class="w-4 h-4"></i>
           </button>
           <div class="flex items-center gap-2">
             <span class="text-sm font-semibold text-slate-700">{{ monthLabel }}</span>
             <span class="text-sm font-medium text-slate-400">{{ viewYear }}</span>
             <button v-if="!isCurrentMonth" @click="goToCurrentMonth"
-                    class="px-2 py-0.5 rounded text-[10px] font-medium bg-azulejo/10 text-azulejo hover:bg-azulejo/20 transition">
+                    class="btn-click px-2 py-0.5 rounded text-[10px] font-medium bg-azulejo/10 text-azulejo hover:bg-azulejo/20 transition">
               Hoje
             </button>
           </div>
           <button @click="nextMonth"
-                  class="glass-btn p-1.5 rounded-lg text-slate-400 hover:text-slate-600 transition btn-glow">
+                  class="glass-btn p-1.5 rounded-lg text-slate-400 hover:text-slate-600 transition btn-click btn-glow">
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
           </button>
         </div>
@@ -168,7 +168,7 @@ const MeuLexicoView = {
       </div>
 
       <!-- ═══ SUMMARY ═══ -->
-      <div class="glass-card rounded-glass p-5">
+      <div class="glass-card rounded-glass p-5 card-hover-strong">
         <p class="text-xs font-bold text-slate-600 uppercase tracking-wider mb-3">Resumo</p>
         <div class="grid grid-cols-2 gap-3 text-sm">
           <div class="p-3 glass-panel rounded-lg">

@@ -4,15 +4,15 @@
  */
 const ErrosView = {
   template: `
-    <div class="p-6 max-w-xl mx-auto">
+    <div class="p-6 max-w-xl mx-auto anim-fade-in-up">
 
       <!-- ═══ 無錯誤 ═══ -->
-      <div v-if="totalCount === 0" class="glass-card-strong rounded-glass p-12 text-center anim-bounce-in">
+      <div v-if="totalCount === 0" class="glass-card-strong rounded-glass p-12 text-center anim-bounce-in card-hover-strong">
         <i data-lucide="check-circle" class="w-16 h-16 mx-auto text-certo mb-4"></i>
         <p class="text-lg font-bold text-slate-800">Nenhum erro registado!</p>
         <p class="text-sm text-slate-500 mt-1">Os erros aparecerão aqui após as rondas de vocabulário.</p>
         <button @click="goToVocab"
-                class="mt-6 px-5 py-2.5 glass-btn-primary font-medium rounded-lg transition inline-flex items-center gap-2 btn-glow btn-magnetic">
+                class="mt-6 px-5 py-2.5 glass-btn-primary font-medium rounded-lg transition inline-flex items-center gap-2 btn-click btn-glow btn-magnetic">
           <i data-lucide="book-open" class="w-4 h-4"></i>
           Ir para Vocabulário
         </button>
@@ -22,13 +22,13 @@ const ErrosView = {
       <div v-if="totalCount > 0" class="anim-fade-in-up">
 
         <!-- Stats -->
-        <div class="glass-card rounded-glass p-4 text-center mb-6 stat-fade-up">
+        <div class="glass-card rounded-glass p-4 text-center mb-6 stat-fade-up card-hover-strong">
           <p class="text-3xl font-bold text-slate-800">{{ totalCount }}</p>
           <p class="text-xs text-slate-500 mt-0.5">Palavras erradas no total</p>
         </div>
 
         <!-- Mode Selector -->
-        <div class="glass-card rounded-glass p-5 mb-5">
+        <div class="glass-card rounded-glass p-5 mb-5 card-hover-strong">
           <label class="block text-xs font-medium text-slate-500 mb-3">Direção de estudo</label>
           <div class="flex gap-2">
             <button @click="mode='zh2pt'"
@@ -48,7 +48,7 @@ const ErrosView = {
 
         <!-- Start button -->
         <button @click="startReview" :disabled="dueCount === 0"
-                class="w-full px-6 py-3 glass-btn-primary font-medium rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 btn-glow btn-magnetic">
+                class="w-full px-6 py-3 glass-btn-primary font-medium rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 btn-click btn-glow btn-magnetic">
           <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
           Iniciar revisão ({{ dueCount }} palavras)
         </button>

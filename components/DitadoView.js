@@ -3,7 +3,7 @@
  */
 const DitadoView = {
   template: `
-    <div class="p-6 max-w-5xl mx-auto">
+    <div class="p-6 max-w-5xl mx-auto anim-fade-in-up">
 
       <!-- ═══ HEADER ═══ -->
       <div class="mb-5">
@@ -14,7 +14,7 @@ const DitadoView = {
       <div v-if="stage === 'input'" class="space-y-5">
 
         <!-- Upload card -->
-        <div class="glass-card rounded-glass p-6 text-center card-hover">
+        <div class="glass-card rounded-glass p-6 text-center card-hover-strong">
           <i data-lucide="upload" class="w-10 h-10 text-slate-300 mx-auto mb-3"></i>
           <p class="text-sm font-medium text-slate-600 mb-2">Carregue um ficheiro de áudio</p>
           <p class="text-xs text-slate-400 mb-4">Formatos: MP3, WAV, M4A, OGG</p>
@@ -35,7 +35,8 @@ const DitadoView = {
             <p>Ainda sem ditados guardados.</p>
           </div>
           <div v-for="h in history" :key="h.id"
-               class="glass-card rounded-glass p-4 mb-2 flex items-start gap-3 card-hover cursor-pointer"
+               class="glass-card rounded-glass p-4 mb-2 flex items-start gap-3 card-hover cursor-pointer list-item-enter"
+               :style="{ animationDelay: (history.indexOf(h) * 0.04) + 's' }"
                @click="openHistory(h)">
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 mb-1">
@@ -48,7 +49,7 @@ const DitadoView = {
               <p v-if="h.transcript" class="text-xs text-slate-400 mt-1 line-clamp-2">{{ h.transcript.slice(0, 120) }}{{ h.transcript.length > 120 ? '...' : '' }}</p>
             </div>
             <button @click.stop="deleteHistory(h.id)"
-                    class="shrink-0 p-1 rounded text-slate-300 hover:text-erro hover:bg-rose-50 transition">
+                    class="shrink-0 p-1 rounded text-slate-300 hover:text-erro hover:bg-rose-50 transition btn-click">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
             </button>
           </div>
@@ -86,19 +87,19 @@ const DitadoView = {
           <!-- Controls -->
           <div class="shrink-0">
             <div class="flex items-center justify-center gap-4 mb-4">
-              <button @click="rewind(10)" class="glass-btn p-2 rounded-lg text-slate-500 hover:text-slate-700 transition"><i data-lucide="skip-back" class="w-5 h-5"></i></button>
-              <button @click="togglePlay" class="p-3.5 rounded-full bg-azulejo text-white hover:bg-blue-700 transition shadow-md audio-play-btn">
+              <button @click="rewind(10)" class="glass-btn p-2 rounded-lg text-slate-500 hover:text-slate-700 transition btn-click"><i data-lucide="skip-back" class="w-5 h-5"></i></button>
+              <button @click="togglePlay" class="p-3.5 rounded-full bg-azulejo text-white hover:bg-blue-700 transition shadow-md audio-play-btn btn-click btn-glow btn-magnetic">
                 <i data-lucide="play" class="w-6 h-6" v-if="!isPlaying"></i>
                 <i data-lucide="pause" class="w-6 h-6" v-else></i>
               </button>
-              <button @click="forward(10)" class="glass-btn p-2 rounded-lg text-slate-500 hover:text-slate-700 transition"><i data-lucide="skip-forward" class="w-5 h-5"></i></button>
+              <button @click="forward(10)" class="glass-btn p-2 rounded-lg text-slate-500 hover:text-slate-700 transition btn-click"><i data-lucide="skip-forward" class="w-5 h-5"></i></button>
             </div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-[10px] text-slate-500 font-medium">Velocidade</span>
               <div class="flex gap-1">
                 <button v-for="sp in [0.5,0.75,1,1.25,1.5]" :key="sp"
                         @click="playbackRate = sp; if($refs.audioEl) $refs.audioEl.playbackRate = sp"
-                        :class="['px-2.5 py-1 rounded text-[10px] font-medium transition', playbackRate===sp ? 'bg-azulejo text-white' : 'glass-btn text-slate-500 hover:bg-slate-100']">{{ sp }}×</button>
+                        :class="['btn-click px-2.5 py-1 rounded text-[10px] font-medium transition', playbackRate===sp ? 'bg-azulejo text-white' : 'glass-btn text-slate-500 hover:bg-slate-100']">{{ sp }}×</button>
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -109,7 +110,7 @@ const DitadoView = {
           </div>
 
           <div class="flex-1"></div>
-          <button @click="backToInput" class="mt-4 text-xs text-slate-400 hover:text-slate-600 transition text-left shrink-0">← Voltar</button>
+          <button @click="backToInput" class="mt-4 text-xs text-slate-400 hover:text-slate-600 transition text-left shrink-0 btn-click">← Voltar</button>
         </div>
 
         <!-- RIGHT: Typing -->
@@ -118,7 +119,7 @@ const DitadoView = {
             <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Transcrição</p>
             <div class="flex items-center gap-2">
               <span class="text-[10px] text-slate-400">{{ wordCount }} palavras</span>
-              <button @click="saveDraft" class="btn-click btn-glow px-3 py-1.5 rounded-lg text-[10px] font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 transition">Rascunho</button>
+              <button @click="saveDraft" class="btn-click btn-glow px-3 py-1.5 rounded-lg text-[10px] font-medium border border-slate-200 text-slate-500 hover:bg-slate-50 transition btn-magnetic">Rascunho</button>
               <button @click="showSave = true" class="btn-click btn-glow btn-magnetic px-3 py-1.5 rounded-lg text-[10px] font-medium bg-azulejo text-white hover:bg-blue-800 transition">Guardar</button>
             </div>
           </div>
@@ -130,18 +131,18 @@ const DitadoView = {
       </div>
 
       <!-- ═══ SAVE MODAL ═══ -->
-      <div v-if="showSave" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.15)" @click.self="showSave=false">
-        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6">
+      <div v-if="showSave" class="fixed inset-0 z-50 flex items-center justify-center p-4 anim-fade-in" style="background:rgba(0,0,0,0.15)" @click.self="showSave=false">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6 anim-bounce-in">
           <p class="text-sm font-bold text-slate-800 mb-4">Guardar ditado</p>
           <label class="block text-xs text-slate-500 font-medium mb-2">Nível QECR</label>
           <div class="flex flex-wrap gap-2 mb-5">
             <button v-for="lv in saveLevels" :key="lv.id"
                     @click="saveLevel = lv.id"
-                    :class="['px-3 py-1.5 rounded-lg text-xs font-medium transition border', saveLevel === lv.id ? lv.cls : 'glass-btn text-slate-500 border-slate-200']">{{ lv.id }}</button>
+                    :class="['btn-click px-3 py-1.5 rounded-lg text-xs font-medium transition border', saveLevel === lv.id ? lv.cls : 'glass-btn text-slate-500 border-slate-200']">{{ lv.id }}</button>
           </div>
           <div class="flex gap-3 justify-end">
-            <button @click="showSave=false" class="px-4 py-2 text-xs font-medium glass-btn rounded-lg">Cancelar</button>
-            <button @click="finalSave" class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 transition">Guardar</button>
+            <button @click="showSave=false" class="px-4 py-2 text-xs font-medium glass-btn rounded-lg btn-click">Cancelar</button>
+            <button @click="finalSave" class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 transition btn-click btn-glow btn-magnetic">Guardar</button>
           </div>
         </div>
       </div>

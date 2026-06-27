@@ -24,18 +24,19 @@ const Sidebar = {
             <span class="poem-diamond"></span>
           </div>
         </div>
-        <nav class="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
-          <button v-for="item in navItems" :key="item.id"
+        <nav class="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto gpu-blur">
+          <button v-for="(item, ni) in navItems" :key="item.id"
                   @click="$emit('navigate', item.id)"
-                  :class="['w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left nav-indicator btn-click nav-spring',
-                    activeView === item.id ? 'glass-nav-active text-azulejo font-semibold' : 'glass-nav text-slate-600']">
+                  :class="['w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left nav-indicator btn-click nav-spring list-item-enter',
+                    activeView === item.id ? 'glass-nav-active text-azulejo font-semibold' : 'glass-nav text-slate-600']"
+                  :style="{ animationDelay: (ni * 0.04) + 's' }">
             <i :data-lucide="item.icon" class="w-5 h-5 shrink-0"></i>
             <span>{{ item.label }}</span>
           </button>
         </nav>
         <div class="px-3 py-3 border-t border-slate-200">
           <button @click="$emit('open-config')"
-                  class="glass-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 btn-glow btn-magnetic">
+                  class="glass-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 btn-glow btn-magnetic card-hover-strong">
             <i data-lucide="settings" class="w-5 h-5 shrink-0"></i>
             <span>Configurações</span>
           </button>

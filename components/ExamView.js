@@ -5,7 +5,7 @@
  */
 const ExamView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-fade-in-up">
 
       <!-- Header -->
       <div class="mb-5">
@@ -13,29 +13,29 @@ const ExamView = {
       </div>
 
       <!-- API Key Warning -->
-      <div v-if="!hasApiKey" class="bg-amber-50/80 backdrop-blur-sm border border-amber-200/50 rounded-glass p-4 mb-5 text-sm">
+      <div v-if="!hasApiKey" class="bg-amber-50/80 backdrop-blur-sm border border-amber-200/50 rounded-glass p-4 mb-5 text-sm anim-fade-in">
         <p class="text-amber-700 font-medium mb-1">⚠️ Chave API DeepSeek necessária</p>
         <p class="text-amber-600 text-xs mb-2">Configure a sua chave em Configurações.</p>
-        <button @click="openConfig" class="text-xs text-azulejo underline hover:text-blue-700">Abrir Configurações →</button>
+        <button @click="openConfig" class="text-xs text-azulejo underline hover:text-blue-700 btn-click">Abrir Configurações →</button>
       </div>
 
       <!-- ═══ INPUT STAGE ═══ -->
       <div v-if="stage === 'input'" class="space-y-4">
 
         <!-- Success banner -->
-        <div v-if="examReady" class="bg-emerald-50 border border-emerald-200 rounded-glass p-4 text-sm text-emerald-700">
+        <div v-if="examReady" class="bg-emerald-50 border border-emerald-200 rounded-glass p-4 text-sm text-emerald-700 anim-fade-in">
           <p class="font-medium">📄 Exame gerado — dificuldade {{ examDifficulty }}/100</p>
           <p class="text-xs text-emerald-600 mt-1">Responda na nova janela aberta.</p>
           <p class="text-xs text-slate-400 mt-1">{{ examPartCount }} partes · {{ examQuestionCount }} perguntas · {{ examDuration }} min</p>
         </div>
 
         <!-- Level selector -->
-        <div class="glass-card rounded-glass p-4">
+        <div class="glass-card rounded-glass p-4 card-hover-strong">
           <label class="text-xs text-slate-500 font-medium block mb-2">Nível do exame</label>
           <div class="flex flex-wrap gap-2">
             <button v-for="lv in levels" :key="lv.id"
                     @click="selectedLevel = lv.id"
-                    :class="['px-4 py-2 rounded-lg text-sm font-medium transition border',
+                    :class="['btn-click px-4 py-2 rounded-lg text-sm font-medium transition border',
                       selectedLevel === lv.id
                         ? lv.cls
                         : 'glass-btn text-slate-500 border-slate-200']">
@@ -60,14 +60,14 @@ const ExamView = {
       </div>
 
       <!-- ═══ LOADING ═══ -->
-      <div v-if="stage === 'loading'" class="glass-card-strong rounded-glass-lg p-12 text-center">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-azulejo border-t-transparent mb-4"></div>
+      <div v-if="stage === 'loading'" class="glass-card-strong rounded-glass-lg p-12 text-center card-hover-strong">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-azulejo border-t-transparent mb-4 spin-loader" style="border-top-color:var(--accent);border-color:rgba(26,123,181,0.3)"></div>
         <p class="text-slate-600 font-medium">{{ loadingMsg }}</p>
         <p class="text-xs text-slate-400 mt-1">DeepSeek está a preparar perguntas no formato CAPLE CL.</p>
       </div>
 
       <!-- CEFR Result (info only) -->
-      <div v-if="cefrResult" class="glass-card rounded-glass p-4 mb-4 flex items-center gap-4">
+      <div v-if="cefrResult" class="glass-card rounded-glass p-4 mb-4 flex items-center gap-4 card-hover-strong">
         <div class="text-center min-w-[5rem]">
           <span class="text-2xl font-bold" :class="cefrColor">{{ cefrResult.nivel }}</span>
           <p class="text-[10px] text-slate-400">Nível do exame</p>
@@ -84,7 +84,7 @@ const ExamView = {
 
       <!-- ═══ Generation result ═══ -->
       <div v-if="stage === 'generated'" class="space-y-4">
-        <div class="glass-card-strong rounded-glass-lg p-6">
+        <div class="glass-card-strong rounded-glass-lg p-6 card-hover-strong">
           <div class="flex items-start justify-between gap-4">
             <div>
               <p class="text-xs text-slate-400 font-mono">{{ lastExamId }}</p>
@@ -111,24 +111,24 @@ const ExamView = {
             ⚠️ Dificuldade {{ examDifficulty }}/100 — abaixo do recomendado (90)
           </div>
           <div class="mt-4 flex gap-3">
-            <button @click="openExamWindow" class="px-5 py-2.5 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition btn-glow btn-magnetic">
+            <button @click="openExamWindow" class="btn-click btn-glow btn-magnetic px-5 py-2.5 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">
               <i data-lucide="external-link" class="w-4 h-4 inline mr-1"></i>Abrir exame
             </button>
-            <button @click="guardarExame" class="px-5 py-2.5 glass-btn text-sm font-medium rounded-lg border transition btn-glow btn-magnetic">
+            <button @click="guardarExame" class="btn-click btn-glow btn-magnetic px-5 py-2.5 glass-btn text-sm font-medium rounded-lg border transition">
               <i data-lucide="save" class="w-4 h-4 inline mr-1"></i>Guardar
             </button>
-            <button @click="resetExam" class="px-5 py-2.5 glass-btn text-sm font-medium rounded-lg border transition">
+            <button @click="resetExam" class="btn-click px-5 py-2.5 glass-btn text-sm font-medium rounded-lg border transition">
               Novo exame
             </button>
           </div>
         </div>
 
         <!-- Parts overview -->
-        <div class="glass-card rounded-glass p-4">
+        <div class="glass-card rounded-glass p-4 card-hover-strong">
           <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Estrutura do exame</p>
           <div class="space-y-2">
             <div v-for="(part, pi) in examParts" :key="pi"
-                 class="flex items-center justify-between p-3 rounded-lg bg-slate-50 text-sm">
+                 class="list-item-enter flex items-center justify-between p-3 rounded-lg bg-slate-50 text-sm" :style="{ animationDelay: (pi * 0.04) + 's' }">
               <div class="flex items-center gap-2">
                 <span class="font-bold text-azulejo text-xs">P{{ pi + 1 }}</span>
                 <span class="text-slate-700">{{ part.label }}</span>

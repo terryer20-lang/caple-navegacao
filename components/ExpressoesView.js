@@ -3,7 +3,7 @@
  */
 const ExpressoesView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-fade-in-up">
       <div class="mb-5">
         <h2 class="text-xl font-bold text-slate-800">Expressões</h2>
       </div>
@@ -24,15 +24,16 @@ const ExpressoesView = {
       <!-- Results -->
       <div v-if="query && filtered.length > 0" class="space-y-1">
         <div v-for="(item, i) in visibleResults" :key="item.pt + i"
-             class="glass-card px-4 py-3 cursor-pointer transition hover:bg-slate-50 flex items-start gap-2 card-hover"
+             class="glass-card px-4 py-3 cursor-pointer transition hover:bg-slate-50 flex items-start gap-2 card-hover list-item-enter"
              :class="'anim-fade-in-up stagger-' + Math.min(i + 1, 8)"
+             :style="{ animationDelay: (i * 0.04) + 's' }"
              @click="openPopup(item)">
           <div class="flex-1 min-w-0">
             <span class="text-sm font-semibold text-azulejo break-all">{{ item.pt }}</span>
             <p class="text-sm text-slate-600 mt-1 leading-relaxed line-clamp-2">{{ item.zh }}</p>
           </div>
           <button @click.stop="toggleFav(item)"
-                  class="shrink-0 p-1.5 rounded-lg transition mt-0.5"
+                  class="shrink-0 p-1.5 rounded-lg transition mt-0.5 btn-click"
                   :class="isFav(item) ? 'text-amber-400 hover:text-amber-500' : 'text-slate-200 hover:text-slate-400'">
             <i data-lucide="star" class="w-4 h-4" :fill="isFav(item) ? 'currentColor' : 'none'"></i>
           </button>
@@ -42,20 +43,20 @@ const ExpressoesView = {
       <!-- Show more -->
       <div v-if="hasMore" class="text-center mt-4">
         <button @click="showAll = true"
-                class="px-4 py-2 text-xs font-medium text-azulejo hover:bg-slate-100 rounded-lg transition">
+                class="btn-click px-4 py-2 text-xs font-medium text-azulejo hover:bg-slate-100 rounded-lg transition">
           Mostrar mais {{ filtered.length - DISPLAY_LIMIT }} resultado{{ filtered.length - DISPLAY_LIMIT !== 1 ? 's' : '' }}
         </button>
       </div>
 
       <!-- Empty: no search -->
-      <div v-if="!query" class="text-center py-8">
+      <div v-if="!query" class="text-center py-8 anim-fade-in">
         <i data-lucide="message-square" class="w-10 h-10 text-slate-200 mx-auto mb-3"></i>
         <p class="text-sm text-slate-400">Pesquise uma expressão ou palavra-chave</p>
         <p class="text-xs text-slate-300 mt-1">{{ dataLength.toLocaleString() }} expressões</p>
       </div>
 
       <!-- Empty: no results -->
-      <div v-if="query && filtered.length === 0" class="text-center py-12">
+      <div v-if="query && filtered.length === 0" class="text-center py-12 anim-fade-in">
         <i data-lucide="file-x" class="w-12 h-12 text-slate-200 mx-auto mb-3"></i>
         <p class="text-sm text-slate-400">Sem resultados</p>
         <p class="text-xs text-slate-300 mt-1">Tente outro termo</p>
@@ -63,10 +64,10 @@ const ExpressoesView = {
 
       <!-- ═══ POPUP ═══ -->
       <div v-if="popupItem"
-           class="fixed inset-0 z-50 flex items-center justify-center p-4"
+           class="fixed inset-0 z-50 flex items-center justify-center p-4 anim-fade-in"
            style="background:rgba(0,0,0,0.15)"
            @click.self="popupItem=null">
-        <div class="bg-white w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-white w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl shadow-2xl overflow-hidden anim-bounce-in">
           <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 shrink-0">
             <div>
               <p class="text-lg font-bold text-slate-800">{{ popupItem.pt }}</p>
@@ -74,11 +75,11 @@ const ExpressoesView = {
             </div>
             <div class="flex items-center gap-2">
               <button @click="speak(popupItem.pt)"
-                      class="btn-click btn-glow p-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 transition text-slate-500 hover:text-slate-700"
+                      class="btn-click btn-glow btn-magnetic p-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 transition text-slate-500 hover:text-slate-700"
                       title="Ouvir pronúncia">
                 <i data-lucide="volume-2" class="w-5 h-5"></i>
               </button>
-              <button @click="popupItem=null" class="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100 text-xl leading-none">&times;</button>
+              <button @click="popupItem=null" class="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100 text-xl leading-none btn-click">&times;</button>
             </div>
           </div>
           <div class="px-5 py-4 overflow-y-auto text-sm text-slate-700 leading-relaxed">

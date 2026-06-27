@@ -11,7 +11,7 @@
   <meta name="theme-color" content="#1a7bb5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1a7bb5',porto:'#8b2252',lisboa:'#d4a843',certo:'#2d6a4f',erro:'#c1121f',gelo:'#f5f0ea'}}}}</script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="store/storage.js"></script>
@@ -26,12 +26,13 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html{font-size:15px}
     body{
-      font-family:system-ui,-apple-system,sans-serif;
       background:
-        radial-gradient(ellipse 80% 60% at 10% 85%, rgba(212,168,67,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(26,123,181,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 10% 85%, rgba(212,168,67,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(26,123,181,0.08) 0%, transparent 60%),
         linear-gradient(165deg, #e8ddce 0%, #d6dbe3 40%, #cdd6e0 100%);
-      color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased
+      min-height:100vh;
+      font-family:system-ui,-apple-system,sans-serif;
+      color:var(--text);-webkit-font-smoothing:antialiased
     }
     ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:transparent}
@@ -113,6 +114,70 @@
     .anim-bounce-in{animation:bounce-in 0.3s cubic-bezier(0.16,1,0.3,1) both}
     .anim-shake{animation:shake 0.35s ease both}
     .btn-click:active{transform:scale(0.96)}
+
+    /* Enhanced scrollbar */
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#cbd5e1,#b0bec5);border-radius:3px;transition:background 0.2s ease}
+    ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#94a3b8,#78909c)}
+
+    /* Additional glass morphism classes */
+    .glass-base{background:rgba(255,255,255,0.7);-webkit-backdrop-filter:blur(28px) saturate(1.15);backdrop-filter:blur(28px) saturate(1.15);border-bottom:0.5px solid rgba(255,255,255,0.7)}
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.glass-base{background:rgba(255,255,255,0.85)}}
+    .glass-card{background:rgba(255,255,255,0.75);-webkit-backdrop-filter:blur(24px) saturate(1.1);backdrop-filter:blur(24px) saturate(1.1);border:0.5px solid rgba(255,255,255,0.8);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)}
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.glass-card{background:rgba(255,255,255,0.88);border:1px solid rgba(0,0,0,0.06)}}
+    .glass-card-strong{background:rgba(255,255,255,0.82);-webkit-backdrop-filter:blur(32px) saturate(1.2);backdrop-filter:blur(32px) saturate(1.2);border:0.5px solid rgba(255,255,255,0.85);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.6)}
+    .glass-btn{border-radius:12px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-btn:hover{background:rgba(0,0,0,0.03)}
+    .glass-btn-primary{background:#1a7bb5;color:#fff;border-radius:14px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-btn-primary:hover{background:#15628f;box-shadow:0 4px 16px rgba(26,123,181,0.25);transform:translateY(-0.5px)}
+    .glass-input{background:rgba(255,255,255,0.5);backdrop-filter:blur(8px);border:0.5px solid rgba(0,0,0,0.06);border-radius:12px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-input:focus{border-color:rgba(26,123,181,0.4);box-shadow:0 0 0 3px rgba(26,123,181,0.1);background:rgba(255,255,255,0.7);outline:none}
+
+    /* Additional animation classes */
+    .btn-glow{position:relative;overflow:hidden;isolation:isolate}
+    .btn-glow::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.25) 0%,transparent 60%);opacity:0;transition:opacity 0.4s ease;pointer-events:none;z-index:1}
+    .btn-glow:hover::after{opacity:1}
+    .btn-magnetic{transition:transform 0.15s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.15s cubic-bezier(0.34,1.56,0.64,1),background 0.15s ease}
+    .btn-magnetic:hover{transform:translateY(-1px) scale(1.02);box-shadow:0 8px 24px rgba(26,123,181,0.15)}
+    .btn-magnetic:active{transform:translateY(0) scale(0.97);box-shadow:0 2px 8px rgba(26,123,181,0.10);transition-duration:0.05s}
+    .card-hover{transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),box-shadow 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .card-hover:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
+    .card-hover-strong{transition:transform 0.25s cubic-bezier(0.16,1,0.3,1),box-shadow 0.25s cubic-bezier(0.16,1,0.3,1)}
+    .card-hover-strong:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.10)}
+
+    /* Additional keyframes */
+    @keyframes fade-in-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fade-in{from{opacity:0}to{opacity:1}}
+    @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.6}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @keyframes spin-loader{to{transform:rotate(360deg)}}
+    @keyframes slide-in-right{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+    /* Additional utility animation classes */
+    .anim-fade-in-up{animation:fade-in-up 0.4s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-fade-in{animation:fade-in 0.3s ease both}
+    .anim-pop{animation:pop 0.25s ease both}
+    .anim-pulse-soft{animation:pulse-soft 1.5s ease-in-out infinite}
+    .anim-slide-right{animation:slide-in-right 0.35s cubic-bezier(0.16,1,0.3,1) both}
+
+    /* Prefers reduced motion */
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+
+    /* Spin loader */
+    .spin-loader{width:20px;height:20px;border:2.5px solid rgba(26,123,181,0.12);border-top-color:#1a7bb5;border-radius:50%;animation:spin-loader 0.6s linear infinite}
+
+    /* Ripple */
+    .ripple{position:relative;overflow:hidden;isolation:isolate}
+    .ripple::before{content:'';position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.3) 0%,transparent 70%);width:10px;height:10px;top:var(--ry,50%);left:var(--rx,50%);transform:translate(-50%,-50%) scale(0);pointer-events:none;z-index:1}
+    .ripple:active::before{animation:ripple-burst 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+    @keyframes ripple-burst{0%{transform:translate(-50%,-50%) scale(0);opacity:0.8}100%{transform:translate(-50%,-50%) scale(8);opacity:0}}
+
+    /* Progress shimmer */
+    .progress-shimmer{background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.25) 50%,transparent 100%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
+
+    /* Skeleton */
+    .skeleton{background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.08) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:6px}
   </style>
 </head>
 <body>
@@ -123,7 +188,7 @@
     <i data-lucide="book-open" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
     <p class="text-lg font-medium text-slate-600">Nenhuma ronda encontrada</p>
     <p class="text-sm text-slate-400 mt-1">Inicie uma ronda na página Léxico primeiro.</p>
-    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">Voltar</button>
+    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition glass-btn-primary btn-magnetic btn-glow btn-click">Voltar</button>
   </div>
 
   <!-- ═══ ROUND ═══ -->
@@ -134,7 +199,7 @@
 
       <!-- Sidebar toggle -->
       <button @click="sidebarOpen = !sidebarOpen"
-              class="absolute top-5 right-5 btn-ghost p-1.5 rounded-lg text-slate-400 hover:text-slate-600"
+              class="absolute top-5 right-5 btn-ghost p-1.5 rounded-lg text-slate-400 hover:text-slate-600 glass-btn"
               :title="sidebarOpen ? 'Ocultar painel' : 'Mostrar painel'">
         <i data-lucide="panel-right" class="w-5 h-5"></i>
       </button>
@@ -154,7 +219,7 @@
 
         <!-- Speak button -->
         <button v-if="currentWord" @click="speak(currentWord.pt)"
-                class="btn-click mx-auto mb-6 flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-xl text-sm font-medium text-slate-600 transition-all"
+                class="btn-click mx-auto mb-6 flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-xl text-sm font-medium text-slate-600 transition-all glass-btn btn-magnetic btn-glow"
                 title="Ouvir pronúncia (⌘+Enter)">
           <i data-lucide="volume-2" class="w-5 h-5"></i>
           <span>Ouvir</span>
@@ -171,14 +236,14 @@
                      :ref="el => { if (el) letterRefs[ci] = el }"
                      v-model="letterInputs[ci]"
                      @input="onLetterInput(ci)" @keydown="onLetterKeydown(ci, $event)"
-                     maxlength="1" class="letter-input" :class="letterInputs[ci] ? 'filled' : ''"
+                     maxlength="1" class="letter-input glass-input" :class="letterInputs[ci] ? 'filled' : ''"
                      autocomplete="off" autocapitalize="off" spellcheck="false">
             </template>
           </div>
           <!-- pt2zh: single text input -->
           <div v-if="isPt2zh">
             <input ref="inputEl" v-model="userInput" @keydown="onInputKeydown"
-                   class="text-input-lg" placeholder="Digite em chinês..." autocomplete="off">
+                   class="text-input-lg glass-input" placeholder="Digite em chinês..." autocomplete="off">
           </div>
         </div>
 
@@ -207,23 +272,23 @@
         <div class="mt-6">
           <!-- Submit -->
           <button v-if="!submitted" @click="submitAnswer" :disabled="!canSubmit"
-                  class="btn-primary">Submeter</button>
+                  class="btn-primary glass-btn-primary btn-magnetic btn-glow btn-click">Submeter</button>
 
           <!-- Self-rate -->
           <div v-if="submitted && !rated" class="flex justify-center gap-4">
             <button @click="rateFail"
-                    class="btn-outline">❌ Não sei <span class="text-[10px] opacity-60 ml-1">3</span></button>
+                    class="btn-outline glass-btn btn-click">❌ Não sei <span class="text-[10px] opacity-60 ml-1">3</span></button>
             <button @click="ratePass"
-                    class="btn-outline green">✅ Sei <span class="text-[10px] opacity-60 ml-1">2</span></button>
+                    class="btn-outline green glass-btn btn-click">✅ Sei <span class="text-[10px] opacity-60 ml-1">2</span></button>
           </div>
 
           <!-- Next / Encerrar -->
           <div v-if="rated || (submitted && !isPt2zh && feedback && feedback.match==='strict')" class="flex justify-center gap-3">
-            <button v-if="!isUnlimited || currentIdx < words.length - 1" @click="nextWord" class="btn-primary">
+            <button v-if="!isUnlimited || currentIdx < words.length - 1" @click="nextWord" class="btn-primary glass-btn-primary btn-magnetic btn-glow btn-click">
               {{ currentIdx < words.length - 1 ? 'Seguinte →' : 'Concluir ✓' }}
             </button>
             <button v-if="isUnlimited" @click="encerrarRonda"
-                    class="px-6 py-2.5 bg-rose-500 text-white text-sm font-semibold rounded-xl hover:bg-rose-600 transition shadow-lg">
+                    class="px-6 py-2.5 bg-rose-500 text-white text-sm font-semibold rounded-xl hover:bg-rose-600 transition shadow-lg glass-btn btn-click">
               ■ Encerrar
             </button>
           </div>
@@ -267,7 +332,7 @@
             </div>
           </div>
 
-          <button @click="closeWin" class="mt-4 btn-primary">Fechar</button>
+          <button @click="closeWin" class="mt-4 btn-primary glass-btn-primary btn-magnetic btn-glow btn-click">Fechar</button>
         </div>
       </div>
     </div>
@@ -302,7 +367,7 @@
       </div>
       <div class="px-4 py-3 border-b border-slate-200 shrink-0">
         <button @click="closeWin"
-                class="w-full px-4 py-2.5 bg-azulejo hover:bg-blue-800 text-white text-sm font-semibold rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                class="w-full px-4 py-2.5 bg-azulejo hover:bg-blue-800 text-white text-sm font-semibold rounded-xl transition shadow-lg flex items-center justify-center gap-2 glass-btn-primary btn-magnetic btn-glow btn-click">
           <i data-lucide="home" class="w-4 h-4"></i> Voltar à página principal
         </button>
       </div>

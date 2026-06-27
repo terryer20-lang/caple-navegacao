@@ -11,46 +11,112 @@
   <meta name="theme-color" content="#1a7bb5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1d4ed8',rosa:'#db2777',lisboa:'#f59e0b',certo:'#10b981',erro:'#f43f5e'}}}}</script>
+  <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1a7bb5',porto:'#8b2252',lisboa:'#d4a843',certo:'#2d6a4f',erro:'#c1121f',gelo:'#f5f0ea'}}}}</script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="store/storage.js"></script>
   <style>
     :root {
-      --line: #e2e8f0; --panel: #fff; --panel-alt: #f8fafc; --text: #1e293b;
-      --muted: #94a3b8; --accent: #1d4ed8; --shadow: 0 1px 3px rgba(0,0,0,0.04);
+      --accent: #1a7bb5; --success: #2d6a4f; --danger: #c1121f;
+      --text: #2c2c2e; --muted: #8e8e93;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{font-size:15px}
-    body{font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+    body{
+      font-family:system-ui,-apple-system,sans-serif;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 85%, rgba(212,168,67,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(26,123,181,0.08) 0%, transparent 60%),
+        linear-gradient(165deg, #e8ddce 0%, #d6dbe3 40%, #cdd6e0 100%);
+      color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased
+    }
+    /* ===== Scrollbar ===== */
     ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+    ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.1);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.2)}
 
-    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px}
-    .exam-header{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
+    /* ===== Glass ===== */
+    .glass-base{background:rgba(255,255,255,0.7);-webkit-backdrop-filter:blur(28px) saturate(1.15);backdrop-filter:blur(28px) saturate(1.15);border-bottom:0.5px solid rgba(255,255,255,0.7)}
+    .glass-card{background:rgba(255,255,255,0.75);-webkit-backdrop-filter:blur(24px) saturate(1.1);backdrop-filter:blur(24px) saturate(1.1);border:0.5px solid rgba(255,255,255,0.8);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+    .glass-card-strong{background:rgba(255,255,255,0.82);-webkit-backdrop-filter:blur(32px) saturate(1.2);backdrop-filter:blur(32px) saturate(1.2);border:0.5px solid rgba(255,255,255,0.85);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+    .glass-panel{background:rgba(250,245,240,0.65);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:12px;border:0.5px solid rgba(255,255,255,0.5)}
+    .glass-btn{border-radius:12px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-btn:hover{background:rgba(0,0,0,0.03)}
+    .glass-btn-primary{background:#1a7bb5;color:#fff;border-radius:14px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-btn-primary:hover{background:#15628f;box-shadow:0 4px 16px rgba(26,123,181,0.25);transform:translateY(-0.5px)}
+    .glass-input{background:rgba(255,255,255,0.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:0.5px solid rgba(0,0,0,0.06);border-radius:12px;transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .glass-input:focus{border-color:rgba(26,123,181,0.4);box-shadow:0 0 0 3px rgba(26,123,181,0.1)}
+
+    /* ===== Buttons ===== */
+    .btn-primary{padding:10px 28px;background:var(--accent);color:#fff;font-size:0.92rem;font-weight:600;border:none;border-radius:14px;cursor:pointer;transition:all 0.12s ease}
+    .btn-primary:hover{background:#15628f;box-shadow:0 4px 16px rgba(26,123,181,0.25)}
+    .btn-ghost{padding:6px 14px;border:1px solid #e2e8f0;border-radius:12px;font-size:0.8rem;color:var(--text);cursor:pointer;background:rgba(255,255,255,0.5);backdrop-filter:blur(8px);transition:all 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .btn-ghost:hover{background:rgba(0,0,0,0.03)}
+    .btn-sm{padding:5px 12px;font-size:0.72rem;font-weight:500;border:1px solid #e2e8f0;border-radius:8px;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.12s ease;color:var(--text)}
+    .btn-sm:hover{background:rgba(0,0,0,0.03)}
+
+    .btn-glow{position:relative;overflow:hidden;isolation:isolate}
+    .btn-glow::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.25) 0%,transparent 60%);opacity:0;transition:opacity 0.4s ease;pointer-events:none;z-index:1}
+    .btn-glow:hover::after{opacity:1}
+    .btn-magnetic{transition:transform 0.15s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.15s cubic-bezier(0.34,1.56,0.64,1)}
+    .btn-magnetic:hover{transform:translateY(-1px) scale(1.02);box-shadow:0 8px 24px rgba(26,123,181,0.15)}
+    .btn-magnetic:active{transform:translateY(0) scale(0.97)}
+    .btn-click:active{transform:scale(0.96)}
+
+    /* ===== Cards ===== */
+    .exam-card{background:rgba(255,255,255,0.82);-webkit-backdrop-filter:blur(32px) saturate(1.2);backdrop-filter:blur(32px) saturate(1.2);border:0.5px solid rgba(255,255,255,0.85);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.08),0 2px 6px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.6);padding:18px 20px;margin-bottom:14px}
+    .exam-header{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;background:rgba(255,255,255,0.7);-webkit-backdrop-filter:blur(28px) saturate(1.15);backdrop-filter:blur(28px) saturate(1.15);border-bottom:0.5px solid rgba(255,255,255,0.7);flex-shrink:0}
     .exam-header h1{font-size:1.05rem;font-weight:700}
     .exam-header .meta{font-size:0.75rem;color:var(--muted)}
-    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .btn-primary:hover{background:#1e40af}
-    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .btn-ghost:hover{background:#f1f5f9}
-    .btn-sm{padding:5px 12px;font-size:0.72rem;font-weight:500;border:1px solid var(--line);border-radius:6px;background:var(--panel);cursor:pointer;transition:all 0.12s ease;color:var(--text)}
-    .btn-sm:hover{background:#f1f5f9}
+    .card-hover{transition:transform 0.2s cubic-bezier(0.16,1,0.3,1),box-shadow 0.2s cubic-bezier(0.16,1,0.3,1)}
+    .card-hover:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
 
-    /* Audio track */
-    .audio-track{height:56px;background:#f1f5f9;border-radius:8px;overflow:hidden;cursor:pointer;position:relative}
+    /* ===== Audio ===== */
+    .audio-track{height:56px;background:rgba(255,255,255,0.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:0.5px solid rgba(0,0,0,0.06);border-radius:12px;overflow:hidden;cursor:pointer;position:relative}
     .audio-track-fill{height:100%;background:var(--accent);opacity:0.12;transition:width 0.1s linear;position:absolute;left:0;top:0;border-radius:8px}
     .audio-track-progress{position:absolute;left:0;top:0;height:100%;width:2px;background:var(--accent);transition:left 0.1s linear;z-index:2;border-radius:2px}
     .audio-tick{position:absolute;top:0;width:1px;height:100%;background:#cbd5e1;opacity:0.3}
-
-    .play-btn-circle{padding:14px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s ease;box-shadow:0 2px 8px rgba(29,78,216,0.25)}
-    .play-btn-circle:hover{background:#1e40af;box-shadow:0 4px 12px rgba(29,78,216,0.35)}
-
-    .speed-btn{padding:5px 12px;border:1px solid var(--line);border-radius:6px;font-size:0.75rem;font-weight:500;background:var(--panel);cursor:pointer;transition:all 0.12s ease;color:var(--text)}
-    .speed-btn:hover{background:#f1f5f9}
+    .play-btn-circle{padding:14px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s ease;box-shadow:0 2px 8px rgba(26,123,181,0.25)}
+    .play-btn-circle:hover{background:#15628f;box-shadow:0 4px 12px rgba(26,123,181,0.35)}
+    .speed-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:0.75rem;font-weight:500;background:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.12s ease;color:var(--text);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+    .speed-btn:hover{background:rgba(0,0,0,0.03)}
     .speed-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
+    /* ===== Animations ===== */
+    @keyframes fade-in-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounce-in{0%{opacity:0;transform:scale(0.3)}50%{transform:scale(1.08)}70%{transform:scale(0.95)}100%{opacity:1;transform:scale(1)}}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+    @keyframes pop{0%{transform:scale(0.8);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+    @keyframes pulse-soft{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @keyframes spin-loader{to{transform:rotate(360deg)}}
+    @keyframes slide-right{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+    .anim-fade-in-up{animation:fade-in-up 0.3s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-bounce-in{animation:bounce-in 0.3s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-shake{animation:shake 0.4s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-pop{animation:pop 0.25s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-pulse-soft{animation:pulse-soft 2s cubic-bezier(0.16,1,0.3,1) infinite}
+    .anim-fade-in{animation:fade-in-up 0.2s cubic-bezier(0.16,1,0.3,1) both}
+    .anim-slide-right{animation:slide-right 0.25s cubic-bezier(0.16,1,0.3,1) both}
+
+    /* ===== Loading / Ripple ===== */
+    .spin-loader{width:20px;height:20px;border:2px solid rgba(26,123,181,0.2);border-top-color:#1a7bb5;border-radius:50%;animation:spin-loader 0.6s linear infinite}
+    .ripple{position:relative;overflow:hidden}
+    .ripple::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:100px;height:100px;margin-top:-50px;margin-left:-50px;top:50%;left:50%;transform:scale(0);opacity:0;pointer-events:none}
+    .ripple:active::after{animation:ripple-effect 0.4s ease-out}
+    @keyframes ripple-effect{to{transform:scale(4);opacity:0}}
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+      .btn-magnetic:hover{transform:none!important}
+      .card-hover:hover{transform:none!important}
+      .btn-glow::after{display:none!important}
+      .ripple::after{display:none!important}
+    }
+
+    /* ===== Print ===== */
     @media print{.no-print{display:none!important}}
   </style>
 </head>
@@ -62,7 +128,7 @@
     <i data-lucide="ear" class="w-16 h-16 text-slate-200 mx-auto mb-4"></i>
     <p class="text-lg font-medium text-slate-600">Nenhum ditado encontrado</p>
     <p class="text-sm text-slate-400 mt-1">Carregue um áudio na página Ditado primeiro.</p>
-    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition">Voltar</button>
+    <button @click="closeWin" class="mt-5 px-5 py-2 bg-azulejo text-white text-sm font-medium rounded-lg hover:bg-blue-800 transition btn-click btn-magnetic">Voltar</button>
   </div>
 
   <!-- ═══ DICTATION ═══ -->
@@ -76,7 +142,7 @@
           <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Áudio</p>
           <p class="text-[10px] text-slate-400 mt-0.5 truncate max-w-[200px]">{{ dictation.audioName }}</p>
         </div>
-        <button @click="closeWin" class="btn-sm">Fechar</button>
+        <button @click="closeWin" class="btn-sm btn-click">Fechar</button>
       </div>
 
       <audio ref="audioEl" @timeupdate="onTimeUpdate" @loadedmetadata="onLoaded" @ended="onEnded" class="hidden"></audio>
@@ -100,13 +166,13 @@
 
         <!-- Controls -->
         <div class="flex items-center justify-center gap-6 mb-5">
-          <button @click="rewind(10)" class="p-2 rounded-lg text-slate-500 hover:text-slate-700 transition" title="10s atrás">
+          <button @click="rewind(10)" class="p-2 rounded-lg text-slate-500 hover:text-slate-700 transition btn-click" title="10s atrás">
             <i data-lucide="skip-back" class="w-5 h-5"></i>
           </button>
-          <button @click="togglePlay" class="play-btn-circle">
+          <button @click="togglePlay" class="play-btn-circle btn-click btn-glow btn-magnetic">
             <i :data-lucide="isPlaying ? 'pause' : 'play'" class="w-6 h-6"></i>
           </button>
-          <button @click="forward(10)" class="p-2 rounded-lg text-slate-500 hover:text-slate-700 transition" title="10s à frente">
+          <button @click="forward(10)" class="p-2 rounded-lg text-slate-500 hover:text-slate-700 transition btn-click" title="10s à frente">
             <i data-lucide="skip-forward" class="w-5 h-5"></i>
           </button>
         </div>
@@ -117,15 +183,15 @@
           <div class="flex gap-1.5">
             <button v-for="sp in [0.5,0.75,1,1.25,1.5]" :key="sp"
                     @click="playbackRate = sp; if($refs.audioEl) $refs.audioEl.playbackRate = sp"
-                    :class="['speed-btn', playbackRate===sp ? 'active' : '']">{{ sp }}×</button>
+                    :class="['speed-btn btn-click', playbackRate===sp ? 'active' : '']">{{ sp }}×</button>
           </div>
         </div>
 
         <!-- Precision rewind -->
         <div class="flex items-center gap-2">
-          <button @click="rewind(5)" class="btn-sm flex-1">⏪ 5s</button>
-          <button @click="rewind(3)" class="btn-sm flex-1">⏪ 3s</button>
-          <button @click="rewind(1)" class="btn-sm flex-1">⏪ 1s</button>
+          <button @click="rewind(5)" class="btn-sm btn-click flex-1">⏪ 5s</button>
+          <button @click="rewind(3)" class="btn-sm btn-click flex-1">⏪ 3s</button>
+          <button @click="rewind(1)" class="btn-sm btn-click flex-1">⏪ 1s</button>
         </div>
       </div>
     </div>
@@ -136,8 +202,8 @@
         <p class="text-xs font-bold text-slate-600 uppercase tracking-wider">Transcrição</p>
         <div class="flex items-center gap-2">
           <span class="text-[10px] text-slate-400">{{ wordCount }} palavras</span>
-          <button @click="saveDraft" class="btn-sm">Rascunho</button>
-          <button @click="showSave = true" class="btn-primary" style="padding:5px 14px;font-size:0.78rem">Guardar</button>
+          <button @click="saveDraft" class="btn-sm btn-click">Rascunho</button>
+          <button @click="showSave = true" class="btn-primary btn-click btn-glow btn-magnetic" style="padding:5px 14px;font-size:0.78rem">Guardar</button>
         </div>
       </div>
 
@@ -162,13 +228,13 @@
       <div class="flex flex-wrap gap-2 mb-5">
         <button v-for="lv in levels" :key="lv.id"
                 @click="saveLevel = lv.id"
-                :class="['px-3 py-1.5 rounded-lg text-xs font-medium transition border', saveLevel === lv.id ? lv.cls : 'btn-ghost']">
+                :class="['px-3 py-1.5 rounded-lg text-xs font-medium transition border btn-click', saveLevel === lv.id ? lv.cls : 'btn-ghost']">
           {{ lv.id }}
         </button>
       </div>
       <div class="flex gap-3 justify-end">
-        <button @click="showSave=false" class="btn-ghost">Cancelar</button>
-        <button @click="finalSave" class="btn-primary">Guardar</button>
+        <button @click="showSave=false" class="btn-ghost btn-click">Cancelar</button>
+        <button @click="finalSave" class="btn-primary btn-click btn-glow btn-magnetic">Guardar</button>
       </div>
     </div>
   </div>
