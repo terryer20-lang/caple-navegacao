@@ -30,9 +30,6 @@ const AppShell = {
           </button>
         </div>
 
-        <input type="url" v-model="loginApiUrl" placeholder="API URL (opcional)"
-               class="w-full px-3 py-2 glass-input rounded-lg text-xs mb-2 focus:outline-none focus:ring-1 focus:ring-azulejo">
-
         <p v-if="loginMsg" class="text-xs mt-2" :class="loginMsgType==='erro'?'text-erro':'text-certo'">{{ loginMsg }}</p>
 
         <p class="text-[10px] text-slate-400 mt-4">Os dados ficam guardados localmente e sincronizados na nuvem.</p>
@@ -82,7 +79,7 @@ const AppShell = {
       isMobile: window.innerWidth < 768,
       syncStatus: 'idle', syncLabel: '', syncTooltip: '', _syncTimer: null,
       loggedIn: false,
-      loginEmail: '', loginPassword: '', loginApiUrl: '', loginMsg: '', loginMsgType: '', loginLoading: false,
+      loginEmail: '', loginPassword: '', loginMsg: '', loginMsgType: '', loginLoading: false,
     }
   },
   computed: {
@@ -100,7 +97,6 @@ const AppShell = {
       if (!this.loginEmail||!this.loginPassword) { this.loginMsg='Preencha email e password'; this.loginMsgType='erro'; return }
       this.loginLoading=true; this.loginMsg=''
       try {
-        if (this.loginApiUrl) SyncManager.setApiUrl(this.loginApiUrl)
         await SyncManager.login(this.loginEmail, this.loginPassword)
         this.loggedIn = true
         this.loginPassword = ''
@@ -110,7 +106,6 @@ const AppShell = {
       if (!this.loginEmail||!this.loginPassword) { this.loginMsg='Preencha email e password'; this.loginMsgType='erro'; return }
       this.loginLoading=true; this.loginMsg=''
       try {
-        if (this.loginApiUrl) SyncManager.setApiUrl(this.loginApiUrl)
         await SyncManager.register(this.loginEmail, this.loginPassword)
         this.loggedIn = true
         this.loginPassword = ''
