@@ -12,104 +12,45 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1a7bb5',porto:'#8b2252',lisboa:'#d4a843',certo:'#2d6a4f',erro:'#c1121f',gelo:'#f5f0ea'}}}}</script>
+  <link rel="stylesheet" href="styles/exam-paper.css">
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="store/storage.js"></script>
   <script src="utils/diacritics.js"></script>
   <style>
-    :root {
-      --line: #e2e8f0; --panel: #fff; --panel-alt: #f8fafc; --text: #1e293b;
-      --muted: #94a3b8; --accent: #1a7bb5; --success: #2d6a4f; --danger: #c1121f;
-      --shadow: 0 1px 3px rgba(0,0,0,0.04); --shadow-lg: 0 4px 12px rgba(0,0,0,0.06);
+    /* PIE-specific overrides on top of exam-paper.css */
+    textarea { resize: vertical; font-family: inherit; }
+
+    /* Topic options styling */
+    .topic-opt {
+      padding: 12px 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.12s ease;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{font-size:15px}
-    body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(ellipse 80% 60% at 10% 85%,rgba(212,168,67,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 20%,rgba(26,123,181,0.08) 0%,transparent 60%),linear-gradient(165deg,#e8ddce 0%,#d6dbe3 40%,#cdd6e0 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#cbd5e1,#94a3b8);border-radius:3px}
-    ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#94a3b8,#64748b)}
-    textarea{resize:vertical;font-family:inherit}
+    .topic-opt:hover { border-color: var(--line-dark); background: var(--paper-alt); }
+    .topic-opt.selected { border-color: var(--accent); background: var(--accent-light); }
 
-    /* ═══ GLASS CLASSES ═══ */
-    .glass-base{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.3);border-radius:12px}
-    .glass-card{background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03),0 1px 2px rgba(0,0,0,0.02)}
-    .glass-card-strong{background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.4);border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.04),0 2px 4px rgba(0,0,0,0.02)}
-    .glass-panel{background:rgba(255,255,255,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2);border-radius:10px}
-    .glass-btn{background:rgba(255,255,255,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.2);color:var(--text)}
-    .glass-input{background:rgba(255,255,255,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.3);color:var(--text);transition:border-color 0.15s ease,box-shadow 0.15s ease}
-    .glass-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,123,181,0.12);outline:none}
-    .glass-badge{background:rgba(255,255,255,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2);padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:600}
+    /* Right panel / answers area */
+    .pie-right-panel { background: var(--paper-warm); }
+    .pie-prompt-panel { background: var(--paper); border-right: 1px solid var(--line); }
 
-    /* ═══ ANIMATION CLASSES ═══ */
-    .btn-glow{position:relative;overflow:hidden}
-    .btn-glow::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:translateX(-100%)}
-    .btn-glow:hover::after{transform:translateX(100%);transition:transform 0.6s ease}
-    .btn-magnetic{transition:transform 0.15s ease}
-    .btn-click{transition:transform 0.08s ease,box-shadow 0.08s ease}
-    .btn-click:active{transform:scale(0.97);box-shadow:none}
-    .card-hover{transition:transform 0.2s ease,box-shadow 0.2s ease}
-    .card-hover:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.05)}
-    .card-hover-strong{transition:transform 0.2s ease,box-shadow 0.2s ease}
-    .card-hover-strong:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.07)}
-    .anim-fade-in-up{animation:fade-in-up 0.5s ease forwards;opacity:0}
-    .anim-fade-in{animation:fade-in 0.4s ease forwards;opacity:0}
-    .anim-bounce-in{animation:bounce-in 0.5s ease forwards}
-    .anim-pop{animation:pop 0.4s ease forwards}
-    .anim-shake{animation:shake 0.4s ease}
-    .anim-pulse-soft{animation:pulse-soft 2s ease-in-out infinite}
-    .anim-slide-right{animation:slide-in-right 0.35s ease forwards;opacity:0}
-    .list-item-enter{animation:fade-in-up 0.4s ease forwards;opacity:0}
-    .progress-shimmer{background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);background-size:200% 100%;animation:shimmer 1.5s infinite}
-    .spin-loader{display:inline-block;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin-loader 0.6s linear infinite}
-    .ripple{position:relative;overflow:hidden}
-    .ripple::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:100px;height:100px;margin-top:-50px;margin-left:-50px;top:50%;left:50%;transform:scale(0);opacity:0}
-    .ripple:active::after{animation:ripple-burst 0.5s ease-out}
+    /* Section header for right panel PD */
+    .pie-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--paper-alt);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      user-select: none;
+    }
 
-    /* ═══ KEYFRAMES ═══ */
-    @keyframes fade-in-up{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
-    @keyframes fade-in{0%{opacity:0}100%{opacity:1}}
-    @keyframes bounce-in{0%{opacity:0;transform:scale(0.85)}60%{transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
-    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-    @keyframes pop{0%{transform:scale(0.9)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
-    @keyframes slide-in-right{0%{opacity:0;transform:translateX(16px)}100%{opacity:1;transform:translateX(0)}}
-    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    @keyframes spin-loader{to{transform:rotate(360deg)}}
-    @keyframes ripple-burst{0%{transform:scale(0);opacity:1}100%{transform:scale(4);opacity:0}}
-
-    /* ═══ PREFERS REDUCED MOTION ═══ */
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
-
-    .exam-card{background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03),0 1px 2px rgba(0,0,0,0.02);padding:18px 20px;margin-bottom:14px;transition:transform 0.2s ease,box-shadow 0.2s ease}
-    .exam-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.05)}
-    .exam-card-strong{background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.4);border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.04),0 2px 4px rgba(0,0,0,0.02);padding:20px 22px;margin-bottom:16px;transition:transform 0.2s ease,box-shadow 0.2s ease}
-    .exam-card-strong:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.07)}
-    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
-    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
-    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
-    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease;position:relative;overflow:hidden}
-    .btn-submit:hover{background:#1b5e3a}
-    .btn-submit:disabled{opacity:0.4;cursor:default}
-    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease;position:relative;overflow:hidden}
-    .btn-primary:hover{background:#156a9e}
-    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.4);flex-shrink:0}
-    .exam-header h1{font-size:1.05rem;font-weight:700}
-    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
-    .fill-input{width:100%;padding:10px 14px;background:rgba(255,255,255,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.3);color:var(--text);border-radius:8px;font-size:0.92rem;line-height:1.6;transition:border-color 0.15s ease,box-shadow 0.15s ease}
-    .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,123,181,0.12);outline:none}
-    .topic-opt{padding:12px 14px;background:rgba(255,255,255,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.3);border-radius:10px;cursor:pointer;transition:all 0.15s ease}
-    .topic-opt:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.05);border-color:#94a3b8}
-    .topic-opt.selected{border-color:var(--accent);background:rgba(26,123,181,0.08)}
-    .part-label{font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px}
-    .word-cl{padding:1px;white-space:pre-wrap;border-radius:0;cursor:pointer;transition:background 0.15s ease}
-    .word-cl.hl-pd{background:#fca5a5!important}
-    .word-space{padding:1px;white-space:pre}
-    .topic-text{font-size:inherit;color:inherit;line-height:inherit}
-    .section-header{cursor:pointer;user-select:none;transition:background 0.15s ease}
-    .section-header:hover{background:rgba(241,245,249,0.6)}
-    @media print{.no-print{display:none!important}}
-    @media(max-width:800px){.exam-body{flex-direction:column!important}.exam-body .left,.exam-body .right{width:100%!important;min-width:0!important}}
+    /* Lined textarea effect - REMOVED per user request */
   </style>
 </head>
 <body>
@@ -126,35 +67,43 @@
   <!-- ═══ EXAM ═══ -->
   <div v-if="exam" class="flex-1 flex flex-col min-h-0 anim-fade-in">
 
-    <!-- Header -->
-    <header class="exam-header no-print">
-      <div>
-        <h1 class="text-slate-800">Produção e Interação Escritas</h1>
-        <p class="meta">{{ exam.examId }}</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="glass-badge px-2.5 py-1 rounded text-xs font-bold border" :class="levelBadge">{{ exam.level }}</span>
-        <div class="text-right">
-          <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
-          <p class="text-[10px] text-slate-400">{{ exam.duracao }}</p>
+    <!-- Header — CAPLE style -->
+    <header class="exam-header no-print" style="flex-direction:column;align-items:stretch;gap:4px;padding:8px 24px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <h1 style="font-size:1rem;font-weight:700;color:var(--text-primary);text-transform:uppercase">Produção e Interação Escritas</h1>
+          <p class="meta" style="font-size:0.65rem;color:var(--text-muted);margin-top:1px">
+            <span class="level-badge" :class="exam.level?.toLowerCase()" style="display:inline-flex;align-items:center;padding:1px 6px;font-size:0.6rem;font-weight:700;border-radius:2px;letter-spacing:0.05em;text-transform:uppercase;vertical-align:middle;margin-right:6px">{{ exam.level }}</span>
+            {{ exam.examId }}
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="level-badge" :class="levelBadgeClass" style="padding:2px 8px;font-size:0.7rem;font-weight:700;border-radius:2px;letter-spacing:0.05em">{{ exam.level }}</span>
+          <div class="text-right">
+            <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
+            <p class="text-[10px] text-slate-400">{{ exam.duracao }}</p>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Body: two-column -->
-    <div class="exam-body flex-1 flex min-h-0 overflow-hidden">
+    <!-- Body: two-column with resizable split -->
+    <div class="exam-paper-body">
 
-      <!-- Left: prompts -->
-      <div class="left w-1/2 min-w-[300px] overflow-y-auto p-6 border-r border-slate-200 bg-white">
-        <p class="text-base font-bold text-slate-800 mb-4">{{ exam.examTitle }}</p>
+      <!-- Left: prompts — CAPLE exam booklet style -->
+      <div style="display:flex;flex-direction:column;min-width:300px;overflow:hidden;background:#ffffff;border-right:1px solid #e5e5e5;flex-shrink:0" :style="{flexBasis: splitPos + '%', maxWidth: splitPos + '%'}">
+        <div class="paper-content" style="flex:1;overflow-y:auto;padding-bottom:60px">
+        <p class="exam-part-header" style="padding-top:8px">{{ exam.examTitle }}</p>
 
-        <div class="exam-card-strong card-hover-strong">
-          <p class="part-label">Parte 1 — Tarefa contextualizada <span class="font-normal normal-case text-slate-400">({{ exam.wc1 }} palavras)</span></p>
-          <div><template v-for="(para, pi) in tokenizeText(exam.parte1 || '', 'p1')" :key="pi"><p><span v-for="(word, wi) in para" :key="wi" :class="wordCls(word)" :data-wi="word.tokenIdx" @click.stop="togglePDWord(word)" v-text="word.text"></span></p></template></div>
+        <div class="paper-card" style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line-light)">
+          <p class="exam-part-header" style="padding-top:0;margin-bottom:4px">Parte 1</p>
+          <p class="part-instructions" style="margin-bottom:8px">Tarefa contextualizada <span style="font-weight:400;color:var(--text-muted)">({{ exam.wc1 }} palavras)</span></p>
+          <div class="reading-text"><template v-for="(para, pi) in tokenizeText(exam.parte1 || '', 'p1')" :key="pi"><p><span v-for="(word, wi) in para" :key="wi" :class="wordCls(word)" :data-wi="word.tokenIdx" @click.stop="togglePDWord(word)" v-text="word.text"></span></p></template></div>
         </div>
 
-        <div class="exam-card-strong card-hover-strong">
-          <p class="part-label">Parte 2 — Escolha um tópico <span class="font-normal normal-case text-slate-400">({{ exam.wc2 }} palavras)</span></p>
+        <div class="paper-card" style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line-light)">
+          <p class="exam-part-header" style="padding-top:0;margin-bottom:4px">Parte 2</p>
+          <p class="part-instructions" style="margin-bottom:8px">Escolha um tópico <span style="font-weight:400;color:var(--text-muted)">({{ exam.wc2 }} palavras)</span></p>
           <div class="space-y-2">
             <div v-for="(topico, ti) in exam.parte2" :key="ti"
                  class="topic-opt list-item-enter" :class="selectedTopic === ti ? 'selected' : ''"
@@ -168,8 +117,9 @@
           </div>
         </div>
 
-        <div class="exam-card-strong card-hover-strong">
-          <p class="part-label">Parte 3 — <template v-if="hasReescritas">Reescrita de frases</template><template v-else>Texto</template> <span class="font-normal normal-case text-slate-400">({{ exam.wc3 }} palavras)</span></p>
+        <div class="paper-card" style="padding-bottom:8px">
+          <p class="exam-part-header" style="padding-top:0;margin-bottom:4px">Parte 3</p>
+          <p class="part-instructions" style="margin-bottom:8px"><template v-if="hasReescritas">Reescrita de frases</template><template v-else>Texto</template> <span style="font-weight:400;color:var(--text-muted)">({{ exam.wc3 }} palavras)</span></p>
           <div v-if="exam.parte3">
             <template v-if="!hasReescritas">
               <template v-for="(para, pi) in tokenizeText(exam.parte3 || '', 'p3')" :key="pi"><p><span v-for="(word, wi) in para" :key="wi" :class="wordCls(word)" :data-wi="word.tokenIdx" @click.stop="togglePDWord(word)" v-text="word.text"></span></p></template>
@@ -186,12 +136,16 @@
           </div>
         </div>
       </div>
+      </div>
+
+      <!-- Split divider -->
+      <div class="split-divider" :class="{dragging: dragActive}" @mousedown.prevent="onDividerDown"></div>
 
       <!-- Right: answers -->
-      <div class="right flex-1 min-w-[300px] overflow-y-auto p-6" style="padding-bottom:80px">
+      <div class="paper-right flex flex-col min-w-[300px] overflow-y-auto" style="flex-shrink:0;flex:none" :style="{flexBasis: (100 - splitPos) + '%', maxWidth: (100 - splitPos) + '%', paddingBottom: '60px'}">
 
         <!-- Palavras Desconhecidas -->
-        <div class="section-header" @click="showPDPanel = !showPDPanel" style="cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,0.4)">
+        <div class="pie-section-header" @click="showPDPanel = !showPDPanel">
           <h3 style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em">Palavras Desconhecidas</h3>
           <span v-if="pdList.length" class="text-[10px] text-slate-400">({{ pdList.length }})</span>
           <span style="font-size:0.7rem;color:var(--muted)">{{ showPDPanel ? '\u2212' : '+' }}</span>
@@ -210,13 +164,13 @@
         <div class="mb-5 anim-fade-in-up">
           <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 1</p>
           <textarea v-model="resposta1" rows="7"
-            class="fill-input" placeholder="Escreva a sua resposta aqui..."></textarea>
+            class="input-field" placeholder="Escreva a sua resposta aqui..."></textarea>
         </div>
 
         <div class="mb-5 anim-fade-in-up" style="animation-delay:0.05s">
           <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 2 <span v-if="selectedTopic !== null">— Tópico {{ ['A','B','C'][selectedTopic] }}</span></p>
           <textarea v-model="resposta2" rows="7"
-            class="fill-input"
+            class="input-field"
             :placeholder="selectedTopic !== null ? 'Escreva a sua resposta para o tópico ' + ['A','B','C'][selectedTopic] + '...' : 'Selecione um tópico primeiro...'"
             :disabled="selectedTopic === null"></textarea>
         </div>
@@ -224,13 +178,13 @@
         <div class="mb-5 anim-fade-in-up" style="animation-delay:0.1s">
           <p class="text-xs font-medium text-slate-600 mb-1.5">Parte 3</p>
           <textarea v-model="resposta3" rows="7"
-            class="fill-input" placeholder="Escreva a sua resposta aqui..."></textarea>
+            class="input-field" placeholder="Escreva a sua resposta aqui..."></textarea>
         </div>
 
         <!-- Submit -->
         <div v-if="!submitted && !loading" class="text-center mt-4 no-print anim-fade-in-up">
           <button @click="submitExam" :disabled="!canSubmit"
-                  class="btn-primary btn-click btn-glow btn-magnetic">Submeter para avaliação</button>
+                  class="btn-success btn-click btn-glow btn-magnetic">Submeter para avaliação</button>
         </div>
 
         <!-- Loading -->
@@ -241,18 +195,18 @@
 
         <!-- Results -->
         <div v-if="result" class="space-y-4">
-          <div class="exam-card card-hover text-center" style="padding:24px">
+          <div class="paper-card card-hover text-center" style="padding:24px">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-bold text-slate-700">Resultado</h3>
               <span class="text-3xl font-bold" :class="scoreColor">{{ result.pontuacao }}/100</span>
             </div>
             <div class="flex items-center justify-center gap-2 mb-3">
               <span class="text-xs text-slate-500">Nível estimado:</span>
-              <span class="glass-badge px-2 py-0.5 rounded text-xs font-bold border" :class="levelBadge">{{ result.nivel_estimado }}</span>
+              <span class="level-badge a1 px-2 py-0.5 rounded text-xs font-bold border" :class="levelBadge">{{ result.nivel_estimado }}</span>
             </div>
             <div class="p-4 rounded-lg bg-slate-50 text-sm text-slate-700 leading-relaxed whitespace-pre-line text-left">{{ result.comentario }}</div>
           </div>
-          <div v-if="result.sugestoes?.length" class="exam-card card-hover">
+          <div v-if="result.sugestoes?.length" class="paper-card card-hover">
             <h3 class="text-sm font-bold text-slate-700 mb-3">📈 Sugestões</h3>
             <ul class="space-y-2">
               <li v-for="(s, i) in result.sugestoes" :key="i" class="list-item-enter flex items-start gap-2 text-sm text-slate-600" :style="{ animationDelay: (i * 0.04) + 's' }">
@@ -261,7 +215,7 @@
               </li>
             </ul>
           </div>
-          <div v-if="result.palavras_desconhecidas?.length" class="exam-card card-hover">
+          <div v-if="result.palavras_desconhecidas?.length" class="paper-card card-hover">
             <h3 class="text-sm font-bold text-slate-700 mb-3">📖 Palavras Desconhecidas</h3>
             <div class="space-y-3">
               <div v-for="(pd, i) in result.palavras_desconhecidas" :key="i"
@@ -322,8 +276,10 @@
         selectedTopic: null,
         loading: false, submitted: false, result: null,
         timeLimit: 90, timeRemaining: 5400, timerInterval: null, timerExpired: false,
-        showPDPanel: false,
+        showPDPanel: true,
         palavrasDesconhecidas: {},
+        splitPos: 50,
+        dragActive: false,
       }
     },
     computed: {
@@ -352,6 +308,17 @@
         if (p >= 70) return 'text-azulejo'
         if (p >= 55) return 'text-lisboa'
         return 'text-erro'
+      },
+      levelBadgeClass() {
+        const m = {
+          'A1': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          'A2': 'bg-teal-50 text-teal-700 border-teal-200',
+          'B1': 'bg-sky-50 text-sky-700 border-sky-200',
+          'B2': 'bg-indigo-50 text-indigo-700 border-indigo-200',
+          'C1': 'bg-violet-50 text-violet-700 border-violet-200',
+          'C2': 'bg-rose-50 text-rose-700 border-rose-200',
+        }
+        return m[this.exam?.level] || 'bg-slate-100 text-slate-600'
       },
       pdList() { return Object.values(this.palavrasDesconhecidas) },
       reescritaItems() {
@@ -463,6 +430,29 @@
         try { const raw = localStorage.getItem('PT_LEARNING_DATA'); if (!raw) return null; return JSON.parse(raw)?.config?.deepseekKey || null }
         catch { return null }
       },
+      /* ═══ Split divider ═══ */
+      onDividerDown(e) {
+        this.dragActive = true
+        document.body.style.cursor = 'col-resize'
+        document.body.style.userSelect = 'none'
+        window.addEventListener('mousemove', this._onDividerMove)
+        window.addEventListener('mouseup', this._onDividerUp)
+      },
+      _onDividerMove(e) {
+        if (!this.dragActive) return
+        const bd = document.querySelector('.exam-paper-body')
+        if (!bd) return
+        const r = bd.getBoundingClientRect()
+        this.splitPos = Math.max(25, Math.min(75, Math.round((e.clientX - r.left) / r.width * 100)))
+      },
+      _onDividerUp() {
+        if (!this.dragActive) return
+        this.dragActive = false
+        document.body.style.cursor = ''
+        document.body.style.userSelect = ''
+        window.removeEventListener('mousemove', this._onDividerMove)
+        window.removeEventListener('mouseup', this._onDividerUp)
+      },
       closeWin() { window.close() },
       goBack() { window.close() },
     },
@@ -484,6 +474,17 @@
         }
       }, 1000)
       this.$nextTick(() => lucide.createIcons())
+      // GSAP entrance animation
+      if (typeof gsap !== 'undefined') {
+        const header = document.querySelector('.exam-header')
+        const body = document.querySelector('.exam-paper-body')
+        const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.4 } })
+        if (header) tl.from(header, { y: -12, opacity: 0 })
+        if (body) {
+          const content = body.querySelectorAll('.paper-card, .topic-opt, textarea')
+          if (content.length) tl.from(content, { y: 10, opacity: 0, stagger: 0.04, duration: 0.35 }, '-=0.2')
+        }
+      }
     },
     updated() { this.$nextTick(() => lucide.createIcons()) },
     beforeUnmount() { if (this.timerInterval) clearInterval(this.timerInterval) },

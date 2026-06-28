@@ -168,7 +168,7 @@ const ExamAPI = (() => {
    * Returns: { questions: [...all], parts: [5 with sourceText, qStart, count], examDifficulty: 95, examDuration: 90 }
    * Each of the 5 parts has its own article text + questions.
    */
-  async function generateExam(text, level, apiKey) {
+  async function generateExam(text, level, apiKey, signal) {
     if (!apiKey) throw new Error('Chave API DeepSeek não configurada')
     if (!text.trim()) throw new Error('Texto de origem vazio')
 
@@ -208,11 +208,8 @@ const ExamAPI = (() => {
       C2: 'NÍVEL C2 — USA domínio total dos tempos verbais, vocabulário erudito, expressões idiomáticas raras, ironia, linguagem figurada, temas abstratos.',
     }
 
-    // ─── Loop: generate 1 part at a time ───
-    const allQuestions = []
-    const parts = []
-
-    for (let pi = 0; pi < 5; pi++) {
+    // ─── Generate all 5 parts in PARALLEL ───
+    const partResults = await Promise.all([0,1,2,3,4].map(async (pi) => {
       const partNum = pi + 1
       const qCount = s.qPerPart[pi]
       const qType = s.types[pi]
@@ -269,6 +266,7 @@ const ExamAPI = (() => {
       let partResult = null
       for (let attempt = 0; attempt < 3; attempt++) {
         const res = await fetch(BASE, {
+          signal,
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
@@ -278,15 +276,13 @@ const ExamAPI = (() => {
               { role: 'user', content: attempt === 0 ? partUserPrompt : (partUserPrompt + ' ATENÇÃO: a tentativa anterior falhou. Gera APENAS JSON válido no formato exato pedido. NÃO uses perguntas-placeholder ("Pergunta em falta", "gerada automaticamente").') },
             ],
             temperature: attempt === 0 ? 0.7 : 0.5,
-            max_tokens: 8192,
+            max_tokens: 4096,
           }),
         })
         if (!res.ok) throw new Error(`API erro ${res.status} (Parte ${partNum})`)
         const data = await res.json()
         const content = data.choices?.[0]?.message?.content
         if (!content) { if (attempt < 2) continue; throw new Error(`Resposta vazia (Parte ${partNum})`) }
-        // DEBUG: log raw response for diagnosis
-        console.log(`Parte ${partNum} raw (first 200):`, (content || '').substring(0, 200))
         try {
           partResult = parseJSON(content)
           break
@@ -301,13 +297,22 @@ const ExamAPI = (() => {
         throw new Error(`Resposta incompleta na Parte ${partNum}: sem sourceText ou questions`)
       }
 
-      // Validate word count for this article (soft warning, not fatal)
+      // Validate word count (soft warning)
       const articleWords = (partResult.sourceText || '').split(/\s+/).filter(w => w.length > 0).length
       if (articleWords < s.minGenWords) {
-        console.warn(`Artigo ${partNum}: ${articleWords} palavras (mínimo: ${s.minGenWords}). Outros artigos podem compensar.`)
+        console.warn(`Artigo ${partNum}: ${articleWords} palavras (mínimo: ${s.minGenWords}).`)
       }
 
-      // Add part metadata and difficulty to questions
+      return { pi, partNum, qCount, qType, typeName, partResult }
+    }))
+
+    // Sort by part number (ensure correct order)
+    partResults.sort((a, b) => a.pi - b.pi)
+
+    // Merge in order
+    const allQuestions = []
+    const parts = []
+    for (const { pi, partNum, qCount, qType, typeName, partResult } of partResults) {
       const partQuestions = (partResult.questions || []).slice(0, qCount).map((q, qi) => ({
         ...q,
         type: qType,
@@ -352,7 +357,7 @@ const ExamAPI = (() => {
     return { questions: allQuestions, parts, examDifficulty, examDuration }
   }
 
-  async function generateCOExam(transcript, level, apiKey) {
+  async function generateCOExam(transcript, level, apiKey, signal) {
     if (!apiKey) throw new Error('Chave API DeepSeek não configurada')
     if (!transcript.trim()) throw new Error('Transcrição vazia')
 
@@ -400,6 +405,7 @@ const ExamAPI = (() => {
     const userPrompt = `Transcrição:\n${transcript}\nNível: ${level}\nGera ${structure.totalQs} perguntas CO com dificuldade >= 90.`
 
     const res = await fetch(BASE, {
+      signal,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }], temperature: 0.5, max_tokens: 12288 }),
@@ -442,7 +448,7 @@ const ExamAPI = (() => {
     return { questions, parts, examDifficulty }
   }
 
-  async function generatePIEExam(level, apiKey) {
+  async function generatePIEExam(level, apiKey, signal) {
     if (!apiKey) throw new Error('Chave API DeepSeek não configurada')
     const levelInfo = {
       A1: { name: 'ACESSO (A1)', duration: '20 min', wc1: '40–60', wc2: '40–60', wc3: '30–50', desc: 'Iniciação.' },
@@ -509,6 +515,7 @@ const ExamAPI = (() => {
     const userPrompt = `Gera exame PIE ${level} (${info.duration}, ${info.wc1}/${info.wc2}/${info.wc3} palavras). Dificuldade >= 95.`
 
     const res = await fetch(BASE, {
+      signal,
       method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }], temperature: 0.8, max_tokens: 4000 }),
     })
@@ -528,6 +535,7 @@ const ExamAPI = (() => {
     const userContent = `Texto:\n${(sourceText || '').slice(0, 2000)}\n\nErros:\n${JSON.stringify(onlyWrong, null, 2)}`
     try {
       const res = await fetch(BASE, {
+        signal,
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
         body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userContent }], temperature: 0.3, max_tokens: 3000 }),
       })

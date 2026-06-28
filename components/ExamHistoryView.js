@@ -115,6 +115,10 @@ const ExamHistoryView = {
           </div>
           <div class="flex items-center gap-2">
             <span v-if="entry._type==='CL'||entry._type==='CO'||entry._type==='PIE'" class="px-2 py-0.5 rounded text-xs font-medium" :class="gradeBg(entry.percent)">{{ gradeLabel(entry.percent) }}</span>
+            <!-- Review button for CL exam results -->
+            <button v-if="entry._type==='CL' && entry.examId && !entry._saved" @click.stop="reverExame(entry)" class="btn-click px-2 py-1 text-xs font-medium text-azulejo border border-blue-200 rounded hover:bg-blue-50 transition" title="Rever exame">
+              <i data-lucide="eye" class="w-3 h-3 inline mr-0.5"></i>Rever
+            </button>
             <button v-if="entry._saved" @click.stop="apagarExame(entry)" class="btn-click px-2 py-1 text-xs font-medium text-erro border border-red-200 rounded hover:bg-red-50 transition" title="Apagar exame">
               <i data-lucide="trash-2" class="w-3 h-3 inline"></i>
             </button>
@@ -334,6 +338,28 @@ const ExamHistoryView = {
           window.open('cl_exam.html', '_blank')
         }
       } catch(e) { alert('Erro ao reabrir: ' + e.message) }
+    },
+
+    /** Open a completed CL exam in review mode (left=text, right=review) */
+    reverExame(entry) {
+      try {
+        const reviewKey = 'CL_REVIEW_' + entry.examId
+        const raw = localStorage.getItem(reviewKey)
+        if (!raw) { alert('Dados de revisão não encontrados para este exame.'); return }
+        const snap = JSON.parse(raw)
+        // Set the exam data for cl_exam.html to load
+        localStorage.setItem('CL_CURRENT_EXAM', JSON.stringify(snap.exam))
+        // Set review state so cl_exam.html auto-shows results
+        localStorage.setItem('CL_REVIEW_STATE', JSON.stringify({
+          examId: entry.examId,
+          userAnswers: snap.userAnswers,
+          graded: snap.graded,
+          questionWeights: snap.questionWeights,
+          weightedScore: snap.weightedScore,
+          weightedPercent: snap.weightedPercent,
+        }))
+        window.open('cl_exam.html', '_blank')
+      } catch(e) { alert('Erro ao abrir revisão: ' + e.message) }
     },
 
     apagarExame(entry) {

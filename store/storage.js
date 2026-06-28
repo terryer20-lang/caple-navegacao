@@ -83,7 +83,16 @@ const EBBINGHAUS_INTERVALS = [1, 2, 4, 7, 15, 30]
 const PTStore = Vue.reactive({
   data: Storage.init(),
 
-  save() { Storage.saveRaw(this.data) },
+  save() {
+    Storage.saveRaw(this.data)
+    // 同步標記（SyncManager 加載後生效）
+    if (typeof SyncManager !== 'undefined' && SyncManager.markDirty) {
+      SyncManager.markDirty('vocab')
+      SyncManager.markDirty('wrong_words')
+      SyncManager.markDirty('favorites')
+      SyncManager.markDirty('stats')
+    }
+  },
 
   /* ─── 艾賓浩斯錯題本 ─── */
   /** 記錄一條錯題 */

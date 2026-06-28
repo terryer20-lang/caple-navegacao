@@ -38,12 +38,11 @@ const ConectoresView = {
               <div class="flex items-start justify-between gap-3 mb-2">
                 <div class="min-w-0">
                   <span class="text-sm font-semibold text-azulejo"
-                        @click="copyToClipboard(item.pt)" :title="'Copiar: ' + item.pt"
                         style="cursor:pointer">{{ item.pt }}</span>
                   <span class="text-xs text-slate-400 ml-2">{{ item.zh }}</span>
                 </div>
                 <button @click="openPractice(item)"
-                        class="shrink-0 btn-click btn-glow px-2.5 py-1 rounded text-[10px] font-medium glass-btn text-slate-500 hover:text-azulejo transition whitespace-nowrap">
+                        class="shrink-0 btn-click px-5 py-2 rounded-lg text-sm font-medium border border-azulejo/20 text-azulejo hover:bg-azulejo/5 transition whitespace-nowrap">
                   ✍ Praticar
                 </button>
               </div>

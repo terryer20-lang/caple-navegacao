@@ -72,6 +72,7 @@ const PIEView = {
         <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-azulejo border-t-transparent mb-4 spin-loader" style="border-top-color:var(--accent);border-color:rgba(26,123,181,0.3)"></div>
         <p class="text-slate-600 font-medium">{{ loadingMsg }}</p>
         <p class="text-xs text-slate-400 mt-1">DeepSeek está a preparar o exame PIE com dificuldade ≥ 90.</p>
+        <p v-if="loadingTimeLimit" class="text-xs font-mono mt-2" :class="loadingTimeRemaining <= 30 ? 'text-erro' : 'text-slate-400'">⏱ {{ loadingTimerDisplay }}</p>
       </div>
 
       <!-- ═══ CEFR RESULT ═══ -->
@@ -135,6 +136,8 @@ const PIEView = {
       examReady: false,
       loading: false,
       loadingMsg: '',
+      loadingTimeLimit: 0,
+      loadingTimeRemaining: 0,
       cefrResult: null,
       showCefrWarning: false,
       _pendingCefrLevel: null,
@@ -175,6 +178,11 @@ const PIEView = {
       if (isNaN(p)) return ''
       return p >= 80 ? 'text-certo' : p >= 60 ? 'text-lisboa' : 'text-erro'
     },
+    loadingTimerDisplay() {
+      const m = Math.floor(this.loadingTimeRemaining / 60)
+      const s = this.loadingTimeRemaining % 60
+      return m + ':' + String(s).padStart(2, '0')
+    },
   },
 
   methods: {
@@ -184,6 +192,14 @@ const PIEView = {
       this.loading = true
       this.stage = 'loading'
       const apiKey = PTStore.data.config.deepseekKey
+      // Start countdown timer based on level
+      const timeLimits = { A1: 60, A2: 60, B1: 120, B2: 120, C1: 180, C2: 180 }
+      this.loadingTimeLimit = timeLimits[this.selectedLevel] || 120
+      this.loadingTimeRemaining = this.loadingTimeLimit
+      if (this._loadingTimer) clearInterval(this._loadingTimer)
+      this._loadingTimer = setInterval(() => {
+        if (this.loadingTimeRemaining > 0) this.loadingTimeRemaining--
+      }, 1000)
       try {
         let text, clLevel = this.selectedLevel
         this.loadingMsg = 'A gerar texto nível ' + clLevel + '...'
@@ -198,6 +214,7 @@ const PIEView = {
           C2: 'globalizacao, filosofia, arte, justica, diplomacia, inovacao, identidade cultural',
         }
         const textRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+          signal: AbortSignal.timeout(60000),
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
@@ -218,6 +235,7 @@ const PIEView = {
         // 2. Classify via CEFR API
         this.loadingMsg = 'A classificar QECR do texto gerado...'
         const cefrGenRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+          signal: AbortSignal.timeout(60000),
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
@@ -232,6 +250,8 @@ const PIEView = {
         })
         const cefrGenData = await cefrGenRes.json()
         this.cefrResult = parseJSON(cefrGenData.choices?.[0]?.message?.content || '')
+        // Força o nível do CEFR a corresponder ao nível selecionado pelo utilizador
+        if (this.cefrResult) this.cefrResult.nivel = clLevel
 
         clLevel = this.selectedLevel
 
@@ -247,17 +267,18 @@ const PIEView = {
 
         // 3. Generate PIE exam
         this.loadingMsg = 'A gerar exame PIE...'
-        const result = await ExamAPI.generatePIEExam(clLevel, apiKey)
+        const result = await ExamAPI.generatePIEExam(clLevel, apiKey, AbortSignal.timeout(60000))
         this._onExamGenerated(result, clLevel, text)
       } catch (e) {
+        console.error('generateExam error:', e.message)
+        if (this._loadingTimer) { clearInterval(this._loadingTimer); this._loadingTimer = null }
         this.stage = 'input'
-        alert('Erro ao gerar exame: ' + e.message)
-      } finally {
         this.loading = false
       }
     },
 
     _onExamGenerated(result, clLevel, text) {
+      if (this._loadingTimer) { clearInterval(this._loadingTimer); this._loadingTimer = null }
       this.examTitle = result.titulo || ('Exame PIE ' + clLevel)
       this.examDifficulty = result.examDifficulty
       this.lastDuration = result.duracao || result.duration || this.levelInfo[clLevel]?.duracao || '90 min'
@@ -289,8 +310,10 @@ const PIEView = {
       }
       this._lastExamData = examData
 
-      // Auto-save + download
-      this.guardarExame()
+      // Auto-save
+      this.salvarExame()
+      // Download uma única vez
+      this.descarregarExame()
 
       try {
         localStorage.setItem('PIE_CURRENT_EXAM', JSON.stringify(examData))
@@ -300,7 +323,7 @@ const PIEView = {
       } catch (e) { console.warn('Erro ao abrir janela:', e) }
     },
 
-    guardarExame() {
+    salvarExame() {
       const data = this._lastExamData
       if (!data) return
       try {
@@ -311,6 +334,10 @@ const PIEView = {
           localStorage.setItem('SEMEDO_SAVED_EXAMS', JSON.stringify(saved))
         }
       } catch {}
+    },
+    descarregarExame() {
+      const data = this._lastExamData
+      if (!data) return
       try {
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
         const url = URL.createObjectURL(blob)
@@ -322,6 +349,10 @@ const PIEView = {
         document.body.removeChild(a)
         URL.revokeObjectURL(url)
       } catch (e) { console.warn('Erro ao descarregar JSON:', e) }
+    },
+    guardarExame() {
+      this.salvarExame()
+      this.descarregarExame()
     },
 
     openExamWindow() {
@@ -353,13 +384,23 @@ const PIEView = {
       this.stage = 'loading'
       const apiKey = PTStore.data.config.deepseekKey
       this.loadingMsg = 'A gerar exame PIE...'
+      // Start countdown timer based on level
+      const timeLimits = { A1: 60, A2: 60, B1: 120, B2: 120, C1: 180, C2: 180 }
+      this.loadingTimeLimit = timeLimits[clLevel] || 120
+      this.loadingTimeRemaining = this.loadingTimeLimit
+      if (this._loadingTimer) clearInterval(this._loadingTimer)
+      this._loadingTimer = setInterval(() => {
+        if (this.loadingTimeRemaining > 0) this.loadingTimeRemaining--
+      }, 1000)
       try {
-        const result = await ExamAPI.generatePIEExam(clLevel, apiKey)
+        const result = await ExamAPI.generatePIEExam(clLevel, apiKey, AbortSignal.timeout(60000))
         this._onExamGenerated(result, clLevel, text)
       } catch (e) {
+        console.error('_continueGenerate error:', e.message)
         this.stage = 'input'
-        alert('Erro: ' + e.message)
-      } finally { this.loading = false }
+      } finally {
+        this.loading = false
+      }
     },
 
     openConfig() { window.dispatchEvent(new CustomEvent('open-config')) },

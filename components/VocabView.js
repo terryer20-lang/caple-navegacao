@@ -3,7 +3,7 @@
  */
 const VocabView = {
   template: `
-    <div class="p-6 max-w-3xl mx-auto">
+    <div class="p-6 max-w-3xl mx-auto anim-enter">
 
       <!-- ═══ HEADER ═══ -->
       <div class="flex items-center justify-between mb-4">

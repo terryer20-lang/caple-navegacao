@@ -1,0 +1,20 @@
+{
+  "name": "semedo-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Semedo Sync Backend — Tencent SCF + Express 5 + MySQL",
+  "main": "scf_bootstrap.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.0",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "serverless-http": "^3.2.0"
+  }
+}

@@ -64,6 +64,7 @@ const ExamView = {
         <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-azulejo border-t-transparent mb-4 spin-loader" style="border-top-color:var(--accent);border-color:rgba(26,123,181,0.3)"></div>
         <p class="text-slate-600 font-medium">{{ loadingMsg }}</p>
         <p class="text-xs text-slate-400 mt-1">DeepSeek está a preparar perguntas no formato CAPLE CL.</p>
+        <p v-if="loadingTimeLimit" class="text-xs font-mono mt-2" :class="loadingTimeRemaining <= 30 ? 'text-erro' : 'text-slate-400'">⏱ {{ loadingTimerDisplay }}</p>
       </div>
 
       <!-- CEFR Result (info only) -->
@@ -153,6 +154,8 @@ const ExamView = {
       examReady: false,
       loading: false,
       loadingMsg: '',
+      loadingTimeLimit: 0,
+      loadingTimeRemaining: 0,
       cefrResult: null,
       _lastExamData: null,
       levels: [
@@ -190,6 +193,11 @@ const ExamView = {
       if (isNaN(p)) return ''
       return p >= 80 ? 'text-certo' : p >= 60 ? 'text-lisboa' : 'text-erro'
     },
+    loadingTimerDisplay() {
+      const m = Math.floor(this.loadingTimeRemaining / 60)
+      const s = this.loadingTimeRemaining % 60
+      return m + ':' + String(s).padStart(2, '0')
+    },
   },
 
   methods: {
@@ -202,6 +210,14 @@ const ExamView = {
       this.loading = true
       this.stage = 'loading'
       const apiKey = PTStore.data.config.deepseekKey
+      // Start countdown timer based on level
+      const timeLimits = { A1: 60, A2: 60, B1: 120, B2: 120, C1: 180, C2: 180 }
+      this.loadingTimeLimit = timeLimits[this.selectedLevel] || 120
+      this.loadingTimeRemaining = this.loadingTimeLimit
+      if (this._loadingTimer) clearInterval(this._loadingTimer)
+      this._loadingTimer = setInterval(() => {
+        if (this.loadingTimeRemaining > 0) this.loadingTimeRemaining--
+      }, 1000)
       try {
         let text, clLevel = this.selectedLevel
         this.loadingMsg = 'A gerar texto nível ' + clLevel + '...'
@@ -214,6 +230,7 @@ const ExamView = {
           C2: 'globalizacao, justica, filosofia, arte, inovacao, diplomacia',
         }
         const textRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+          signal: AbortSignal.timeout(60000),
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
@@ -234,6 +251,7 @@ const ExamView = {
         // Classify the generated text (QECR ≥ 90 obrigatório)
         this.loadingMsg = 'A classificar QECR do texto gerado...'
         const cefrGenRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+          signal: AbortSignal.timeout(60000),
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
           body: JSON.stringify({
@@ -276,6 +294,7 @@ const ExamView = {
               : `Gera texto nível ${clLevel}. ${strictTopics}`
             try {
               const retryRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                signal: AbortSignal.timeout(60000),
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                 body: JSON.stringify({
@@ -294,6 +313,7 @@ const ExamView = {
               if (!retryText || retryText.length < 200) continue
               // Re-classify
               const cefrRetryRes = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                signal: AbortSignal.timeout(60000),
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                 body: JSON.stringify({
@@ -320,10 +340,7 @@ const ExamView = {
             } catch { continue }
           }
           if (!success) {
-            this.stage = 'input'
-            alert(`O gerador AI produziu texto com pontuação ${this.cefrResult?.pontuacao || 'baixa'}/100 para nível ${clLevel} após várias tentativas. Tente novamente ou escolha um nível diferente.`)
-            this.loading = false
-            return
+            throw new Error(`Texto gerado com pontuação QECR baixa (${this.cefrResult?.pontuacao || '?'}/100) para nível ${clLevel} após várias tentativas`)
           }
         }
 
@@ -335,7 +352,7 @@ const ExamView = {
         const maxRetries = 3
         while (retries < maxRetries) {
           try {
-            result = await ExamAPI.generateExam(text, clLevel, apiKey)
+            result = await ExamAPI.generateExam(text, clLevel, apiKey, AbortSignal.timeout(60000))
             break // success
           } catch (e) {
             if ((e.message.includes('perguntas-placeholder') || e.message.includes('Contagem insuficiente') || e.message.includes('Resposta incompleta na Parte')) && retries < maxRetries - 1) {
@@ -348,20 +365,15 @@ const ExamView = {
         }
         this._onExamGenerated(result, clLevel, text)
       } catch (e) {
-        console.error('generateExam final error:', e.message)
-        if (e.message.includes('perguntas-placeholder') || e.message.includes('Contagem insuficiente')) {
-          this.stage = 'input'
-          alert(`O gerador AI produziu perguntas inválidas ou texto demasiado curto após 3 tentativas. Tente novamente mais tarde ou escolha um nível diferente.\n\nErro: ${e.message}`)
-        } else {
-          this.stage = 'input'
-          alert('Erro ao gerar exame: ' + e.message)
-        }
-      } finally {
+        console.error('generateExam error:', e.message)
+        if (this._loadingTimer) { clearInterval(this._loadingTimer); this._loadingTimer = null }
+        this.stage = 'input'
         this.loading = false
       }
     },
 
     _onExamGenerated(result, clLevel, text) {
+      if (this._loadingTimer) { clearInterval(this._loadingTimer); this._loadingTimer = null }
       this.questions = result.questions
       this.examParts = result.parts
       this.examDifficulty = result.examDifficulty
@@ -393,8 +405,10 @@ const ExamView = {
         `P${i+1}: ${((p.sourceText || '').substring(0, 30)).replace(/\n/g, ' ')}`
       ).join(' | ')
       console.log('DEBUG parts:', debugInfo)
-      // Auto-save: guardar para Revisão + download JSON
-      this.guardarExame()
+      // Auto-save: guardar para Revisão
+      this.salvarExame()
+      // Download uma única vez
+      this.descarregarExame()
 
       try {
         localStorage.setItem('CL_CURRENT_EXAM', JSON.stringify(examData))
@@ -408,11 +422,10 @@ const ExamView = {
       try { window.open('cl_exam.html', '_blank') } catch (e) { console.warn('Erro ao abrir:', e) }
     },
 
-    /** Guardar exame: save to localStorage + download JSON */
-    guardarExame() {
+    /** Guardar exame: save to localStorage */
+    salvarExame() {
       const data = this._lastExamData
-      if (!data) { alert('Nenhum exame para guardar.'); return }
-      // Save full data to localStorage for Revisão reopening
+      if (!data) return
       try {
         localStorage.setItem('SEMEDO_SAVED_FULL_' + data.examId, JSON.stringify(data))
         const saved = JSON.parse(localStorage.getItem('SEMEDO_SAVED_EXAMS') || '[]')
@@ -421,16 +434,26 @@ const ExamView = {
           localStorage.setItem('SEMEDO_SAVED_EXAMS', JSON.stringify(saved))
         }
       } catch {}
-      // Download JSON file
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = data.examId + '.json'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
+    },
+    /** Download JSON file */
+    descarregarExame() {
+      const data = this._lastExamData
+      if (!data) return
+      try {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = data.examId + '.json'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      } catch (e) { console.warn('Erro ao descarregar JSON:', e) }
+    },
+    guardarExame() {
+      this.salvarExame()
+      this.descarregarExame()
     },
 
     resetExam() {
@@ -476,7 +499,7 @@ const ExamView = {
         const maxRetries = 3
         while (retries < maxRetries) {
           try {
-            result = await ExamAPI.generateExam(text, clLevel, apiKey)
+            result = await ExamAPI.generateExam(text, clLevel, apiKey, AbortSignal.timeout(60000))
             break
           } catch (e) {
             if ((e.message.includes('perguntas-placeholder') || e.message.includes('perguntas reais') || e.message.includes('Contagem insuficiente') || e.message.includes('Resposta incompleta na Parte')) && retries < maxRetries - 1) {

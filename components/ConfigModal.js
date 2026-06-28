@@ -24,6 +24,50 @@ const ConfigModal = {
             <p class="text-xs text-slate-400 mt-1">Armazenada localmente. Nunca enviada a terceiros.</p>
           </div>
 
+          <!-- ═══ SYNC / CONTA ═══ -->
+          <div class="mb-5 p-4 rounded-lg border border-blue-200 bg-blue-50/40">
+            <p class="text-xs font-bold text-azulejo uppercase tracking-wider mb-2">Sincronização</p>
+
+            <!-- 未登入：登錄表單 -->
+            <template v-if="!syncLoggedIn">
+              <div class="flex gap-2 mb-2">
+                <input type="email" v-model="syncEmail" placeholder="Email"
+                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo">
+                <input type="password" v-model="syncPassword" placeholder="Password"
+                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo"
+                       @keydown.enter="doLogin">
+              </div>
+              <div class="flex gap-2">
+                <input type="url" v-model="syncApiUrl" placeholder="API URL"
+                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo">
+              </div>
+              <div class="flex gap-2 mt-2">
+                <button @click="doLogin"
+                        class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 transition btn-glow btn-magnetic">Entrar</button>
+                <button @click="doRegister"
+                        class="px-4 py-2 text-xs font-medium glass-btn text-slate-600 rounded-lg border hover:bg-slate-50 transition">Registar</button>
+              </div>
+              <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
+            </template>
+
+            <!-- 已登入：顯示用戶信息 -->
+            <template v-else>
+              <p class="text-xs text-slate-600 mb-2">
+                <i data-lucide="check-circle" class="inline w-3.5 h-3.5 text-certo mr-1"></i>
+                {{ syncUser?.email }}
+              </p>
+              <div class="flex gap-2">
+                <button @click="doSync"
+                        class="px-4 py-2 text-xs font-medium bg-certo text-white rounded-lg hover:bg-green-800 transition btn-glow btn-magnetic">
+                  <i data-lucide="refresh-cw" class="inline w-3.5 h-3.5 mr-1"></i>Sincronizar agora
+                </button>
+                <button @click="doLogout"
+                        class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Sair</button>
+              </div>
+              <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
+            </template>
+          </div>
+
           <!-- ═══ REPOR VOCABULÁRIO ═══ -->
           <div class="mb-5 p-4 rounded-lg border border-amber-200 bg-amber-50/40">
             <p class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Vocabulário</p>
@@ -74,13 +118,75 @@ const ConfigModal = {
       local: { ...PTStore.data.config },
       confirmReset: false,
       confirmVocabReset: false,
+      syncEmail: '',
+      syncPassword: '',
+      syncApiUrl: SyncManager ? SyncManager.getApiUrl() : '',
+      syncMsg: '',
+      syncMsgType: '',
     }
+  },
+  computed: {
+    syncLoggedIn() { return SyncManager && SyncManager.isLoggedIn() },
+    syncUser() { return SyncManager && SyncManager.getUser() },
   },
   watch: {
     show(val) { if (val) { this.local = { ...PTStore.data.config }; this.confirmReset = false; this.confirmVocabReset = false } },
   },
   methods: {
     guardar() { PTStore.updateConfig(this.local); this.$emit('close') },
+
+    // ─── Sync Methods ───
+    async doLogin() {
+      this.syncMsg = ''
+      this.syncMsgType = ''
+      if (!this.syncEmail || !this.syncPassword) {
+        this.syncMsg = 'Email e password são obrigatórios'; this.syncMsgType = 'erro'; return
+      }
+      try {
+        if (this.syncApiUrl) SyncManager.setApiUrl(this.syncApiUrl)
+        await SyncManager.login(this.syncEmail, this.syncPassword)
+        this.syncMsg = 'Login efetuado com sucesso! A sincronizar...'
+        this.syncMsgType = 'ok'
+        this.syncPassword = ''
+        // 登入後立即拉取數據
+        await SyncManager.pullAll()
+        this.syncMsg = 'Dados sincronizados!'
+      } catch (e) {
+        this.syncMsg = e.message; this.syncMsgType = 'erro'
+      }
+    },
+    async doRegister() {
+      this.syncMsg = ''
+      this.syncMsgType = ''
+      if (!this.syncEmail || !this.syncPassword) {
+        this.syncMsg = 'Email e password são obrigatórios'; this.syncMsgType = 'erro'; return
+      }
+      try {
+        if (this.syncApiUrl) SyncManager.setApiUrl(this.syncApiUrl)
+        await SyncManager.register(this.syncEmail, this.syncPassword)
+        this.syncMsg = 'Conta criada! Dados sincronizados.'
+        this.syncMsgType = 'ok'
+        this.syncPassword = ''
+      } catch (e) {
+        this.syncMsg = e.message; this.syncMsgType = 'erro'
+      }
+    },
+    doLogout() {
+      SyncManager.logout()
+      this.syncMsg = 'Sessão terminada.'
+      this.syncMsgType = 'ok'
+    },
+    async doSync() {
+      this.syncMsg = 'A sincronizar...'
+      this.syncMsgType = ''
+      try {
+        await SyncManager.sync()
+        this.syncMsg = 'Sincronização completa!'
+        this.syncMsgType = 'ok'
+      } catch (e) {
+        this.syncMsg = 'Erro: ' + e.message; this.syncMsgType = 'erro'
+      }
+    },
     resetVocab() {
       try {
         localStorage.removeItem('UPLOADED_VOCAB_DATA')
@@ -110,6 +216,15 @@ const ConfigModal = {
           Object.assign(PTStore.data, defaults)
           PTStore.save()
         }
+        // ─── Clear all SEMEDO exam records ───
+        const keysToRemove = []
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i)
+          if (k && (k.startsWith('SEMEDO_') || k === 'CL_CURRENT_EXAM' || k === 'PIE_CURRENT_EXAM')) {
+            keysToRemove.push(k)
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k))
         this.confirmReset = false
         this.$emit('close')
         // Force page reload to refresh all views

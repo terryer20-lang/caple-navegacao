@@ -13,6 +13,8 @@ const STATIC_ASSETS = [
   'store/storage.js',
   'utils/diacritics.js',
   'utils/api.js',
+  'utils/sync.js',
+  'utils/animation.js',
   'data/conectores.js',
   'data/dict_vocab_data.js',
   'data/uploaded_qecr_data.js',

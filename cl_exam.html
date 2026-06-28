@@ -11,211 +11,43 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{colors:{azulejo:'#1a7bb5',porto:'#8b2252',lisboa:'#d4a843',certo:'#2d6a4f',erro:'#c1121f',gelo:'#f5f0ea'}}}}</script>
+  <link rel="stylesheet" href="styles/exam-paper.css">
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="store/storage.js"></script>
   <script src="components/HighlightNotes.js"></script>
+  <!-- Dictionary data for PD lookup -->
+  <script src="data/dict_vocab_data.js"></script>
+  <script src="data/dict_univ.js"></script>
   <style>
-    :root {
-      --line: #e2e8f0;
-      --panel: #ffffff;
-      --panel-alt: #f8fafc;
-      --text: #1e293b;
-      --muted: #94a3b8;
-      --accent: #1a7bb5;
-      --success: #2d6a4f;
-      --danger: #c1121f;
-      --shadow: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-lg: 0 4px 12px rgba(0,0,0,0.06);
+    /* CL-specific overrides on top of exam-paper.css */
+    .reading-text p { margin: 0; padding: 0; text-indent: 0; }
+    .reading-text p + p { margin-top: 1.2em; }
+
+    /* Fill input (for CL answers) */
+    .fill-input{width:100%;padding:10px 14px;border:1px solid var(--line-dark);border-radius:6px;font-size:0.92rem;transition:all 0.15s ease;background:var(--paper);color:var(--text-body)}
+    .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,123,181,0.08);outline:none}
+
+    /* Error detection items */
+    .error-item { margin-bottom: 8px; padding: 10px 12px; background: var(--paper-alt); border: 1px solid var(--line); border-radius: 4px; }
+
+    /* Reorder sequence */
+    .reorder-seq { border: 1px solid var(--line); background: var(--paper-alt); padding: 12px; border-radius: 4px; }
+
+    /* Text left/right panels */
+    .exam-left { border-right: 1px solid var(--line); background: var(--paper); }
+    .exam-right { background: var(--paper-warm); }
+
+    /* Part label badge in text area */
+    .text-part-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{font-size:15px}
-    body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(ellipse 80% 60% at 10% 85%,rgba(212,168,67,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 20%,rgba(26,123,181,0.08) 0%,transparent 60%),linear-gradient(165deg,#e8ddce 0%,#d6dbe3 40%,#cdd6e0 100%);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#cbd5e1,#b0bec5);border-radius:3px}
-    ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#94a3b8,#78909c)}
-
-    .exam-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:14px}
-    .exam-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 22px;background:rgba(255,255,255,0.94);border-bottom:1px solid var(--line);flex-shrink:0}
-    .exam-header h1{font-size:1.05rem;font-weight:700}
-    .exam-header .meta{font-size:0.75rem;color:var(--muted)}
-    .timer-display{font-size:1.15rem;font-weight:700;font-family:ui-monospace,monospace}
-    .timer-display.urgent{color:var(--danger);animation:pulse-soft 1s ease-in-out infinite}
-    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
-    .btn-submit{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .btn-submit:hover{background:#1b5e3d}.btn-submit:disabled{opacity:0.4;cursor:default}
-    .btn-ghost{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .btn-ghost:hover{background:#f1f5f9}
-    .btn-primary{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .btn-primary:hover{background:#15629a}
-    .split-divider{width:7px;cursor:col-resize;flex-shrink:0;background:transparent;position:relative;z-index:10;transition:background 0.12s}
-    .split-divider:hover,.split-divider.dragging{background:#e2e8f0}
-    .split-divider::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:28px;background:#cbd5e1;border-radius:2px;transition:background 0.12s}
-    .split-divider:hover::after,.split-divider.dragging::after{background:#94a3b8}
-    .diff-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:600}
-    .diff-badge-high{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
-    .diff-badge-med{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
-
-    /* ─── Part tabs ─── */
-    .part-tabs{display:flex;gap:4px;padding:8px 16px;border-bottom:1px solid var(--line);background:#fff;flex-shrink:0}
-    .part-tab{padding:5px 14px;border:1px solid var(--line);border-radius:6px;font-size:0.75rem;font-weight:600;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .part-tab:hover{background:#f1f5f9;border-color:#94a3b8}
-    .part-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 6px rgba(26,123,181,0.25)}
-    .part-tab.answered{background:#eff6ff;border-color:var(--accent);color:var(--accent)}
-    .part-dot{display:inline-block;width:6px;height:6px;margin-left:5px;vertical-align:middle}
-    .part-dot.done{background:var(--success)}
-    .part-dot.pending{background:#cbd5e1}
-
-    /* ─── Word-span rendering (CL) ─── */
-    .word-cl{cursor:pointer;padding:1px;transition:all 0.1s ease;white-space:pre-wrap}
-    .word-cl:hover{background:#dbeafe}
-    .word-space{padding:1px;white-space:pre}
-    .text-slate-700{text-indent:0!important}
-    .text-slate-700 p{margin:0;padding:0;text-indent:0;line-height:1.8}
-    .text-slate-700 p + p{margin-top:0.8em}
-    /* Angular highlights (no border-radius) */
-    .word-cl.hl-yellow{background:#fff7a0!important}
-    .word-cl.hl-blue{background:#93c5fd!important}
-    .word-cl.hl-pd{background:#fca5a5!important}
-    .word-space.hl-yellow{background:#fff7a0!important}
-    .word-space.hl-blue{background:#93c5fd!important}
-
-    /* ─── Selection popup ─── */
-    .hl-popup{position:fixed;z-index:1000;display:flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);padding:4px;transform:translateY(-100%)}
-    .hl-popup-btn{padding:6px 14px;font-size:0.78rem;font-weight:600;border:none;border-radius:6px;cursor:pointer;transition:all 0.1s ease}
-    .hl-popup-btn.destacar{background:#fef9c3;color:#854d0e}
-    .hl-popup-btn.destacar:hover{background:#fef08a}
-    .hl-popup-btn.notar{background:#dbeafe;color:#1e40af}
-    .hl-popup-btn.notar:hover{background:#bfdbfe}
-
-    /* ─── Right panel sections ─── */
-    .section-header{padding:10px 16px;border-bottom:1px solid var(--line);background:#fafbfc;flex-shrink:0;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
-    .section-header:hover{background:#f1f5f9}
-    .section-header h3{font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;pointer-events:none}
-    .section-header .section-toggle-icon{font-size:0.7rem;color:var(--muted);pointer-events:none}
-
-    .hl-card{padding:10px 14px;margin-bottom:6px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:0.82rem}
-    .hl-card .hl-text{font-style:italic;color:var(--text);margin-bottom:4px;line-height:1.4}
-    .hl-card .hl-note-input{width:100%;padding:5px 8px;border:1px solid #e2e8f0;border-radius:4px;font-size:0.78rem;background:#f8fafc;transition:all 0.1s ease}
-    .hl-card .hl-note-input:focus{border-color:var(--accent);outline:none;background:#fff}
-    .hl-card .hl-actions{display:flex;gap:6px;margin-top:6px}
-    .hl-card .hl-btn{padding:3px 10px;border:1px solid var(--line);border-radius:4px;font-size:0.7rem;font-weight:500;cursor:pointer;background:var(--panel);transition:all 0.1s ease;color:var(--text)}
-    .hl-card .hl-btn:hover{background:#f1f5f9}
-    .hl-card .hl-btn.danger{color:var(--danger);border-color:#fecaca}
-    .hl-card .hl-btn.danger:hover{background:#fef2f2}
-
-    .pd-card{padding:8px 14px;margin-bottom:4px;border:1px solid #fecaca;border-radius:6px;background:#fef2f2;font-size:0.82rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .pd-card .pd-word{font-weight:600;color:#991b1b}
-    .pd-card .pd-actions{display:flex;gap:4px}
-    .pd-card .pd-btn{padding:2px 8px;border:1px solid #fecaca;border-radius:4px;font-size:0.65rem;cursor:pointer;background:#fff;transition:all 0.1s ease;color:#991b1b}
-    .pd-card .pd-btn:hover{background:#fee2e2}
-
-    .hl-empty{padding:20px;text-align:center;font-size:0.78rem;color:#cbd5e1;font-style:italic}
-
-    /* ─── Question nav bar ─── */
-    .q-nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(255,255,255,0.96);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,0.04);z-index:100}
-    .q-nav-label{font-size:0.75rem;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:4px}
-    .q-nav-btns{display:flex;gap:6px;flex-wrap:wrap;flex:1}
-    .q-btn{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:0.8rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s ease}
-    .q-btn:hover{background:#f1f5f9;border-color:#94a3b8}
-    .q-btn.answered{background:#eff6ff;border-color:var(--accent);color:var(--accent)}
-    .q-btn.active{border-color:var(--accent);background:var(--accent);color:#fff;box-shadow:0 2px 6px rgba(26,123,181,0.25)}
-
-    .opt-label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all 0.12s ease;font-size:0.92rem}
-    .opt-label:hover{border-color:#94a3b8;background:#fafbfc}
-    .opt-label.selected{border-color:var(--accent);background:#eff6ff}
-    .opt-circle{width:24px;height:24px;border:2px solid #cbd5e1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;color:#94a3b8;flex-shrink:0;transition:all 0.12s ease}
-    .opt-label.selected .opt-circle{border-color:var(--accent);background:var(--accent);color:#fff}
-    .fill-input{width:100%;padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.92rem;transition:all 0.12s ease;background:#fff}
-    .fill-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,123,181,0.12);outline:none}
-    .match-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.92rem}
-    .match-item{min-width:5rem;color:#475569;font-weight:500}
-    .match-select{padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.82rem;background:#fff;flex:1}
-    .reorder-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:0.85rem;transition:all 0.12s ease}
-    .reorder-chip:hover{border-color:#94a3b8;background:#f8fafc}
-    .reorder-chip.selected{border-color:var(--accent);background:#eff6ff;color:var(--accent)}
-    .score-table{width:100%;border-collapse:collapse;font-size:0.82rem}
-    .score-table th{background:#f8fafc;padding:10px 12px;text-align:left;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line)}
-    .score-table td{padding:8px 12px;border-bottom:1px solid #f1f5f9}
-
-    @media print{.no-print{display:none!important}}
-    @media(max-width:800px){.exam-body{flex-direction:column!important}.exam-body .left,.exam-body .right{width:100%!important;min-width:0!important}}
-
-    /* ─── Glass morphism ─── */
-    .glass-base{background:rgba(255,255,255,0.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.3);box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-    .glass-card{background:rgba(255,255,255,0.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.4);box-shadow:0 2px 8px rgba(0,0,0,0.04);border-radius:10px}
-    .glass-card-strong{background:rgba(255,255,255,0.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 4px 16px rgba(0,0,0,0.06);border-radius:10px}
-    .glass-panel{background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.25);box-shadow:0 2px 12px rgba(0,0,0,0.04);border-radius:12px}
-    .glass-btn{background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);box-shadow:0 1px 4px rgba(0,0,0,0.04);border-radius:8px;cursor:pointer;transition:all 0.12s ease}
-    .glass-btn:hover{background:rgba(255,255,255,0.75)}
-    .glass-input{background:rgba(255,255,255,0.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);border-radius:8px;transition:all 0.12s ease}
-    .glass-input:focus{background:rgba(255,255,255,0.75);border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(26,123,181,0.1)}
-
-    /* ─── Animation keyframes ─── */
-    @keyframes fade-in-up{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
-    @keyframes bounce-in{0%{opacity:0;transform:scale(0.9)}50%{transform:scale(1.04)}70%{transform:scale(0.98)}100%{opacity:1;transform:scale(1)}}
-    @keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-3px)}20%,40%,60%,80%{transform:translateX(3px)}}
-    @keyframes pop{0%{opacity:0;transform:scale(0.85)}70%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
-    @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:0.5}}
-    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    @keyframes spin-loader{to{transform:rotate(360deg)}}
-    @keyframes ripple-burst{0%{transform:translate(-50%,-50%) scale(0);opacity:0.8}100%{transform:translate(-50%,-50%) scale(8);opacity:0}}
-
-    /* ─── Animation utility classes ─── */
-    .anim-fade-in-up{animation:fade-in-up 0.4s ease-out both}
-    .anim-bounce-in{animation:bounce-in 0.45s cubic-bezier(0.16,1,0.3,1) both}
-    .anim-shake{animation:shake 0.4s ease both}
-    .anim-pop{animation:pop 0.35s cubic-bezier(0.16,1,0.3,1) both}
-    .anim-pulse-soft{animation:pulse-soft 1s ease-in-out infinite}
-    .anim-fade-in{animation:fade-in-up 0.3s ease-out both}
-
-    /* Stagger helpers */
-    .stagger-1{animation-delay:0.04s!important}
-    .stagger-2{animation-delay:0.08s!important}
-    .stagger-3{animation-delay:0.12s!important}
-    .stagger-4{animation-delay:0.16s!important}
-    .stagger-5{animation-delay:0.2s!important}
-    .stagger-6{animation-delay:0.24s!important}
-    .stagger-7{animation-delay:0.28s!important}
-    .stagger-8{animation-delay:0.32s!important}
-
-    /* ─── Button micro-interactions ─── */
-    .btn-click:active{transform:scale(0.96)}
-    .nav-spring{transition:all 0.15s cubic-bezier(0.34,1.56,0.64,1)}
-    .nav-spring:active{transform:scale(0.96)}
-    .btn-glow{position:relative;overflow:hidden;isolation:isolate}
-    .btn-glow::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2) 0%,transparent 60%);opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:1}
-    .btn-glow:hover::before{opacity:1}
-    .btn-magnetic{transition:all 0.18s cubic-bezier(0.34,1.56,0.64,1)}
-    .btn-magnetic:hover{transform:translateY(-1px) scale(1.02)}
-
-    /* ─── Card hover effects ─── */
-    .card-hover{transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1)}
-    .card-hover:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.06)}
-    .card-hover-strong{transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1)}
-    .card-hover-strong:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
-
-    /* ─── Ripple effect ─── */
-    .ripple{position:relative;overflow:hidden;isolation:isolate}
-    .ripple::before{content:'';position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.3) 0%,transparent 70%);width:10px;height:10px;top:var(--ry,50%);left:var(--rx,50%);transform:translate(-50%,-50%) scale(0);pointer-events:none;z-index:1}
-    .ripple:active::before{animation:ripple-burst 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
-
-    /* ─── Loading spinner ─── */
-    .spin-loader{width:20px;height:20px;border:2.5px solid rgba(26,123,181,0.12);border-top-color:#1a7bb5;border-radius:50%;animation:spin-loader 0.6s linear infinite}
-
-    /* ─── Interactive element class additions ─── */
-    .btn-submit.btn-glow.btn-magnetic{padding:8px 18px;background:var(--success);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.18s cubic-bezier(0.34,1.56,0.64,1)}
-    .btn-primary.btn-glow.btn-magnetic{padding:8px 22px;background:var(--accent);color:#fff;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:all 0.18s cubic-bezier(0.34,1.56,0.64,1)}
-    .btn-ghost.btn-click{padding:6px 14px;border:1px solid var(--line);border-radius:8px;font-size:0.8rem;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .part-tab.btn-click{padding:5px 14px;border:1px solid var(--line);border-radius:6px;font-size:0.75rem;font-weight:600;color:var(--text);cursor:pointer;background:var(--panel);transition:all 0.12s ease}
-    .q-btn.btn-click{width:32px;height:32px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:0.8rem;font-weight:600;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s ease}
-    .hl-btn.btn-click{padding:3px 10px;border:1px solid var(--line);border-radius:4px;font-size:0.7rem;font-weight:500;cursor:pointer;background:var(--panel);transition:all 0.1s ease;color:var(--text)}
-    .opt-label.btn-click{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all 0.12s ease;font-size:0.92rem}
-    .pd-btn.btn-click{padding:2px 8px;border:1px solid #fecaca;border-radius:4px;font-size:0.65rem;cursor:pointer;background:#fff;transition:all 0.1s ease;color:#991b1b}
-
-    /* ─── Reduced motion ─── */
-    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
   </style>
 </head>
 <body>
@@ -232,50 +64,57 @@
   <!-- ═══ EXAM ═══ -->
   <div v-if="exam" class="flex-1 flex flex-col min-h-0">
 
-    <!-- Header -->
-    <header class="exam-header no-print">
-      <div>
-        <h1 class="text-slate-800">Compreensão da Leitura</h1>
-        <p class="meta">{{ exam.examId }} · {{ exam.level }} · {{ partsCount }} partes · {{ allQuestions.length }} perg.</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div class="text-right">
-          <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
-          <p class="text-[10px] text-slate-400">tempo restante</p>
+    <!-- Header — CAPLE exam cover style -->
+    <header class="exam-header no-print" style="flex-direction:column;align-items:stretch;gap:4px;padding:8px 24px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <h1 style="font-size:1rem;font-weight:700;color:var(--text-primary);text-transform:uppercase;letter-spacing:-0.01em">Compreensão da Leitura</h1>
+          <p class="meta" style="font-size:0.65rem;color:var(--text-muted);margin-top:1px">
+            <span class="level-badge" :class="exam.level?.toLowerCase()" style="display:inline-flex;align-items:center;padding:1px 6px;font-size:0.6rem;font-weight:700;border-radius:2px;letter-spacing:0.05em;text-transform:uppercase;vertical-align:middle;margin-right:6px">{{ exam.level }}</span>
+            {{ exam.examId }} · {{ partsCount }} partes · {{ allQuestions.length }} perg.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <p class="timer-display" :class="{ urgent: timerUrgent }">{{ timerDisplay }}</p>
+            <p class="text-[10px] text-slate-400">tempo restante</p>
+          </div>
         </div>
       </div>
     </header>
 
     <!-- Body: two-column -->
-    <div ref="examBody" class="exam-body flex-1 flex min-h-0 overflow-hidden">
+    <div ref="examBody" class="exam-paper-body" style="display:flex;flex-direction:row;flex:1;min-height:0;overflow:hidden;background:#fcfcf9">
 
       <!-- ═══ Left: Part tabs + text ═══ -->
-      <div class="left flex flex-col min-w-[300px] overflow-hidden border-r border-slate-200" :style="{width: splitPos + '%'}">
-        <!-- Part tabs -->
-        <div class="part-tabs no-print">
-          <button v-for="(pt, pi) in parts" :key="pi"
-                  class="part-tab" :class="partTabClass(pi)"
-                  @click="switchPart(pi)">
-            P{{ pi+1 }}
-            <span class="part-dot" :class="partDone(pi) ? 'done' : 'pending'"></span>
-          </button>
-        </div>
-        <!-- Text with word spans + selection handlers -->
-        <div class="flex items-center justify-between px-4 py-1 border-b border-slate-100 bg-white shrink-0">
-          <span class="text-[10px] text-slate-400">{{ currentWords.filter(w => !w.isNewline && !w.isSpace).length }} palavras</span>
-          <div class="flex items-center gap-1">
-            <button @click="fontSize = Math.max(11, fontSize - 1)" class="px-1.5 py-0.5 text-xs border border-slate-200 hover:bg-slate-100" title="Reduzir texto">A−</button>
-            <span class="text-[10px] text-slate-400 w-5 text-center">{{ fontSize }}</span>
-            <button @click="fontSize = Math.min(28, fontSize + 1)" class="px-1.5 py-0.5 text-xs border border-slate-200 hover:bg-slate-100" title="Aumentar texto">A+</button>
+      <div style="display:flex;flex-direction:column;min-width:300px;overflow:hidden;background:#ffffff;border-right:1px solid #e5e5e5;flex-shrink:0;padding-bottom:60px" :style="{flexBasis: splitPos + '%', maxWidth: splitPos + '%'}">
+        <!-- Toolbar: Part tabs + font size -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:#eef2f6;border-bottom:2px solid #94a3b8;min-height:44px;flex-shrink:0">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <button v-for="(pt, pi) in parts" :key="pi"
+                    style="padding:6px 18px;border:1px solid #cbd5e1;border-radius:4px;font-size:14px;font-weight:700;color:#1e293b;cursor:pointer;background:#ffffff;transition:all 0.1s"
+                    :style="partTabInline(pi)"
+                    @click="switchPart(pi)">
+              P{{ pi+1 }}
+              <span style="display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:5px;vertical-align:middle;background:#94a3b8" :style="partDotInline(pi)"></span>
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;margin-left:12px">
+            <button @click="fontSize = Math.max(12, fontSize - 2)" style="padding:3px 10px;border:1px solid #cbd5e1;background:white;cursor:pointer;font-size:14px;font-weight:700;border-radius:3px;color:#475569;line-height:1">A−</button>
+            <span style="font-size:11px;color:#64748b;min-width:1.8em;text-align:center;font-weight:600">{{ fontSize }}</span>
+            <button @click="fontSize = Math.min(28, fontSize + 2)" style="padding:3px 10px;border:1px solid #cbd5e1;background:white;cursor:pointer;font-size:14px;font-weight:700;border-radius:3px;color:#475569;line-height:1">A+</button>
           </div>
         </div>
-        <div ref="leftScrollContainer" class="flex-1 overflow-y-auto pt-4 px-5 pb-[30vh] bg-white"
+        <!-- Text with word spans + selection handlers -->
+        <div ref="leftScrollContainer" class="flex-1 overflow-y-auto px-10 pb-[30vh] bg-white"
              @scroll="onLeftScroll"
              @mousedown="onTextMouseDown($event.currentTarget, $event, 'cl')"
              @mousemove="onTextMouseMove($event.currentTarget, $event, 'cl')"
              @mouseup="onTextSelection($event.currentTarget, $event, 'cl')">
-          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">{{ parts[activePart]?.label || 'Texto' }}</p>
-          <div :style="{'fontSize': fontSize + 'px', 'textAlign': 'left'}" class="text-slate-700">
+          <p class="exam-part-header" style="padding-top:16px;margin-bottom:6px">{{ parts[activePart]?.examLabel || parts[activePart]?.label || 'Texto' }}</p>
+          <p style="font-size:0.6rem;color:var(--text-muted);margin-top:-4px;margin-bottom:8px;font-weight:500">{{ partWordCount(activePart) }} palavras</p>
+          <p class="part-instructions" v-if="parts[activePart]?.instructions">{{ parts[activePart].instructions }}</p>
+          <div :style="{'fontSize': fontSize + 'px', 'textAlign': 'justify'}" class="reading-text">
             <template v-for="(para, pi) in currentParagraphs" :key="pi">
               <p>
                 <span v-for="word in para" :key="word.tokenIdx"
@@ -290,214 +129,433 @@
 
       <div class="split-divider" :class="{dragging: dragActive}" @mousedown.prevent="onDividerDown"></div>
 
-      <!-- ═══ Right: unified area (PD, Destaques, Notas, Respostas) ═══ -->
-      <div ref="rightPane" class="right flex flex-col min-w-[300px] overflow-hidden" :style="{width: (100 - splitPos) + '%'}">
+      <!-- ═══ Right: unified area (PD, Destaques, Notas, Respostas / Review) ═══ -->
+      <div ref="rightPane" class="paper-right flex flex-col min-w-[300px] overflow-hidden" style="flex-shrink:0;flex:none" :style="{flexBasis: (100 - splitPos) + '%', maxWidth: (100 - splitPos) + '%'}">
 
-        <!-- Palavras Desconhecidas -->
-        <div class="flex flex-col" :style="{flex: showPDPanel ? '1 1 0' : '0 1 0'}">
-          <div class="section-header" @click="showPDPanel = !showPDPanel">
-            <div class="flex items-center gap-2" style="pointer-events:none">
-              <h3>Palavras Desconhecidas</h3>
-              <span class="text-[10px] text-slate-400" v-if="pdList(activePart).length">({{ pdList(activePart).length }})</span>
-            </div>
-            <span class="section-toggle-icon">{{ showPDPanel ? '−' : '+' }}</span>
-          </div>
-          <div v-if="showPDPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
-            <div v-if="pdList(activePart).length === 0" class="hl-empty">Clique numa palavra no texto para marcar</div>
-            <div v-for="(pd, idx) in filteredPDList(activePart)" :key="pd.id" class="pd-card">
-              <span class="pd-word">{{ idx+1 }}. {{ pd.word }}</span>
-              <div class="pd-actions">
-                <button class="pd-btn" @click="scrollToPDWord(pd.wordIdx, getLeftContainer())">Saltar</button>
-                <button class="pd-btn" @click="removePD(pd.wordIdx)">Remover</button>
-              </div>
-            </div>
-          </div>
-          <div v-else style="min-height:0"></div>
-        </div>
+        <!-- ═══ REVIEW AREA (after submission) ═══ -->
+        <div v-if="result" class="flex flex-col h-full" style="background:#fcfcf9">
 
-        <!-- Destaques (yellow) -->
-        <div class="flex flex-col border-t border-slate-200" :style="{flex: showHLPanel ? '1 1 0' : '0 1 0'}">
-          <div class="section-header" @click="showHLPanel = !showHLPanel">
-            <div class="flex items-center gap-2" style="pointer-events:none">
-              <h3>Destaques</h3>
-              <span class="text-[10px] text-slate-400" v-if="destaques(activePart).length">({{ destaques(activePart).length }})</span>
-            </div>
-            <span class="section-toggle-icon">{{ showHLPanel ? '−' : '+' }}</span>
+          <!-- ═══ Tab bar ═══ -->
+          <div class="flex border-b border-slate-200 shrink-0">
+            <button @click="reviewTab='detailed'"
+                    class="flex-1 py-3 text-xs font-bold uppercase tracking-wider text-center transition cursor-pointer"
+                    :style="reviewTab==='detailed' ? {background:'#ffffff',borderBottom:'2px solid #1a7bb5',color:'#1a7bb5'} : {background:'transparent',color:'#666'}">
+              📋 Análise Detalhada
+            </button>
+            <button @click="reviewTab='ai'"
+                    class="flex-1 py-3 text-xs font-bold uppercase tracking-wider text-center transition cursor-pointer"
+                    :style="reviewTab==='ai' ? {background:'#ffffff',borderBottom:'2px solid #1a7bb5',color:'#1a7bb5'} : {background:'transparent',color:'#666'}">
+              🤖 Análise AI
+            </button>
           </div>
-          <div v-if="showHLPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
-            <div v-if="destaques(activePart).length === 0" class="hl-empty">Selecione texto para destacar</div>
-            <div v-for="(hl, idx) in filteredDestaques(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #fff7a0">
-              <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
-              <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
-              <div class="hl-actions">
-                <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
-                <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
-              </div>
-            </div>
-          </div>
-          <div v-else style="min-height:0"></div>
-        </div>
 
-        <!-- Notas (blue) -->
-        <div class="flex flex-col border-t border-slate-200" :style="{flex: showNTPanel ? '1 1 0' : '0 1 0'}">
-          <div class="section-header" @click="showNTPanel = !showNTPanel">
-            <div class="flex items-center gap-2" style="pointer-events:none">
-              <h3>Notas</h3>
-              <span class="text-[10px] text-slate-400" v-if="notas(activePart).length">({{ notas(activePart).length }})</span>
-            </div>
-            <span class="section-toggle-icon">{{ showNTPanel ? '−' : '+' }}</span>
-          </div>
-          <div v-if="showNTPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
-            <div v-if="notas(activePart).length === 0" class="hl-empty">Selecione texto para anotar</div>
-            <div v-for="(hl, idx) in filteredNotas(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #93c5fd">
-              <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
-              <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
-              <div class="hl-actions">
-                <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
-                <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
+          <!-- ═══ Detailed analysis tab ═══ -->
+          <div v-if="reviewTab==='detailed'" class="flex-1 overflow-y-auto p-4 space-y-4">
+
+            <!-- Score summary -->
+            <div class="paper-card text-center" style="padding:24px">
+              <p class="text-3xl font-bold" :style="{color:scoreColor}">{{ weightedScore }}/{{ allQuestions.length }}</p>
+              <p class="text-sm font-semibold mt-1" style="color:#000">{{ weightedPercent }}% — {{ scoreLabel }}</p>
+              <div class="flex items-center justify-center gap-4 mt-3 text-xs font-medium">
+                <span style="color:#2d6a4f">✅ {{ graded.filter(Boolean).length }} certas</span>
+                <span style="color:#c1121f">❌ {{ graded.filter(g => !g).length }} erradas</span>
+              </div>
+              <div class="flex justify-center gap-3 mt-4 no-print">
+                <button @click="closeWin" class="btn-primary">Fechar</button>
               </div>
             </div>
-          </div>
-          <div v-else style="min-height:0"></div>
-        </div>
 
-        <!-- Respostas (questions for current part, fixed at bottom) -->
-        <div ref="respostasPane" class="flex flex-col border-t border-slate-200 flex-1 min-h-[200px]">
-          <div class="section-header" style="cursor:default">
-            <h3>Respostas — {{ currentPartLabel }}</h3>
-          </div>
-          <div class="flex-1 overflow-y-auto p-4" style="min-height:0">
-            <div v-for="(q, i) in currentQuestions" :key="globalQNum(i)" :ref="el => { if(el) qRefs[globalQNum(i)-1] = el }" :data-qidx="globalQNum(i)-1" class="exam-card">
-              <p class="text-sm text-slate-800 mb-3 font-medium"><span class="text-slate-400 font-mono mr-1">{{ globalQNum(i) }}.</span> {{ cleanQuestion(q) }}</p>
+            <!-- ⚖️ Peso de cada pergunta (table) -->
+            <div class="paper-card" style="padding:0;overflow:hidden">
+              <div style="padding:12px 16px;border-bottom:1px solid #e5e5e5">
+                <p class="text-xs font-bold uppercase tracking-wider" style="color:#000">⚖️ Peso de cada pergunta</p>
+              </div>
+              <table class="w-full text-sm">
+                <thead>
+                  <tr style="background:#f8fafc;border-bottom:1px solid #e5e5e5">
+                    <th class="text-left px-4 py-2 text-xs font-semibold" style="color:#000">Pergunta</th>
+                    <th class="text-center px-4 py-2 text-xs font-semibold" style="color:#000">Peso</th>
+                    <th class="text-center px-4 py-2 text-xs font-semibold" style="color:#000">Resultado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="wr in weightReviewList" :key="wr.i"
+                      :style="{background: wr.correct ? '#f0fdf4' : '#fef2f2', borderBottom: '1px solid #e5e5e5'}">
+                    <td class="px-4 py-2.5 text-sm" style="color:#000">{{ wr.partLabel }} · Q{{ wr.i+1 }}</td>
+                    <td class="px-4 py-2.5 text-sm text-center" style="color:#000">{{ wr.w.toFixed(2) }}×</td>
+                    <td class="px-4 py-2.5 text-sm text-center">
+                      <span :style="{color: wr.correct ? '#2d6a4f' : '#c1121f', fontWeight:700}">{{ wr.correct ? '✅ Correto' : '❌ Errado' }}</span>
+                    </td>
+                  </tr>
+                  <tr v-if="weightReviewList.length === 0">
+                    <td colspan="3" class="px-4 py-4 text-xs text-center" style="color:#999">Sem dados de ponderação.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="padding:8px 16px;border-top:1px solid #e5e5e5;background:#fafafa">
+                <p class="text-xs" style="color:#666">Questões mais fáceis (início da parte) têm peso maior; erros custam mais pontos.</p>
+              </div>
+            </div>
 
-              <div v-if="q.type==='choice'" class="space-y-1.5">
-                <div v-for="(opt, oi) in q.options" :key="oi"
-                     class="opt-label" :class="getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi] ? 'selected' : ''"
-                     @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi]?'':['A','B','C','D'][oi])">
-                  <span class="opt-circle">{{ ['A','B','C','D'][oi] }}</span>
-                  <span class="text-slate-700">{{ opt }}</span>
-                </div>
+            <!-- 📋 Respostas (detailed question analysis with options) -->
+            <div class="paper-card" style="padding:0;overflow:hidden">
+              <div style="padding:14px 18px;border-bottom:1px solid #e5e5e5">
+                <p class="text-xs font-bold uppercase tracking-wider" style="color:#000">📋 Respostas</p>
               </div>
-              <div v-if="q.type==='verdadeiro_falso'" class="flex gap-3">
-                <div v-for="vf in [['V','Verdadeiro'],['F','Falso']]" :key="vf[0]"
-                     class="opt-label flex-1" :class="getAnswer(globalQNum(i)-1)===vf[0] ? 'selected' : ''"
-                     @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===vf[0]?'':vf[0])">
-                  <span class="opt-circle">{{ vf[0] }}</span><span class="text-slate-700">{{ vf[1] }}</span>
-                </div>
-              </div>
-              <div v-if="q.type==='fill'">
-                <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
-              </div>
-              <div v-if="q.type==='error_detect'">
-                <div v-if="q.items && q.items.length" v-for="(item, ei) in q.items" :key="ei" class="mb-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-                  <p class="text-xs text-slate-600 leading-relaxed mb-1.5 font-mono">{{ item }}</p>
-                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Palavra a mais ou «correta»..." class="fill-input text-xs">
-                </div>
-                <div v-else>
-                  <p class="text-xs text-slate-600 mb-1.5">{{ q.question || 'Identifique a palavra a mais:' }}</p>
-                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Palavra a mais ou «correta»..." class="fill-input">
-                </div>
-              </div>
-              <div v-if="q.type==='match'" class="space-y-1.5">
-                <div v-if="q.items && q.items.length" v-for="(item, ii) in q.items" :key="ii" class="match-row">
-                  <span class="match-item">{{ item }}</span>
-                  <select v-model="userAnswers[globalQNum(i)-1][ii]" class="match-select">
-                    <option value="">—</option>
-                    <option v-for="(opt, oi) in q.options" :key="oi" :value="opt">{{ opt }}</option>
-                  </select>
-                </div>
-                <div v-else>
-                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
-                </div>
-              </div>
-              <div v-if="q.type==='reorder'" class="space-y-2">
-                <div v-if="q.paragraphs && q.paragraphs.length">
-                <p class="text-xs text-slate-500 mb-2">Clique nos parágrafos por ordem sequencial:</p>
-                <!-- Available paragraphs -->
-                <div class="flex flex-wrap gap-1.5 mb-2">
-                  <div v-for="(p, pi) in q.paragraphs" :key="pi"
-                       class="px-3 py-2 border text-xs leading-relaxed cursor-pointer transition"
-                       :class="(userAnswers[globalQNum(i)-1]||[]).indexOf(p) >= 0
-                         ? 'border-azulejo bg-blue-50 text-azulejo line-through opacity-50'
-                         : 'border-slate-200 bg-white hover:border-azulejo hover:bg-blue-50/30 text-slate-700'"
-                       @click="reorderClick(globalQNum(i)-1, p)">
-                    <span class="font-bold text-xs px-1 py-0.5 bg-azulejo/10 text-azulejo mr-1">{{ 'ABCDEFG'[pi] }}</span>
-                    {{ p }}
+              <div>
+                <div v-for="(q, i) in allQuestions" :key="i"
+                     class="px-4 py-4"
+                     :style="{background: graded[i] ? '#f0fdf4' : '#fef2f2', borderBottom: '1px solid #e5e5e5'}">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                      <!-- Question header -->
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold shrink-0"
+                              :style="{background: graded[i] ? '#2d6a4f' : '#c1121f', color: '#fff'}">{{ i+1 }}</span>
+                        <span class="text-sm font-semibold" style="color:#000">{{ cleanQuestion(q) }}</span>
+                        <span :style="{color: graded[i] ? '#2d6a4f' : '#c1121f', fontSize: '11px', fontWeight:600}">{{ graded[i] ? '✅' : '❌' }}</span>
+                      </div>
+                      <!-- Options display for choice questions -->
+                      <div v-if="q.type==='choice' && q.options" class="ml-9 space-y-1.5 mt-1">
+                        <div v-for="(opt, oi) in q.options" :key="oi"
+                             class="flex items-center gap-2 px-3 py-1.5 rounded text-sm border"
+                             :style="optionReviewStyle(q, i, ['A','B','C','D'][oi])">
+                          <span class="w-6 h-6 flex items-center justify-center rounded text-xs font-bold shrink-0"
+                                :style="optionBadgeStyle(q, i, ['A','B','C','D'][oi])">
+                            {{ ['A','B','C','D'][oi] }}
+                          </span>
+                          <span :style="{color: optionTextColor(q, i, ['A','B','C','D'][oi])}">{{ cleanOpt(opt, ['A','B','C','D'][oi]) }}</span>
+                        </div>
+                      </div>
+                      <!-- V/F display -->
+                      <div v-if="q.type==='verdadeiro_falso'" class="ml-9 space-y-1.5 mt-1">
+                        <div v-for="vf in [['V','Verdadeiro'],['F','Falso']]" :key="vf[0]"
+                             class="flex items-center gap-2 px-3 py-1.5 rounded text-sm border"
+                             :style="optionReviewStyle(q, i, vf[0])">
+                          <span class="w-6 h-6 flex items-center justify-center rounded text-xs font-bold shrink-0"
+                                :style="optionBadgeStyle(q, i, vf[0])">
+                            {{ vf[0] }}
+                          </span>
+                          <span :style="{color: optionTextColor(q, i, vf[0])}">{{ vf[1] }}</span>
+                        </div>
+                      </div>
+                      <!-- Fill / other types -->
+                      <div v-if="q.type==='fill' || (q.type!=='choice' && q.type!=='verdadeiro_falso')" class="ml-9 space-y-1.5 mt-1">
+                        <div class="flex items-center gap-2 text-sm">
+                          <span class="font-medium" style="color:#000">Tua resposta:</span>
+                          <span class="px-2 py-0.5 rounded font-bold text-sm"
+                                :style="{background: graded[i] ? '#d1fae5' : '#fecaca', color: graded[i] ? '#065f46' : '#991b1b'}">
+                            {{ formatAnswer(q, userAnswers[i]) }}
+                          </span>
+                        </div>
+                        <div v-if="!graded[i]" class="flex items-center gap-2 text-sm">
+                          <span class="font-medium" style="color:#000">Resposta correta:</span>
+                          <span class="px-2 py-0.5 rounded font-bold text-sm" style="background:#d1fae5;color:#065f46">
+                            {{ q.answer }}
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Analysis / explanation -->
+                      <div v-if="!graded[i] && q.explanation" class="ml-9 mt-2 text-xs p-2.5 rounded" style="background:#f8fafc;color:#000;border:1px solid #e5e5e5">
+                        <span class="font-medium" style="color:#1a7bb5">💡 Análise: </span>{{ q.explanation }}
+                      </div>
+                    </div>
+                    <button @click="scrollToQuestionPart(i)"
+                            class="shrink-0 px-3 py-1.5 text-xs font-medium rounded-lg border transition"
+                            style="background:#fff;color:#2d6a4f;border-color:#bbf7d0;box-shadow:0 1px 2px rgba(0,0,0,0.04)">
+                      Saltar
+                    </button>
                   </div>
                 </div>
-                <!-- Sequence display -->
-                <div v-if="(userAnswers[globalQNum(i)-1]||[]).length" class="border border-slate-200 bg-slate-50 p-3">
-                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Sequência atual:</p>
-                  <div class="flex flex-wrap items-center gap-1">
-                    <div v-for="(item, si) in (userAnswers[globalQNum(i)-1]||[])" :key="si"
-                         class="inline-flex items-center gap-1">
-                      <span v-if="si > 0" class="text-slate-300 text-lg">→</span>
-                      <span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-azulejo/30 text-xs font-medium text-azulejo cursor-pointer hover:bg-red-50 hover:border-red-200 hover:text-erro transition"
-                            @click="reorderRemove(globalQNum(i)-1, si)">
-                        {{ 'ABCDEFG'[(q.paragraphs||[]).indexOf(item)] }}
-                        <span class="text-[9px] opacity-50">✕</span>
-                      </span>
+              </div>
+            </div>
+
+            <!-- 📖 PD Review -->
+            <div class="paper-card" style="overflow:hidden">
+              <div @click="showPDReview = !showPDReview" style="padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e5e5" class="hover:bg-slate-50 transition">
+                <p class="text-xs font-bold uppercase tracking-wider" style="color:#000">📖 Palavras Desconhecidas ({{ allPDCount }})</p>
+                <span style="color:#999">{{ showPDReview ? '−' : '+' }}</span>
+              </div>
+              <div v-if="showPDReview" class="divide-y divide-slate-100">
+                <div v-for="(pd, idx) in allPDList" :key="pd.id || idx" class="p-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-bold" style="color:#000">{{ pd.word }}</span>
+                    <button @click="scrollToPDWithPart(pd)"
+                            class="text-xs px-2 py-1 rounded font-medium" style="background:#f0fdf4;color:#2d6a4f">Saltar</button>
+                  </div>
+                  <div class="mt-1.5 space-y-0.5">
+                    <p v-if="pdDetail[pd.word]?.zh" class="text-xs" style="color:#000"><span class="font-medium">中文：</span>{{ pdDetail[pd.word].zh }}</p>
+                    <p v-if="pdDetail[pd.word]?.pos" class="text-xs" style="color:#000"><span class="font-medium">詞性：</span>{{ pdDetail[pd.word].pos }}</p>
+                    <p v-if="pdDetail[pd.word]?.full" class="text-xs mt-0.5" style="color:#000">{{ pdDetail[pd.word].full }}</p>
+                    <p v-if="!pdDetail[pd.word]" class="text-xs italic" style="color:#999">—</p>
+                  </div>
+                </div>
+                <div v-if="allPDList.length === 0" class="p-4 text-center">
+                  <p class="text-xs" style="color:#999">Nenhuma palavra desconhecida marcada.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🟡 Destaques Review -->
+            <div class="paper-card" style="overflow:hidden">
+              <div @click="showDestReview = !showDestReview" style="padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e5e5" class="hover:bg-slate-50 transition">
+                <p class="text-xs font-bold uppercase tracking-wider" style="color:#000">🟡 Destaques ({{ allDestCount }})</p>
+                <span style="color:#999">{{ showDestReview ? '−' : '+' }}</span>
+              </div>
+              <div v-if="showDestReview" class="divide-y divide-slate-100">
+                <div v-for="(hl, idx) in allDestList" :key="hl.id || idx" class="p-3" style="border-left:3px solid #fff7a0">
+                  <p class="text-sm" style="color:#000"><span class="font-bold">{{ idx+1 }}.</span> «{{ hl.text }}»</p>
+                  <div v-if="hl.note" class="mt-1.5 p-2 rounded" style="background:#fefce8">
+                    <p class="text-xs font-medium" style="color:#000">Nota: {{ hl.note }}</p>
+                  </div>
+                  <p v-if="!hl.note" class="text-xs italic mt-1" style="color:#999">Sem nota.</p>
+                  <div class="mt-1.5 flex justify-end">
+                    <button @click="scrollToHLWithPart(hl)" class="text-xs px-2 py-1 rounded font-medium" style="background:#f0fdf4;color:#2d6a4f">Saltar</button>
+                  </div>
+                </div>
+                <div v-if="allDestList.length === 0" class="p-4 text-center">
+                  <p class="text-xs" style="color:#999">Nenhum destaque marcado.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 🔵 Notas Review -->
+            <div class="paper-card" style="overflow:hidden">
+              <div @click="showNotaReview = !showNotaReview" style="padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e5e5" class="hover:bg-slate-50 transition">
+                <p class="text-xs font-bold uppercase tracking-wider" style="color:#000">🔵 Notas ({{ allNotaCount }})</p>
+                <span style="color:#999">{{ showNotaReview ? '−' : '+' }}</span>
+              </div>
+              <div v-if="showNotaReview" class="divide-y divide-slate-100">
+                <div v-for="(hl, idx) in allNotaList" :key="hl.id || idx" class="p-3" style="border-left:3px solid #93c5fd">
+                  <p class="text-sm" style="color:#000"><span class="font-bold">{{ idx+1 }}.</span> «{{ hl.text }}»</p>
+                  <div v-if="hl.note" class="mt-1.5 p-2 rounded" style="background:#eff6ff">
+                    <p class="text-xs font-medium" style="color:#000">Nota: {{ hl.note }}</p>
+                  </div>
+                  <p v-if="!hl.note" class="text-xs italic mt-1" style="color:#999">Sem nota.</p>
+                  <div class="mt-1.5 flex justify-end">
+                    <button @click="scrollToHLWithPart(hl)" class="text-xs px-2 py-1 rounded font-medium" style="background:#f0fdf4;color:#2d6a4f">Saltar</button>
+                  </div>
+                </div>
+                <div v-if="allNotaList.length === 0" class="p-4 text-center">
+                  <p class="text-xs" style="color:#999">Nenhuma nota marcada.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="h-8"></div>
+          </div>
+
+          <!-- ═══ AI Analysis tab ═══ -->
+          <div v-if="reviewTab==='ai'" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <div v-if="aiAnalysis && aiAnalysis.analise_erros" class="paper-card" style="padding:16px">
+              <p class="text-xs font-bold uppercase tracking-wider mb-3" style="color:#000">🤖 Análise AI</p>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs font-semibold mb-1" style="color:#000">📊 Categorias de erro</p>
+                  <div v-if="aiAnalysis.categorias" class="flex flex-wrap gap-2">
+                    <div v-for="(v, k) in aiAnalysis.categorias" :key="k" class="flex items-center gap-1 px-2 py-1 rounded text-xs" style="background:#f8fafc">
+                      <span class="font-medium" style="color:#000">{{ catLabel(k) }}</span>
+                      <span class="font-bold" :style="{color: v >= 7 ? '#2d6a4f' : v >= 4 ? '#d4a843' : '#c1121f'}">{{ v }}/10</span>
                     </div>
                   </div>
                 </div>
-                <p v-else class="text-xs text-slate-300 italic">Selecione os parágrafos por ordem</p>
+                <div v-if="aiAnalysis.analise_erros">
+                  <p class="text-xs font-semibold mb-1" style="color:#000">🔍 Padrão nos erros</p>
+                  <p class="text-xs leading-relaxed" style="color:#000">{{ aiAnalysis.analise_erros }}</p>
                 </div>
-                <div v-else class="text-xs text-slate-400 italic p-3">
-                  Tipo de pergunta não suportado nesta versão
+                <div v-if="aiAnalysis.analise_pd">
+                  <p class="text-xs font-semibold mb-1" style="color:#000">📖 Impacto das PD</p>
+                  <p class="text-xs leading-relaxed" style="color:#000">{{ aiAnalysis.analise_pd }}</p>
+                </div>
+                <div v-if="aiAnalysis.sugestoes?.length">
+                  <p class="text-xs font-semibold mb-1" style="color:#000">💡 Sugestões</p>
+                  <ul class="space-y-1">
+                    <li v-for="(s, i) in aiAnalysis.sugestoes" :key="i" class="flex items-start gap-1.5 text-xs" style="color:#000">
+                      <span class="font-bold shrink-0 mt-0.5" style="color:#1a7bb5">{{ i+1 }}.</span>
+                      <span>{{ s }}</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-
-            <div v-if="!submitted" class="text-center mt-3">
-              <button v-if="allPartsDone" @click="submitExam" class="btn-submit">Submeter exame completo</button>
-              <p v-else class="text-xs text-slate-400">Responda a todas as partes para submeter</p>
+            <div v-if="aiAnalysis && aiAnalysis.error" class="paper-card" style="padding:12px">
+              <p class="text-xs" style="color:#c1121f">⚠️ {{ aiAnalysis.error }}</p>
             </div>
-
-            <!-- Bottom spacer -->
-            <div class="h-16"></div>
-
-            <!-- ═══ RESULTS ═══ -->
-            <div v-if="result" class="space-y-3">
-              <div class="exam-card text-center" style="padding:24px">
-                <p class="text-3xl font-bold" :style="{color:scoreColor}">{{ score }}/{{ allQuestions.length }}</p>
-                <p class="text-sm text-slate-500 mt-1">{{ scorePercent }}% — {{ scoreLabel }}</p>
-                <div class="flex justify-center gap-3 mt-4 no-print">
-                  <button @click="showAnswers = !showAnswers" class="btn-ghost">{{ showAnswers ? 'Ocultar' : 'Mostrar' }} respostas</button>
-                  <button @click="closeWin" class="btn-primary">Fechar</button>
-                </div>
-              </div>
-              <div class="exam-card" style="padding:0;overflow:hidden">
-                <table class="w-full text-sm score-table">
-                  <thead>
-                    <tr class="bg-slate-50 text-xs text-slate-500 font-semibold border-b border-slate-200">
-                      <th class="p-3 text-left" style="width:3rem">#</th>
-                      <th class="p-3 text-left">Pergunta</th>
-                      <th class="p-3 text-center" style="width:4rem">✅</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(q, i) in allQuestions" :key="i"
-                        class="border-b border-slate-100"
-                        :class="graded[i] ? '' : 'bg-rose-50/40'">
-                      <td class="p-3 text-center text-slate-400 font-mono text-xs">{{ i+1 }}</td>
-                      <td class="p-3 text-xs text-slate-700">
-                        <div>{{ q.question }}</div>
-                        <div v-if="showAnswers" class="mt-1.5 space-y-0.5">
-                          <span :class="graded[i] ? 'text-certo' : 'text-erro'">Tua: <strong>{{ formatAnswer(q, userAnswers[i]) }}</strong></span>
-                          <span v-if="!graded[i]" class="text-certo ml-3">Correta: <strong>{{ q.answer }}</strong></span>
-                        </div>
-                        <div v-if="showAnswers && q.explanation" class="mt-1.5 text-slate-400 text-[11px] p-2 bg-slate-50">{{ q.explanation }}</div>
-                      </td>
-                      <td class="p-3 text-center text-lg">{{ graded[i] ? '✅' : '❌' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div v-if="!aiAnalysis" class="paper-card" style="padding:24px;text-align:center">
+              <p class="text-xs" style="color:#999">A aguardar análise AI...</p>
             </div>
-            <!-- Results bottom spacer -->
-            <div class="h-16"></div>
+            <div class="h-8"></div>
           </div>
+
         </div>
+
+        <!-- ═══ BEFORE SUBMIT (existing panels: PD, Destaques, Notas, Respostas) ═══ -->
+        <template v-else>
+          <!-- Palavras Desconhecidas -->
+          <div class="flex flex-col" :style="{flex: showPDPanel ? '1 1 0' : '0 1 0'}">
+            <div class="section-header" @click="showPDPanel = !showPDPanel">
+              <div class="flex items-center gap-2" style="pointer-events:none">
+                <h3>Palavras Desconhecidas</h3>
+                <span class="text-[10px] text-slate-400" v-if="pdList(activePart).length">({{ pdList(activePart).length }})</span>
+              </div>
+              <span class="section-toggle-icon">{{ showPDPanel ? '−' : '+' }}</span>
+            </div>
+            <div v-if="showPDPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+              <div v-if="pdList(activePart).length === 0" class="hl-empty">Clique numa palavra no texto para marcar</div>
+              <div v-for="(pd, idx) in filteredPDList(activePart)" :key="pd.id" class="pd-card">
+                <span class="pd-word">{{ idx+1 }}. {{ pd.word }}</span>
+                <div class="pd-actions">
+                  <button class="pd-btn" @click="scrollToPDWord(pd.wordIdx, getLeftContainer())">Saltar</button>
+                  <button class="pd-btn" @click="removePD(pd.wordIdx)">Remover</button>
+                </div>
+              </div>
+            </div>
+            <div v-else style="min-height:0"></div>
+          </div>
+
+          <!-- Destaques (yellow) -->
+          <div class="flex flex-col border-t border-slate-200" :style="{flex: showHLPanel ? '1 1 0' : '0 1 0'}">
+            <div class="section-header" @click="showHLPanel = !showHLPanel">
+              <div class="flex items-center gap-2" style="pointer-events:none">
+                <h3>Destaques</h3>
+                <span class="text-[10px] text-slate-400" v-if="destaques(activePart).length">({{ destaques(activePart).length }})</span>
+              </div>
+              <span class="section-toggle-icon">{{ showHLPanel ? '−' : '+' }}</span>
+            </div>
+            <div v-if="showHLPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+              <div v-if="destaques(activePart).length === 0" class="hl-empty">Selecione texto para destacar</div>
+              <div v-for="(hl, idx) in filteredDestaques(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #fff7a0">
+                <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
+                <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
+                <div class="hl-actions">
+                  <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
+                  <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
+                </div>
+              </div>
+            </div>
+            <div v-else style="min-height:0"></div>
+          </div>
+
+          <!-- Notas (blue) -->
+          <div class="flex flex-col border-t border-slate-200" :style="{flex: showNTPanel ? '1 1 0' : '0 1 0'}">
+            <div class="section-header" @click="showNTPanel = !showNTPanel">
+              <div class="flex items-center gap-2" style="pointer-events:none">
+                <h3>Notas</h3>
+                <span class="text-[10px] text-slate-400" v-if="notas(activePart).length">({{ notas(activePart).length }})</span>
+              </div>
+              <span class="section-toggle-icon">{{ showNTPanel ? '−' : '+' }}</span>
+            </div>
+            <div v-if="showNTPanel" class="flex-1 overflow-y-auto px-4 py-2" style="min-height:0">
+              <div v-if="notas(activePart).length === 0" class="hl-empty">Selecione texto para anotar</div>
+              <div v-for="(hl, idx) in filteredNotas(activePart)" :key="hl.id" class="hl-card" style="border-left:3px solid #93c5fd">
+                <div class="hl-text">{{ idx+1 }}. «{{ hl.text }}»</div>
+                <div class="mt-1"><input v-model="hl.note" @input="updateHLNoteFromList(hl.id, hl.note)" class="hl-note-input" placeholder="Adicionar nota..."/></div>
+                <div class="hl-actions">
+                  <button class="hl-btn" @click="scrollToHL(hl.id, getLeftContainer(), 'cl')">Saltar</button>
+                  <button class="hl-btn danger" @click="removeHLFromList(hl.id)">Remover</button>
+                </div>
+              </div>
+            </div>
+            <div v-else style="min-height:0"></div>
+          </div>
+
+          <!-- Respostas (questions for current part) -->
+          <div ref="respostasPane" class="flex flex-col border-t border-slate-200 flex-1 min-h-[200px]">
+            <div class="section-header" style="cursor:default">
+              <h3>Respostas — {{ currentPartLabel }}</h3>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4" style="min-height:0">
+              <div v-for="(q, i) in currentQuestions" :key="i" :ref="el => { if(el) qRefs[globalQNum(i)-1] = el }" :data-qidx="globalQNum(i)-1" class="paper-card" style="margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line-light)">
+                <p class="question-text bold-text" style="margin-bottom:10px"><span class="question-number" style="font-weight:700;color:var(--text-secondary);margin-right:6px;font-size:0.85rem">{{ globalQNum(i) }}.</span> {{ cleanQuestion(q) }}</p>
+                <div v-if="q.type==='choice'" class="options-indent">
+                  <div v-for="(opt, oi) in q.options" :key="oi"
+                       class="option-row" :class="getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi] ? 'selected' : ''"
+                       @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===['A','B','C','D'][oi]?'':['A','B','C','D'][oi])">
+                    <span class="option-letter">{{ ['A','B','C','D'][oi] }}</span>
+                    <span>{{ cleanOpt(opt, ['A','B','C','D'][oi]) }}</span>
+                  </div>
+                </div>
+                <div v-if="q.type==='verdadeiro_falso'" class="options-indent vf-group">
+                  <div v-for="vf in [['V','Verdadeiro'],['F','Falso']]" :key="vf[0]"
+                       class="vf-row flex-1" :class="getAnswer(globalQNum(i)-1)===vf[0] ? 'selected' : ''"
+                       @click="setAnswer(globalQNum(i)-1, getAnswer(globalQNum(i)-1)===vf[0]?'':vf[0])">
+                    <span class="option-letter">{{ vf[0] }}</span><span>{{ vf[1] }}</span>
+                  </div>
+                </div>
+                <div v-if="q.type==='fill'" class="options-indent">
+                  <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
+                </div>
+                <div v-if="q.type==='error_detect'" class="options-indent">
+                  <div v-if="q.items && q.items.length">
+                    <div v-for="(item, ei) in q.items" :key="ei" class="error-item-block" style="margin-bottom:10px;padding:10px;border:1px solid var(--line);background:var(--paper-alt)">
+                      <p class="text-xs leading-relaxed mb-1.5 font-mono" style="color:#000">{{ item }}</p>
+                      <input v-model="userAnswers[globalQNum(i)-1][ei]" type="text" placeholder="Palavra a mais ou «correta»..." class="input-field text-xs" style="width:100%">
+                    </div>
+                  </div>
+                  <div v-else>
+                    <p class="text-xs mb-1.5" style="color:#000">{{ q.question || 'Identifique a palavra a mais:' }}</p>
+                    <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Palavra a mais ou «correta»..." class="input-field">
+                  </div>
+                </div>
+                <div v-if="q.type==='match'" class="options-indent">
+                  <div v-if="q.items && q.items.length" v-for="(item, ii) in q.items" :key="ii" class="match-row">
+                    <span class="match-item">{{ item }}</span>
+                    <select v-model="userAnswers[globalQNum(i)-1][ii]" class="match-select">
+                      <option value="">—</option>
+                      <option v-for="(opt, oi) in q.options" :key="oi" :value="opt">{{ opt }}</option>
+                    </select>
+                  </div>
+                  <div v-else>
+                    <input v-model="userAnswers[globalQNum(i)-1]" type="text" placeholder="Resposta..." class="fill-input">
+                  </div>
+                </div>
+                <div v-if="q.type==='reorder'" class="options-indent">
+                  <div v-if="q.paragraphs && q.paragraphs.length">
+                  <p class="text-xs mb-2" style="color:#000">Clique nos parágrafos por ordem sequencial:</p>
+                  <div class="flex flex-wrap gap-1.5 mb-2">
+                    <div v-for="(p, pi) in q.paragraphs" :key="pi"
+                         class="px-3 py-2 border text-xs leading-relaxed cursor-pointer transition"
+                         :class="(userAnswers[globalQNum(i)-1]||[]).indexOf(p) >= 0
+                           ? 'border-azulejo bg-blue-50 text-azulejo line-through opacity-50'
+                           : 'border-slate-200 bg-white hover:border-azulejo hover:bg-blue-50/30'"
+                         @click="reorderClick(globalQNum(i)-1, p)">
+                      <span class="font-bold text-xs px-1 py-0.5 bg-azulejo/10 text-azulejo mr-1">{{ 'ABCDEFG'[pi] }}</span>
+                      {{ p }}
+                    </div>
+                  </div>
+                  <div v-if="(userAnswers[globalQNum(i)-1]||[]).length" class="border border-slate-200 bg-slate-50 p-3">
+                    <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:#000">Sequência atual:</p>
+                    <div class="flex flex-wrap items-center gap-1">
+                      <div v-for="(item, si) in (userAnswers[globalQNum(i)-1]||[])" :key="si"
+                           class="inline-flex items-center gap-1">
+                        <span v-if="si > 0" style="color:#cbd5e1" class="text-lg">→</span>
+                        <span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-azulejo/30 text-xs font-medium text-azulejo cursor-pointer hover:bg-red-50 hover:border-red-200 transition"
+                              @click="reorderRemove(globalQNum(i)-1, si)">
+                          {{ 'ABCDEFG'[(q.paragraphs||[]).indexOf(item)] }}
+                          <span class="text-[9px] opacity-50">✕</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <p v-else class="text-xs italic" style="color:#999">Selecione os parágrafos por ordem</p>
+                  </div>
+                  <div v-else class="text-xs italic p-3" style="color:#999">
+                    Tipo de pergunta não suportado nesta versão
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="!submitted" class="text-center mt-3">
+                <button v-if="isLastPart" @click="submitExam" class="btn-primary" style="padding:8px 24px;font-size:0.85rem;font-weight:600">📝 Submeter exame completo</button>
+                <button v-else @click="goNextPart" class="btn-secondary" style="padding:8px 20px;font-size:0.82rem;font-weight:600">→ Próxima parte (P{{ activePart+2 }})</button>
+                <p v-if="!allPartsDone && isLastPart" class="text-xs mt-2" style="color:#c1121f">Responda a todas as partes para submeter</p>
+              </div>
+
+              <!-- Bottom spacer -->
+              <div class="h-16"></div>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -518,7 +576,6 @@
       </div>
       <div class="flex items-center gap-2">
         <span class="text-[11px] text-slate-400">{{ answeredCount }}/{{ allQuestions.length }}</span>
-        <button @click="submitExam" :disabled="!allPartsDone" class="btn-submit" style="padding:7px 16px;font-size:0.82rem">Submeter</button>
       </div>
     </div>
   </div>
@@ -533,6 +590,20 @@
 
 <script>
   const COLORS = HighlightNotes.COLORS
+  // Simple JSON parser with error recovery for AI responses
+  function parseJSON(text) {
+    if (!text) return null
+    try { return JSON.parse(text) } catch {}
+    // Try extracting JSON from code blocks
+    const m = text.match(/```(?:json)?\s*([\s\S]*?)```/)
+    if (m) try { return JSON.parse(m[1]) } catch {}
+    // Try finding {...} or [...] in the text
+    const braceM = text.match(/\{[\s\S]*\}/)
+    if (braceM) try { return JSON.parse(braceM[0]) } catch {}
+    const bracketM = text.match(/\[[\s\S]*\]/)
+    if (bracketM) try { return JSON.parse(bracketM[0]) } catch {}
+    return null
+  }
   const app = Vue.createApp({
     data() {
       return {
@@ -544,6 +615,9 @@
         result: false,
         showAnswers: false,
         graded: [],
+        questionWeights: [],
+        weightedScore: 0,
+        weightedPercent: 0,
         timeLimit: 75,
         timeRemaining: 4500,
         timerInterval: null,
@@ -575,6 +649,15 @@
         visibleWordStart: 0,
         visibleWordEnd: 0,
         _scrollDebounce: null,
+        answerHighlights: [],
+        _ahVersion: 0,
+        aiAnalysis: null,
+        // Review section toggles (default expanded)
+        showPDReview: true,
+        showDestReview: true,
+        showNotaReview: true,
+        pdDetail: {},
+        reviewTab: 'detailed',
       }
     },
     computed: {
@@ -628,7 +711,8 @@
         return this.allQuestions.slice(pt.qStart, pt.qStart + pt.count)
       },
       score() { return this.graded.filter(Boolean).length },
-      scorePercent() { return this.allQuestions.length ? Math.round((this.score/this.allQuestions.length)*100) : 0 },
+      weightedScoreTotal() { return this.allQuestions.length },
+      scorePercent() { return this.allQuestions.length ? Math.round((this.weightedScore/this.allQuestions.length)*100) : 0 },
       scoreLabel() { const p=this.scorePercent; return p>=85?'Muito Bom!':p>=70?'Bom':p>=55?'Suficiente':'Insuficiente' },
       scoreColor() { const p=this.scorePercent; return p>=85?'#14b8a6':p>=70?'#10b981':p>=55?'#f59e0b':'#f43f5e' },
       answeredCount() { return this.allQuestions.filter((q,i)=>this.isAnswered(i)).length },
@@ -637,6 +721,58 @@
           if (!this.partDone(pi)) return false
         }
         return true
+      },
+      isLastPart() { return this.activePart >= this.parts.length - 1 },
+      /* ═══ All-parts review computed ═══ */
+      allPDList() {
+        const all = []
+        for (let pi = 0; pi < this.parts.length; pi++) {
+          const pdMap = this._pdByPart[pi] || {}
+          for (const k of Object.keys(pdMap)) {
+            const item = pdMap[k]
+            if (item) all.push({ ...item, partIdx: pi })
+          }
+        }
+        return all
+      },
+      allPDCount() { return this.allPDList.length },
+      allDestList() {
+        const all = []
+        for (let pi = 0; pi < this.parts.length; pi++) {
+          const hl = this._hlByPart[pi]
+          if (hl) {
+            for (const d of (hl.destaques || [])) {
+              all.push({ ...d, partIdx: pi })
+            }
+          }
+        }
+        return all
+      },
+      allDestCount() { return this.allDestList.length },
+      allNotaList() {
+        const all = []
+        for (let pi = 0; pi < this.parts.length; pi++) {
+          const hl = this._hlByPart[pi]
+          if (hl) {
+            for (const n of (hl.notas || [])) {
+              all.push({ ...n, partIdx: pi })
+            }
+          }
+        }
+        return all
+      },
+      allNotaCount() { return this.allNotaList.length },
+      /* ═══ Weighted questions with part info for review template ═══ */
+      weightReviewList() {
+        if (!Array.isArray(this.questionWeights) || !Array.isArray(this.graded)) return []
+        return this.questionWeights.map((w, i) => {
+          let partIdx = 0
+          for (let pi = 0; pi < (this.parts || []).length; pi++) {
+            const pt = this.parts[pi]
+            if (pt && i >= pt.qStart && i < pt.qStart + pt.count) { partIdx = pi; break }
+          }
+          return { w: w || 0, i, partLabel: 'P' + (partIdx + 1), correct: !!this.graded[i] }
+        })
       },
     },
     methods: {
@@ -655,6 +791,11 @@
           if (rightContent) rightContent.scrollTop = 0
         })
       },
+      goNextPart() {
+        if (this.activePart < this.parts.length - 1) {
+          this.switchPart(this.activePart + 1)
+        }
+      },
       partDone(pi) {
         const pt = this.parts[pi]
         if (!pt) return false
@@ -665,6 +806,22 @@
       },
       partTabClass(pi) {
         return { 'active': pi === this.activePart && !this.submitted, 'answered': this.partDone(pi) && !this.submitted }
+      },
+      partTabInline(pi) {
+        const active = pi === this.activePart && !this.submitted
+        const answered = this.partDone(pi) && !this.submitted
+        if (active) return { background: '#1a5f8a', color: '#ffffff', borderColor: '#1a5f8a' }
+        if (answered) return { background: '#eaf0f6', color: '#1a5f8a', borderColor: '#1a5f8a' }
+        return {}
+      },
+      partDotInline(pi) {
+        if (this.partDone(pi)) return { background: '#2d6a4f' }
+        return { background: '#94a3b8' }
+      },
+      partWordCount(pi) {
+        const pt = this.parts[pi]
+        if (!pt || !pt.sourceText) return 0
+        return pt.sourceText.split(/\s+/).filter(w => w.length > 0).length
       },
       globalQNum(localIdx) {
         const pt = this.parts[this.activePart]
@@ -861,6 +1018,75 @@
       },
       getLeftContainer() { return this.$refs.leftScrollContainer },
 
+      /** Highlight correct answer positions in the reading text */
+      highlightAnswerInText(qIdx) {
+        const q = this.allQuestions[qIdx]
+        if (!q || !q.answer) return
+        // Search for the correct answer in the source text (current part)
+        const container = this.getLeftContainer()
+        if (!container) return
+        const answerText = q.answer
+        // Highlight all spans matching the answer text in emerald
+        const allSpans = container.querySelectorAll('.word-cl, .word-space')
+        let found = false
+        const highlights = []
+        for (let i = 0; i < allSpans.length; i++) {
+          const span = allSpans[i]
+          const text = span.textContent || ''
+          if (text.trim().toLowerCase() === answerText.trim().toLowerCase()) {
+            span.style.background = '#d1fae5'
+            span.style.borderRadius = '2px'
+            span.style.padding = '1px 3px'
+            highlights.push({ el: span, text: text.trim(), qNum: qIdx + 1 })
+            found = true
+            if (highlights.length <= 3) {
+              span.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              setTimeout(() => { span.style.outline = '2px solid #10b981'; span.style.outlineOffset = '1px' }, 100)
+              setTimeout(() => { span.style.outline = '' }, 3000)
+            }
+          }
+        }
+        if (!found) {
+          // Try partial match: search for key terms from the question
+          const terms = q.question?.split(' ').filter(w => w.length > 3).slice(0, 3) || []
+          for (const term of terms) {
+            for (let i = 0; i < allSpans.length; i++) {
+              const span = allSpans[i]
+              const text = (span.textContent || '').toLowerCase()
+              if (text.includes(term.toLowerCase())) {
+                span.style.background = '#d1fae5'
+                span.style.borderRadius = '2px'
+                highlights.push({ el: span, text: span.textContent.trim(), qNum: qIdx + 1 })
+                if (highlights.length === 1) {
+                  span.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                  setTimeout(() => { span.style.outline = '2px solid #10b981' }, 100)
+                  setTimeout(() => { span.style.outline = '' }, 3000)
+                }
+                break
+              }
+            }
+            if (highlights.length > 0) break
+          }
+        }
+        // Scroll to the right panel's question
+        const qEl = this.qRefs[qIdx]
+        if (qEl) {
+          const pane = this.$refs.respostasPane?.querySelector('.overflow-y-auto')
+          if (pane) pane.scrollTo({ top: qEl.offsetTop - pane.offsetTop - 16, behavior: 'smooth' })
+        }
+        this.answerHighlights = highlights.slice(0, 8)
+        this._ahVersion++
+      },
+      scrollToAnswerHighlight(idx) {
+        const ah = this.answerHighlights[idx]
+        if (ah && ah.el) {
+          ah.el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          ah.el.style.outline = '2px solid #10b981'
+          ah.el.style.outlineOffset = '1px'
+          setTimeout(() => { ah.el.style.outline = '' }, 2000)
+        }
+      },
+
       _applyHLVisual() {
         const container = this.getLeftContainer()
         if (!container) return
@@ -1005,6 +1231,7 @@
         const ua = this.userAnswers[i]
         if (q.type==='match') return ua?.some(a=>a)
         if (q.type==='reorder') return ua?.length>0
+        if (q.type==='error_detect') return Array.isArray(ua) && ua.some(a => a?.trim())
         return ua!=='' && ua!==undefined && ua!==null
       },
       qBtnClass(i) { return { answered: this.isAnswered(i) && !this.submitted, active: this.activeQ === i } },
@@ -1051,9 +1278,27 @@
           if(q.type==='reorder'){const a=this.userAnswers[i];if(!Array.isArray(a)||!a.length)return false;const ans=(q.answer||'').split('-').map(s=>s.trim()).filter(Boolean);const expected=ans.map(letter=>{const idx='ABCDEFG'.indexOf(letter);return idx>=0?q.paragraphs[idx]:''}).filter(Boolean);return expected.length===a.length&&expected.every((t,si)=>t===a[si])}
           return ua===ca||this.diacriticNorm(ua)===this.diacriticNorm(ca)
         })
+        // Weighted scoring: easier questions (lower idx within part) have higher weight
+        this.questionWeights = this.allQuestions.map((q, i) => {
+          const partIdx = this._partForGlobalIdx(i)
+          const part = this.parts[partIdx]
+          const localIdx = i - (part?.qStart || 0)
+          const count = part?.count || 5
+          // Difficulty: questions later in a part are harder (weight = harder = less penalty if wrong)
+          const difficultyFactor = count > 1 ? (localIdx / (count - 1)) : 0.5
+          // Base weight: 1.0 for medium difficulty, 1.5 for easiest, 0.5 for hardest
+          const weight = 1.5 - (difficultyFactor * 1.0)
+          return weight
+        })
+        const totalWeight = this.questionWeights.reduce((a, b) => a + b, 0)
+        const earnedWeight = this.questionWeights.reduce((s, w, i) => s + (this.graded[i] ? w : 0), 0)
+        this.weightedScore = Math.round((earnedWeight / totalWeight) * this.allQuestions.length)
+        this.weightedPercent = Math.round((earnedWeight / totalWeight) * 100)
         this.submitted=true;this.result=true;this.showAnswers=true
+        // Look up PD details immediately before next render
+        this.lookupAllPD()
         try {
-          const score = this.graded.filter(Boolean).length
+          const score = this.weightedScore
           const total = this.allQuestions.length
           PTStore.saveExamResult({
             id: this.exam.examId || ('CL_' + Date.now()),
@@ -1064,6 +1309,21 @@
             sourceText: (this.exam.sourceText || '').slice(0,200),
             questions: this.allQuestions, userAnswers: this.userAnswers, qgCorrect: this.graded,
           })
+          // Save review snapshot for Revisão section
+          try {
+            const reviewKey = 'CL_REVIEW_' + (this.exam.examId || ('CL_' + Date.now()))
+            const snapshot = {
+              exam: this.exam,
+              userAnswers: this.userAnswers,
+              graded: this.graded,
+              questionWeights: this.questionWeights,
+              weightedScore: this.weightedScore,
+              weightedPercent: this.weightedPercent,
+            }
+            localStorage.setItem(reviewKey, JSON.stringify(snapshot))
+          } catch {}
+          // Trigger AI analysis
+          this.analyzeExamWithAI()
         } catch(e) { console.warn('Erro ao guardar CL:', e) }
       },
       normalize(v){return String(v||'').trim().toLowerCase()},
@@ -1076,9 +1336,251 @@
         const m=t.match(/\b[A-Z]:\s/)
         return m ? t.substring(0,m.index).trim() : t
       },
+      cleanOpt(opt, letter){
+        if(!opt) return opt
+        // Strip ALL leading letter-prefix patterns (e.g., "A. A. Text" → "Text")
+        // API sometimes duplicates the prefix; strip repeatedly until clean
+        let cleaned = opt
+        while (/^\s*[A-D][.():]\s/i.test(cleaned)) {
+          cleaned = cleaned.replace(/^\s*[A-D][.():]\s/i, '')
+        }
+        return cleaned.trim()
+      },
+      highlightAllAnswers() {
+        // Highlight ALL correct answer positions in the left article text
+        const container = this.getLeftContainer()
+        if (!container) return
+        // Reset previous highlights
+        container.querySelectorAll('.word-cl.hl-answer, .word-space.hl-answer').forEach(el => {
+          el.classList.remove('hl-answer')
+          el.style.background = ''
+          el.style.borderRadius = ''
+          el.style.padding = ''
+        })
+        for (let i = 0; i < this.allQuestions.length; i++) {
+          const q = this.allQuestions[i]
+          if (!q || !q.answer) continue
+          const ansLower = String(q.answer || '').trim().toLowerCase()
+          if (!ansLower) continue
+          const spans = container.querySelectorAll('.word-cl, .word-space')
+          for (let si = 0; si < spans.length; si++) {
+            const span = spans[si]
+            const text = (span.textContent || '').trim().toLowerCase()
+            if (text === ansLower || text.includes(ansLower)) {
+              span.style.background = '#d1fae5'
+              span.style.borderRadius = '2px'
+              span.style.padding = '1px 3px'
+              span.classList.add('hl-answer')
+            }
+          }
+        }
+      },
+      /** Option review styling helpers */
+      optionReviewStyle(q, qIdx, letter) {
+        const userAns = String(this.userAnswers[qIdx] || '').trim().toUpperCase()
+        const correctAns = String(q.answer || '').trim().toUpperCase()
+        const isUser = userAns === letter
+        const isCorrect = correctAns === letter
+        const gradedCorrect = this.graded[qIdx]
+        if (gradedCorrect) {
+          // Question correct: highlight user's selected (correct) option green
+          if (isUser) return { background: '#d1fae5', borderColor: '#6ee7b7' }
+          return { background: '#ffffff', borderColor: '#e5e5e5' }
+        } else {
+          // Question wrong
+          if (isCorrect) return { background: '#d1fae5', borderColor: '#6ee7b7' }  // correct answer green
+          if (isUser && !isCorrect) return { background: '#fecaca', borderColor: '#fca5a5' }  // user's wrong red
+          return { background: '#ffffff', borderColor: '#e5e5e5' }
+        }
+      },
+      optionBadgeStyle(q, qIdx, letter) {
+        const userAns = String(this.userAnswers[qIdx] || '').trim().toUpperCase()
+        const correctAns = String(q.answer || '').trim().toUpperCase()
+        const isUser = userAns === letter
+        const isCorrect = correctAns === letter
+        const gradedCorrect = this.graded[qIdx]
+        if (gradedCorrect && isUser) return { background: '#2d6a4f', color: '#ffffff' }
+        if (!gradedCorrect && isCorrect) return { background: '#2d6a4f', color: '#ffffff' }
+        if (!gradedCorrect && isUser) return { background: '#c1121f', color: '#ffffff' }
+        return { background: '#e5e5e5', color: '#666666' }
+      },
+      optionTextColor(q, qIdx, letter) {
+        const userAns = String(this.userAnswers[qIdx] || '').trim().toUpperCase()
+        const correctAns = String(q.answer || '').trim().toUpperCase()
+        if (userAns === letter || correctAns === letter) return '#000000'
+        return '#666666'
+      },
+      /** Portuguese labels for AI analysis categories */
+      catLabel(k) {
+        const labels = {
+          'vocabulario': 'Vocabulário',
+          'gramatica': 'Gramática',
+          'interpretacao': 'Interpretação',
+          'detalhe': 'Detalhe',
+          'compreensao': 'Compreensão',
+          'ortografia': 'Ortografia',
+          'coesao': 'Coesão',
+          'coerencia': 'Coerência',
+          'leitura': 'Leitura',
+          'escrita': 'Escrita',
+        }
+        return labels[k] || (k.charAt(0).toUpperCase() + k.slice(1))
+      },
+      lookupWord(word) {
+        if (!word) return null
+        const wl = word.toLowerCase().trim()
+        // Search DICT_VOCAB_DATA (紅葡漢)
+        try {
+          if (typeof DICT_VOCAB_DATA !== 'undefined' && Array.isArray(DICT_VOCAB_DATA)) {
+            for (const d of DICT_VOCAB_DATA) {
+              if (d && String(d.pt || '').toLowerCase().trim() === wl) {
+                return { zh: d.zh || '', pos: d.pos || '', full: d.zh || '' }
+              }
+            }
+          }
+        } catch {}
+        // Search DICT_UNIV (Universitário)
+        try {
+          if (typeof DICT_UNIV !== 'undefined' && Array.isArray(DICT_UNIV)) {
+            for (const d of DICT_UNIV) {
+              if (d && String(d.pt || '').toLowerCase().trim() === wl) {
+                const pos = d.pos || ''
+                const zh = d.zh || ''
+                const full = (zh && pos) ? pos + ' · ' + zh : (zh || pos || '')
+                return { zh, pos, full }
+              }
+            }
+          }
+        } catch {}
+        // Try partial match in DICT_VOCAB_DATA
+        try {
+          if (typeof DICT_VOCAB_DATA !== 'undefined' && Array.isArray(DICT_VOCAB_DATA)) {
+            for (const d of DICT_VOCAB_DATA) {
+              if (!d) continue
+              const dpt = String(d.pt || '').toLowerCase().trim()
+              if (dpt.includes(wl) || wl.includes(dpt)) {
+                return { zh: d.zh || '', pos: d.pos || '', full: d.zh || '' }
+              }
+            }
+          }
+        } catch {}
+        return null
+      },
+      lookupAllPD() {
+        const detail = {}
+        for (const pd of this.allPDList) {
+          if (!detail[pd.word]) {
+            detail[pd.word] = this.lookupWord(pd.word) || {}
+          }
+        }
+        this.pdDetail = detail
+      },
+      /** Submit exam analysis with wrong answers & PD context */
+      async analyzeExamWithAI() {
+        const apiKey = this.getApiKey()
+        if (!apiKey) { this.aiAnalysis = { error: 'API key necessária' }; return }
+        try {
+          // Collect wrong answers
+          const wrongAnswers = []
+          for (let i = 0; i < this.allQuestions.length; i++) {
+            if (!this.graded[i]) {
+              wrongAnswers.push({
+                num: i+1,
+                question: this.allQuestions[i].question,
+                correct: this.allQuestions[i].answer,
+                userAnswer: this.userAnswers[i],
+                type: this.allQuestions[i].type,
+              })
+            }
+          }
+          // Collect PDs from all parts
+          const allPDs = []
+          for (let pi = 0; pi < this.parts.length; pi++) {
+            const pdMap = this._pdByPart[pi] || {}
+            for (const k of Object.keys(pdMap)) {
+              allPDs.push(pdMap[k].word)
+            }
+          }
+          // Collect highlights
+          const destaques = []
+          const notas = []
+          for (let pi = 0; pi < this.parts.length; pi++) {
+            const hl = this._hlByPart[pi]
+            if (hl) {
+              destaques.push(...(hl.destaques || []).map(h => h.text))
+              notas.push(...(hl.notas || []).map(h => `"${h.text}" → ${h.note || '(sem nota)'}`))
+            }
+          }
+          const prompt = `Analisa este exame CAPLE CL nível ${this.exam?.level || 'B2'}.\\n\\nERROS (${wrongAnswers.length}):\\n${JSON.stringify(wrongAnswers)}\\n\\nPALAVRAS DESCONHECIDAS (${allPDs.length}): ${allPDs.join(', ')}\\n\\nDESTAQUES (${destaques.length}): ${destaques.join(' | ')}\\n\\nNOTAS (${notas.length}): ${notas.join(' | ')}\\n\\nJSON: {"analise_erros":"...","categorias":{"vocabulario":5,"gramatica":4,"interpretacao":6,"detalhe":3},"nivel_estimado":"B2","sugestoes":["...","...","..."],"analise_pd":"..."}\\n- analise_erros: padrão nos erros (2-3 frases)\\n- categorias: pontuação 0-10 para cada área\\n- nivel_estimado: com base nos erros\\n- sugestoes: 3-5 acionáveis\\n- analise_pd: como as PD afetaram a compreensão`
+          const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: [
+                { role: 'system', content: 'És um professor de português a analisar um exame CAPLE CL. Responde APENAS JSON.' },
+                { role: 'user', content: prompt },
+              ],
+              temperature: 0.3, max_tokens: 2000,
+            }),
+          })
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const data = await res.json()
+          this.aiAnalysis = parseJSON(data.choices?.[0]?.message?.content || '') || { error: 'JSON inválido' }
+        } catch(e) {
+          this.aiAnalysis = { error: e.message }
+        }
+      },
+      getApiKey() {
+        try { const raw = localStorage.getItem('PT_LEARNING_DATA'); if (!raw) return null; return JSON.parse(raw)?.config?.deepseekKey || null } catch { return null }
+      },
       closeWin(){window.close()},
+      /** Switch to the correct part before scrolling */
+      switchToPart(partIdx) {
+        if (partIdx === undefined || partIdx === null) return false
+        if (partIdx !== this.activePart) {
+          this.switchPart(partIdx)
+          return true // did switch
+        }
+        return false
+      },
+      scrollToQuestionPart(qIdx) {
+        const pi = this._partForGlobalIdx(qIdx)
+        this.switchToPart(pi)
+        this.$nextTick(() => {
+          const container = this.getLeftContainer()
+          if (container) container.scrollTo({ top: 0, behavior: 'smooth' })
+        })
+      },
+      scrollToPDWithPart(pd) {
+        this.switchToPart(pd.partIdx)
+        this.$nextTick(() => {
+          this.scrollToPDWord(pd.wordIdx, this.getLeftContainer())
+        })
+      },
+      scrollToHLWithPart(hl) {
+        this.switchToPart(hl.partIdx)
+        this.$nextTick(() => {
+          const container = this.getLeftContainer()
+          if (!container) return
+          // Try to scroll by finding the highlight in the newly active part
+          const partData = this._hlByPart[this.activePart]
+          if (!partData) return
+          const found = [...partData.destaques, ...partData.notas].find(h => h.id === hl.id)
+          if (found && found.pos?.type === 'word_idx') {
+            const spans = container.querySelectorAll('.word-cl, .word-space')
+            const spanIdx = this._wordIdxToSpanIdx(found.pos.startIdx)
+            const target = spans[spanIdx]
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              target.style.outline = '2px solid #f59e0b'
+              setTimeout(() => { target.style.outline = '' }, 1500)
+            }
+          }
+        })
+      },
       onDividerDown(e){this.dragActive=true;document.body.style.cursor='col-resize';document.body.style.userSelect='none';window.addEventListener('mousemove',this._onDividerMove);window.addEventListener('mouseup',this._onDividerUp)},
-      _onDividerMove(e){if(!this.dragActive)return;var bd=document.querySelector('.exam-body');if(!bd)return;var r=bd.getBoundingClientRect();this.splitPos=Math.max(25,Math.min(75,Math.round((e.clientX-r.left)/r.width*100)))},
+      _onDividerMove(e){if(!this.dragActive)return;var bd=document.querySelector('.exam-paper-body');if(!bd)return;var r=bd.getBoundingClientRect();this.splitPos=Math.max(25,Math.min(75,Math.round((e.clientX-r.left)/r.width*100)))},
       _onDividerUp(){if(!this.dragActive)return;this.dragActive=false;document.body.style.cursor='';document.body.style.userSelect='';window.removeEventListener('mousemove',this._onDividerMove);window.removeEventListener('mouseup',this._onDividerUp)},
     },
     mounted() {
@@ -1134,11 +1636,35 @@
           this.userAnswers = this.allQuestions.map(q => {
             if(q.type==='match') return new Array(q.items?.length||0).fill('')
             if(q.type==='reorder') return []
+            if(q.type==='error_detect' && q.items?.length) return new Array(q.items.length).fill('')
             return ''
           })
           const partCount = this.parts.length || 5
           this.initPartData(partCount)
           this.loadPartData(0)
+          // Check for review mode (from Revisão section)
+          try {
+            const revKey = 'CL_REVIEW_STATE'
+            const revRaw = localStorage.getItem(revKey)
+            if (revRaw) {
+              const rev = JSON.parse(revRaw)
+              if (rev.examId === this.exam?.examId) {
+                // Restore review state
+                for (let i = 0; i < (rev.userAnswers || []).length && i < this.userAnswers.length; i++) {
+                  this.userAnswers[i] = rev.userAnswers[i]
+                }
+                this.graded = rev.graded || []
+                this.questionWeights = rev.questionWeights || []
+                this.weightedScore = rev.weightedScore || 0
+                this.weightedPercent = rev.weightedPercent || 0
+                this.submitted = true
+                this.result = true
+                this.showAnswers = true
+                this.lookupAllPD()
+              }
+              localStorage.removeItem(revKey)
+            }
+          } catch {}
         }
         const lv = this.exam?.level || 'B2'
         const limits = { A1:20, A2:75, B1:30, B2:90, C1:90, C2:120 }
@@ -1166,6 +1692,14 @@
         lucide.createIcons()
         this._applyHLVisual()
         this._updateVisibleRange()
+        // GSAP entrance animation
+        if (typeof gsap !== 'undefined') {
+          const header = document.querySelector('.exam-header')
+          const body = document.querySelector('.exam-paper-body')
+          const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.4 } })
+          if (header) tl.from(header, { y: -12, opacity: 0 })
+          if (body) tl.from(body.querySelectorAll('[class*="part-tab"], button[v-for*="parts"]'), { y: -8, opacity: 0, stagger: 0.04, duration: 0.3 }, '-=0.2')
+        }
       })
       this._hlWatch = setInterval(() => { this._applyHLVisual() }, 300)
     },

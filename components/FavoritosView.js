@@ -72,10 +72,17 @@ const FavoritosView = {
       </div>
 
       <!-- ═══ EMPTY ═══ -->
-      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-8 text-center card-hover-strong">
-        <i data-lucide="bookmark" class="w-10 h-10 mx-auto text-slate-300 mb-3"></i>
-        <p class="text-slate-600 font-medium">{{ query ? 'Sem resultados' : 'Nenhum favorito guardado' }}</p>
-        <p v-if="!query" class="text-sm text-slate-400 mt-1">Adicione favoritos no Dicionário ou Expressões.</p>
+      <div v-if="filtered.length === 0" class="glass-card-strong rounded-glass p-10 text-center card-hover-strong anim-fade-in-up relative">
+        <div class="tile-corner tile-corner-br"></div>
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-50 flex items-center justify-center">
+          <i data-lucide="bookmark" class="w-8 h-8 text-amber-400"></i>
+        </div>
+        <p class="text-slate-600 font-medium text-lg">{{ query ? 'Sem resultados' : 'Nenhum favorito guardado' }}</p>
+        <p v-if="!query" class="text-sm text-slate-400 mt-2 leading-relaxed max-w-xs mx-auto">
+          Explore o <span class="text-azulejo font-medium cursor-pointer" @click="navegar('dicionario')">Dicionário</span>
+          ou as <span class="text-azulejo font-medium cursor-pointer" @click="navegar('expressoes')">Expressões</span>
+          e marque palavras com o ícone <i data-lucide="heart" class="w-3.5 h-3.5 inline text-rose-400"></i> para as guardar aqui.
+        </p>
       </div>
 
     </div>
@@ -131,6 +138,9 @@ const FavoritosView = {
         'Priberam': 'bg-amber-50 text-amber-600',
       }
       return colors[item.src] || 'bg-slate-100 text-slate-500'
+    },
+    navegar(viewId) {
+      if (window.__NAV__) window.__NAV__(viewId)
     },
   },
 
