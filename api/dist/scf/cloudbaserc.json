@@ -1,0 +1,22 @@
+{
+  "envId": "secretario-d1gw6ktzo78221450",
+  "region": "ap-shanghai",
+  "functions": [
+    {
+      "name": "semedo-api",
+      "handler": "index.main",
+      "timeout": 60,
+      "runtime": "Nodejs20.19",
+      "envVariables": {
+        "NODE_ENV": "production",
+        "TZ": "Asia/Shanghai",
+        "DB_HOST": "gz-cdb-pndwmxj7.sql.tencentcdb.com",
+        "DB_PORT": "27010",
+        "DB_USER": "root",
+        "DB_PASS": "Martim453662",
+        "DB_NAME": "semedo",
+        "JWT_SECRET": "semedo..."
+      }
+    }
+  ]
+}
