@@ -78,6 +78,7 @@ const ConfigModal = {
                     <i data-lucide="check-circle" class="inline w-3.5 h-3.5 text-certo mr-1"></i>
                     {{ syncUser?.email }}
                   </p>
+                  <p v-if="lastSyncTime" class="text-[10px] text-slate-400 mb-2">Última sincronização: {{ lastSyncTime }}</p>
                   <div class="flex gap-2">
                     <button @click="doSync"
                             class="flex-1 px-4 py-2 text-xs font-medium bg-certo text-white rounded-lg hover:bg-green-800 transition btn-glow btn-magnetic">
@@ -136,6 +137,14 @@ const ConfigModal = {
   computed: {
     syncLoggedIn() { return SyncManager && SyncManager.isLoggedIn() },
     syncUser() { return SyncManager && SyncManager.getUser() },
+    lastSyncTime() {
+      try {
+        const ts = localStorage.getItem('SEMEDO_LAST_SYNC')
+        if (!ts) return ''
+        const d = new Date(parseInt(ts, 10))
+        return d.toLocaleString('pt-PT', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })
+      } catch { return '' }
+    },
   },
   watch: {
     show(val) { if (val) { this.local = { ...PTStore.data.config }; this.confirmReset = false; this.confirmVocabReset = false } },
