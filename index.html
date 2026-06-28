@@ -252,23 +252,10 @@
 
     /* ─── 動畫系統 ─── */
 
-    /* View transitions */
-    .view-enter-active {
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      will-change: transform, opacity;
-    }
-    .view-leave-active {
-      transition: opacity 0.15s ease, transform 0.15s ease;
-      will-change: transform, opacity;
-    }
-    .view-enter-from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    .view-leave-to {
-      opacity: 0;
-      transform: translateY(-6px);
-    }
+    /* View transitions — opacity only, zero GPU overhead */
+    .view-enter-active { transition: opacity 0.12s ease; }
+    .view-leave-active { transition: opacity 0.08s ease; }
+    .view-enter-from, .view-leave-to { opacity: 0; }
 
     /* Sidebar */
     .sidebar-enter-active { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }

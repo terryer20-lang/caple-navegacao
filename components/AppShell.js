@@ -1,5 +1,6 @@
 /**
- * components/AppShell.js — 外殼：7 視圖路由 + GSAP 進場 + Sync 指示器
+ * components/AppShell.js — 外殼：7 視圖路由 + Sync 指示器
+ * 動畫全部由 CSS 處理（.anim-fade-in-up），GSAP 不用於視圖切換
  */
 const AppShell = {
   template: `
@@ -31,7 +32,7 @@ const AppShell = {
             <StudyStats ref="statsRef" />
           </div>
         </header>
-        <main class="flex-1 overflow-y-auto gpu-blur" ref="mainRef">
+        <main class="flex-1 overflow-y-auto">
           <Transition name="view" mode="out-in">
             <component :is="currentComponent" :key="currentView" />
           </Transition>
@@ -47,7 +48,7 @@ const AppShell = {
       sidebarOpen: true,
       showConfig: false,
       isMobile: window.innerWidth < 768,
-      syncStatus: 'idle',   // idle | syncing | ok | error
+      syncStatus: 'idle',
       syncLabel: '',
       syncTooltip: '',
       _syncTimer: null,
@@ -77,7 +78,6 @@ const AppShell = {
         this.syncTooltip = 'Não ligado à nuvem'
         return
       }
-      // 取最後同步時間（從 localStorage 或預設）
       const lastSync = localStorage.getItem('SEMEDO_LAST_SYNC')
       if (lastSync) {
         const ago = Math.floor((Date.now() - parseInt(lastSync, 10)) / 60000)
@@ -106,18 +106,8 @@ const AppShell = {
         this.syncLabel = '!'
         this.syncTooltip = 'Erro: ' + e.message
       }
-      // 3 秒後恢復正常顯示
       clearTimeout(this._syncTimer)
       this._syncTimer = setTimeout(() => this.updateSyncStatus(), 3000)
-    },
-
-    // ─── GSAP 視圖進場 ───
-    animateView() {
-      this.$nextTick(() => {
-        if (typeof Anim !== 'undefined') {
-          Anim.enterView(this.$refs.mainRef, 0.04)
-        }
-      })
     },
   },
   mounted() {
@@ -127,11 +117,9 @@ const AppShell = {
     this.$nextTick(() => lucide.createIcons())
     window.addEventListener('open-config', () => { this.showConfig = true })
 
-    // Sync indicator
     this.updateSyncStatus()
     setInterval(() => this.updateSyncStatus(), 30000)
 
-    // 監聽 sync 事件
     if (SyncManager) {
       const origSync = SyncManager.sync.bind(SyncManager)
       SyncManager.sync = async () => {
@@ -156,15 +144,9 @@ const AppShell = {
         if (this) setTimeout(() => this.updateSyncStatus(), 3000)
       }
     }
-
-    // 首次進場動畫
-    this.animateView()
   },
   updated() {
-    this.$nextTick(() => {
-      lucide.createIcons()
-      this.animateView()
-    })
+    this.$nextTick(() => lucide.createIcons())
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
