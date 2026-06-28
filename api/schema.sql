@@ -82,3 +82,14 @@ CREATE TABLE IF NOT EXISTS study_log (
   UNIQUE KEY uq_user_date (user_id, log_date),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- ─── User Config (key-value store for settings like deepseekKey) ───
+CREATE TABLE IF NOT EXISTS user_config (
+  id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id       INT UNSIGNED NOT NULL,
+  config_key    VARCHAR(100) NOT NULL,
+  config_value  TEXT NOT NULL,
+  updated_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_user_key (user_id, config_key),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

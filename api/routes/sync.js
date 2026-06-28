@@ -10,12 +10,19 @@ const router = Router()
 router.get('/all', async (req, res) => {
   try {
     const uid = req.user.id
-    const [vocab, wrongWords, favorites, stats] = await Promise.all([
+    const [vocab, wrongWords, favorites, stats, configRows] = await Promise.all([
       query('SELECT pt, zh, pos, direction, source, created_at, updated_at FROM vocab WHERE user_id = ?', [uid]),
       query('SELECT id, pt, zh, pos, wrong_count, correct_count, stage, next_review FROM wrong_words WHERE user_id = ?', [uid]),
       query('SELECT pt, zh, type, src, created_at FROM favorites WHERE user_id = ?', [uid]),
       query('SELECT log_date, minutes, words FROM study_log WHERE user_id = ? ORDER BY log_date DESC', [uid]),
+      query('SELECT config_key, config_value FROM user_config WHERE user_id = ?', [uid]),
     ])
+
+    // 組裝 config 物件
+    const config = {}
+    for (const row of configRows) {
+      config[row.config_key] = row.config_value
+    }
 
     // 附帶 wrong_words 的 history
     const ids = wrongWords.map(w => w.id)
@@ -37,6 +44,7 @@ router.get('/all', async (req, res) => {
       wrong_words: { items: wrongWords.map(w => ({ ...w, history: historyMap[w.id] || [] })) },
       favorites: { items: favorites },
       stats: { items: stats },
+      config: { items: config },
     })
   } catch (err) {
     console.error('sync/all error:', err)

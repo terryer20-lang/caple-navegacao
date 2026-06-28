@@ -24,6 +24,7 @@ app.use('/api/vocab', requireAuth, require('./routes/vocab'))
 app.use('/api/wrong-words', requireAuth, require('./routes/wrong-words'))
 app.use('/api/stats', requireAuth, require('./routes/stats'))
 app.use('/api/favorites', requireAuth, require('./routes/favorites'))
+app.use('/api/config', requireAuth, require('./routes/config'))
 app.use('/api/sync', requireAuth, require('./routes/sync'))
 
 // ─── 錯誤處理 ───
