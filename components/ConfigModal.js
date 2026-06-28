@@ -5,105 +5,113 @@ const ConfigModal = {
   template: `
     <transition name="scale">
       <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center p-4 gpu-layer" style="background:rgba(0,0,0,0.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)" @click.self="$emit('close')">
-        <div class="glass-card-strong rounded-glass-lg w-full max-w-md p-6 shadow-glass-lg card-hover-strong">
+        <div class="glass-card-strong rounded-glass-lg w-full max-w-3xl p-6 shadow-glass-lg card-hover-strong">
           <div class="flex items-center justify-between mb-5">
             <h3 class="text-lg font-bold text-slate-800">Configurações</h3>
             <button @click="$emit('close')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
           </div>
 
-          <!-- User name -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-slate-600 mb-1">Nome de Utilizador</label>
-            <input type="text" v-model="local.userName" class="w-full px-3 py-2 glass-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azulejo focus:border-transparent" placeholder="O seu nome">
-          </div>
+          <!-- ═══ HORIZONTAL LAYOUT ═══ -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <!-- API Key -->
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-slate-600 mb-1">Chave API DeepSeek</label>
-            <input type="password" v-model="local.deepseekKey" class="w-full px-3 py-2 glass-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azulejo focus:border-transparent" placeholder="sk-...">
-            <p class="text-xs text-slate-400 mt-1">Armazenada localmente. Nunca enviada a terceiros.</p>
-          </div>
+            <!-- Left Column -->
+            <div class="space-y-4">
 
-          <!-- ═══ SYNC / CONTA ═══ -->
-          <div class="mb-5 p-4 rounded-lg border border-blue-200 bg-blue-50/40">
-            <p class="text-xs font-bold text-azulejo uppercase tracking-wider mb-2">Sincronização</p>
-
-            <!-- 未登入：登錄表單 -->
-            <template v-if="!syncLoggedIn">
-              <div class="flex gap-2 mb-2">
-                <input type="email" v-model="syncEmail" placeholder="Email"
-                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo">
-                <input type="password" v-model="syncPassword" placeholder="Password"
-                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo"
-                       @keydown.enter="doLogin">
+              <!-- User name -->
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-1">Nome de Utilizador</label>
+                <input type="text" v-model="local.userName" class="w-full px-3 py-2 glass-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azulejo focus:border-transparent" placeholder="O seu nome">
               </div>
-              <div class="flex gap-2">
-                <input type="url" v-model="syncApiUrl" placeholder="API URL"
-                       class="flex-1 px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo">
-              </div>
-              <div class="flex gap-2 mt-2">
-                <button @click="doLogin"
-                        class="px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 transition btn-glow btn-magnetic">Entrar</button>
-                <button @click="doRegister"
-                        class="px-4 py-2 text-xs font-medium glass-btn text-slate-600 rounded-lg border hover:bg-slate-50 transition">Registar</button>
-              </div>
-              <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
-            </template>
 
-            <!-- 已登入：顯示用戶信息 -->
-            <template v-else>
-              <p class="text-xs text-slate-600 mb-2">
-                <i data-lucide="check-circle" class="inline w-3.5 h-3.5 text-certo mr-1"></i>
-                {{ syncUser?.email }}
-              </p>
-              <div class="flex gap-2">
-                <button @click="doSync"
-                        class="px-4 py-2 text-xs font-medium bg-certo text-white rounded-lg hover:bg-green-800 transition btn-glow btn-magnetic">
-                  <i data-lucide="refresh-cw" class="inline w-3.5 h-3.5 mr-1"></i>Sincronizar agora
-                </button>
-                <button @click="doLogout"
-                        class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Sair</button>
+              <!-- API Key -->
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-1">Chave API DeepSeek</label>
+                <input type="password" v-model="local.deepseekKey" class="w-full px-3 py-2 glass-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azulejo focus:border-transparent" placeholder="sk-...">
+                <p class="text-xs text-slate-400 mt-1">Armazenada localmente. Nunca enviada a terceiros.</p>
               </div>
-              <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
-            </template>
+
+              <!-- ═══ REPOR VOCABULÁRIO ═══ -->
+              <div class="p-4 rounded-lg border border-amber-200 bg-amber-50/40">
+                <p class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Vocabulário</p>
+                <p class="text-xs text-amber-600 mb-3">Remove todas as palavras carregadas por CSV. Mantém o progresso e os dados de estudo.</p>
+                <div v-if="!confirmVocabReset">
+                  <button @click="confirmVocabReset = true"
+                          class="px-4 py-2 text-xs font-medium bg-lisboa text-white rounded-lg hover:bg-amber-600 transition btn-glow btn-magnetic">Repor vocabulário</button>
+                </div>
+                <div v-else class="flex items-center gap-2">
+                  <span class="text-xs text-amber-700 font-medium">Tem a certeza?</span>
+                  <button @click="resetVocab"
+                          class="px-4 py-2 text-xs font-medium bg-lisboa text-white rounded-lg hover:bg-amber-600 transition btn-glow btn-magnetic">Sim, repor</button>
+                  <button @click="confirmVocabReset = false"
+                          class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Cancelar</button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-4">
+
+              <!-- ═══ SYNC / CONTA ═══ -->
+              <div class="p-4 rounded-lg border border-blue-200 bg-blue-50/40">
+                <p class="text-xs font-bold text-azulejo uppercase tracking-wider mb-2">Sincronização</p>
+
+                <template v-if="!syncLoggedIn">
+                  <input type="email" v-model="syncEmail" placeholder="Email"
+                         class="w-full px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo mb-2">
+                  <input type="password" v-model="syncPassword" placeholder="Password"
+                         class="w-full px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo mb-2"
+                         @keydown.enter="doLogin">
+                  <input type="url" v-model="syncApiUrl" placeholder="API URL"
+                         class="w-full px-3 py-2 glass-input rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-azulejo mb-2">
+                  <div class="flex gap-2">
+                    <button @click="doLogin"
+                            class="flex-1 px-4 py-2 text-xs font-medium bg-azulejo text-white rounded-lg hover:bg-blue-800 transition btn-glow btn-magnetic">Entrar</button>
+                    <button @click="doRegister"
+                            class="flex-1 px-4 py-2 text-xs font-medium glass-btn text-slate-600 rounded-lg border hover:bg-slate-50 transition">Registar</button>
+                  </div>
+                  <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
+                </template>
+
+                <template v-else>
+                  <p class="text-xs text-slate-600 mb-2">
+                    <i data-lucide="check-circle" class="inline w-3.5 h-3.5 text-certo mr-1"></i>
+                    {{ syncUser?.email }}
+                  </p>
+                  <div class="flex gap-2">
+                    <button @click="doSync"
+                            class="flex-1 px-4 py-2 text-xs font-medium bg-certo text-white rounded-lg hover:bg-green-800 transition btn-glow btn-magnetic">
+                      <i data-lucide="refresh-cw" class="inline w-3.5 h-3.5 mr-1"></i>Sincronizar agora
+                    </button>
+                    <button @click="doLogout"
+                            class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Sair</button>
+                  </div>
+                  <p v-if="syncMsg" class="text-xs mt-2" :class="syncMsgType === 'erro' ? 'text-erro' : 'text-certo'">{{ syncMsg }}</p>
+                </template>
+              </div>
+
+              <!-- ═══ RESET ALL DATA ═══ -->
+              <div class="p-4 rounded-lg border border-rose-200 bg-rose-50/40">
+                <p class="text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">Danger Zone</p>
+                <p class="text-xs text-rose-600 mb-3">Apaga todos os dados de progresso, léxico, exames, ditados e leituras. Mantém o nome de utilizador e a chave API.</p>
+                <div v-if="!confirmReset">
+                  <button @click="confirmReset = true"
+                          class="px-4 py-2 text-xs font-medium bg-erro text-white rounded-lg hover:bg-rose-700 transition btn-glow btn-magnetic">Apagar todos os dados</button>
+                </div>
+                <div v-else class="flex items-center gap-2">
+                  <span class="text-xs text-erro font-medium">Tem a certeza?</span>
+                  <button @click="resetAllData"
+                          class="px-4 py-2 text-xs font-medium bg-erro text-white rounded-lg hover:bg-rose-700 transition btn-glow btn-magnetic">Sim, apagar</button>
+                  <button @click="confirmReset = false"
+                          class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Cancelar</button>
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <!-- ═══ REPOR VOCABULÁRIO ═══ -->
-          <div class="mb-5 p-4 rounded-lg border border-amber-200 bg-amber-50/40">
-            <p class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">Vocabulário</p>
-            <p class="text-xs text-amber-600 mb-3">Remove todas as palavras carregadas por CSV. Mantém o progresso e os dados de estudo.</p>
-            <div v-if="!confirmVocabReset">
-              <button @click="confirmVocabReset = true"
-                      class="px-4 py-2 text-xs font-medium bg-lisboa text-white rounded-lg hover:bg-amber-600 transition btn-glow btn-magnetic">Repor vocabulário</button>
-            </div>
-            <div v-else class="flex items-center gap-2">
-              <span class="text-xs text-amber-700 font-medium">Tem a certeza?</span>
-              <button @click="resetVocab"
-                      class="px-4 py-2 text-xs font-medium bg-lisboa text-white rounded-lg hover:bg-amber-600 transition btn-glow btn-magnetic">Sim, repor</button>
-              <button @click="confirmVocabReset = false"
-                      class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Cancelar</button>
-            </div>
-          </div>
-
-          <!-- ═══ RESET ALL DATA ═══ -->
-          <div class="mb-5 p-4 rounded-lg border border-rose-200 bg-rose-50/40">
-            <p class="text-xs font-bold text-rose-700 uppercase tracking-wider mb-2">Danger Zone</p>
-            <p class="text-xs text-rose-600 mb-3">Apaga todos os dados de progresso, léxico, exames, ditados e leituras. Mantém o nome de utilizador e a chave API.</p>
-            <div v-if="!confirmReset">
-              <button @click="confirmReset = true"
-                      class="px-4 py-2 text-xs font-medium bg-erro text-white rounded-lg hover:bg-rose-700 transition btn-glow btn-magnetic">Apagar todos os dados</button>
-            </div>
-            <div v-else class="flex items-center gap-2">
-              <span class="text-xs text-erro font-medium">Tem a certeza?</span>
-              <button @click="resetAllData"
-                      class="px-4 py-2 text-xs font-medium bg-erro text-white rounded-lg hover:bg-rose-700 transition btn-glow btn-magnetic">Sim, apagar</button>
-              <button @click="confirmReset = false"
-                      class="px-4 py-2 text-xs font-medium glass-btn text-slate-500 rounded-lg border hover:bg-slate-50 transition">Cancelar</button>
-            </div>
-          </div>
-
-          <!-- Action buttons -->
-          <div class="flex gap-3 justify-end">
+          <!-- Bottom buttons -->
+          <div class="flex gap-3 justify-end mt-5 pt-4 border-t border-slate-100">
             <button @click="$emit('close')" class="px-4 py-2 text-sm font-medium glass-btn rounded-lg">Cancelar</button>
             <button @click="guardar" class="px-4 py-2 text-sm font-medium glass-btn-primary rounded-lg btn-glow btn-magnetic">Guardar</button>
           </div>
